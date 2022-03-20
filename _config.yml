@@ -1,10 +1,10 @@
 # Site settings
-title: BY Blog
-SEOTitle: franztao的博客 | BY Blog
+title: franztao
+SEOTitle: franztao的博客 | franztao Blog
 header-img: img/post-bg-desk.jpg
 email: franztaoheng@gmail.com
 description: "Every failure is leading towards success."
-keyword: "BY, BY Blog, franztao的博客, franztao, 陶恒"
+keyword: "franztao, franztao Blog, franztao的博客, franztao, 陶恒"
 url: "http://franztao.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/franztao/franztao.github.io.git" # you code repository
@@ -19,9 +19,9 @@ sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's us
 # SNS settings
 RSS: false
 # weibo_username:     franztao
-zhihu_username:     franztao
+zhihu_username:     franz
 github_username:    franztao
-facebook_username:  Franz Tao
+facebook_username:  franztaoheng
 jianshu_username:   b7a62edb0398
 csdn_username: https://blog.csdn.net/hengfanz?spm=1011.2124.3001.5343
 #twitter_username:   franztao
@@ -57,18 +57,18 @@ kramdown:
 
 
 # 评论系统
-# Disqus（https://disqus.com/）
-# disqus_username: franztao
+#Disqus（https://disqus.com/）
+disqus_username: franztao
 
 # Gitalk
-gitalk:
-  enable: true    #是否开启Gitalk评论
-  clientID: af92f4b9b5421165a845                            #生成的clientID
-  clientSecret: cea6d16173fdb5f7d7231d26aa411a681c598846     #生成的clientSecret
-  repo: blog.comment    #仓库名称
-  owner: franztao    #github用户名
-  admin: franztao
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+#gitalk:
+#  enable: true    #是否开启Gitalk评论
+#  clientID: af92f4b9b5421165a845                            #生成的clientID
+#  clientSecret: cea6d16173fdb5f7d7231d26aa411a681c598846     #生成的clientSecret
+#  repo: blog.comment    #仓库名称
+#  owner: franztao    #github用户名
+#  admin: franztao
+#  distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 
 # 统计
@@ -87,7 +87,7 @@ gitalk:
 
 # Featured Tags
 featured-tags: true                     # 是否使用首页标签
-featured-condition-size: 1              # 相同标签数量大于这个数，才会出现在首页
+featured-condition-size: 2              # 相同标签数量大于这个数，才会出现在首页
 
 
 
