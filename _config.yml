@@ -1,10 +1,10 @@
 # Site settings
-title: BY Blog
-SEOTitle: franztao的博客 | BY Blog
+title: franztao
+SEOTitle: franztao的博客 | franztao Blog
 header-img: img/post-bg-desk.jpg
 email: franztaoheng@gmail.com
 description: "Every failure is leading towards success."
-keyword: "BY, BY Blog, franztao的博客, franztao, 陶恒"
+keyword: "franztao, franztao Blog, franztao的博客, franztao, 陶恒"
 url: "http://franztao.github.io"          # your host, for absolute URL
 baseurl: ""      # for example, '/blog' if your blog hosted on 'host/blog'
 github_repo: "https://github.com/franztao/franztao.github.io.git" # you code repository
