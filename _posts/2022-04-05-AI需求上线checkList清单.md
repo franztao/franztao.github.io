@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      表格结构识别算法概览
+title:      AI需求上线checkList清单
 subtitle:   2022年4月
 date:       2022-4-3
 author:     franztao
