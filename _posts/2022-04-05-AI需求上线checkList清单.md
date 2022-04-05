@@ -1,0 +1,152 @@
+---
+layout:     post
+title:      表格结构识别算法概览
+subtitle:   2022年4月
+date:       2022-4-3
+author:     franztao
+header-img: post-bg-re-vs-ng2.jpg
+catalog: true
+tags:
+    - Blog
+---
+
+## checklist
+
+
+# checklist步骤
+cudnn - check
+no_grad - check
+GPU with correct version of CUDA - check
+JIT-compilation - check
+
+
+
+# 算法设计阶段checklist
+- [优化神经网络训练的17种方法](https://mp.weixin.qq.com/s/WUN0150C7Zk1Add7y22jDw)
+- [加速 PyTorch 模型训练的 9 个技巧](https://mp.weixin.qq.com/s/Fu4cmInN2ql7B9nzb8ywuA)
+1. 小显存如何训练大模型 
+```
+自动混合精度（AMP）训练
+'''
+# Creates model and optimizer in default precision
+model = Net().cuda()
+optimizer = optim.SGD(model.parameters(), ...)
+```
+2. Creates a GradScaler once at the beginning of training.
+```
+scaler = GradScaler()
+for epoch in epochs:
+    for input, target in data:
+        optimizer.zero_grad()
+
+        # Runs the forward pass with autocasting.
+        with autocast():
+            output = model(input)
+            loss = loss_fn(output, target)
+
+        # Scales loss.  Calls backward() on scaled loss to create scaled gradients.
+        # Backward passes under autocast are not recommended.
+        # Backward ops run in the same dtype autocast chose for corresponding forward ops.
+        scaler.scale(loss).backward()
+
+        # scaler.step() first unscales the gradients of the optimizer's assigned params.
+        # If these gradients do not contain infs or NaNs, optimizer.step() is then called,
+        # otherwise, optimizer.step() is skipped.
+        scaler.step(optimizer)
+
+        # Updates the scale for next iteration.
+        scaler.update()
+```
+3. 梯度积累
+> 当你在混合精度训练中使用梯度累积时，scale应该为有效批次进行校准，scale更新应该以有效批次的粒度进行。
+当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
+
+4. 梯度检查点
+```
+bert = AutoModel.from_pretrained(pretrained_model_name)
+bert.config.gradient_checkpointing=True
+```
+
+# 训练评估阶段checklist
+1. 建议0: 了解代码中的瓶颈在哪里
+> nvidia-smi, htop, iotop, nvtop, py-spy, strace 等命令行工具应该成为你最好的朋友。你的训练pipeline是CPU-bound? IO-bound 还是GPU-bound? 这些工具将帮助你找到答案。
+2. 数据预处理
+- 建议1: 如果可能的话，将所有或部分数据移动到 RAM。
+> NVidia Dali 这样的库提供 GPU加速的 JPEG 解码。如果在数据处理pipeline中遇到 IO 瓶颈，这绝对值得一试。SSD 磁盘的存取时间约为0.08-0.16毫秒。RAM 的访问时间为纳秒。
+- 建议2: 性能分析。测量。比较。每次你对pipeline进行任何改动时，都要仔细评估它对整体的影响。
+```
+# Profile CPU bottlenecks
+python -m cProfile training_script.py --profiling
+# Profile GPU bottlenecks
+nvprof --print-gpu-trace python train_mnist.py
+# Profile system calls bottlenecks
+strace -fcT python training_script.py -e trace=open,close,read
+```
+- 建议3: 线下预处理所有数据
+- 建议4: 调整 DataLoader 的workers数量
+> 尽可能地减少输入数据的通道深度
+```
+
+class MySegmentationDataset(Dataset):
+  ...
+  def __getitem__(self, index):
+    image = cv2.imread(self.images[index])
+    target = cv2.imread(self.masks[index])
+
+    # No data normalization and type casting here
+    return torch.from_numpy(image).permute(2,0,1).contiguous(),
+           torch.from_numpy(target).permute(2,0,1).contiguous()
+
+class Normalize(nn.Module):
+    # https://github.com/BloodAxe/pytorch-toolbelt/blob/develop/pytorch_toolbelt/modules/normalize.py
+    def __init__(self, mean, std):
+        super().__init__()
+        self.register_buffer("mean", torch.tensor(mean).float().reshape(1, len(mean), 1, 1).contiguous())
+        self.register_buffer("std", torch.tensor(std).float().reshape(1, len(std), 1, 1).reciprocal().contiguous())
+
+    def forward(self, input: torch.Tensor) -> torch.Tensor:
+        return (input.to(self.mean.type) - self.mean) * self.std
+
+class MySegmentationModel(nn.Module):
+  def __init__(self):
+    self.normalize = Normalize([0.221 * 255], [0.242 * 255])
+    self.loss = nn.CrossEntropyLoss()
+
+  def forward(self, image, target):
+    image = self.normalize(image)
+    output = self.backbone(image)
+
+    if target is not None:
+      loss = self.loss(output, target.long())
+      return loss
+
+    return output
+```
+3. 多GPU训练与推理
+- 建议5: 如果你有超过2个 GPU ——考虑使用分布式训练模式
+
+# 部署阶段，模型上线前checklist
+- 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
+- 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
+- model(x) 前用 model.train() 和 model.eval() 切换网络状态。
+- 不需要计算梯度的代码块用 with torch.no_grad() 包含起来。
+- model.eval() 和 torch.no_grad() 的区别在于，model.eval() 是将网络切换为测试状态，例如 BN 和dropout在训练和测试阶段使用不同的计算方法。torch.no_grad() 是关闭 PyTorch 张量的自动求导机制，以减少存储使用和加速计算，得到的结果无法进行 loss.backward()。
+- model.zero_grad()会把整个模型的参数的梯度都归零, 而optimizer.zero_grad()只会把传入其中的参数的梯度归零.
+- torch.nn.CrossEntropyLoss 的输入不需要经过 Softmax。torch.nn.CrossEntropyLoss 等价于 torch.nn.functional.log_softmax + torch.nn.NLLLoss。
+- loss.backward() 前用 optimizer.zero_grad() 清除累积梯度。
+- torch.utils.data.DataLoader 中尽量设置 pin_memory=True，对特别小的数据集如 MNIST 设置 pin_memory=False 反而更快一些。num_workers 的设置需要在实验中找到最快的取值。
+- 用 del 及时删除不用的中间变量，节约 GPU 存储。
+- 使用 inplace 操作可节约 GPU 存储，如x = torch.nn.functional.relu(x, inplace=True)
+- 减少 CPU 和 GPU 之间的数据传输。例如如果你想知道一个 epoch 中每个 mini-batch 的 loss 和准确率，先将它们累积在 GPU 中等一个 epoch 结束之后一起传输回 CPU 会比每个 mini-batch 都进行一次 GPU 到 CPU 的传输更快。
+- 使用半精度浮点数 half() 会有一定的速度提升，具体效率依赖于 GPU 型号。需要小心数值精度过低带来的稳定性问题。
+- 时常使用 assert tensor.size() == (N, D, H, W) 作为调试手段，确保张量维度和你设想中一致。
+- 除了标记 y 外，尽量少使用一维张量，使用 n*1 的二维张量代替，可以避免一些意想不到的一维张量计算结果。
+- 统计代码各部分耗时
+- with torch.autograd.profiler.profile(enabled=True, use_cuda=False) as profile:    ...print(profile)# 或者在命令行运行python -m torch.utils.bottleneck main.py
+- 使用TorchSnooper来调试PyTorch代码，程序在执行的时候，就会自动 print 出来每一行的执行结果的 tensor 的形状、数据类型、设备、是否需要梯度的信息。
+- 保存图片为tiff格式
+
+# check 工具
+1. 文件名改下，都成只有数字和大小写26字母的字符串，不包含其他符号
+2. pip install torchsnooperimport torchsnooper# 对于函数，使用修饰器@torchsnooper.snoop()# 如果不是函数，使用 with 语句来激活 TorchSnooper，把训练的那个循环装进 with 语句中去。with torchsnooper.snoop():    原本的代码
+3. @pysnooper.snoop()
