@@ -125,7 +125,7 @@ class MySegmentationModel(nn.Module):
 3. 多GPU训练与推理
 - 建议5: 如果你有超过2个 GPU ——考虑使用分布式训练模式
 
-# 部署阶段，模型上线前checklist
+# 部署阶段 checklist
 - 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
 - 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
 - model(x) 前用 model.train() 和 model.eval() 切换网络状态。
@@ -150,3 +150,11 @@ class MySegmentationModel(nn.Module):
 1. 文件名改下，都成只有数字和大小写26字母的字符串，不包含其他符号
 2. pip install torchsnooperimport torchsnooper# 对于函数，使用修饰器@torchsnooper.snoop()# 如果不是函数，使用 with 语句来激活 TorchSnooper，把训练的那个循环装进 with 语句中去。with torchsnooper.snoop():    原本的代码
 3. @pysnooper.snoop()
+
+# 上线阶段 checklist
+首先是算法质量：
+基本算法指标：准确率、召回率，一方面使用历史标注做总体分析，另一方面是在线随机query的自测，当然这里要算去重，也要带频次。
+体验指标：满意度和SBS自测，考虑用户体验，看最终的效果，一方面新版本的胜出率要高一些，另一方面整体满意度也要变好。
+然后是算法服务性能：
+单进程自动化用例，也就是必过的case，放置引入问题，甚至出现bug，未知情况的报错等。
+压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
