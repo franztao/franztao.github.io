@@ -11,12 +11,10 @@ tags:
 ---
 
 # motivation
+
 为什么要做checklist，人最多关注不超过7个的目标，在复杂度极高的ML系统上，有许多细节，但是这些细节不可能一个人一步步确定，清单革命
 
-
 ## checklist
-
-
 
 算法工程checklist
 很多论文存在一些比较“基本”的常见问题
@@ -29,131 +27,147 @@ tags:
 “基本”要求≠“简单”的要求
 研究的思维误区和思维惯性、知识的局限性息息相关，不能一劳永逸地避免
 建模前需要做的准备
+
 1. 花点时间了解你的数据
-不要因为一个数据集被很多文章采用了，就假设它是可信的
+   不要因为一个数据集被很多文章采用了，就假设它是可信的
 2. 不要过度地分析数据
-千万不要基于初步的数据分析作出任何没经过检验的假设！
+   千万不要基于初步的数据分析作出任何没经过检验的假设！
 3. 确保你拥有足够的数据
 4. 和领域内的专家保持交流
 5. 好好做文献调研！好好做文献调研！
 6. 考虑好要如何部署模型
-有很大一部分的机器学习模型并不具有实用价值，它们只代表了建模和数据分析的发展方向
-如何建立可靠的模型
-1. 不要混淆训练和测试数据！
-2. 多尝试几个模型
-根据 No Free Lunch 理论，任何的机器学习方法都不可能在所有领域表现最好。
-3. 不要使用不合适的模型
-4. 好好调参！好好调参！
-即使是懒，也必须采用一些自动化方法来调参
-5. 注意调参和选择特征的阶段
-超参数调整和特征选择都应当是训练的一部分，而不是说训练之前运行一次就以为万事大吉。
-如何合理地评估模型
-1. 选择合适的测试集
-能够证明模型泛化性才是好的测试集
-2. 验证集是有必要的
-验证集主要是用在训练过程中，用来对比多个模型的表现的
-验证集就是训练和测试之间的缓冲地带，保证了模型的训练集和测试集没有任何重叠
-3. 一个模型多验证几次
-需要注意的是，如果数据集中存在类别不均衡的问题，最好保证每个验证组中都能包含所有类别
-4. 留点数据用于最终验证
-因为每组交叉验证的子集中数据量往往都不大，不一定具有泛化性
-5. 数据不均衡的时候，精度是没有意义的
-应当先对不同类别样本的分类精度进行一致性检验，或者采用一些适用于不均衡数据的评估指标
-如何公平地比较模型
-1. 不要以为分高了模型就好
-一定要记得将模型放在同样的起跑线上，进行同样的优化步骤
-2. 比较模型时，用点统计学
-比较分类器的时候可以上McNemar检验，检查模型对数据拟合的分布时，可以试试Student's T检验
-3. 如何正确地比较多个模型
-Bonferroni 校正：如果在同一数据集上同时检验n个独立的假设，那么用于每一假设的统计显著水平，应为仅检验一个假设时的显著水平的1/n。
-4. 不要盲信benchmark的结果
-实际上，很多表现最好的模型可能只是恰好过拟合了测试集，泛化性未必有保障
-5. 记得考虑集成模型
-确实能够利用它们各自的特点补齐短板，提升模型在面对多样化场景时的泛化性
-如何描述你的结果
-1. 尽可能透明公开
-2. 多角度评估表现
-3. 不要轻易推广结论
-4. 谨慎地讨论显著性
-只要数据集足够大，哪怕模型性能相差无几，实际测试结果也必然存在差异
-5. 模型：请再多懂我一点
-一个模型为什么会表现好，机理上有什么改变
-复现代码
-1、这个项目是在解决什么问题，为什么会有这个项目。2、这个项目的运行环境是什么，需要什么环境依赖；3、这个项目的代码逻辑是怎样的，输入和输出分别是什么，输入和输出的格式分别是什么。4、这个代码每一个文件都是什么含义，解决了什么问题；5、该项目是否能够正确运行，运行部署中是否会存在问题；6、这个项目如果要适配我的数据，完成我的任务，如何进行迁移和嵌入；7、这个项目存在哪些不足，有哪些可以借鉴的点，后期如果我要优化的话，可以提哪些点。
+   有很大一部分的机器学习模型并不具有实用价值，它们只代表了建模和数据分析的发展方向
+   如何建立可靠的模型
+7. 不要混淆训练和测试数据！
+8. 多尝试几个模型
+   根据 No Free Lunch 理论，任何的机器学习方法都不可能在所有领域表现最好。
+9. 不要使用不合适的模型
+10. 好好调参！好好调参！
+    即使是懒，也必须采用一些自动化方法来调参
+11. 注意调参和选择特征的阶段
+    超参数调整和特征选择都应当是训练的一部分，而不是说训练之前运行一次就以为万事大吉。
+    如何合理地评估模型
+12. 选择合适的测试集
+    能够证明模型泛化性才是好的测试集
+13. 验证集是有必要的
+    验证集主要是用在训练过程中，用来对比多个模型的表现的
+    验证集就是训练和测试之间的缓冲地带，保证了模型的训练集和测试集没有任何重叠
+14. 一个模型多验证几次
+    需要注意的是，如果数据集中存在类别不均衡的问题，最好保证每个验证组中都能包含所有类别
+15. 留点数据用于最终验证
+    因为每组交叉验证的子集中数据量往往都不大，不一定具有泛化性
+16. 数据不均衡的时候，精度是没有意义的
+    应当先对不同类别样本的分类精度进行一致性检验，或者采用一些适用于不均衡数据的评估指标
+    如何公平地比较模型
+17. 不要以为分高了模型就好
+    一定要记得将模型放在同样的起跑线上，进行同样的优化步骤
+18. 比较模型时，用点统计学
+    比较分类器的时候可以上McNemar检验，检查模型对数据拟合的分布时，可以试试Student's T检验
+19. 如何正确地比较多个模型
+    Bonferroni 校正：如果在同一数据集上同时检验n个独立的假设，那么用于每一假设的统计显著水平，应为仅检验一个假设时的显著水平的1/n。
+20. 不要盲信benchmark的结果
+    实际上，很多表现最好的模型可能只是恰好过拟合了测试集，泛化性未必有保障
+21. 记得考虑集成模型
+    确实能够利用它们各自的特点补齐短板，提升模型在面对多样化场景时的泛化性
+    如何描述你的结果
+22. 尽可能透明公开
+23. 多角度评估表现
+24. 不要轻易推广结论
+25. 谨慎地讨论显著性
+    只要数据集足够大，哪怕模型性能相差无几，实际测试结果也必然存在差异
+26. 模型：请再多懂我一点
+    一个模型为什么会表现好，机理上有什么改变
+    复现代码
+    1、这个项目是在解决什么问题，为什么会有这个项目。2、这个项目的运行环境是什么，需要什么环境依赖；3、这个项目的代码逻辑是怎样的，输入和输出分别是什么，输入和输出的格式分别是什么。4、这个代码每一个文件都是什么含义，解决了什么问题；5、该项目是否能够正确运行，运行部署中是否会存在问题；6、这个项目如果要适配我的数据，完成我的任务，如何进行迁移和嵌入；7、这个项目存在哪些不足，有哪些可以借鉴的点，后期如果我要优化的话，可以提哪些点。
 
 # checklist步骤
+
 cudnn - check
 no_grad - check
 GPU with correct version of CUDA - check
 JIT-compilation - check
 
-
-
 # 算法设计阶段checklist
+
 - [优化神经网络训练的17种方法](https://mp.weixin.qq.com/s/WUN0150C7Zk1Add7y22jDw)
+
 - [加速 PyTorch 模型训练的 9 个技巧](https://mp.weixin.qq.com/s/Fu4cmInN2ql7B9nzb8ywuA)
 1. 小显存如何训练大模型 
-```
-自动混合精度（AMP）训练
-'''
-# Creates model and optimizer in default precision
-model = Net().cuda()
-optimizer = optim.SGD(model.parameters(), ...)
-```
+   
+   ```
+   自动混合精度（AMP）训练
+   '''
+   # Creates model and optimizer in default precision
+   model = Net().cuda()
+   optimizer = optim.SGD(model.parameters(), ...)
+   ```
+
 2. Creates a GradScaler once at the beginning of training.
-```
-scaler = GradScaler()
-for epoch in epochs:
+   
+   ```
+   scaler = GradScaler()
+   for epoch in epochs:
     for input, target in data:
         optimizer.zero_grad()
-
+   
         # Runs the forward pass with autocasting.
         with autocast():
             output = model(input)
             loss = loss_fn(output, target)
-
+   
         # Scales loss.  Calls backward() on scaled loss to create scaled gradients.
         # Backward passes under autocast are not recommended.
         # Backward ops run in the same dtype autocast chose for corresponding forward ops.
         scaler.scale(loss).backward()
-
+   
         # scaler.step() first unscales the gradients of the optimizer's assigned params.
         # If these gradients do not contain infs or NaNs, optimizer.step() is then called,
         # otherwise, optimizer.step() is skipped.
         scaler.step(optimizer)
-
+   
         # Updates the scale for next iteration.
         scaler.update()
-```
+   ```
+
 3. 梯度积累
-> 当你在混合精度训练中使用梯度累积时，scale应该为有效批次进行校准，scale更新应该以有效批次的粒度进行。
-当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
+   
+   > 当你在混合精度训练中使用梯度累积时，scale应该为有效批次进行校准，scale更新应该以有效批次的粒度进行。
+   > 当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
 
 4. 梯度检查点
-```
-bert = AutoModel.from_pretrained(pretrained_model_name)
-bert.config.gradient_checkpointing=True
-```
+   
+   ```
+   bert = AutoModel.from_pretrained(pretrained_model_name)
+   bert.config.gradient_checkpointing=True
+   ```
 
 # 训练评估阶段checklist
+
 1. 建议0: 了解代码中的瓶颈在哪里
-> nvidia-smi, htop, iotop, nvtop, py-spy, strace 等命令行工具应该成为你最好的朋友。你的训练pipeline是CPU-bound? IO-bound 还是GPU-bound? 这些工具将帮助你找到答案。
+   
+   > nvidia-smi, htop, iotop, nvtop, py-spy, strace 等命令行工具应该成为你最好的朋友。你的训练pipeline是CPU-bound? IO-bound 还是GPU-bound? 这些工具将帮助你找到答案。
 2. 数据预处理
 - 建议1: 如果可能的话，将所有或部分数据移动到 RAM。
-> NVidia Dali 这样的库提供 GPU加速的 JPEG 解码。如果在数据处理pipeline中遇到 IO 瓶颈，这绝对值得一试。SSD 磁盘的存取时间约为0.08-0.16毫秒。RAM 的访问时间为纳秒。
+  
+  > NVidia Dali 这样的库提供 GPU加速的 JPEG 解码。如果在数据处理pipeline中遇到 IO 瓶颈，这绝对值得一试。SSD 磁盘的存取时间约为0.08-0.16毫秒。RAM 的访问时间为纳秒。
 - 建议2: 性能分析。测量。比较。每次你对pipeline进行任何改动时，都要仔细评估它对整体的影响。
-```
-# Profile CPU bottlenecks
-python -m cProfile training_script.py --profiling
-# Profile GPU bottlenecks
-nvprof --print-gpu-trace python train_mnist.py
-# Profile system calls bottlenecks
-strace -fcT python training_script.py -e trace=open,close,read
-```
+  
+  ```
+  # Profile CPU bottlenecks
+  python -m cProfile training_script.py --profiling
+  # Profile GPU bottlenecks
+  nvprof --print-gpu-trace python train_mnist.py
+  # Profile system calls bottlenecks
+  strace -fcT python training_script.py -e trace=open,close,read
+  ```
 - 建议3: 线下预处理所有数据
 - 建议4: 调整 DataLoader 的workers数量
-> 尽可能地减少输入数据的通道深度
-```
+  
+  > 尽可能地减少输入数据的通道深度
+  
+  ```
+  
+  ```
 
 class MySegmentationDataset(Dataset):
   ...
@@ -187,63 +201,75 @@ class MySegmentationModel(nn.Module):
     if target is not None:
       loss = self.loss(output, target.long())
       return loss
-
+    
     return output
+
 ```
 3. 多GPU训练与推理
 - 建议5: 如果你有超过2个 GPU ——考虑使用分布式训练模式
 
 4. DataLoaders 中的 workers 的数量
 ```
-# slow
-loader = DataLoader(dataset, batch_size=32, shuffle=True)
-# fast (use 10 workers)
-loader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=10)
-```
 
+# slow
+
+loader = DataLoader(dataset, batch_size=32, shuffle=True)
+
+# fast (use 10 workers)
+
+loader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=10)
+
+```
 5. 梯度累加
 ```
+
 # clear last step
+
 optimizer.zero_grad()
 
 # 16 accumulated gradient steps
+
 scaled_loss = 0
 for accumulated_step_i in range(16):
      out = model.forward()
      loss = some_loss(out,y)    
      loss.backward()
       scaled_loss += loss.item()
-      
+
 # update weights after 8 steps. effective batch = 8*16
+
 optimizer.step()
 
 # loss is now scaled up by the number of accumulated batches
+
 actual_loss = scaled_loss / 16
 
 ## 在lightning中
+
 trainer = Trainer(accumulate_grad_batches=16)
 trainer.fit(model)
 
 ```
-
 6. 保留的计算图
 losses.append(loss.item())
 7.  16-bit 精度
 ```
+
 # enable 16-bit on the model and the optimizer
+
 model, optimizers = amp.initialize(model, optimizers, opt_level='O2')
 
 # when doing .backward, let amp do it so it can scale the loss
+
 with amp.scale_loss(loss, optimizer) as scaled_loss:                      
     scaled_loss.backward()
-    
+
 ## 在lightning中
+
 trainer = Trainer(amp_level='O2', use_amp=False)
 trainer.fit(model)
+
 ```
-
-
-
 [comment]: <> (# 部署阶段 checklist)
 - 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
 - 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
@@ -278,3 +304,8 @@ trainer.fit(model)
 单进程自动化用例，也就是必过的case，放置引入问题，甚至出现bug，未知情况的报错等。
 压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
 
+bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
+
+
+
+```
