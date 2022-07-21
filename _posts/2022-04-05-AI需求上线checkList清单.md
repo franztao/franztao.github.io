@@ -14,6 +14,153 @@ tags:
 
 为什么要做checklist，人最多关注不超过7个的目标，在复杂度极高的ML系统上，有许多细节，但是这些细节不可能一个人一步步确定，清单革命
 
+# 需求阶段
+
+1. 应该选择什么样的项目？
+
+2. **调试深度网络（DN）非常棘手**
+
+> 训练深度学习模型需要数百万次的迭代，因此查找 bug 的过程非常艰难，而且容易崩坏。
+
+3. **度量和学习**
+
+> 一般我们安排这些复杂的实验，使其通宵运行，到第二天清晨时，我们希望得到足够的信息来采取下一步行动。在早期阶段，这些实验不应超过 12 小时，这是一条良好的经验法则。
+
+4. 成本
+
+# 数据阶段
+
+创建一个深度学习数据集
+
+1. **公开及学术数据集**
+
+2. **自定义数据集**
+
+> 高质量数据集应该包括以下特征：
+
+> - 类别均衡
+> 
+> - 数据充足
+> 
+> - 数据和标记中有高质量信息
+> 
+> - 数据和标记错误非常小
+> 
+> - 与你的问题相关
+
+3.   不要一次爬取所有数据
+
+优秀数据集的特征：
+
+> - 尽可能使用公共数据集；
+> 
+> - 寻找可以获取高质量、多样化样本的最佳网站；
+> 
+> - 分析错误并过滤掉与实际问题无关的样本；
+> 
+> - 迭代地创建你的样本；
+> 
+> - 平衡每个类别的样本数；
+> 
+> - 训练之前先整理样本；
+> 
+> - 收集足够的样本。如果样本不够，应用迁移学习。
+
+
+
+# 算法设计阶段
+
+> • Establish a baseline  
+>    ◦ Compute metrics for the baseline  
+>    ◦ Analyze errors for area of improvements  
+> • Select network structure  
+>    ◦ CNN, LSTM…  
+> • Implement a deep network  
+>    ◦ Code debugging and validation  
+>    ◦ Parameter initialization  
+>    ◦ Compute loss and metrics  
+>    ◦ Choose hyper-parameters  
+>    ◦ Visualize, validate and summarize result  
+>    ◦ Analyze errors  
+>    ◦ Add layers and nodes  
+>    ◦ Optimization  
+> • Hyper-parameters fine tunings  
+> • Try our model variants
+
+
+
+# 训练评估阶段
+
+在为深度神经网络排除故障方面，人们总是太快、太早地下结论了。在了解如何排除故障前，我们要先考虑要寻找什么，再花费数小时时间追踪故障。这部分我们将讨论如何可视化深度学习模型和性能指标。
+
+调试checklist
+
+> - 把正则化因子设置为 0；
+> 
+> - 不要其他正则化（包括 dropouts);
+> 
+> - 使用默认设置的 Adam 优化器；
+> 
+> - 使用 ReLU;
+> 
+> - 不要数据增强；
+> 
+> - 更少的深度网络层；
+> 
+> - 扩大输入数据，但不要非必要预处理；
+> 
+> - 不要在长时间训练迭代或者大 batch size 上浪费时间。
+
+
+
+数据：
+
+> - 可视化并检查输入数据（在数据预处理之后，馈送到模型之前）；
+> 
+> - 检查输入标签的准确率（在数据扰动之后）；
+> 
+> - 不要一遍又一遍的馈送同一 batch 的数据；
+> 
+> - 适当的缩放输入数据（一般可缩放到区间 (-1, 1) 之间，且具有零均值）；
+> 
+> - 检查输出的范围（如，在区间 (-1, 1) 之间）；
+> 
+> - 总是使用训练集的平均值/方差来重新调节验证/测试集；
+> 
+> - 模型所有的输入数据有同样的维度；
+> 
+> - 获取数据集的整体质量（是否有太多异常值或者坏样本）。
+
+模型：
+
+> - 模型参数准确的初始化，权重不要全部设定为 0；
+> 
+> - 对激活或者梯度消失/爆炸的网络层做 debug（从最右边到最左边）；
+> 
+> - 对权重大部分是 0 或者权重太大的网络层做 debug；
+> 
+> - 检查并测试损失函数；
+> 
+> - 对预训练模型，输入数据范围要匹配模型中使用的范围；
+> 
+> - 推理和测试中的 Dropout 应该总是关掉。
+
+**模型 & 数据集设计变化**
+
+> - 在验证数据集中分析误差（糟糕的预测结果）；
+> 
+> - 监控激活函数。在激活函数不以零为中心或非正态分布时，考虑批归一化或层归一化；
+> 
+> - 监控无效节点的比例；
+> 
+> - 使用梯度截断（尤其是 NLP 任务中）来控制梯度爆炸问题；
+> 
+> - Shuffle 数据集（手动或通过程序）；
+> 
+> - 平衡数据集（每个类别具备相似数量的样本）。
+
+
+
 ## checklist
 
 算法工程checklist
@@ -84,7 +231,8 @@ tags:
 
 cudnn - check
 no_grad - check
-GPU with correct version of CUDA - check
+[GPU with correct version of CUDA - check](https://mp.weixin.qq.com/s/jXFFIwoovb8q2YTO-O9w8g)
+
 JIT-compilation - check
 
 # 算法设计阶段checklist
@@ -146,10 +294,12 @@ JIT-compilation - check
 1. 建议0: 了解代码中的瓶颈在哪里
    
    > nvidia-smi, htop, iotop, nvtop, py-spy, strace 等命令行工具应该成为你最好的朋友。你的训练pipeline是CPU-bound? IO-bound 还是GPU-bound? 这些工具将帮助你找到答案。
+
 2. 数据预处理
 - 建议1: 如果可能的话，将所有或部分数据移动到 RAM。
   
   > NVidia Dali 这样的库提供 GPU加速的 JPEG 解码。如果在数据处理pipeline中遇到 IO 瓶颈，这绝对值得一试。SSD 磁盘的存取时间约为0.08-0.16毫秒。RAM 的访问时间为纳秒。
+
 - 建议2: 性能分析。测量。比较。每次你对pipeline进行任何改动时，都要仔细评估它对整体的影响。
   
   ```
@@ -160,7 +310,9 @@ JIT-compilation - check
   # Profile system calls bottlenecks
   strace -fcT python training_script.py -e trace=open,close,read
   ```
+
 - 建议3: 线下预处理所有数据
+
 - 建议4: 调整 DataLoader 的workers数量
   
   > 尽可能地减少输入数据的通道深度
@@ -210,6 +362,62 @@ class MySegmentationModel(nn.Module):
 
 4. DataLoaders 中的 workers 的数量
 ```
+
+[# 优化PyTorch的速度和内存效率](https://mp.weixin.qq.com/s/ShgNdizIPzeXOREoz8rgJA)
+
+`
+
+- **数据加载**
+  
+  1、把数据放到SSD中
+  
+  2、`Dataloader(dataset, num_workers=4*num_GPU)`
+  
+  3、`Dataloader(dataset, pin_memory=True)`
+
+- **数据操作**
+  
+  4、直接在设备中创建`torch.Tensor`，不要在一个设备中创建再移动到另一个设备中
+  
+  5、避免CPU和GPU之间不必要的数据传输
+  
+  6、使用`torch.from_numpy(numpy_array)`或者`torch.as_tensor(others)`
+  
+  7、在数据传输操作可以重叠时，使用`tensor.to(non_blocking=True)`
+  
+  8、使用PyTorch JIT将元素操作融合到单个kernel中。
+
+- **模型结构**
+  
+  9、在使用混合精度的FP16时，对于所有不同架构设计，设置尺寸为8的倍数
+
+- **训练**
+  
+  10、将batch size设置为8的倍数，最大化GPU内存的使用
+  
+  11、前向的时候使用混合精度（后向的使用不用）
+  
+  12、在优化器更新权重之前，设置梯度为`None`，`model.zero_grad(set_to_none=True)`
+  
+  13、梯度积累：每隔x个batch更新一次权重，模拟大batch size的效果
+
+- **推理/验证**
+  
+  14、关闭梯度计算
+
+- **CNN (卷积神经网络) 特有的**
+  
+  15、`torch.backends.cudnn.benchmark = True`
+  
+  16、对于4D NCHW Tensors，使用channels_last的内存格式
+  
+  17、在batch normalization之前的卷积层可以去掉bias
+
+- **分布式**
+  
+  18、用`DistributedDataParallel`代替`DataParallel`
+  
+  ` 
 
 # slow
 
@@ -305,7 +513,4 @@ trainer.fit(model)
 压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
 
 bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
-
-
-
 ```

@@ -3521,6 +3521,76 @@ ocr超时
 
 
 
+长和宽大的格子预测的边界会比期望边界略小点
+少于3个字的格子边界有点冗余
+
+PMC5510108_004_00_draw
+PMC5452179_007_00_draw
+PMC5083322_002_00_draw
+PMC4997510_005_01_draw
+PMC4963825_025_00_draw
+PMC4938956_003_00_draw
+PMC4774004_008_00_draw
+PMC4735146_002_00_draw
+PMC4730355_004_00_draw
+PMC4661885_005_00_draw
+PMC4570452_013_01_draw
+PMC4552366_008_00_draw
+PMC4445578_009_01_draw
+PMC4430828_008_00_draw
+PMC4339741_005_00_draw
+PMC3940012_004_00_draw
+PMC3907401_004_00_draw
+PMC3893374_002_00_draw
+PMC3867870_003_01_draw
+PMC3840613_009_00_draw
+PMC3748792_001_00_draw
+PMC3664433_009_00_draw
+PMC3514327_003_00_draw
+PMC3490838_004_00_draw
+PMC3089822_012_00_draw
+
+
+Line 2949: [07-15 09:22:46.441]-[main]-[8572]-[140642426303040]/table_master_ResnetExtract_Ranger_0705/epoch_3.pth
+	Line 4114: [07-15 09:25:22.892]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/epoch_3.pth
+	Line 5299: [07-15 09:27:53.364]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/epoch_3.pth
+	Line 6310: [07-15 09:30:23.026]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/epoch_3.pth
+	Line 7399: [07-15 09:39:47.293]-[main]-[27510]-[140060402025024]/table_master_ResnetExtract_Ranger_0705/latest.pth
+	
+	Line 8579: [07-15 09:42:18.630]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_0425/latest.pth
+	Line 9764: [07-15 09:44:48.607]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_scale_0506/latest.pth
+	Line 10949: [07-15 09:47:18.811]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_normal_0214/latest.pth
+	Line 11298: [07-15 09:49:43.753]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/latest.pth
+	Line 12499: [07-15 09:52:15.586]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/latest.pth
+	Line 13329: [07-15 09:54:26.184]-[main]-[40488]-[140347989082688]/table_master_ResnetExtract_Ranger_0705/latest.pth
+	Line 13442: [07-15 09:54:46.422]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_all/latest.pth
+	Line 16332: [07-15 09:59:25.320]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_just_TGR/latest.pth
+	Line 18787: [07-15 10:04:03.818]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_loss100/latest.pth
+	Line 21320: [07-15 10:08:40.436]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_noloard_sparse/latest.pth
+	Line 24298: [07-15 10:13:22.758]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/latest.pth
+	Line 26698: [07-15 10:17:58.328]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510/latest.pth
+	Line 29202: [07-15 10:22:34.419]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510_load/latest.pth
+	
+		Line 4093: [07-15 09:25:01.534]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.8425177739458696 recall:0.3412080508652996 AP:0.5427754564069951
+	Line 5278: [07-15 09:27:34.639]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.5926639076730438 recall:0.2381173813398877 AP:0.298910466075881
+	Line 6289: [07-15 09:30:04.160]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.0499449505251841 recall:0.015178864456842798 AP:0.010851085108510851
+	Line 7364: [07-15 09:32:33.708]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.05817488586049947 recall:0.025314678669235355 AP:0.004499942809158346
+	Line 8558: [07-15 09:41:59.125]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9702415866825025 recall:0.4146533241008785 AP:0.7936790846611371
+	
+	Line 9743: [07-15 09:44:29.407]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7325427824363133 recall:0.3087010495897964 AP:0.47803688679463835
+	Line 10928: [07-15 09:47:00.551]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6089424636305679 recall:0.24953499186235759 AP:0.31883002562611085
+	Line 11277: [07-15 09:49:25.198]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.08456349206349206 recall:0.0008415147265077138 AP:0.0019801980198019802
+	Line 12478: [07-15 09:51:56.450]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9380795205579407 recall:0.41066264017863763 AP:0.7760067365518516
+	Line 13346: [07-15 09:54:26.973]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.18951406787291286 recall:0.047555875497051966 AP:0.02218833246759628
+	Line 16107: [07-15 09:59:03.416]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7190852211367247 recall:0.3642594188141302 AP:0.5063437647011847
+	Line 18481: [07-15 10:03:43.162]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.024941181504325612 recall:0.014857628004179729 AP:0.0016475247524752475
+	Line 21163: [07-15 10:08:19.206]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.07468093640949196 recall:0.029779738368548487 AP:0.006851191164845227
+	Line 23993: [07-15 10:12:59.590]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6921947100323883 recall:0.34674137673903316 AP:0.4641720215039924
+	Line 26464: [07-15 10:17:38.128]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.06090187885942829 recall:0.024946434037343125 AP:0.004253250626267446
+	Line 28947: [07-15 10:22:14.759]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.8997948287222459 recall:0.3791643139469226 AP:0.6697825986759947
+	Line 31186: [07-15 10:26:48.850]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9066854029097208 recall:0.38048045305078554 AP:0.674424909835203
+
+
 
 
 
