@@ -12,7 +12,9 @@ tags:
 
 # motivation
 
-为什么要做checklist，人最多关注不超过7个的目标，在复杂度极高的ML系统上，有许多细节，但是这些细节不可能一个人一步步确定，清单革命
+为什么要做checklist，人最多关注不超过7个的目标，在复杂度极高的ML系统上，有许多细节，但是这些细节不可能一个人一步确定。
+清单革命，每个人都会犯错，分为 “无知之错”与“无能之错”，"无知之错"是不知道而犯的错，这种错可以被原谅；另一种"无能之错"是能力不足而犯的错，这种错是不可被原谅的。此外，团队犯错的几率比个人低很多，因为每个人都有关注的清单点，所以会大幅降低出错的概率。
+
 
 # 需求阶段
 
@@ -28,6 +30,16 @@ tags:
 
 4. 成本
 
+> 一个模型为什么会表现好，机理上有什么改变
+> 1. 这个项目是在解决什么问题，为什么会有这个项目。
+> 2. 这个项目的运行环境是什么，需要什么环境依赖；
+> 3. 这个项目的代码逻辑是怎样的，输入和输出分别是什么，输入和输出的格式分别是什么。
+> 4. 这个代码每一个文件都是什么含义，解决了什么问题；
+> 5. 该项目是否能够正确运行，运行部署中是否会存在问题；
+> 6. 这个项目如果要适配我的数据，完成我的任务，如何进行迁移和嵌入；
+> 7. 这个项目存在哪些不足，有哪些可以借鉴的点，后期如果我要优化的话，可以提哪些点。
+
+
 # 数据阶段
 
 创建一个深度学习数据集
@@ -37,7 +49,6 @@ tags:
 2. **自定义数据集**
 
 > 高质量数据集应该包括以下特征：
-
 > - 类别均衡
 > 
 > - 数据充足
@@ -93,8 +104,12 @@ tags:
 
 在为深度神经网络排除故障方面，人们总是太快、太早地下结论了。在了解如何排除故障前，我们要先考虑要寻找什么，再花费数小时时间追踪故障。这部分我们将讨论如何可视化深度学习模型和性能指标。
 
-调试checklist
+# check 工具
+1. 文件名改下，都成只有数字和大小写26字母的字符串，不包含其他符号
+2. pip install torchsnooperimport torchsnooper# 对于函数，使用修饰器@torchsnooper.snoop()# 如果不是函数，使用 with 语句来激活 TorchSnooper，把训练的那个循环装进 with 语句中去。with torchsnooper.snoop():    原本的代码
+3. @pysnooper.snoop()
 
+> 策略：
 > - 把正则化因子设置为 0；
 > 
 > - 不要其他正则化（包括 dropouts);
@@ -113,8 +128,7 @@ tags:
 
 
 
-数据：
-
+> 数据：
 > - 可视化并检查输入数据（在数据预处理之后，馈送到模型之前）；
 > 
 > - 检查输入标签的准确率（在数据扰动之后）；
@@ -160,136 +174,31 @@ tags:
 > - 平衡数据集（每个类别具备相似数量的样本）。
 
 
+- 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
+- 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
+- model(x) 前用 model.train() 和 model.eval() 切换网络状态。
+- 不需要计算梯度的代码块用 with torch.no_grad() 包含起来。
+- model.eval() 和 torch.no_grad() 的区别在于，model.eval() 是将网络切换为测试状态，例如 BN 和dropout在训练和测试阶段使用不同的计算方法。torch.no_grad() 是关闭 PyTorch 张量的自动求导机制，以减少存储使用和加速计算，得到的结果无法进行 loss.backward()。
+- model.zero_grad()会把整个模型的参数的梯度都归零, 而optimizer.zero_grad()只会把传入其中的参数的梯度归零.
+- torch.nn.CrossEntropyLoss 的输入不需要经过 Softmax。torch.nn.CrossEntropyLoss 等价于 torch.nn.functional.log_softmax + torch.nn.NLLLoss。
+- loss.backward() 前用 optimizer.zero_grad() 清除累积梯度。
+- torch.utils.data.DataLoader 中尽量设置 pin_memory=True，对特别小的数据集如 MNIST 设置 pin_memory=False 反而更快一些。num_workers 的设置需要在实验中找到最快的取值。
+- 用 del 及时删除不用的中间变量，节约 GPU 存储。
+- 使用 inplace 操作可节约 GPU 存储，如x = torch.nn.functional.relu(x, inplace=True)
+- 减少 CPU 和 GPU 之间的数据传输。例如如果你想知道一个 epoch 中每个 mini-batch 的 loss 和准确率，先将它们累积在 GPU 中等一个 epoch 结束之后一起传输回 CPU 会比每个 mini-batch 都进行一次 GPU 到 CPU 的传输更快。
+- 使用半精度浮点数 half() 会有一定的速度提升，具体效率依赖于 GPU 型号。需要小心数值精度过低带来的稳定性问题。
+- 时常使用 assert tensor.size() == (N, D, H, W) 作为调试手段，确保张量维度和你设想中一致。
+- 除了标记 y 外，尽量少使用一维张量，使用 n*1 的二维张量代替，可以避免一些意想不到的一维张量计算结果。
+- 统计代码各部分耗时
+- with torch.autograd.profiler.profile(enabled=True, use_cuda=False) as profile:    ...print(profile)# 或者在命令行运行python -m torch.utils.bottleneck main.py
+- 使用TorchSnooper来调试PyTorch代码，程序在执行的时候，就会自动 print 出来每一行的执行结果的 tensor 的形状、数据类型、设备、是否需要梯度的信息。
+- 保存图片为tiff格式
 
-## checklist
 
-算法工程checklist
-很多论文存在一些比较“基本”的常见问题
-研究问题和问题假设存在严重的漏洞
-模型的选择与想解决的问题牛头不对马嘴
-并没有针对所声称的模型优势来进行实验设计
-“创新性”被替换为“方法够不够花哨复杂”
-“贡献度”被替换为“有没有刷到 SOTA”
-科研误解的流行从何而来
-“基本”要求≠“简单”的要求
-研究的思维误区和思维惯性、知识的局限性息息相关，不能一劳永逸地避免
-建模前需要做的准备
+# 部署阶段
 
-1. 花点时间了解你的数据
-   不要因为一个数据集被很多文章采用了，就假设它是可信的
-2. 不要过度地分析数据
-   千万不要基于初步的数据分析作出任何没经过检验的假设！
-3. 确保你拥有足够的数据
-4. 和领域内的专家保持交流
-5. 好好做文献调研！好好做文献调研！
-6. 考虑好要如何部署模型
-   有很大一部分的机器学习模型并不具有实用价值，它们只代表了建模和数据分析的发展方向
-   如何建立可靠的模型
-7. 不要混淆训练和测试数据！
-8. 多尝试几个模型
-   根据 No Free Lunch 理论，任何的机器学习方法都不可能在所有领域表现最好。
-9. 不要使用不合适的模型
-10. 好好调参！好好调参！
-    即使是懒，也必须采用一些自动化方法来调参
-11. 注意调参和选择特征的阶段
-    超参数调整和特征选择都应当是训练的一部分，而不是说训练之前运行一次就以为万事大吉。
-    如何合理地评估模型
-12. 选择合适的测试集
-    能够证明模型泛化性才是好的测试集
-13. 验证集是有必要的
-    验证集主要是用在训练过程中，用来对比多个模型的表现的
-    验证集就是训练和测试之间的缓冲地带，保证了模型的训练集和测试集没有任何重叠
-14. 一个模型多验证几次
-    需要注意的是，如果数据集中存在类别不均衡的问题，最好保证每个验证组中都能包含所有类别
-15. 留点数据用于最终验证
-    因为每组交叉验证的子集中数据量往往都不大，不一定具有泛化性
-16. 数据不均衡的时候，精度是没有意义的
-    应当先对不同类别样本的分类精度进行一致性检验，或者采用一些适用于不均衡数据的评估指标
-    如何公平地比较模型
-17. 不要以为分高了模型就好
-    一定要记得将模型放在同样的起跑线上，进行同样的优化步骤
-18. 比较模型时，用点统计学
-    比较分类器的时候可以上McNemar检验，检查模型对数据拟合的分布时，可以试试Student's T检验
-19. 如何正确地比较多个模型
-    Bonferroni 校正：如果在同一数据集上同时检验n个独立的假设，那么用于每一假设的统计显著水平，应为仅检验一个假设时的显著水平的1/n。
-20. 不要盲信benchmark的结果
-    实际上，很多表现最好的模型可能只是恰好过拟合了测试集，泛化性未必有保障
-21. 记得考虑集成模型
-    确实能够利用它们各自的特点补齐短板，提升模型在面对多样化场景时的泛化性
-    如何描述你的结果
-22. 尽可能透明公开
-23. 多角度评估表现
-24. 不要轻易推广结论
-25. 谨慎地讨论显著性
-    只要数据集足够大，哪怕模型性能相差无几，实际测试结果也必然存在差异
-26. 模型：请再多懂我一点
-    一个模型为什么会表现好，机理上有什么改变
-    复现代码
-    1、这个项目是在解决什么问题，为什么会有这个项目。2、这个项目的运行环境是什么，需要什么环境依赖；3、这个项目的代码逻辑是怎样的，输入和输出分别是什么，输入和输出的格式分别是什么。4、这个代码每一个文件都是什么含义，解决了什么问题；5、该项目是否能够正确运行，运行部署中是否会存在问题；6、这个项目如果要适配我的数据，完成我的任务，如何进行迁移和嵌入；7、这个项目存在哪些不足，有哪些可以借鉴的点，后期如果我要优化的话，可以提哪些点。
 
-# checklist步骤
-
-cudnn - check
-no_grad - check
-[GPU with correct version of CUDA - check](https://mp.weixin.qq.com/s/jXFFIwoovb8q2YTO-O9w8g)
-
-JIT-compilation - check
-
-# 算法设计阶段checklist
-
-- [优化神经网络训练的17种方法](https://mp.weixin.qq.com/s/WUN0150C7Zk1Add7y22jDw)
-
-- [加速 PyTorch 模型训练的 9 个技巧](https://mp.weixin.qq.com/s/Fu4cmInN2ql7B9nzb8ywuA)
-1. 小显存如何训练大模型 
-   
-   ```
-   自动混合精度（AMP）训练
-   '''
-   # Creates model and optimizer in default precision
-   model = Net().cuda()
-   optimizer = optim.SGD(model.parameters(), ...)
-   ```
-
-2. Creates a GradScaler once at the beginning of training.
-   
-   ```
-   scaler = GradScaler()
-   for epoch in epochs:
-    for input, target in data:
-        optimizer.zero_grad()
-   
-        # Runs the forward pass with autocasting.
-        with autocast():
-            output = model(input)
-            loss = loss_fn(output, target)
-   
-        # Scales loss.  Calls backward() on scaled loss to create scaled gradients.
-        # Backward passes under autocast are not recommended.
-        # Backward ops run in the same dtype autocast chose for corresponding forward ops.
-        scaler.scale(loss).backward()
-   
-        # scaler.step() first unscales the gradients of the optimizer's assigned params.
-        # If these gradients do not contain infs or NaNs, optimizer.step() is then called,
-        # otherwise, optimizer.step() is skipped.
-        scaler.step(optimizer)
-   
-        # Updates the scale for next iteration.
-        scaler.update()
-   ```
-
-3. 梯度积累
-   
-   > 当你在混合精度训练中使用梯度累积时，scale应该为有效批次进行校准，scale更新应该以有效批次的粒度进行。
-   > 当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
-
-4. 梯度检查点
-   
-   ```
-   bert = AutoModel.from_pretrained(pretrained_model_name)
-   bert.config.gradient_checkpointing=True
-   ```
-
-# 训练评估阶段checklist
+## check 工具
 
 1. 建议0: 了解代码中的瓶颈在哪里
    
@@ -317,10 +226,7 @@ JIT-compilation - check
   
   > 尽可能地减少输入数据的通道深度
   
-  ```
-  
-  ```
-
+```  
 class MySegmentationDataset(Dataset):
   ...
   def __getitem__(self, index):
@@ -357,160 +263,78 @@ class MySegmentationModel(nn.Module):
     return output
 
 ```
-3. 多GPU训练与推理
-- 建议5: 如果你有超过2个 GPU ——考虑使用分布式训练模式
 
-4. DataLoaders 中的 workers 的数量
-```
 
-[# 优化PyTorch的速度和内存效率](https://mp.weixin.qq.com/s/ShgNdizIPzeXOREoz8rgJA)
+## 配置
+1. cudnn - check
+2. no_grad - check
+3. [GPU 利用率低常见原因分析及优化](https://mp.weixin.qq.com/s/jXFFIwoovb8q2YTO-O9w8g)
+4. JIT-compilation - check
+5. [优化神经网络训练的17种方法](https://mp.weixin.qq.com/s/WUN0150C7Zk1Add7y22jDw)
+6. [加速 PyTorch 模型训练的 9 个技巧](https://mp.weixin.qq.com/s/Fu4cmInN2ql7B9nzb8ywuA)
+7. 小显存如何训练大模型 
+   
+   ```
+   自动混合精度（AMP）训练
+   '''
+   # Creates model and optimizer in default precision
+   model = Net().cuda()
+   optimizer = optim.SGD(model.parameters(), ...)
+   ```
 
-`
+8. Creates a GradScaler once at the beginning of training.
+   
+   ```
+   scaler = GradScaler()
+   for epoch in epochs:
+    for input, target in data:
+        optimizer.zero_grad()
+   
+        # Runs the forward pass with autocasting.
+        with autocast():
+            output = model(input)
+            loss = loss_fn(output, target)
+   
+        # Scales loss.  Calls backward() on scaled loss to create scaled gradients.
+        # Backward passes under autocast are not recommended.
+        # Backward ops run in the same dtype autocast chose for corresponding forward ops.
+        scaler.scale(loss).backward()
+   
+        # scaler.step() first unscales the gradients of the optimizer's assigned params.
+        # If these gradients do not contain infs or NaNs, optimizer.step() is then called,
+        # otherwise, optimizer.step() is skipped.
+        scaler.step(optimizer)
+   
+        # Updates the scale for next iteration.
+        scaler.update()
+   ```
 
-- **数据加载**
-  
-  1、把数据放到SSD中
-  
-  2、`Dataloader(dataset, num_workers=4*num_GPU)`
-  
-  3、`Dataloader(dataset, pin_memory=True)`
+9. 梯度积累
+   
+   > 当你在混合精度训练中使用梯度累积时，scale应该为有效批次进行校准，scale更新应该以有效批次的粒度进行。
+   > 当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
 
-- **数据操作**
-  
-  4、直接在设备中创建`torch.Tensor`，不要在一个设备中创建再移动到另一个设备中
-  
-  5、避免CPU和GPU之间不必要的数据传输
-  
-  6、使用`torch.from_numpy(numpy_array)`或者`torch.as_tensor(others)`
-  
-  7、在数据传输操作可以重叠时，使用`tensor.to(non_blocking=True)`
-  
-  8、使用PyTorch JIT将元素操作融合到单个kernel中。
+10. 梯度检查点
+   
+    ```
+    bert = AutoModel.from_pretrained(pretrained_model_name)
+    bert.config.gradient_checkpointing=True
+    ```
+11. [优化PyTorch的速度和内存效率](https://mp.weixin.qq.com/s/ShgNdizIPzeXOREoz8rgJA)
 
-- **模型结构**
-  
-  9、在使用混合精度的FP16时，对于所有不同架构设计，设置尺寸为8的倍数
 
-- **训练**
-  
-  10、将batch size设置为8的倍数，最大化GPU内存的使用
-  
-  11、前向的时候使用混合精度（后向的使用不用）
-  
-  12、在优化器更新权重之前，设置梯度为`None`，`model.zero_grad(set_to_none=True)`
-  
-  13、梯度积累：每隔x个batch更新一次权重，模拟大batch size的效果
 
-- **推理/验证**
-  
-  14、关闭梯度计算
-
-- **CNN (卷积神经网络) 特有的**
-  
-  15、`torch.backends.cudnn.benchmark = True`
-  
-  16、对于4D NCHW Tensors，使用channels_last的内存格式
-  
-  17、在batch normalization之前的卷积层可以去掉bias
-
-- **分布式**
-  
-  18、用`DistributedDataParallel`代替`DataParallel`
-  
-  ` 
-
-# slow
-
-loader = DataLoader(dataset, batch_size=32, shuffle=True)
-
-# fast (use 10 workers)
-
-loader = DataLoader(dataset, batch_size=32, shuffle=True, num_workers=10)
-
-```
-5. 梯度累加
-```
-
-# clear last step
-
-optimizer.zero_grad()
-
-# 16 accumulated gradient steps
-
-scaled_loss = 0
-for accumulated_step_i in range(16):
-     out = model.forward()
-     loss = some_loss(out,y)    
-     loss.backward()
-      scaled_loss += loss.item()
-
-# update weights after 8 steps. effective batch = 8*16
-
-optimizer.step()
-
-# loss is now scaled up by the number of accumulated batches
-
-actual_loss = scaled_loss / 16
-
-## 在lightning中
-
-trainer = Trainer(accumulate_grad_batches=16)
-trainer.fit(model)
-
-```
-6. 保留的计算图
-losses.append(loss.item())
-7.  16-bit 精度
-```
-
-# enable 16-bit on the model and the optimizer
-
-model, optimizers = amp.initialize(model, optimizers, opt_level='O2')
-
-# when doing .backward, let amp do it so it can scale the loss
-
-with amp.scale_loss(loss, optimizer) as scaled_loss:                      
-    scaled_loss.backward()
-
-## 在lightning中
-
-trainer = Trainer(amp_level='O2', use_amp=False)
-trainer.fit(model)
-
-```
-[comment]: <> (# 部署阶段 checklist)
-- 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
-- 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
-- model(x) 前用 model.train() 和 model.eval() 切换网络状态。
-- 不需要计算梯度的代码块用 with torch.no_grad() 包含起来。
-- model.eval() 和 torch.no_grad() 的区别在于，model.eval() 是将网络切换为测试状态，例如 BN 和dropout在训练和测试阶段使用不同的计算方法。torch.no_grad() 是关闭 PyTorch 张量的自动求导机制，以减少存储使用和加速计算，得到的结果无法进行 loss.backward()。
-- model.zero_grad()会把整个模型的参数的梯度都归零, 而optimizer.zero_grad()只会把传入其中的参数的梯度归零.
-- torch.nn.CrossEntropyLoss 的输入不需要经过 Softmax。torch.nn.CrossEntropyLoss 等价于 torch.nn.functional.log_softmax + torch.nn.NLLLoss。
-- loss.backward() 前用 optimizer.zero_grad() 清除累积梯度。
-- torch.utils.data.DataLoader 中尽量设置 pin_memory=True，对特别小的数据集如 MNIST 设置 pin_memory=False 反而更快一些。num_workers 的设置需要在实验中找到最快的取值。
-- 用 del 及时删除不用的中间变量，节约 GPU 存储。
-- 使用 inplace 操作可节约 GPU 存储，如x = torch.nn.functional.relu(x, inplace=True)
-- 减少 CPU 和 GPU 之间的数据传输。例如如果你想知道一个 epoch 中每个 mini-batch 的 loss 和准确率，先将它们累积在 GPU 中等一个 epoch 结束之后一起传输回 CPU 会比每个 mini-batch 都进行一次 GPU 到 CPU 的传输更快。
-- 使用半精度浮点数 half() 会有一定的速度提升，具体效率依赖于 GPU 型号。需要小心数值精度过低带来的稳定性问题。
-- 时常使用 assert tensor.size() == (N, D, H, W) 作为调试手段，确保张量维度和你设想中一致。
-- 除了标记 y 外，尽量少使用一维张量，使用 n*1 的二维张量代替，可以避免一些意想不到的一维张量计算结果。
-- 统计代码各部分耗时
-- with torch.autograd.profiler.profile(enabled=True, use_cuda=False) as profile:    ...print(profile)# 或者在命令行运行python -m torch.utils.bottleneck main.py
-- 使用TorchSnooper来调试PyTorch代码，程序在执行的时候，就会自动 print 出来每一行的执行结果的 tensor 的形状、数据类型、设备、是否需要梯度的信息。
-- 保存图片为tiff格式
-
-# check 工具
-1. 文件名改下，都成只有数字和大小写26字母的字符串，不包含其他符号
-2. pip install torchsnooperimport torchsnooper# 对于函数，使用修饰器@torchsnooper.snoop()# 如果不是函数，使用 with 语句来激活 TorchSnooper，把训练的那个循环装进 with 语句中去。with torchsnooper.snoop():    原本的代码
-3. @pysnooper.snoop()
-
-# 上线阶段 checklist
+# 上线阶段
 首先是算法质量：
-基本算法指标：准确率、召回率，一方面使用历史标注做总体分析，另一方面是在线随机query的自测，当然这里要算去重，也要带频次。
+> 基本算法指标：准确率、召回率，一方面使用历史标注做总体分析，另一方面是在线随机query的自测，当然这里要算去重，也要带频次。
 体验指标：满意度和SBS自测，考虑用户体验，看最终的效果，一方面新版本的胜出率要高一些，另一方面整体满意度也要变好。
-然后是算法服务性能：
-单进程自动化用例，也就是必过的case，放置引入问题，甚至出现bug，未知情况的报错等。
-压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
 
+然后是算法服务性能：
+> 单进程自动化用例，也就是必过的case，放置引入问题，甚至出现bug，未知情况的报错等。
+压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
 bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
-```
+
+
+
+
+
