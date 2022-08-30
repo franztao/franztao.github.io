@@ -15,7 +15,6 @@ tags:
 为什么要做checklist，人最多关注不超过7个的目标，在复杂度极高的ML系统上，有许多细节，但是这些细节不可能一个人一步确定。
 清单革命，每个人都会犯错，分为 “无知之错”与“无能之错”，"无知之错"是不知道而犯的错，这种错可以被原谅；另一种"无能之错"是能力不足而犯的错，这种错是不可被原谅的。此外，团队犯错的几率比个人低很多，因为每个人都有关注的清单点，所以会大幅降低出错的概率。
 
-
 # 需求阶段
 
 1. 应该选择什么样的项目？
@@ -31,6 +30,7 @@ tags:
 4. 成本
 
 > 一个模型为什么会表现好，机理上有什么改变
+> 
 > 1. 这个项目是在解决什么问题，为什么会有这个项目。
 > 2. 这个项目的运行环境是什么，需要什么环境依赖；
 > 3. 这个项目的代码逻辑是怎样的，输入和输出分别是什么，输入和输出的格式分别是什么。
@@ -38,7 +38,6 @@ tags:
 > 5. 该项目是否能够正确运行，运行部署中是否会存在问题；
 > 6. 这个项目如果要适配我的数据，完成我的任务，如何进行迁移和嵌入；
 > 7. 这个项目存在哪些不足，有哪些可以借鉴的点，后期如果我要优化的话，可以提哪些点。
-
 
 # 数据阶段
 
@@ -49,6 +48,7 @@ tags:
 2. **自定义数据集**
 
 > 高质量数据集应该包括以下特征：
+> 
 > - 类别均衡
 > 
 > - 数据充足
@@ -59,7 +59,7 @@ tags:
 > 
 > - 与你的问题相关
 
-3.   不要一次爬取所有数据
+3. 不要一次爬取所有数据
 
 优秀数据集的特征：
 
@@ -76,8 +76,6 @@ tags:
 > - 训练之前先整理样本；
 > 
 > - 收集足够的样本。如果样本不够，应用迁移学习。
-
-
 
 # 算法设计阶段
 
@@ -98,18 +96,18 @@ tags:
 > • Hyper-parameters fine tunings  
 > • Try our model variants
 
-
-
 # 训练评估阶段
 
 在为深度神经网络排除故障方面，人们总是太快、太早地下结论了。在了解如何排除故障前，我们要先考虑要寻找什么，再花费数小时时间追踪故障。这部分我们将讨论如何可视化深度学习模型和性能指标。
 
 # check 工具
+
 1. 文件名改下，都成只有数字和大小写26字母的字符串，不包含其他符号
 2. pip install torchsnooperimport torchsnooper# 对于函数，使用修饰器@torchsnooper.snoop()# 如果不是函数，使用 with 语句来激活 TorchSnooper，把训练的那个循环装进 with 语句中去。with torchsnooper.snoop():    原本的代码
 3. @pysnooper.snoop()
 
 > 策略：
+> 
 > - 把正则化因子设置为 0；
 > 
 > - 不要其他正则化（包括 dropouts);
@@ -126,9 +124,8 @@ tags:
 > 
 > - 不要在长时间训练迭代或者大 batch size 上浪费时间。
 
-
-
 > 数据：
+> 
 > - 可视化并检查输入数据（在数据预处理之后，馈送到模型之前）；
 > 
 > - 检查输入标签的准确率（在数据扰动之后）；
@@ -173,7 +170,6 @@ tags:
 > 
 > - 平衡数据集（每个类别具备相似数量的样本）。
 
-
 - 不要使用太大的线性层。因为nn.Linear(m,n)使用的是的内存，线性层太大很容易超出现有显存。
 - 不要在太长的序列上使用RNN。因为RNN反向传播使用的是BPTT算法，其需要的内存和输入序列的长度呈线性关系。
 - model(x) 前用 model.train() 和 model.eval() 切换网络状态。
@@ -194,9 +190,7 @@ tags:
 - 使用TorchSnooper来调试PyTorch代码，程序在执行的时候，就会自动 print 出来每一行的执行结果的 tensor 的形状、数据类型、设备、是否需要梯度的信息。
 - 保存图片为tiff格式
 
-
 # 部署阶段
-
 
 ## check 工具
 
@@ -225,8 +219,8 @@ tags:
 - 建议4: 调整 DataLoader 的workers数量
   
   > 尽可能地减少输入数据的通道深度
-  
-```  
+
+```
 class MySegmentationDataset(Dataset):
   ...
   def __getitem__(self, index):
@@ -259,19 +253,24 @@ class MySegmentationModel(nn.Module):
     if target is not None:
       loss = self.loss(output, target.long())
       return loss
-    
-    return output
 
+    return output
 ```
 
-
 ## 配置
+
 1. cudnn - check
+
 2. no_grad - check
+
 3. [GPU 利用率低常见原因分析及优化](https://mp.weixin.qq.com/s/jXFFIwoovb8q2YTO-O9w8g)
+
 4. JIT-compilation - check
+
 5. [优化神经网络训练的17种方法](https://mp.weixin.qq.com/s/WUN0150C7Zk1Add7y22jDw)
+
 6. [加速 PyTorch 模型训练的 9 个技巧](https://mp.weixin.qq.com/s/Fu4cmInN2ql7B9nzb8ywuA)
+
 7. 小显存如何训练大模型 
    
    ```
@@ -315,26 +314,88 @@ class MySegmentationModel(nn.Module):
    > 当你在分布式数据并行（DDP）训练中使用梯度累积时，使用no_sync()上下文管理器来禁用前M-1步的梯度全还原，这可以增加训练的速度。
 
 10. 梯度检查点
-   
+    
     ```
     bert = AutoModel.from_pretrained(pretrained_model_name)
     bert.config.gradient_checkpointing=True
     ```
+
 11. [优化PyTorch的速度和内存效率](https://mp.weixin.qq.com/s/ShgNdizIPzeXOREoz8rgJA)
 
-
-
 # 上线阶段
+
 首先是算法质量：
+
 > 基本算法指标：准确率、召回率，一方面使用历史标注做总体分析，另一方面是在线随机query的自测，当然这里要算去重，也要带频次。
-体验指标：满意度和SBS自测，考虑用户体验，看最终的效果，一方面新版本的胜出率要高一些，另一方面整体满意度也要变好。
+> 体验指标：满意度和SBS自测，考虑用户体验，看最终的效果，一方面新版本的胜出率要高一些，另一方面整体满意度也要变好。
 
 然后是算法服务性能：
+
 > 单进程自动化用例，也就是必过的case，放置引入问题，甚至出现bug，未知情况的报错等。
-压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
-bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
+> 压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
+> bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
 
 
 
+# reference
 
+[GitHub - Mountchicken/Efficient-Deep-Learning: A bag of tricks to speed up your deep learning process](https://github.com/Mountchicken/Efficient-Deep-Learning)
 
+> ## Efficient Coding
+> 
+> - Strategies to code efficiently.
+> - [Efficient Coding](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md)
+>   - [Use Vscode](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#1-you-shouldnt-miss-vscode)
+>   - [Auto code formating](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#2-automatically-format-your-code)
+>   - [Pre-commit hook](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#3-use-a-pre-commit-hook-to-check-your-code)
+>   - [Learn to use git](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#4-learn-to-use-git)
+>   - [Grammarly](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#5-use-grammarly-to-check-your-writing)
+>   - [StackOverflow](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#6-search-on-stackoverflow-first)
+>   - [Auto docstring](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Coding.md#7-automatically-format-your-docstring)
+> 
+> ## Efficient Data Processing
+> 
+> - Strategies to speed up your data processing.
+> - [Efficient Data Processing](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md)
+>   - [SSD](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#11-use-ssd-instead)
+>   - [num_workers and pin_memory](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#12-multiple-workers-and-pinmemory-in-dataloader)
+>   - [LMDB file](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#21-efficient-data-storage-methods)
+>   - [Albumentations](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#22-efficient-data-augmentation-library)
+>   - [Data augmentation on GPU](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#23-data-augmentation-on-gpu)
+>   
+>   
+>   
+>   ## Efficient Training
+>   
+>   - Strategies to speed up your training process.
+>   - [Efficient Traininig](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md)
+>     - [cudnn.benchmark=True](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#11-set-cudnnbenchmarktrue)
+>     - [Set gradients to None during back propagation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#12-set-gradients-to-none-during-back-propagation)
+>     - [Turn off debugging APIs](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#13-turn-off-debugging)
+>     - [Turn off gradient computation during validation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#14-turn-off-gradient-computation-during-validation)
+>     - [Use another optimizer AdamW](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#21-use-another-optimizer-adamw)
+>     - [Learning rate schedule](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#22-learning-rate-schedule)
+>     - [Useful combination, Adam with 3e-4](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#23-best-combination-adam-with-3e-4)
+>     - [LR Warm up and Cosine Learning Rate Decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#24-lr-warm-up-and-cosine-learning-rate-decay)
+>     - [L2 decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#25-l2-decay)
+> 
+> ## Efficient GPUtilization
+> 
+> - Strategies to have a better GPU utilization.
+> - [Efficient GPUtilization](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md)
+>   - [CUDA out of memory solutions](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md#1-cuda-out-of-memory-solutions)
+>   - [Automatic Mixed Precision (AMP)](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md#21-automatic-mixed-precisionamp)
+>   - [Gradient Accumulation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md#22-gradient-accumulation)
+>   - [Gradient Checkpoint](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md#23-gradient-checkpoint)
+>   - [Data parallelization training](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_GPUtilization.md#31-distributed-model-training)
+> 
+> ## Efficient Tools
+> 
+> - A list of useful tools.
+> - [Efficient Tools](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md)
+>   - [Torchinfo: Visualize Network Architecture](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#1-torchinfo-visualize-network-architecture)
+>   - [drawio: Free graphing software](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#2-drawio-free-graphing-software)
+>   - [Octotree: Free gitHub code tree](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#3-octotree-free-github-code-tree)
+>   - [ACRONYMIFY: Name your paper with a cool acronyms](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#4-acronymify-name-your-paper-with-a-cool-acronyms)
+>   - [Linggle: Grammer checker](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#5-linggle-grammer-checker)
+>   - [AI pair programmer: Github Copilot](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Tools.md#6-ai-pair-programmer-github-copilot)

@@ -12,4 +12,4 @@ github:https://github.com/hengfanz
 
 
 
-![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-04-17-17-34-22-image.png)
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-04-17-17-34-22-image.png)
