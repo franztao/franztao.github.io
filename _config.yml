@@ -61,14 +61,14 @@ kramdown:
 disqus_username: franztao
 
 # Gitalk
-gitalk:
-  enable: true    #是否开启Gitalk评论
-  clientID: af92f4b9b5421165a845                            #生成的clientID
-  clientSecret: cea6d16173fdb5f7d7231d26aa411a681c598846     #生成的clientSecret
-  repo: blog.comment    #仓库名称
-  owner: franztao    #github用户名
-  admin: franztao
-  distractionFreeMode: true #是否启用类似FB的阴影遮罩
+#gitalk:
+#  enable: true    #是否开启Gitalk评论
+#  clientID: af92f4b9b5421165a845                            #生成的clientID
+#  clientSecret: cea6d16173fdb5f7d7231d26aa411a681c598846     #生成的clientSecret
+#  repo: blog.comment    #仓库名称
+#  owner: franztao    #github用户名
+#  admin: franztao
+#  distractionFreeMode: true #是否启用类似FB的阴影遮罩
 
 
 # 统计
@@ -105,11 +105,5 @@ friends: [
     },{
         title: "简书·BY",
         href: "http://www.jianshu.com/u/e71990ada2fd"
-    },{
-        title: "Apple",
-        href: "https://apple.com"
-    },{
-        title: "Apple Developer",
-        href: "https://developer.apple.com/"
     }
 ]
