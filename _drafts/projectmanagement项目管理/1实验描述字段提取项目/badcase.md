@@ -1,4 +1,3 @@
-
 ## 9.1
 
 C:\Users\franztao\Desktop\0819_project\data\0910\3picture_class\acs.jmedchem.0c00464（FXIa，Clint，Vss）.pdf\3.png
@@ -39,7 +38,6 @@ table识别成figure 重新识别 acs.jmedchem.0c01246（MALT1，Cl，Vss）.pdf
 1. compound识别出错 acs.jmedchem.6b01468（ERα-CL-PAMPA-6） 7    *3 40 my Papp = -4.1 PAMPA B to A p.o. row:[40 my]
    col:[log PAMPA (10-6 cm S ¹¹]val:[-4.1]
 
-
 # 1104
 
 row FN: acs.jmedchem.6b01468（ERα-CL-PAMPA-6）_40_papp_-4.1
@@ -73,7 +71,6 @@ compound_id的名称跟图片表格里的不一样
 ![](./assets/badcase-1636078918295.png)
 ![](./assets/badcase-1636078923932.png)
 解决
-
 
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT)_23a_papp_19.8
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT) 7 1
@@ -115,7 +112,6 @@ compound_id的名称跟图片表格里的不一样
 ![](./assets/badcase-1636094753329.png)
 方案：1）再重新识别 2）长图截断，分开识别
 
-
  row FN: acs.jmedchem.8b00172（M. tuberculosis strain-Clint）_1_cl_81
  row FN: acs.jmedchem.8b00172（M. tuberculosis strain-Clint） 7 6
  row FN: acs.jmedchem.8b00172（M. tuberculosis strain-Clint）_55_cl_68
@@ -128,25 +124,27 @@ scaled Clpre C mL/min/kg 从这里无法提取cl
 
 解决，test_badcase_001_1105
 
-
 # 1116
+
 1.部分数据papp数据不对
 acs.jmedchem.5b01840（CCR9-CL-1）  DOD识别缺少左边内容  冗余添加左边内容  解决  
 acs.jmedchem.5b01760（MTH1-Vss--1） 没有给pdf
+
 * 页码 recall acs.jmedchem.8b00633（TrkA-Clint-papp）3 test_01_not_recoginze_left
-页码 recall acs.jmedchem.8b00633（TrkA-Clint-papp）18 标注数据错误 P18的都改成P6_T3_227_263_2373_1652，P19的改成P7_T4_186_1673_2385_3011
-页码 recall acs.jmedchem.8b00633（TrkA-Clint-papp）19 标注数据错误 P18的都改成P6_T3_227_263_2373_1652，P19的改成P7_T4_186_1673_2385_3011
-页码 recall acs.jmedchem.8b00116（PDE2-Clint-papp）4 test_location_field_compound
-页码 recall acs.jmedchem.7b01641（AMPK-CLint-papp）5 test_01_not_recoginze_left
-页码 recall acs.jmedchem.7b01641（AMPK-CLint-papp）6 重新跑
-页码 recall acs.jmedchem.7b01028（CXCR7-papp）8 P8_cell_1332_3116_1719_3195/P7_T5_189_1036_2424_1991 test_get_index_position_X1_Y1_X2_Y2
+  页码 recall acs.jmedchem.8b00633（TrkA-Clint-papp）18 标注数据错误 P18的都改成P6_T3_227_263_2373_1652，P19的改成P7_T4_186_1673_2385_3011
+  页码 recall acs.jmedchem.8b00633（TrkA-Clint-papp）19 标注数据错误 P18的都改成P6_T3_227_263_2373_1652，P19的改成P7_T4_186_1673_2385_3011
+  页码 recall acs.jmedchem.8b00116（PDE2-Clint-papp）4 test_location_field_compound
+  页码 recall acs.jmedchem.7b01641（AMPK-CLint-papp）5 test_01_not_recoginze_left
+  页码 recall acs.jmedchem.7b01641（AMPK-CLint-papp）6 重新跑
+  页码 recall acs.jmedchem.7b01028（CXCR7-papp）8 P8_cell_1332_3116_1719_3195/P7_T5_189_1036_2424_1991 test_get_index_position_X1_Y1_X2_Y2
 * 页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)7 
-页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)10 test_extract_standard_type
-页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)12 test_extract_standard_type
-页码 recall acs.jmedchem.5b01760（MTH1-Vss--1）6 很奇怪为啥6text_experiment中没有
+  页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)10 test_extract_standard_type
+  页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)12 test_extract_standard_type
+  页码 recall acs.jmedchem.5b01760（MTH1-Vss--1）6 很奇怪为啥6text_experiment中没有
 * 页码 recall acs.jmedchem.5b00742（OX2R-CL-Vss-1）5 标注数据错误 
 
 # 1117
+
 page问题继承 表格 recall acs.jmedchem.8b00633（TrkA-Clint-papp）1
 表格 recall acs.jmedchem.7b01641（AMPK-CLint-papp）2 test_01_not_recognize_table
 表格 recall acs.jmedchem.7b01641（AMPK-CLint-papp）5 test_01_not_recognize_table
@@ -158,8 +156,6 @@ page问题继承 表格 recall acs.jmedchem.5b00742（OX2R-CL-Vss-1）7
 表格 recall acs.jmedchem.6b00995（EGFR-CLint-papp-1）6 test_01_not_recognize_table
 表格 recall acs.jmedchem.6b00913（ mGlu2-CL-papp-3）3 test_02_not_recoginze_top
 表格 recall acs.jmedchem.5b00301(JAK3-CL-Vdss-1)5 test_extract_table_index
-
-
 
 row FN: acs.jmedchem.7b00254（GABAA-CL-Vdss-1）_1-R,R_vdss_3.23
 row FN: acs.jmedchem.7b00254（GABAA-CL-Vdss-1） 6 4
@@ -209,7 +205,6 @@ row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）_14_vdss_0.46
 row FN: acs.jmedchem.7b01641（AMPK-CLint-papp） 7 5
 暂不支持 test_Split_Merged_Columns
 
-
 row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1）_31_vdss_1
 row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1） 6 5
 row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1）_32_vdss_1.5
@@ -229,7 +224,6 @@ row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1） 6 5
 row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1）_34_papp_58
 row FN: acs.jmedchem.7b00210（ GPR120-CL-Vdss-papp-1） 6 5
 ocr问题 上下标识别不了 test_supscrip_subscrpt
-
 
 row FN: acs.jmedchem.7b01192（CDPK1-CLint-papp）_1_papp_42.9
 row FN: acs.jmedchem.7b01192（CDPK1-CLint-papp） 5 1
@@ -371,7 +365,6 @@ row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_27_cl_6
 row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3） 6 5
 ocr问题   test_Split_Merged_Values
 
-
 ERROR: pip's dependency resolver does not currently take into account all the packages that are installed. This behaviour is the source of the following dependency conflicts.
 kashgari 2.0.2 requires gensim<4.0.0,>=3.8.1, but you have gensim 4.1.2 which is incompatible.
 kashgari 2.0.2 requires numpy>=1.18.1, but you have numpy 1.17.3 which is incompatible.
@@ -381,7 +374,6 @@ pandas-profiling 3.0.0 requires tqdm>=4.48.2, but you have tqdm 4.31.1 which is 
 gym 0.20.0 requires numpy>=1.18.0, but you have numpy 1.17.3 which is incompatible.
 keras-xlnet 0.19.0 requires keras-transformer-xl>=0.13.0, but you have keras-transformer-xl 0.12.0 which is incompatible.
 keras-bert 0.88.0 requires Keras>=2.4.3, but you have keras 2.2.4 which is incompatible.
-
 
 # 1126
 
@@ -409,9 +401,6 @@ pdf recall acs.jmedchem.5b01840（CCR9-CL-1）
 1 页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)7 TSR效果非常差，典型badacase
 页码 recall acs.jmedchem.7b01926(PAMPA-G9a-DNMT)10 test_badcase_003_1127
 页码 # recall acs.jmedchem.8b00172（M. tuberculosis strain-Clint）6 test_badcase_003_1127
-
-
-
 
 row FN: acs.jmedchem.8b00421（ ERK2-Cl-Vss-papp）_5_16_papp_22  
 row FN: acs.jmedchem.8b00421（ ERK2-Cl-Vss-papp）.pdf_5 2
@@ -473,7 +462,6 @@ row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_3_8_papp_13
 row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_3 1
 test_01_not_recoginze_left
 
-
 row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_4_10b_cl_8
 row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_4 2
 test_word_recognize_error
@@ -516,7 +504,6 @@ row FN: acs.jmedchem.8b00116（PDE2-Clint-papp）_5_3a_cl_5.5
 row FN: acs.jmedchem.8b00116（PDE2-Clint-papp）.pdf_5 3
 test_05_mathpix_Content_not_found
 
-
 row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）_7_1_cl_22.6
 row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）.pdf_7 5
 solved test_badcase_003_1129
@@ -536,7 +523,6 @@ row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）.pdf_7 5
 row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）_7_14_vdss_0.46
 row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）.pdf_7 5
 不支持类型  test_Split_Merged_Columns
-
 
 row FN: acs.jmedchem.7b01598（ JAK1-CLint）_4_11_cl_8
 row FN: acs.jmedchem.7b01598（ JAK1-CLint）.pdf_4 2
@@ -568,7 +554,6 @@ row FN: acs.jmedchem.7b01598（ JAK1-CLint）.pdf_4 2
 row FN: acs.jmedchem.7b01598（ JAK1-CLint）_4_24_cl_18
 row FN: acs.jmedchem.7b01598（ JAK1-CLint）.pdf_4 2
 solved  keep='first'  dtype=str
-
 
 row FN: acs.jmedchem.7b00846（GABA-CLint）_4_1_cl_0.5
 row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
@@ -614,7 +599,6 @@ row FN: acs.jmedchem.7b00846（GABA-CLint）_4_24_cl_4.9
 row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
 solved test_badcase_004_1129  test_badcase_004_1129
 
-
 row FN: acs.jmedchem.7b00846（GABA-CLint）_4_12_cl_0.5
 row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
 row FN: acs.jmedchem.7b00846（GABA-CLint）_4_21_cl_5
@@ -623,7 +607,6 @@ row FN: acs.jmedchem.7b00846（GABA-CLint）_4_24_cl_4.9
 row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
 test_word_recognize_error
 test_05_mathpix_Content_not_found
-
 
 row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_3_12_cl_92
 row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_3 1
@@ -670,7 +653,6 @@ row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_6 7
 row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_6_38_cl_25
 row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_6 7
 solved  test_01_not_recoginze_left
-
 
 row FN: acs.jmedchem.7b01028（CXCR7-papp）_5_18_papp_4.8
 row FN: acs.jmedchem.7b01028（CXCR7-papp）.pdf_5 3
@@ -735,7 +717,6 @@ test_word_recognize_error
 row FN: acs.jmedchem.7b01339（CFTR-CLint-PAMPA）_7_21_cl_0.62
 row FN: acs.jmedchem.7b01339（CFTR-CLint-PAMPA）.pdf_7 5
 solved test_badcase_004_1129
-
 
 row FN: acs.jmedchem.7b01536(Influenza viruse-CLint)_3_10g_cl_38
 row FN: acs.jmedchem.7b01536(Influenza viruse-CLint).pdf_3 1
@@ -815,8 +796,6 @@ row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）_7_34_vdss_0.4
 row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）.pdf_7 7
 不支持类型  loigic top
 
-
-
 row FN: acs.jmedchem.6b00871（ IP-CL-Vss-1）_4_5l_cl_1.8
 row FN: acs.jmedchem.6b00871（ IP-CL-Vss-1）.pdf_4 2
 row FN: acs.jmedchem.6b00871（ IP-CL-Vss-1）_4_5o_cl_0.6
@@ -852,7 +831,6 @@ row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）.pdf_4 3
 row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）_4_7_cl_49
 row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）.pdf_4 3
 solved test_Split_Merged_Values  test_extract_values 规避
-
 
 row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）_7_14_cl_13
 row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）.pdf_7 5
@@ -890,7 +868,6 @@ row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）_7_21_cl_2.7
 row FN: acs.jmedchem.6b00995（EGFR-CLint-papp-1）.pdf_7 6
 solved  test_Split_Merged_Values  test_extract_values 规避
 
-
 row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_6_5_papp_12
 row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）.pdf_6 3
 row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_6_6_papp_12
@@ -913,14 +890,14 @@ row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_6_27_cl_6
 row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）.pdf_6 5
 solved test_Split_Merged_Values
 
+# 1216
 
-# 1216 
 C:\Users\franztao\Desktop\0819_project\data\1212_evaluate_samples\5table_text\acs.jmedchem.8b01196（HIF-2α-Cl）.pdf\9.png\3
 为啥没有？由于compound在第一行
 规避方案：也从第二行来开始提取，相当于第一行给去掉了
 
-
 # 0104
+
  页码 recall jm500715u（Pf-Clint）7
 不支持
  页码 recall jm4003632（OT_PI3K-Cl-2）6
@@ -942,8 +919,6 @@ dod不识别title
  表格 recall jm500550e（ ITK-Papp-Cl）2
  表格 recall jm501532z（NS5B-Cl）5
  表格 recall jm501532z（NS5B-Cl）6
-
-
 
  row FN: acs.jmedchem.7b00076（ FGFR）_3m_cl_0.727
  row FN: acs.jmedchem.7b00076（ FGFR）.pdf_10 6
@@ -1104,7 +1079,6 @@ DOD  test_02_not_box_left_range
  row FN: jm400122f（OT_CRTh2-Cl-2）.pdf_6 4
 不支持
 
-
  row FN: jm4016747（GK-GKRP-Clint）_1(AMG-1694)_cl_4.1
  row FN: jm4016747（GK-GKRP-Clint）.pdf_6 4
  row FN: jm4016747（GK-GKRP-Clint）_1(AMG-1694)_vdss_8.3
@@ -1189,7 +1163,6 @@ test_merged_rows_columns
  row FN: jm4010835（CB1-Cl）.pdf_6 4
 test_merged_rows_columns
 
- 
  row FN: jm5014659（EGFR-Clint）_5b_cl_60
  row FN: jm5014659（EGFR-Clint）.pdf_5 3
 不支持
@@ -1284,7 +1257,6 @@ test_augment_columns
 
  row FN: jm500312x（MSSA-Cl-Vss）_114_cl_5+-0.33
  row FN: jm500312x（MSSA-Cl-Vss）.pdf_11 7
-
 
  row FN: jm500535j（Pf-Cl）_9_cl_155
  row FN: jm500535j（Pf-Cl）.pdf_3 2
@@ -1430,10 +1402,7 @@ test_augment_columns
  row FN: jm501532z（NS5B-Cl）.pdf_6 6
 找不到compund定位
 
-
-
 # 0107
-
 
  pdf recall jm500535j（Pf-Cl）
  dod
@@ -1447,8 +1416,7 @@ test_augment_columns
  表格 recall jm501532z（NS5B-Cl）6
  911 len_predict_list!=len_predict_set 879
  511 len_expect_list!=len_expect_set 506
- 
- 
+
 row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm401330r（WEEV-PAMPA）.pdf_3 1
  row FN: jm401330r（WEEV-PAMPA）_4_papp_-4.28
@@ -1490,7 +1458,7 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm401330r（WEEV-PAMPA）_29k_papp_-4.96
  row FN: jm401330r（WEEV-PAMPA）.pdf_8 3
  不支持语义运算逻辑的
- 
+
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_87_cl_46.9
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_6 6
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_88_cl_53.4
@@ -1502,7 +1470,7 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_91_cl_41.9
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_7 7
  ？？需要再看下
- 
+
  row FN: jm4003632（OT_PI3K-Cl-2）_2_cl_9.5
  row FN: jm4003632（OT_PI3K-Cl-2）.pdf_6 3
  row FN: jm4003632（OT_PI3K-Cl-2）_11c_cl_1.5
@@ -1520,11 +1488,11 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm4003632（OT_PI3K-Cl-2）_111_cl_25
  row FN: jm4003632（OT_PI3K-Cl-2）.pdf_6 3
  dod
- 
+
  row FN: jm4014828（ GTPγS-Clint-Vss）_29b_vd_74+-9.1
  row FN: jm4014828（ GTPγS-Clint-Vss）.pdf_11 6
  ??
- 
+
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_3_papp_-4.8
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10a_papp_-7.1
@@ -1588,7 +1556,7 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10j_papp_22.1+-1.5
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  词典问题
- 
+
  row FN: jm401499g（HCV NS5B-Cl-Vss）_29_cl_0.78+-0.29
  row FN: jm401499g（HCV NS5B-Cl-Vss）.pdf_7 4
  row FN: jm401499g（HCV NS5B-Cl-Vss）_29_vd_2.31+-0.37
@@ -1608,11 +1576,11 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm401499g（HCV NS5B-Cl-Vss）_36_vd_2.03+-0.92
  row FN: jm401499g（HCV NS5B-Cl-Vss）.pdf_7 4
  test augment
- 
+
  row FN: jm500312x（MSSA-Cl-Vss）_114_cl_5+-0.33
  row FN: jm500312x（MSSA-Cl-Vss）.pdf_11 7
  ??
- 
+
  row FN: jm501532z（NS5B-Cl）_31_papp_24
  row FN: jm501532z（NS5B-Cl）.pdf_5 4
  row FN: jm501532z（NS5B-Cl）_33_papp_12
@@ -1650,8 +1618,8 @@ row FN: jm401330r（WEEV-PAMPA）_3_papp_-9.66
  row FN: jm501532z（NS5B-Cl）_27_cl_3.6
  row FN: jm501532z（NS5B-Cl）.pdf_6 6
 
-
 # 0111
+
 pdf recall jm500535j（Pf-Cl）
  页码 recall jm4003632（OT_PI3K-Cl-2）6
  表格 recall jm502018y（c‑Met-Clint）7
@@ -1670,7 +1638,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_91_cl_41.9
  row FN: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_7 7
   DOD  test_02_not_box_left_range
- 
+
  row FN: jm4003632（OT_PI3K-Cl-2）_2_cl_9.5
  row FN: jm4003632（OT_PI3K-Cl-2）.pdf_6 3
  row FN: jm4003632（OT_PI3K-Cl-2）_11c_cl_1.5
@@ -1688,11 +1656,11 @@ pdf recall jm500535j（Pf-Cl）
  row FN: jm4003632（OT_PI3K-Cl-2）_111_cl_25
  row FN: jm4003632（OT_PI3K-Cl-2）.pdf_6 3
  test_06_classifaction_not_corect
- 
+
  row FN: jm4014828（ GTPγS-Clint-Vss）_29b_vd_74+-9.1
  row FN: jm4014828（ GTPγS-Clint-Vss）.pdf_11 6
  test_remove_exponent_suffix_zero
- 
+
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_3_papp_-4.8
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10a_papp_-7.1
@@ -1722,7 +1690,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10j_papp_-5.2
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  不支持
- 
+
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_1_papp_7+-0.6
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_3_papp_10+-0.9
@@ -1734,7 +1702,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10g_papp_2+-0.1
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  test_remove_exponent_suffix_zero
- 
+
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_1_papp_9.4+-0.2
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_3_papp_19+-1.2
@@ -1760,7 +1728,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）_10j_papp_22.1+-1.5
  row FN: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
   test_badcase_005_1229_evaluate_samples_0104
- 
+
  row FN: jm401499g（HCV NS5B-Cl-Vss）_29_cl_0.78+-0.29
  row FN: jm401499g（HCV NS5B-Cl-Vss）.pdf_7 4
  row FN: jm401499g（HCV NS5B-Cl-Vss）_29_vd_2.31+-0.37
@@ -1780,13 +1748,13 @@ pdf recall jm500535j（Pf-Cl）
  row FN: jm401499g（HCV NS5B-Cl-Vss）_36_vd_2.03+-0.92
  row FN: jm401499g（HCV NS5B-Cl-Vss）.pdf_7 4
  test_augment_columns 
- 
+
  row FN: jm500312x（MSSA-Cl-Vss）_114_cl_5+-0.33
  row FN: jm500312x（MSSA-Cl-Vss）.pdf_11 7
  test_remove_exponent_suffix_zero
 
-
 # 0110 28
+
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_4_cl_31
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_3 1
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_5_cl_8
@@ -1802,7 +1770,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_8_cl_13
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_3 1
   test_01_not_recoginze_left 
- 
+
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_4_papp_6.2
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_3 1
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_5_papp_7.7
@@ -1814,27 +1782,27 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_8_papp_13
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_3 1
  test_01_not_recoginze_left
- 
+
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）_10b_cl_8
  row FN: acs.jmedchem.8b00633（TrkA-Clint-papp）.pdf_4 2
  test_word_recognize_error
- 
+
  row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）_14_cl_0.98
  row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）.pdf_7 5
  row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）_14_vd_0.46
  row FN: acs.jmedchem.7b01641（AMPK-CLint-papp）.pdf_7 5
  暂不支持
- 
+
  row FN: acs.jmedchem.7b01598（ JAK1-CLint）_21_cl_9
  row FN: acs.jmedchem.7b01598（ JAK1-CLint）.pdf_4 2
  ???  重跑
- 
+
  row FN: acs.jmedchem.7b00846（GABA-CLint）_21_cl_5
  row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
  row FN: acs.jmedchem.7b00846（GABA-CLint）_24_cl_4.9
  row FN: acs.jmedchem.7b00846（GABA-CLint）.pdf_4 2
  test_07_word_recognize_error
- 
+
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_21_cl_22
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_4 3
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_22_cl_17
@@ -1852,7 +1820,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_28_cl_14
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_4 3
  test_01_not_recoginze_left 
- 
+
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_36_cl_13
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_6 7
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_37_cl_27
@@ -1860,11 +1828,11 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）_38_cl_25
  row FN: acs.jmedchem.7b00598（ NaV1.7-CLint）.pdf_6 7
  test_01_not_recoginze_left 
- 
+
  row FN: acs.jmedchem.7b01028（CXCR7-papp）_18_papp_4.8
  row FN: acs.jmedchem.7b01028（CXCR7-papp）.pdf_5 3
  test_03_not_recoginze_bottom
- 
+
  row FN: acs.jmedchem.6b01894（EGFR-CLint-2）_16_cl_31
  row FN: acs.jmedchem.6b01894（EGFR-CLint-2）.pdf_9 6
  row FN: acs.jmedchem.6b01894（EGFR-CLint-2）_20_cl_9
@@ -1880,15 +1848,15 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.6b01894（EGFR-CLint-2）_21_cl_3
  row FN: acs.jmedchem.6b01894（EGFR-CLint-2）.pdf_9 6
  test_07_word_recognize_error
- 
+
  row FN: acs.jmedchem.7b01339（CFTR-CLint-PAMPA）_15_cl_1.24
  row FN: acs.jmedchem.7b01339（CFTR-CLint-PAMPA）.pdf_7 5
  暂不支持
- 
+
  row FN: acs.jmedchem.7b01536(Influenza viruse-CLint)_10g_cl_38
  row FN: acs.jmedchem.7b01536(Influenza viruse-CLint).pdf_3 1
  tsr丢失了
- 
+
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT)_23a_papp_19.8
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT).pdf_7 1
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT)_23b_papp_20.9
@@ -1920,15 +1888,15 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT)_39c_vd_11.9
  row FN: acs.jmedchem.7b01926(PAMPA-G9a-DNMT).pdf_13 5
  tsr识别效果很差,典型badcase
- 
+
  row FN: acs.jmedchem.8b00172（M. tuberculosis strain-Clint）_16_cl_6
  row FN: acs.jmedchem.8b00172（M. tuberculosis strain-Clint）.pdf_4 2
  test_05_mathpix_Content_not_found
- 
+
  row FN: acs.jmedchem.5b01760（MTH1-Vss--1）_19_vd_0.9
  row FN: acs.jmedchem.5b01760（MTH1-Vss--1）.pdf_8 4
  test_word_recognize_error
- 
+
  row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）_35_vd_3.9
  row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）.pdf_7 7
  row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）_34_cl_36
@@ -1942,7 +1910,7 @@ pdf recall jm500535j（Pf-Cl）
  row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）_34_vd_0.4
  row FN: acs.jmedchem.5b00742（OX2R-CL-Vss-1）.pdf_7 7
  暂不支持 test_logic_left
- 
+
  row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_5_papp_12
  row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）.pdf_6 3
  row FN: acs.jmedchem.6b00913（ mGlu2-CL-papp-3）_6_papp_12
@@ -1954,10 +1922,11 @@ pdf recall jm500535j（Pf-Cl）
 test_02_not_recoginze_top
 
 # 0215
+
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_87_cl_469
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_6 6
  ocr
- 
+
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_37_cl_46.9
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_7 7
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_38_cl_53.4
@@ -1969,7 +1938,7 @@ test_02_not_recoginze_top
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）_11_cl_41.9
  row FP: acs.jmedchem.5b01371（mGlu2-papp-CLint-7）.pdf_7 7
  未标
- 
+
  row FP: acs.jmedchem.5b01372（β3-AR-CL）_3_cl_62
  row FP: acs.jmedchem.5b01372（β3-AR-CL）.pdf_5 3
  row FP: acs.jmedchem.5b01372（β3-AR-CL）_20_cl_24
@@ -2039,12 +2008,11 @@ test_02_not_recoginze_top
  row FP: acs.jmedchem.5b01372（β3-AR-CL）_18_cl_33
  row FP: acs.jmedchem.5b01372（β3-AR-CL）.pdf_5 3
  未标
- 
- 
+
  row FP: acs.jmedchem.7b00076（ FGFR）_3m_cl_60
  row FP: acs.jmedchem.7b00076（ FGFR）.pdf_10 6
  test_08_grid_not_recognize_right
- 
+
  row FP: jm400122f（OT_CRTh2-Cl-2）_5_cl_4.6
  row FP: jm400122f（OT_CRTh2-Cl-2）.pdf_6 5
  row FP: jm400122f（OT_CRTh2-Cl-2）_22_cl_36
@@ -2058,7 +2026,7 @@ test_02_not_recoginze_top
  row FP: jm400122f（OT_CRTh2-Cl-2）_35_cl_35
  row FP: jm400122f（OT_CRTh2-Cl-2）.pdf_6 5
  未标
- 
+
  row FP: jm400645w（OT_HIV-Cl-Vdss-1）_rac-8_cl_0.1
  row FP: jm400645w（OT_HIV-Cl-Vdss-1）.pdf_3 1
  row FP: jm400645w（OT_HIV-Cl-Vdss-1）_85_cl_0.1
@@ -2066,14 +2034,13 @@ test_02_not_recoginze_top
  row FP: jm400645w（OT_HIV-Cl-Vdss-1）_8R_cl_0.17
  row FP: jm400645w（OT_HIV-Cl-Vdss-1）.pdf_3 1
  未标页码
- 
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_1V_vd_6.7
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_10 7
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_1V_cl_52.4
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_10 7
  暂不支持
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_1_cl_63
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_3 1
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_2_cl_7.7
@@ -2091,9 +2058,7 @@ test_02_not_recoginze_top
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_10_cl_64
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_3 1
  未标
- 
- 
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_7_cl_1.9
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_4 2
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_19_cl_0.2
@@ -2143,7 +2108,7 @@ test_02_not_recoginze_top
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_16_cl_46
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_4 2
  未标
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_26_cl_16
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_5 2
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_35_cl_47
@@ -2201,7 +2166,7 @@ test_02_not_recoginze_top
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_34_cl_87
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_5 2
  未标
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_49_cl_63
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_8 3
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_50_cl_20
@@ -2247,7 +2212,7 @@ test_02_not_recoginze_top
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_48_cl_100
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_8 3
  未标
- 
+
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_58_cl_39
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_9 4
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_59_cl_17
@@ -2293,8 +2258,7 @@ test_02_not_recoginze_top
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）_56_cl_43
  row FP: jm4008664（OT_Nampt-Clint-Papp-1）.pdf_9 4
  未标
- 
- 
+
  row FP: jm400963y（OT_E.coli-Cl-Vss-1）_35c_cl_0.03
  row FP: jm400963y（OT_E.coli-Cl-Vss-1）.pdf_7 4
  row FP: jm400963y（OT_E.coli-Cl-Vss-1）_ent-35c_cl_0.125
@@ -2304,9 +2268,7 @@ test_02_not_recoginze_top
  row FP: jm400963y（OT_E.coli-Cl-Vss-1）_ent-36c_cl_0.03
  row FP: jm400963y（OT_E.coli-Cl-Vss-1）.pdf_7 4
  test_badcase_1229_evaluate_samples_0215
- 
- 
- 
+
  row FP: jm401499g（HCV NS5B-Cl-Vss）_rat_cl_0.43+-0.04
  row FP: jm401499g（HCV NS5B-Cl-Vss）.pdf_9 7
  row FP: jm401499g（HCV NS5B-Cl-Vss）_d0g_cl_0.13+-0.02
@@ -2320,7 +2282,7 @@ test_02_not_recoginze_top
  row FP: jm401499g（HCV NS5B-Cl-Vss）_cyn0_vd_2.15+-0.42
  row FP: jm401499g（HCV NS5B-Cl-Vss）.pdf_9 7
  暂不支持
- 
+
  row FP: jm401955h（TRPM8-Clint）_26_cl_22
  row FP: jm401955h（TRPM8-Clint）.pdf_4 1
  row FP: jm401955h（TRPM8-Clint）_26_cl_32
@@ -2370,7 +2332,7 @@ test_02_not_recoginze_top
  row FP: jm401955h（TRPM8-Clint）_25_cl_63
  row FP: jm401955h（TRPM8-Clint）.pdf_4 1
  未标页码
- 
+
  row FP: jm401955h（TRPM8-Clint）_33_cl_14
  row FP: jm401955h（TRPM8-Clint）.pdf_5 2
  row FP: jm401955h（TRPM8-Clint）_33_cl_61
@@ -2388,7 +2350,7 @@ test_02_not_recoginze_top
  row FP: jm401955h（TRPM8-Clint）_39_cl_14
  row FP: jm401955h（TRPM8-Clint）.pdf_5 2
  未标页码
- 
+
  row FP: jm401955h（TRPM8-Clint）_40_cl_104
  row FP: jm401955h（TRPM8-Clint）.pdf_6 3
  row FP: jm401955h（TRPM8-Clint）_40_cl_59
@@ -2410,8 +2372,7 @@ test_02_not_recoginze_top
  row FP: jm401955h（TRPM8-Clint）_45_cl_14
  row FP: jm401955h（TRPM8-Clint）.pdf_6 3
  未标页码
- 
- 
+
  row FP: jm500550e（ ITK-Papp-Cl）_N0ne_papp_7.6
  row FP: jm500550e（ ITK-Papp-Cl）.pdf_6 2
  row FP: jm500550e（ ITK-Papp-Cl）_N0ne_papp_8.1
@@ -2425,7 +2386,7 @@ test_02_not_recoginze_top
  row FP: jm500550e（ ITK-Papp-Cl）_N0ne_papp_4.3
  row FP: jm500550e（ ITK-Papp-Cl）.pdf_6 2
  test_unsurport
- 
+
  row FP: jm500550e（ ITK-Papp-Cl）_m0use_cl_40
  row FP: jm500550e（ ITK-Papp-Cl）.pdf_7 3
  row FP: jm500550e（ ITK-Papp-Cl）_rat_cl_70
@@ -2439,8 +2400,7 @@ test_02_not_recoginze_top
  row FP: jm500550e（ ITK-Papp-Cl）_d0g_vd_6.7
  row FP: jm500550e（ ITK-Papp-Cl）.pdf_7 3
  test_unsurport
- 
- 
+
  row FP: jm500669m（PKCθ-Clint）_35_papp_0.35
  row FP: jm500669m（PKCθ-Clint）.pdf_7 5
  row FP: jm500669m（PKCθ-Clint）_36_papp_0.16
@@ -2484,7 +2444,7 @@ test_02_not_recoginze_top
  row FP: jm500669m（PKCθ-Clint）_40_cl_7.1
  row FP: jm500669m（PKCθ-Clint）.pdf_7 5
  未标页码
- 
+
  row FP: jm500669m（PKCθ-Clint）_15r_papp_0.42
  row FP: jm500669m（PKCθ-Clint）.pdf_7 3
  row FP: jm500669m（PKCθ-Clint）_15v_papp_0.31
@@ -2516,7 +2476,7 @@ test_02_not_recoginze_top
  row FP: jm500669m（PKCθ-Clint）_28_cl_4
  row FP: jm500669m（PKCθ-Clint）.pdf_7 3
  未标页码
- 
+
  row FP: jm500669m（PKCθ-Clint）_34_papp_0.5
  row FP: jm500669m（PKCθ-Clint）.pdf_7 4
  row FP: jm500669m（PKCθ-Clint）_31_cl_3.1
@@ -2528,7 +2488,7 @@ test_02_not_recoginze_top
  row FP: jm500669m（PKCθ-Clint）_34_cl_4.9
  row FP: jm500669m（PKCθ-Clint）.pdf_7 4
  未标页码
- 
+
  row FP: jm500715u（Pf-Clint）_N0ne_cl_15.2
  row FP: jm500715u（Pf-Clint）.pdf_6 3
  row FP: jm500715u（Pf-Clint）_N0ne_cl_14.9
@@ -2538,7 +2498,7 @@ test_02_not_recoginze_top
  row FP: jm500715u（Pf-Clint）_N0ne_vd_16.9
  row FP: jm500715u（Pf-Clint）.pdf_6 3
  test_unsurport
- 
+
  row FP: jm500818a（TRPV1-Cl-Vdss）_1mg_cl_0.24
  row FP: jm500818a（TRPV1-Cl-Vdss）.pdf_7 6
  row FP: jm500818a（TRPV1-Cl-Vdss）_3mg_cl_0.21
@@ -2564,7 +2524,7 @@ test_02_not_recoginze_top
  row FP: jm500818a（TRPV1-Cl-Vdss）_m0nkey_vd_6
  row FP: jm500818a（TRPV1-Cl-Vdss）.pdf_7 7
  test_unsurport
- 
+
  row FP: jm500916t（TRPV1-Clint）_10_vd_0.8
  row FP: jm500916t（TRPV1-Clint）.pdf_5 4
  row FP: jm500916t（TRPV1-Clint）_10_cl_98
@@ -2572,8 +2532,7 @@ test_02_not_recoginze_top
  row FP: jm500916t（TRPV1-Clint）_10_cl_0.5
  row FP: jm500916t（TRPV1-Clint）.pdf_5 4
  test_unsurport
- 
- 
+
  row FP: jm5014659（EGFR-Clint）_canertinib_cl_50
  row FP: jm5014659（EGFR-Clint）.pdf_5 3
  row FP: jm5014659（EGFR-Clint）_canertinib_cl_105
@@ -2585,7 +2544,7 @@ test_02_not_recoginze_top
  row FP: jm5014659（EGFR-Clint）_canertinib_cl_221
  row FP: jm5014659（EGFR-Clint）.pdf_5 3
  未标注
- 
+
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）_10e_papp_7.4
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）_10f_papp_5
@@ -2615,7 +2574,6 @@ test_02_not_recoginze_top
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）_10d_papp_7.4
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  test_extract_value.py\test_unsurport
- 
 
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）_10e_cl_60
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
@@ -2634,8 +2592,7 @@ test_02_not_recoginze_top
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）_10d_cl_60
  row FP: jm501524q（ FimH-Cl-Papp-椅式糖环）.pdf_8 3
  test_badcase_1229_evaluate_samples_0215
- 
- 
+
  row FP: jm501532z（NS5B-Cl）_15_papp_5.7
  row FP: jm501532z（NS5B-Cl）.pdf_4 3
  row FP: jm501532z（NS5B-Cl）_30_papp_5.1
@@ -2657,9 +2614,7 @@ test_02_not_recoginze_top
  row FP: jm501532z（NS5B-Cl）_29_papp_5.4
  row FP: jm501532z（NS5B-Cl）.pdf_4 3
  未标注
- 
- 
- 
+
  row FP: jm502018y（c‑Met-Clint）_va1ue_cl_4
  row FP: jm502018y（c‑Met-Clint）.pdf_4 3
  row FP: jm502018y（c‑Met-Clint）_va1ue_cl_10
@@ -2674,18 +2629,23 @@ test_02_not_recoginze_top
  row FP: jm502018y（c‑Met-Clint）.pdf_4 3
  test_unsurport
 
-
-
 # 20200406
+
 1. position的格式，规定好
+
 2. 字段词典更新
-![img.png](img.png)
+   ![img.png](img.png)
+
 3. ![img_1.png](img_1.png)
+
 4. ![img_2.png](img_2.png)
+
 5. ![img_3.png](img_3.png)
-## pdf recall
-pdf recall acs.jmedchem.1c00948（ OT_ELOVL1_Cl）
-2pdf_pictures_no_ocsr缺失图片，重跑
+   
+   ## pdf recall
+   
+   pdf recall acs.jmedchem.1c00948（ OT_ELOVL1_Cl）
+   2pdf_pictures_no_ocsr缺失图片，重跑
 
 pdf recall jm101452x(OT_CaSR_cl_papp)
 test_is_htable_vtable_figure
@@ -2700,18 +2660,19 @@ pdf recall jm301465a（pdb_PKCθ-Cl）
 test_is_htable_vtable_figure
 
 ## 表格 recall
+
  表格 recall acs.jmedchem.1c01161 6
  表格 recall acs.jmedchem.1c01366 6
  test_badcase_006_0326_evaluate_samples_0406
- 
+
  表格 recall jm2014887 1
  test_is_htable_vtable_figure
- 
+
  表格 recall jm300101n 1
  表格 recall jm300101n 4
  表格 recall jm300598e 5
  test_is_htable_vtable_figure
- 
+
  表格 recall acs.jmedchem.1c00948 1
  表格 recall acs.jmedchem.1c00948 2
  表格 recall acs.jmedchem.1c00948 3
@@ -2719,22 +2680,21 @@ test_is_htable_vtable_figure
  表格 recall acs.jmedchem.1c00987 n
  表格 recall jm1011319 3
  表格 recall jm101452x 2
- 
+
  表格 recall jm200677b 2
  表格 recall jm200677b 3
  表格 recall jm200677b 5
  test_10_not_recognize_text_title
- 
+
  表格 recall jm200900q 5
  extractable  的行号排序错乱，修正排序错误的 test_rectified_coordinate_index
- 
+
  表格 recall jm200909u 4
  test_10_not_recognize_text_title
- 
+
  表格 recall jm3007257 3
  test_badcase_006_0326_evaluate_samples_0406
- 
- 
+
  表格 recall jm3007799 1
  表格 recall jm3007799 2
  test_is_htable_vtable_figure
@@ -2746,9 +2706,9 @@ test_is_htable_vtable_figure
  test_is_htable_vtable_figure
  表格 recall jm301658d 5
  test_is_htable_vtable_figure
- 
 
 # 20200411
+
 pdf:
 pdf recall jm101452x(OT_CaSR_cl_papp)
 test_badcase_006_0326_evaluate_samples_0406
@@ -2760,42 +2720,38 @@ pdf recall jm301039c（pdb_BACE1）
  表格 recall acs.jmedchem.1c01366 6
  test_badcase_006_0326_evaluate_samples_0406
  test_is_htable_vtable_figure_isvertical_table 
- 
+
  表格 recall acs.jmedchem.1c00948 1
  表格 recall acs.jmedchem.1c00948 2
  表格 recall acs.jmedchem.1c00948 3
  表格 recall acs.jmedchem.1c00948 4
  表格 recall acs.jmedchem.1c00987 n
  重跑
- 
- 
+
  表格 recall jm1011319 3
  test_02_not_recoginze_top
  表格 recall jm101452x 2
  test_badcase_006_0326_evaluate_samples_0406
- 
+
  表格 recall jm200677b 2
  表格 recall jm200677b 3
  表格 recall jm200677b 5
  test_10_not_recognize_text_title
- 
+
  表格 recall jm200900q 5
  extractable  的行号排序错乱，修正排序错误的 test_rectified_coordinate_index
- 
+
  表格 recall jm200909u 4
  test_10_not_recognize_text_title
- 
+
  表格 recall jm3007257 3
  test_calculate_realation_document_object
- 
+
  表格 recall jm3008008 3
  test_location_field_compound
- 
+
  表格 recall jm301658d 5
  test_badcase_006_0326_evaluate_samples_0406
-
- 
-
 
 # badcase分析
 
@@ -2841,19 +2797,16 @@ OT_pdb_LpxC_cl_vdss).pdf_6_6_table_extracttable
 表头识别不好 jm901188v（OT_ PARP-1_Cl_Vss）.pdf_5_10_table_extracttable jm1011319(OT_pdb_Jak2_cl_vdss)
 .pdf_4_6_table_extracttable_noself
 
-
-
 pdf recall jm200385u
 C:\Users\franztao\Desktop\0819_project\data\0326_evaluate_samples\5table_text_self\jm200385u(OT_MT1,MT2_cl_vdss).pdf\5.png\10\jm200385u(OT_MT1,MT2_cl_vdss).pdf_5_10_table_extracttable_origin.jpg
 test_integrate_method_extracttable_recognize_method_extracttable_crop_pic
 test_unit_modify_tablecoordinates_to_relative_coordinates
- 
+
 pdf recall jm200386s
 test_location_field_compound
 
 pdf recall jm301039c
 已备注待解决
-
 
 表格 recall acs.jmedchem.1c01161 6
 未识别是垂直的表，此模块未加入
@@ -2878,11 +2831,8 @@ test_is_htable_vtable_figure
 表格 recall acs.jmedchem.1c00987 n
 test_10_not_recognize_text_title
 
-
-
 表格 recall jm200386s 5
 test_location_field_compound ！
-
 
 表格 recall jm200677b 2
 表格 recall jm200677b 3
@@ -2891,7 +2841,6 @@ test_10_not_recognize_text_title
 
 表格 recall jm200900q 5
 test_unit_modify_tablecoordinates_to_relative_coordinates test_10_not_recognize_text_title
-
 
 表格 recall jm200909u 4
 test_integrate_extract_table_to_dataframe  test_10_not_recognize_text_title
@@ -2905,33 +2854,30 @@ test_integrate_extract_table_to_dataframe
 表格 recall jm3007799 1
 test_is_htable_vtable_figure
 
-
 表格 recall jm3008008 3
 test_location_field_compound 算法调研 没有copound id关键词找到语义上是copound id的位置
-
 
 表格 recall jm900697r 2
 test_integrate_extract_table_to_dataframe
 
-
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_3_cl_20
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_1 1
  test_05_recognize_not_best
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_16_cl_3
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_3 3
  test_unit_07_not_recoginze_best_bottom
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_27_cl_8.9
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_4 4
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_28_cl_11
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_4 4
  test_unit_07_not_recoginze_best_bottom
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_33_cl_41
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_5 5
  test_unit_07_not_recoginze_best_bottom
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_34_cl_23
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_6 6
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_35_cl_62
@@ -2968,11 +2914,11 @@ test_integrate_extract_table_to_dataframe
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_6 6
  表格 recall acs.jmedchem.1c01161 6
  未识别是垂直的表，此模块未加入
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_49_cl_3
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_7 7
  test_03_not_recoginze_bottom
- 
+
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_1_vd_2.6
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_7 7
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_10_vd_2.7
@@ -2990,7 +2936,7 @@ test_integrate_extract_table_to_dataframe
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_49_vd_3
  row FN: acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_7 7
  标注出错
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_2_cl_3
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_1 1
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_4_cl_3
@@ -3014,14 +2960,13 @@ test_integrate_extract_table_to_dataframe
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_9_papp_2.5
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_1 1
  test_unit_06_recognize_not_best_header
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_12_papp_0.3
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_2 2
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_13_papp_1.4
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_2 2
  test_05_recognize_not_best
- 
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_16_cl_3
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_3 3
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_17_cl_3
@@ -3038,12 +2983,11 @@ test_integrate_extract_table_to_dataframe
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_3 3
  test_03_not_recoginze_bottom
  特殊的compound,标准不统一，不用考虑
- 
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_31_cl_11
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_4 4
  test_03_not_recoginze_bottom
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_34_cl_1
 row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_6 6
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_34_cl_16.9
@@ -3053,13 +2997,12 @@ test_03_not_recoginze_bottom
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_18_cl_9.3
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_6 6
  test_unit_badcase_001_extract_value
- 
+
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_18_vd_2
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_6 6
  row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）_34_vd_1
 row FN: acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）.pdf_6 6
 ?????不知道是不是标错了
-
 
  row FN: acs.jmedchem.1c01264（OT_pdb_TNKS2_Cl_papp_Vd）_1_vd_2.03
 row FN: acs.jmedchem.1c01264（OT_pdb_TNKS2_Cl_papp_Vd）.pdf_4 4
@@ -3103,8 +3046,6 @@ row FN: jm200385u(OT_MT1,MT2_cl_vdss).pdf_1 1
 row FN: jm200385u(OT_MT1,MT2_cl_vdss).pdf_1 1
 test_unit_modify_tablecoordinates_to_relative_coordinates
 
-
-
  row FN: jm2014887(OT_Glucokinase_cl_papp_vdss)_17_papp_17.4
 row FN: jm2014887(OT_Glucokinase_cl_papp_vdss).pdf_1 1
 test_05_recognize_not_best
@@ -3130,7 +3071,6 @@ row FN: jm3010724（OT_mGlu2-Cl-Vdss）.pdf_4 4
  row FN: jm3010724（OT_mGlu2-Cl-Vdss）_19_vd_1.4
 row FN: jm3010724（OT_mGlu2-Cl-Vdss）.pdf_4 4
 标注错了
-
 
  row FN: jm3013163（pdb_11\beta-HSD1-Cl-Vss）_20_cl_42
 row FN: jm3013163（pdb_11\beta-HSD1-Cl-Vss）.pdf_3 3
@@ -3200,7 +3140,6 @@ row FN: jm901149c（AR_Cl）.pdf_1 1
 row FN: jm901149c（AR_Cl）.pdf_1 1
 test_05_recognize_not_best
 
-
  row FN: acs.jmedchem.1c00948（ OT_ELOVL1_Cl）_18_cl_13
 row FN: acs.jmedchem.1c00948（ OT_ELOVL1_Cl）.pdf_2 2
 test_05_recognize_not_best
@@ -3221,7 +3160,6 @@ row FN: acs.jmedchem.1c00987（pdb_RT）.pdf_n n
  row FN: acs.jmedchem.6b00070（OT_BRD4-Cl）_10_cl_7.2
 row FN: acs.jmedchem.6b00070（OT_BRD4-Cl）.pdf_2 2
 test_05_recognize_not_best
-
 
  row FN: jm200386s(OT_PI3K,mTOR_cl_vdss)_16d_vd_0.44
 row FN: jm200386s(OT_PI3K,mTOR_cl_vdss).pdf_5 5
@@ -3348,7 +3286,6 @@ row FN: jm2014875(OT_pdb_LpxC_cl_vdss).pdf_6 6
 row FN: jm2014875(OT_pdb_LpxC_cl_vdss).pdf_6 6
 论文本身错误，不考虑
 
-
  row FN: jm300126x（OT_pdb_VEGFR2_Cl）_6a_cl_13
 row FN: jm300126x（OT_pdb_VEGFR2_Cl）.pdf_4 4
  row FN: jm300126x（OT_pdb_VEGFR2_Cl）_6b_cl_10
@@ -3448,8 +3385,6 @@ row FN: jm3008008（OT_TNFα-Clint-PAMPA）.pdf_3 3
 row FN: jm3008008（OT_TNFα-Clint-PAMPA）.pdf_3 3
 test_location_field_compound 算法调研 没有copound id关键词找到语义上是copound id的位置
 
-
-
  row FN: jm301119s（OT_pdb_Cat K-Clint）_17_cl_2.2
 row FN: jm301119s（OT_pdb_Cat K-Clint）.pdf_1 1
  row FN: jm301119s（OT_pdb_Cat K-Clint）_17_cl_6.8
@@ -3481,6 +3416,7 @@ row FN: jm900697r（PARP-1_Cl_Vd）.pdf_2 2
 ocr超时
 
 # 0708
+
 2301-7-table5_tsr  tsr,画线问题，compound线分开 列号错位 
 2331-5-table1_tsr  ocsr,部分边界无法盖住  \\#14eq  \\#11=  #12\\#  #97  
 2347-4-table3_tsr  ocsr 部分mukush,mask picture效果不好  截图是不是有问题，dict错列
@@ -3519,8 +3455,6 @@ ocr超时
 3722-6-table2_tsr  ocsr,都无法识别
 3738-3-table1_tsr_df_init  错列,ocsr，掩盖不住
 
-
-
 长和宽大的格子预测的边界会比期望边界略小点
 少于3个字的格子边界有点冗余
 
@@ -3550,51 +3484,83 @@ PMC3514327_003_00_draw
 PMC3490838_004_00_draw
 PMC3089822_012_00_draw
 
-
 Line 2949: [07-15 09:22:46.441]-[main]-[8572]-[140642426303040]/table_master_ResnetExtract_Ranger_0705/epoch_3.pth
-	Line 4114: [07-15 09:25:22.892]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/epoch_3.pth
-	Line 5299: [07-15 09:27:53.364]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/epoch_3.pth
-	Line 6310: [07-15 09:30:23.026]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/epoch_3.pth
-	Line 7399: [07-15 09:39:47.293]-[main]-[27510]-[140060402025024]/table_master_ResnetExtract_Ranger_0705/latest.pth
-	
-	Line 8579: [07-15 09:42:18.630]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_0425/latest.pth
-	Line 9764: [07-15 09:44:48.607]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_scale_0506/latest.pth
-	Line 10949: [07-15 09:47:18.811]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_normal_0214/latest.pth
-	Line 11298: [07-15 09:49:43.753]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/latest.pth
-	Line 12499: [07-15 09:52:15.586]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/latest.pth
-	Line 13329: [07-15 09:54:26.184]-[main]-[40488]-[140347989082688]/table_master_ResnetExtract_Ranger_0705/latest.pth
-	Line 13442: [07-15 09:54:46.422]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_all/latest.pth
-	Line 16332: [07-15 09:59:25.320]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_just_TGR/latest.pth
-	Line 18787: [07-15 10:04:03.818]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_loss100/latest.pth
-	Line 21320: [07-15 10:08:40.436]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_noloard_sparse/latest.pth
-	Line 24298: [07-15 10:13:22.758]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/latest.pth
-	Line 26698: [07-15 10:17:58.328]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510/latest.pth
-	Line 29202: [07-15 10:22:34.419]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510_load/latest.pth
-	
-		Line 4093: [07-15 09:25:01.534]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.8425177739458696 recall:0.3412080508652996 AP:0.5427754564069951
-	Line 5278: [07-15 09:27:34.639]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.5926639076730438 recall:0.2381173813398877 AP:0.298910466075881
-	Line 6289: [07-15 09:30:04.160]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.0499449505251841 recall:0.015178864456842798 AP:0.010851085108510851
-	Line 7364: [07-15 09:32:33.708]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.05817488586049947 recall:0.025314678669235355 AP:0.004499942809158346
-	Line 8558: [07-15 09:41:59.125]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9702415866825025 recall:0.4146533241008785 AP:0.7936790846611371
-	
-	Line 9743: [07-15 09:44:29.407]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7325427824363133 recall:0.3087010495897964 AP:0.47803688679463835
-	Line 10928: [07-15 09:47:00.551]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6089424636305679 recall:0.24953499186235759 AP:0.31883002562611085
-	Line 11277: [07-15 09:49:25.198]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.08456349206349206 recall:0.0008415147265077138 AP:0.0019801980198019802
-	Line 12478: [07-15 09:51:56.450]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9380795205579407 recall:0.41066264017863763 AP:0.7760067365518516
-	Line 13346: [07-15 09:54:26.973]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.18951406787291286 recall:0.047555875497051966 AP:0.02218833246759628
-	Line 16107: [07-15 09:59:03.416]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7190852211367247 recall:0.3642594188141302 AP:0.5063437647011847
-	Line 18481: [07-15 10:03:43.162]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.024941181504325612 recall:0.014857628004179729 AP:0.0016475247524752475
-	Line 21163: [07-15 10:08:19.206]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.07468093640949196 recall:0.029779738368548487 AP:0.006851191164845227
-	Line 23993: [07-15 10:12:59.590]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6921947100323883 recall:0.34674137673903316 AP:0.4641720215039924
-	Line 26464: [07-15 10:17:38.128]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.06090187885942829 recall:0.024946434037343125 AP:0.004253250626267446
-	Line 28947: [07-15 10:22:14.759]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.8997948287222459 recall:0.3791643139469226 AP:0.6697825986759947
-	Line 31186: [07-15 10:26:48.850]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9066854029097208 recall:0.38048045305078554 AP:0.674424909835203
+    Line 4114: [07-15 09:25:22.892]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/epoch_3.pth
+    Line 5299: [07-15 09:27:53.364]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/epoch_3.pth
+    Line 6310: [07-15 09:30:23.026]-[main]-[8572]-[140642426303040]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/epoch_3.pth
+    Line 7399: [07-15 09:39:47.293]-[main]-[27510]-[140060402025024]/table_master_ResnetExtract_Ranger_0705/latest.pth
 
+    Line 8579: [07-15 09:42:18.630]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_0425/latest.pth
+    Line 9764: [07-15 09:44:48.607]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_noocsr_filtertable_scale_0506/latest.pth
+    Line 10949: [07-15 09:47:18.811]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_normal_0214/latest.pth
+    Line 11298: [07-15 09:49:43.753]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_mini1k_data_0707/latest.pth
+    Line 12499: [07-15 09:52:15.586]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518/latest.pth
+    Line 13329: [07-15 09:54:26.184]-[main]-[40488]-[140347989082688]/table_master_ResnetExtract_Ranger_0705/latest.pth
+    Line 13442: [07-15 09:54:46.422]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_all/latest.pth
+    Line 16332: [07-15 09:59:25.320]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_just_TGR/latest.pth
+    Line 18787: [07-15 10:04:03.818]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_loss100/latest.pth
+    Line 21320: [07-15 10:08:40.436]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_noloard_sparse/latest.pth
+    Line 24298: [07-15 10:13:22.758]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_open_overall_data_0518_tablefomerloss/latest.pth
+    Line 26698: [07-15 10:17:58.328]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510/latest.pth
+    Line 29202: [07-15 10:22:34.419]-[main]-[27510]-[140060402025024]/table_master_lmdb_ResnetExtract_Ranger_dataset_opendata_0510_load/latest.pth
+    
+        Line 4093: [07-15 09:25:01.534]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.8425177739458696 recall:0.3412080508652996 AP:0.5427754564069951
+    Line 5278: [07-15 09:27:34.639]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.5926639076730438 recall:0.2381173813398877 AP:0.298910466075881
+    Line 6289: [07-15 09:30:04.160]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.0499449505251841 recall:0.015178864456842798 AP:0.010851085108510851
+    Line 7364: [07-15 09:32:33.708]-[main]-[8572]-[140642426303040]- coco_metrics 0.50,precision:0.05817488586049947 recall:0.025314678669235355 AP:0.004499942809158346
+    Line 8558: [07-15 09:41:59.125]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9702415866825025 recall:0.4146533241008785 AP:0.7936790846611371
+    
+    Line 9743: [07-15 09:44:29.407]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7325427824363133 recall:0.3087010495897964 AP:0.47803688679463835
+    Line 10928: [07-15 09:47:00.551]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6089424636305679 recall:0.24953499186235759 AP:0.31883002562611085
+    Line 11277: [07-15 09:49:25.198]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.08456349206349206 recall:0.0008415147265077138 AP:0.0019801980198019802
+    Line 12478: [07-15 09:51:56.450]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9380795205579407 recall:0.41066264017863763 AP:0.7760067365518516
+    Line 13346: [07-15 09:54:26.973]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.18951406787291286 recall:0.047555875497051966 AP:0.02218833246759628
+    Line 16107: [07-15 09:59:03.416]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.7190852211367247 recall:0.3642594188141302 AP:0.5063437647011847
+    Line 18481: [07-15 10:03:43.162]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.024941181504325612 recall:0.014857628004179729 AP:0.0016475247524752475
+    Line 21163: [07-15 10:08:19.206]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.07468093640949196 recall:0.029779738368548487 AP:0.006851191164845227
+    Line 23993: [07-15 10:12:59.590]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.6921947100323883 recall:0.34674137673903316 AP:0.4641720215039924
+    Line 26464: [07-15 10:17:38.128]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.06090187885942829 recall:0.024946434037343125 AP:0.004253250626267446
+    Line 28947: [07-15 10:22:14.759]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.8997948287222459 recall:0.3791643139469226 AP:0.6697825986759947
+    Line 31186: [07-15 10:26:48.850]-[main]-[27510]-[140060402025024]- coco_metrics 0.50,precision:0.9066854029097208 recall:0.38048045305078554 AP:0.674424909835203
 
+# 0919
 
-
-
-
-
+| 来源                                                                                                                                                                                                  | 错误原因                                                                                 | 样例                                                                                            | 图片                                                                                                                                                                            |
+| --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | --------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| pdf                                                                                                                                                                                                 | 表头被分割成两列                                                                             | pdf recall jm200712h                                                                          | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-19-14-13-30-image.png)                                                                                          |
+|                                                                                                                                                                                                     | 受到噪音影响，将多个格子合并一起了                                                                    | jm2014875(OT_pdb_LpxC_cl_vdss).pdf_7_9_table_extracttable                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-19-14-20-35-image.png)                                                                                          |
+| row                                                                                                                                                                                                 | ocsr问题，无法掩盖波浪字符                                                                      | acs.jmedchem.1c00948（ OT_ELOVL1_Cl）_14_cl_194____acs.jmedchem.1c00948（ OT_ELOVL1_Cl）.pdf_2 2  | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-19-16-02-28-image.png)<br/>![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-19-16-02-52-image.png) |
+|                                                                                                                                                                                                     |                                                                                      | acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_32_cl_21____acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_5 5 |                                                                                                                                                                               |
+| <br/>acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_8_cl_13____acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_2 2<br/>acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_14_cl_19____acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_2 2 |                                                                                      |                                                                                               |                                                                                                                                                                               |
+| <br/>acs.jmedchem.1c01161（pdb_EED_Cl_Vss）_15_cl_18____acs.jmedchem.1c01161（pdb_EED_Cl_Vss）.pdf_2 2                                                                                                  | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-19-16-12-17-image.png) |                                                                                               |                                                                                                                                                                               |
+| precision:0.00 recall:0.00 f1:0.00                                                                                                                                                                  |                                                                                      |                                                                                               |                                                                                                                                                                               |
+| jm200385u(OT_MT1,MT2_cl_vdss)___1                                                                                                                                                                   | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-15-43-30-image.png) | DOD                                                                                           |                                                                                                                                                                               |
+| jm300126x（OT_pdb_VEGFR2_Cl）___4                                                                                                                                                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-18-13-43-image.png) | DOD                                                                                           |                                                                                                                                                                               |
+| jm3007799（pdb_PDE9A-ER-Clb）___1                                                                                                                                                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-05-20-image.png) | TSR                                                                                           |                                                                                                                                                                               |
+| jm2010767(OT_ALK_cl_vd)___5                                                                                                                                                                         |                                                                                      | 不支持                                                                                           |                                                                                                                                                                               |
+| jm3008008（OT_TNFα-Clint-PAMPA）___3                                                                                                                                                                  | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-35-53-image.png) | 找不到compound<br/>test_integrate_badcase_extract_table_to_dataframe_002                         |                                                                                                                                                                               |
+| acs.jmedchem.1c01161（pdb_EED_Cl_Vss）___6                                                                                                                                                            |                                                                                      | 90%表                                                                                          |                                                                                                                                                                               |
+| acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）___2                                                                                                                                                      | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-39-43-image.png) | TSR                                                                                           |                                                                                                                                                                               |
+| jm2014887(OT_Glucokinase_cl_papp_vdss)___1                                                                                                                                                          | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-42-12-image.png) | DOD                                                                                           |                                                                                                                                                                               |
+| jm2014887(OT_Glucokinase_cl_papp_vdss)___2                                                                                                                                                          | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-45-44-image.png) | 表头置灰<br/>DOD                                                                                  |                                                                                                                                                                               |
+| jm2014875(OT_pdb_LpxC_cl_vdss)___6                                                                                                                                                                  | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-49-29-image.png) | TSR  SPAN                                                                                     |                                                                                                                                                                               |
+| jm300101n（OT_TRPV1_Cl_Vdss）___1                                                                                                                                                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-20-19-56-19-image.png) | TSR  header                                                                                   |                                                                                                                                                                               |
+| jm3007257（OT_pdb_Cat K-Cl-Vdss）___3                                                                                                                                                                 | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-10-13-32-image.png) | TSR  SPAN                                                                                     |                                                                                                                                                                               |
+|                                                                                                                                                                                                     |                                                                                      |                                                                                               |                                                                                                                                                                               |
+| acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）___3                                                                                                                                                      | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-10-37-42-image.png) | group by pdf  行 metric precision:0.02 recall:0.12 f1:0.03                                     |                                                                                                                                                                               |
+| acs.jmedchem.1c01197（pdb_OT_RORC2-Cl-papp）___6                                                                                                                                                      | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-10-42-35-image.png) | VQA<br/>group by pdf  行 metric precision:0.05 recall:0.43 f1:0.10                             |                                                                                                                                                                               |
+| jm300459a（OT-PDE4-PAMPA-Cl-Vss）___2                                                                                                                                                                 |                                                                                      | group by pdf  行 metric precision:0.86 recall:0.43 f1:0.57<br/>test_extract_values             |                                                                                                                                                                               |
+| jm2009925（OT_pdb_(BRAF) V600E_cl_vd)___3                                                                                                                                                            | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-34-27-image.png) | TSR 画线<br/>group by pdf  行 metric precision:0.50 recall:0.43 f1:0.46                          |                                                                                                                                                                               |
+|                                                                                                                                                                                                     |                                                                                      |                                                                                               |                                                                                                                                                                               |
+| metric precision:0.14 recall:0.50 f1:0.22                                                                                                                                                           |                                                                                      |                                                                                               |                                                                                                                                                                               |
+| acs.jmedchem.1c01161（pdb_EED_Cl_Vss）___7                                                                                                                                                            | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-37-43-image.png) | VQA                                                                                           |                                                                                                                                                                               |
+| jm300007n(OT_CRTH2_cl_papp_vss)___1                                                                                                                                                                 | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-40-14-image.png) | VQA                                                                                           |                                                                                                                                                                               |
+| acs.jmedchem.1c01161（pdb_EED_Cl_Vss）___4                                                                                                                                                            | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-42-32-image.png) | TSR  画线<br/>group by pdf  行 metric precision:0.07 recall:0.57 f1:0.13                         |                                                                                                                                                                               |
+| acs.jmedchem.1c01161（pdb_EED_Cl_Vss）___2                                                                                                                                                            | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-45-00-image.png) | mask问题                                                                                        |                                                                                                                                                                               |
+| jm3010724（OT_mGlu2-Cl-Vdss）___4                                                                                                                                                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-51-46-image.png) | VQA                                                                                           |                                                                                                                                                                               |
+| jm3007799（pdb_PDE9A-ER-Clb）___2                                                                                                                                                                     | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-53-09-image.png) | TSR VQA                                                                                       |                                                                                                                                                                               |
+| acs.jmedchem.6b00070（OT_BRD4-Cl）___1                                                                                                                                                                | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-11-55-51-image.png) | DOD mask问题                                                                                    |                                                                                                                                                                               |
+| jm200386s(OT_PI3K,mTOR_cl_vdss)___5                                                                                                                                                                 | ？                                                                                    |                                                                                               |                                                                                                                                                                               |
+| jm901188v（OT_ PARP-1_Cl_Vss）___3                                                                                                                                                                    | ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-09-21-12-00-03-image.png) | TSR  第一列问题                                                                                    |                                                                                                                                                                               |
 
 
