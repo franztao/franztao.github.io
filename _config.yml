@@ -65,11 +65,11 @@ gitalk:
   enable: true    #是否开启Gitalk评论
   clientID: af92f4b9b5421165a845                            #生成的clientID
   clientSecret: cea6d16173fdb5f7d7231d26aa411a681c598846     #生成的clientSecret
-  repo: franztao.github.io    #仓库名称
+  repo: blog.comment    #仓库名称
   owner: franztao    #github用户名
   admin: franztao
   distractionFreeMode: true #是否启用类似FB的阴影遮罩
-
+#https://draveness.me/git-comments-initialize/
 
 # 统计
 
