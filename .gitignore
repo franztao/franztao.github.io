@@ -33,6 +33,6 @@ Temporary Items
 
 # debug file
 _site
-
+_drafts/*
 *.jpg
 *.png
