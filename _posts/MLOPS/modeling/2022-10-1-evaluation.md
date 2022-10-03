@@ -2,7 +2,7 @@
 layout:     post
 title:      评估机器学习模型
 subtitle:   2022年10月
-date:       2022-10-2
+date:       2022-10-1
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
