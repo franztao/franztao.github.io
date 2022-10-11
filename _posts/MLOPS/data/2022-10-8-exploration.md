@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Exploratory Data Analysis
+title:      探索性数据分析
 subtitle:   2022年10月
 date:       2022-10-10
 author:     franztao
