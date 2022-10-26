@@ -1,0 +1,31 @@
+---
+layout:     post
+title:      嘟嘟的成长
+subtitle:   2022年6月
+date:       2022-06-20
+author:     franztao
+header-img: post-bg-re-vs-ng2.jpg
+catalog: true
+tags:
+    - baby
+---
+
+这个贴不断更新孩子成长相关的内容，孩子是自己生命的延续，记录孩子的成长，也是同时记录自己的成长
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-51-46-7023a1a23b7b9380dc77231ffe8c207.jpg)
+
+得到上学习育儿相关知识
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-51-55-6447e6a4daf6f10c79cf2ca80e15cd5.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-51-59-8ea53454ff85117de88f9ffc542709d.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-52-07-c5bf36c227b60251d117593080fc57d.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-52-15-4d936c4807eae812961864b9affe2d3.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-52-22-8f8efbc386ec78af196ff54955f4a2b.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-52-34-d4060ac2cc4ca6c1761910aede6d1c0.jpg)
+
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-21-22-52-42-f1b303f0530d2078163dc9bd8621c59.png)

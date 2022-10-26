@@ -190,6 +190,24 @@ tags:
 - 使用TorchSnooper来调试PyTorch代码，程序在执行的时候，就会自动 print 出来每一行的执行结果的 tensor 的形状、数据类型、设备、是否需要梯度的信息。
 - 保存图片为tiff格式
 
+
+
+验证阶段
+
+1. 尽量测试每一个细节，从数据接口，模型，到loss输出，到最终的评测代码。保证每个部分都可控。
+
+2. 测试数据接口，从单进程，batch为1开始，方便打印数值进行对比。
+
+3. 不要随意的去随机，尽量保证问题可以复现比如先不要加入随机数据增强，模型的随机种子固定。
+
+4. 用少量的数据，这样可以快速的做实验，也可以让模型快速过拟合。模型能过拟合可以大概确定模型是可以学到点什么的。
+
+5. 尽量按照原文来复现，在复现前，先不要过多的添加自己独特的想法。比如训练参数，模型backbone，数据增强方式等等先按照文章来。不清楚的点可以尝试email作者或者寻找相关圈子讨论。
+
+6. 日志打印全，比如解loss为nan的情况，需要知道是forward的导致还是bp导致。
+
+
+
 # 部署阶段
 
 ## check 工具
@@ -335,8 +353,6 @@ class MySegmentationModel(nn.Module):
 > 压测。单、2/4/8/16等多进程的压测，观测平均和50%、90%、99%分位点耗时，观测内存等占用是否符合预期，另外注意使用的query要分两种，一种是随机的，一种是复杂的（尽可能走过多一些复杂流程的，说白了就是看看极端坏的情况）。
 > bn在训练时记得打开更新（特别是tf的小伙伴，容易漏），不然可能出现的问题是训练时loss下降很快，测试感觉模型就没收敛
 
-
-
 # reference
 
 [GitHub - Mountchicken/Efficient-Deep-Learning: A bag of tricks to speed up your deep learning process](https://github.com/Mountchicken/Efficient-Deep-Learning)
@@ -362,22 +378,20 @@ class MySegmentationModel(nn.Module):
 >   - [LMDB file](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#21-efficient-data-storage-methods)
 >   - [Albumentations](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#22-efficient-data-augmentation-library)
 >   - [Data augmentation on GPU](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_DataProcessing.md#23-data-augmentation-on-gpu)
->   
->   
->   
->   ## Efficient Training
->   
->   - Strategies to speed up your training process.
->   - [Efficient Traininig](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md)
->     - [cudnn.benchmark=True](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#11-set-cudnnbenchmarktrue)
->     - [Set gradients to None during back propagation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#12-set-gradients-to-none-during-back-propagation)
->     - [Turn off debugging APIs](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#13-turn-off-debugging)
->     - [Turn off gradient computation during validation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#14-turn-off-gradient-computation-during-validation)
->     - [Use another optimizer AdamW](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#21-use-another-optimizer-adamw)
->     - [Learning rate schedule](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#22-learning-rate-schedule)
->     - [Useful combination, Adam with 3e-4](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#23-best-combination-adam-with-3e-4)
->     - [LR Warm up and Cosine Learning Rate Decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#24-lr-warm-up-and-cosine-learning-rate-decay)
->     - [L2 decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#25-l2-decay)
+> 
+> ## Efficient Training
+> 
+> - Strategies to speed up your training process.
+> - [Efficient Traininig](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md)
+>   - [cudnn.benchmark=True](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#11-set-cudnnbenchmarktrue)
+>   - [Set gradients to None during back propagation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#12-set-gradients-to-none-during-back-propagation)
+>   - [Turn off debugging APIs](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#13-turn-off-debugging)
+>   - [Turn off gradient computation during validation](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#14-turn-off-gradient-computation-during-validation)
+>   - [Use another optimizer AdamW](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#21-use-another-optimizer-adamw)
+>   - [Learning rate schedule](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#22-learning-rate-schedule)
+>   - [Useful combination, Adam with 3e-4](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#23-best-combination-adam-with-3e-4)
+>   - [LR Warm up and Cosine Learning Rate Decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#24-lr-warm-up-and-cosine-learning-rate-decay)
+>   - [L2 decay](https://github.com/Mountchicken/Efficient-Deep-Learning/blob/main/Efficient_Training.md#25-l2-decay)
 > 
 > ## Efficient GPUtilization
 > 
