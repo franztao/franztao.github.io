@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Reinforcement_Learning_Markov_Decision_Process

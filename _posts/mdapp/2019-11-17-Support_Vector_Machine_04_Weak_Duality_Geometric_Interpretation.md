@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Support_Vector_Machine_04_Weak_Duality_Geometric_Interpretation

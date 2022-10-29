@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Gaussian_Process_02_Weight_Space

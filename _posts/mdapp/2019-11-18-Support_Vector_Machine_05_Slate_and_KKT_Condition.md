@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Support_Vector_Machine_05_Slate_and_KKT_Condition

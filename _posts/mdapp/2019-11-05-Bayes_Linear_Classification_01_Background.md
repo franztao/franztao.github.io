@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Bayes_Linear_Classification_01_Background

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Kernel_Method_01_Background

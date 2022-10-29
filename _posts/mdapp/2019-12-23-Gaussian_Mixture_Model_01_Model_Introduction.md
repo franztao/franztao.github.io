@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Gaussian_Mixture_Model_01_Model_Introduction

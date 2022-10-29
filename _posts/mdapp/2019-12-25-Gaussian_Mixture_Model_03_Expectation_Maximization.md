@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Gaussian_Mixture_Model_03_Expectation_Maximization

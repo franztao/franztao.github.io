@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Conditional_Random_Field_01_Background

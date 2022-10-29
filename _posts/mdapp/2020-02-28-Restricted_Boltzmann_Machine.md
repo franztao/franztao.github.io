@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Restricted_Boltzmann_Machine

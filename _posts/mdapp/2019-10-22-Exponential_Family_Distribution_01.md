@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Exponential_Family_Distribution_01

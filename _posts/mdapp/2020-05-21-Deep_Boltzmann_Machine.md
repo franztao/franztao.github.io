@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Deep_Boltzmann_Machine

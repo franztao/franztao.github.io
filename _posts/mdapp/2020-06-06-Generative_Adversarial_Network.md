@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Generative_Adversarial_Network

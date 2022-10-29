@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Confronting_Partition_Function

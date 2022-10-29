@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Kalman_Filter_02_Model_Construction_and_Solution

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Support_Vector_Machine_03_Weak_Duality_Proof

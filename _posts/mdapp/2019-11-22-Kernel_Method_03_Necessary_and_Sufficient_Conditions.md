@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Kernel_Method_03_Necessary_and_Sufficient_Conditions

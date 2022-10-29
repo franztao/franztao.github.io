@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Feedforward_Neural_Network_03_Non-Linear_Problem

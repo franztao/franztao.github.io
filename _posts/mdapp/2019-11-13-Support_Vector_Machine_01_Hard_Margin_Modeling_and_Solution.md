@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Support_Vector_Machine_01_Hard_Margin_Modeling_and_Solution

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Reinforcement_Learning_Dynamic_Programming

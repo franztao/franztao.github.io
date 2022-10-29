@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Expectation_Maximization_02_Derived_Formula

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Guassian_Process_01_Introduction

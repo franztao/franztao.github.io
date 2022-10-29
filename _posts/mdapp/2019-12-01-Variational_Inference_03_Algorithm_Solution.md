@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Variational_Inference_03_Algorithm_Solution

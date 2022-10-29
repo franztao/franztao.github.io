@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Sigmoid_Belief_Network

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Probability_Graph_07_Variable_Elimination

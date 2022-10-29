@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Expectation_Maximization_01_Algorithm_Convergence

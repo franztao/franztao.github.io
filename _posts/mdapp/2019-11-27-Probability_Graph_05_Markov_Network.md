@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Probability_Graph_05_Markov_Network

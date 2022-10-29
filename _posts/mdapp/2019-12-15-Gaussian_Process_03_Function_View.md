@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Gaussian_Process_03_Function_View

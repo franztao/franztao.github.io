@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Probability_Graph_10_Moral_and_Factor_Graph

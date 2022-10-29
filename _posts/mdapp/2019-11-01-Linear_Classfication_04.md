@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Linear_Classfication_04

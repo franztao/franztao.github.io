@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Kernel_Method_02_The_Definition_of_Positive_Kernel_Function

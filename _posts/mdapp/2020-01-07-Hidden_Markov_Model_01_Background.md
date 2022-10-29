@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Hidden_Markov_Model_01_Background

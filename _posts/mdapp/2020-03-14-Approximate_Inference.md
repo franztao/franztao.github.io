@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Approximate_Inference

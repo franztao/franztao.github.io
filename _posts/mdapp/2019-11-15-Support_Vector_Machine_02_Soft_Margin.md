@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Support_Vector_Machine_02_Soft_Margin

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Markov_Chain_Monte_Carlo_04_Gibbs_Sampling

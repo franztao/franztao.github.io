@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Variational_Inference_04_Stochastic_Gradient_Variational_Inference

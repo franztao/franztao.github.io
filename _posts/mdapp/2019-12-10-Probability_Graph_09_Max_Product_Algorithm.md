@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Probability_Graph_09_Max_Product_Algorithm

@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Probability_Graph_02_Bayesian_Network

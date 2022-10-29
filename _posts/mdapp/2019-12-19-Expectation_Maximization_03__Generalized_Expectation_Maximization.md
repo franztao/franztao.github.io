@@ -1,4 +1,3 @@
-
 ---
 layout:     post
 title:      Expectation_Maximization_03__Generalized_Expectation_Maximization
