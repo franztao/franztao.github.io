@@ -106,7 +106,7 @@ tags:
     p(x_i) = \varphi_i \prod_{k\in NB(i)} m_{k\Longrightarrow i}(x_i)
 \end{equation}
 
-通过对上面表达式的观察，我们是不是发现了一个很有意思的现象。也就是这些概率都是由$m_{i\longrightarrow j}$这样的小积木拼接起来的。所以我们可以get a conclusion：{\color{red} 我们不要一上来就直接去求边缘概率密度，比如$p(a),p(b),p(c),p(d)$这些的。我们可以先建立一个Cache，把$m_{i\longrightarrow j}$全部算出来。然后，要求什么的话，直接进行搭建和拼接就可以了。}从这里，我们就引出了Belief Propagation。
+通过对上面表达式的观察，我们是不是发现了一个很有意思的现象。也就是这些概率都是由$m_{i\longrightarrow j}$这样的小积木拼接起来的。所以我们可以get a conclusion：{ 我们不要一上来就直接去求边缘概率密度，比如$p(a),p(b),p(c),p(d)$这些的。我们可以先建立一个Cache，把$m_{i\longrightarrow j}$全部算出来。然后，要求什么的话，直接进行搭建和拼接就可以了。}从这里，我们就引出了Belief Propagation。
 
 \section{Belief Propagation}
 我们之前就已经得到了信息传递的表达式：

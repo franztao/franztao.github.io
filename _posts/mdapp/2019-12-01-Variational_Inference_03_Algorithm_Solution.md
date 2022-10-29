@@ -18,7 +18,7 @@ tags:
 
 \maketitle
 
-在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明，{\color{red} $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。}在上一节中，我们得出：
+在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明，{ $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。}在上一节中，我们得出：
 \begin{equation}
     \log q_j(z_j) = \mathbf{E}_{\prod_{i \neq j}q_i(z_i)}\left[ \log p(X,Z|\theta) \right] + C
 \end{equation}

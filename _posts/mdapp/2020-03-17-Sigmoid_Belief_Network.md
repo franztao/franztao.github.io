@@ -152,7 +152,7 @@ Neal在提出这个算法的时候，给出了Learning Rule，但是很不幸的
 \end{equation}
 
 那么最终log Likelihood Function Gradient的结果为：
-{\color{red}
+{
 \begin{equation}
     \begin{split}
         \frac{\partial}{\partial w_{ji}} \sum_v \log P(v) = & \sum_v \sum_h P(h|v) \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j \\

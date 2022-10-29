@@ -86,7 +86,7 @@ Filtering问题公式话的表达即为$P(z_t|x_1,x_2,\cdots,x_t)$，是一种On
 很显然，我们可以不断的往里面添加数据来更新隐变量状态$z_{t}$。
 
 \section{Filtering问题求解具体分析}
-首先，我们需要明确一个问题，Gaussian Distribution是一个具有非常好的性质的{\color{red}自共轭分布}。通俗的讲就是，Gaussian分布的边缘分布，条件分布，联合概率分布等都是符合高斯分布的。首位，我先回忆一下在Math Basis那小节中，总结的线性高斯模型中，已知条件高斯分布，求变量高斯分布的公式：
+首先，我们需要明确一个问题，Gaussian Distribution是一个具有非常好的性质的{自共轭分布}。通俗的讲就是，Gaussian分布的边缘分布，条件分布，联合概率分布等都是符合高斯分布的。首位，我先回忆一下在Math Basis那小节中，总结的线性高斯模型中，已知条件高斯分布，求变量高斯分布的公式：
 \begin{align}
     & P(X) = \mathcal{N}(X|\mu,\Lambda^{-1}) \\
     & P(Y|X) = \mathcal{N}(X|AX+b,L^{-1}) \\

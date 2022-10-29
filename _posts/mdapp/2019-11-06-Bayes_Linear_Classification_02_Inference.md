@@ -82,7 +82,7 @@ tags:
     p(w|X,Y) \propto p(Y|w,X)p(w) 
 \end{equation}
 
-在这里我们将使用到一个共轭的技巧，{\color{red} 因为likelihood function和prior function都是Gaussian Distribution，所有posterior也一定是Gaussian Distribution。}所以，我们可以将公式改写为：
+在这里我们将使用到一个共轭的技巧，{ 因为likelihood function和prior function都是Gaussian Distribution，所有posterior也一定是Gaussian Distribution。}所以，我们可以将公式改写为：
 \begin{equation}
     p(w|Data) \sim \mathcal{N}(\mu_w,\Sigma_w) \propto \prod_{i=1}^N \mathcal{N}(w^Tx_i,\sigma^2) \mathcal{N}(0,\Sigma_p)
 \end{equation}

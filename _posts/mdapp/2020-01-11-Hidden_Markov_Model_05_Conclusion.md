@@ -77,7 +77,7 @@ Smoothing问题和Filtering问题的性质非常的像，不同的是，Smoothin
 \end{equation}
 
 那么，最终得到的就是：
-{\color{red}
+{
 \begin{equation}
     P(z_t|x_{1:T}) \propto P(x_{1:T},z_t) = \alpha_t\beta_t
 \end{equation}

@@ -44,7 +44,7 @@ tags:
 
 而$\phi(x)^T\Sigma_p\phi(x')$是一个kernel function，前面我们已经证明过了，$\varphi(x) = \Sigma_p^{\frac{1}{2}}$。而$\phi(x)\Sigma_p\phi(x') = <\varphi(x),\varphi(x')> = K(x,x')$。
 
-推导进行到了这里，我们就知道了$f(x)$的期望为0，协方差矩阵为一个核函数$K(x,x')$。那么我们是不是惊奇的发现，这个和我们高斯过程的定义：$\xi_t \sim GP(m(t),K(t,s))$，是多么惊人的相似呀。所以，这里可以启发我们：{\color{red} $f(x)$的组成是否可以看成一个GP，而$\{f(x)\}_{x\in\mathbb{R}^p}$。}那么，首先$f(x)$是一个function，而且$f(x)$还是一个服从高斯分布的随机变量，$m(t)$是一个mean function，$K(t,s)$是一个covariance function。为了加深大家的理解，我们做进一步清晰的对比：
+推导进行到了这里，我们就知道了$f(x)$的期望为0，协方差矩阵为一个核函数$K(x,x')$。那么我们是不是惊奇的发现，这个和我们高斯过程的定义：$\xi_t \sim GP(m(t),K(t,s))$，是多么惊人的相似呀。所以，这里可以启发我们：{ $f(x)$的组成是否可以看成一个GP，而$\{f(x)\}_{x\in\mathbb{R}^p}$。}那么，首先$f(x)$是一个function，而且$f(x)$还是一个服从高斯分布的随机变量，$m(t)$是一个mean function，$K(t,s)$是一个covariance function。为了加深大家的理解，我们做进一步清晰的对比：
 \begin{equation}
     \left\{
         \begin{array}{ll}
@@ -138,7 +138,7 @@ Data：$\{ (x_i,y_i) \}_{i=1}^N$，$x=(x_1,x_2,\cdots,x_N)^T_{N\times p}$，$Y=(
 我们要求的概率为$p(f(x^\ast)|Y,X,x^\ast)$，就是一个我们要求的条件概率，有的同学可能就会有疑惑了，不应该是$p(f(x\ast)|Y)$吗？为什么这里可以把$X,x^\ast$给忽略掉了？因为$X$和$Y$相关，因为$Y=\phi(X)^Tw+\epsilon$。而$X^\ast$涵盖在了$f(x^\ast)$中，因为$f(x^\ast) = \phi(X^\ast)^Tw$。
 
 
-所以，我们的目标也就是求$p(f(x\ast)|Y$，也就是{\color{red}已知联合概率分布的情况下求条件概率分布。}
+所以，我们的目标也就是求$p(f(x\ast)|Y$，也就是{已知联合概率分布的情况下求条件概率分布。}
 
 我们对比公式(8)和公式(9)就可以发现，$Y\rightarrow x_a,f(x^\ast)\rightarrow x_b,K(X,X)+\sigma^2I \rightarrow \Sigma_{aa},K(X,X^\ast) \rightarrow \Sigma_{ba},K(X\ast,X\ast)\rightarrow \Sigma_{bb}$。那么，我们可以令$p(f(x^\ast)|Y,X,x^\ast)\sim\mathcal{N}(\mu^\ast,\Sigma^\ast)$，代入之前获得的公式的结果我们就可以得到：
 \begin{equation}

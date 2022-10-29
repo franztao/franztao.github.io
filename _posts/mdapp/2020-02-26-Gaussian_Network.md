@@ -72,7 +72,7 @@ Gaussian Network是连续型的概率图模型，一个高斯网络实际上可�
 \end{equation}
 $\mathrm{pa}(i)$是一个集合，代表$x_i$节点的父亲节点集合。
 
-{\color{red} GBN is based on Linear Gaussian Model}。GBN是一个global的概念，代表的是整个高斯网络，也就是$X$之间的高维高斯分布。而Linear Gaussian Model指的是local的模型，也就是局部父亲节点与孩子节点之间的关系是符合高斯线性模型的。
+{ GBN is based on Linear Gaussian Model}。GBN是一个global的概念，代表的是整个高斯网络，也就是$X$之间的高维高斯分布。而Linear Gaussian Model指的是local的模型，也就是局部父亲节点与孩子节点之间的关系是符合高斯线性模型的。
 
 我们看看标准的线性高斯模型：
 \begin{equation}

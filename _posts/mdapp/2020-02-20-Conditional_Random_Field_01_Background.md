@@ -32,7 +32,7 @@ tags:
 硬分类就是输入特征，输出的离散变量，通俗的讲就是，分类器看到了一堆特征，直接告诉你这个个体属于哪一类。
 \begin{enumerate}
     \item \textbf{支持向量机(Support Vector Machine)}：
-{\color{red}支持向量机的思路来源是几何间隔}。模型可以被我们写为：
+{支持向量机的思路来源是几何间隔}。模型可以被我们写为：
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -42,10 +42,10 @@ tags:
     \right.
 \end{equation}
 
-\item \textbf{多层感知机(PLA)：}{\color{red}多层感知机的思路来源是误差驱动}。模型可以被我们写成：
+\item \textbf{多层感知机(PLA)：}{多层感知机的思路来源是误差驱动}。模型可以被我们写成：
 $$f(w) = \mathrm{sign}(w^Tx)$$
 
-\item \textbf{线性判别分析(Linear Discriminate analysis)：}{\color{red}主要采用的思想是类间大，类内小。}
+\item \textbf{线性判别分析(Linear Discriminate analysis)：}{主要采用的思想是类间大，类内小。}
 \end{enumerate}
 \subsection{软分类(Soft classification)}
 软分类就是输入特征，输出的是每一种可能性的概率。通俗的讲就是，给定一组特征，分类器输出的是属于各个类别的概率，最后选择是属于哪一类？你自己就看着办吧，看你怎么选了。所以，软分类模型求得是一个分布就是这个原因。算法可以分为两个方面，概率判别模型和概率生成模型。这两者有什么不一样呢？

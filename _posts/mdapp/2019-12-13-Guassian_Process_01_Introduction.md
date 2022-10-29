@@ -16,7 +16,7 @@ tags:
             
 
 \maketitle
-本小节我们将进入Gaussian Process的学习。Gaussian自然指的就是Gaussian Distribution，而Process指的就是随机过程。在一维的Gaussian Distribution中我们可以令$p(x) = \mathcal{N}(\mu,\sigma^2)$。如果对应到高维高斯分布的话，也就是(Multivariate Gaussian Distribution)也就是我们通常意义上说的Gaussian Network，对于任意的$x\in \mathbb{R}^p$，有$p(x) = \mathcal{N}(\mu,\Sigma)$，且$\Sigma$是一个$p\times p$维的向量，$p< +\infty$。如果是一个无限维的Gaussian Distribution，那么就是我们今天要讨论的Gaussian Process了。首先我们给出Gaussian Process的详细定义，{\color{red}Gaussian Process：定义在连续域上的无限多个高维随机变量所组成的随机过程。 }所谓连续域指的就是时间或者空间。下面我们来进行详细的解释。
+本小节我们将进入Gaussian Process的学习。Gaussian自然指的就是Gaussian Distribution，而Process指的就是随机过程。在一维的Gaussian Distribution中我们可以令$p(x) = \mathcal{N}(\mu,\sigma^2)$。如果对应到高维高斯分布的话，也就是(Multivariate Gaussian Distribution)也就是我们通常意义上说的Gaussian Network，对于任意的$x\in \mathbb{R}^p$，有$p(x) = \mathcal{N}(\mu,\Sigma)$，且$\Sigma$是一个$p\times p$维的向量，$p< +\infty$。如果是一个无限维的Gaussian Distribution，那么就是我们今天要讨论的Gaussian Process了。首先我们给出Gaussian Process的详细定义，{Gaussian Process：定义在连续域上的无限多个高维随机变量所组成的随机过程。 }所谓连续域指的就是时间或者空间。下面我们来进行详细的解释。
 
 \section{Gaussian Process解释}
 我们假设有一组随机变量$\{ \xi_t \}_{t\in T}$，$T$是一个连续域，如果$\forall n \in N^+$，都有$t_1,t_2,\cdots,t_n \in T$，并且存在一个约束条件$s.t.\ \{\xi_{t_1},\xi_{t_2},\cdots,\xi_{t_n}\} \stackrel{\triangle}{=} \xi_{t_1\sim t_n} \sim \mathcal{N}(\mu_{t_1\sim t_n},\Sigma_{t_1\sim t_n})$。那么我们就称$\{ \xi_t \}_{t\in T}$是一个Gaussian Process。那么，我们怎么来通俗的理解这个概念呢？也就是说有一系列在时间上或空间上连续的点，他们之间分开看都是符合一个高斯分布的，而合起来看则是符合一个多维高斯分布的。也就是如下图所示的，在五个不同的时刻有5个不同的点，之上的随机变量为$\{\xi_{t_1},\xi_{t_2},\xi_{t_3},\xi_{t_4},\xi_{t_5}\}$，他们分别都符合一个高斯分布。

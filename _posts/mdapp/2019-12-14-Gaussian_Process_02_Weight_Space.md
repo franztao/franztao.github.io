@@ -47,7 +47,7 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
     p(f(x^\ast)|X,Y,x^\ast) \sim \mathcal{N}(\sigma^{-2}{\phi(x^\ast)}^T(A^{-1}\Phi(X)^TY),{\phi(x^\ast)}^TA^{-1}\phi(x^\ast))
 \end{equation}
 
-而其中，$A=\sigma^{-2}\Phi(X)^T\Phi(X) + \Sigma_p^{-1}$。但是，很快我们又将面临一个新的问题，也就是$A^{-1}$应该如何计算呢？这里我们需要使用到一个公式为，{\color{red} Woodbury Formula公式：
+而其中，$A=\sigma^{-2}\Phi(X)^T\Phi(X) + \Sigma_p^{-1}$。但是，很快我们又将面临一个新的问题，也就是$A^{-1}$应该如何计算呢？这里我们需要使用到一个公式为，{ Woodbury Formula公式：
 \begin{equation}
     (A+UCV)^{-1} = A^{-1}-A^{-1}U(C^{-1}+VA^{-1}U)^{-1}VA^{-1}
 \end{equation}
@@ -66,7 +66,7 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
     \sigma^{-2}\phi(x^\ast)A^{-1}\Phi(X)^TY = \phi(x^\ast)\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}Y 
 \end{equation}
 
-而这个$\sigma^{-2}\phi(x^\ast)A^{-1}\Phi(X)^TY$正好就是$p(f(x^\ast)|X,Y,x^\ast)$'s Expectation。而这里的$\Sigma_p=p(w)$是一个先验$\sim \mathcal{N}(0,\Sigma_p)$，而$\sigma^2$为先验分布的噪声，$X^\ast$是一个new input，而{\color{red} $K = \Phi\Sigma_p\Phi^T$}。所以，使用类似的方法我们可以得到，$p(f(x^\ast)|X,Y,x^\ast)$'s Covarience为：$\phi(x^\ast)^T\Sigma_p\phi(x^\ast) - \phi(x^\ast)^T\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}\Phi(X)\Sigma_p\phi(x^\ast)$。所以：
+而这个$\sigma^{-2}\phi(x^\ast)A^{-1}\Phi(X)^TY$正好就是$p(f(x^\ast)|X,Y,x^\ast)$'s Expectation。而这里的$\Sigma_p=p(w)$是一个先验$\sim \mathcal{N}(0,\Sigma_p)$，而$\sigma^2$为先验分布的噪声，$X^\ast$是一个new input，而{ $K = \Phi\Sigma_p\Phi^T$}。所以，使用类似的方法我们可以得到，$p(f(x^\ast)|X,Y,x^\ast)$'s Covarience为：$\phi(x^\ast)^T\Sigma_p\phi(x^\ast) - \phi(x^\ast)^T\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}\Phi(X)\Sigma_p\phi(x^\ast)$。所以：
 \begin{equation}
     p(f(x^\ast)|X,Y,x^\ast) \sim \mathcal{N}(\phi(x^\ast)\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}Y , \phi(x^\ast)^T\Sigma_p\phi(x^\ast) - \phi(x^\ast)^T\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}\Phi(X)\Sigma_p\phi(x^\ast) )
 \end{equation}
@@ -96,7 +96,7 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
     \end{split}
 \end{equation}
 
-其中，$\varphi(x) = \Sigma_p^{\frac{1}{2}}\phi(x)$。那么，我们利用Kernel Trick可以有效的避免求$\phi(X)$，而是直接通过$K(x,x')$中包含的高维空间的转化。而{\color{red} Bayesian Linear Regression + Kernel Trick中就蕴含了一个Non-Linear Transformation inner product。}我们就可以将这个转换定义到一个核空间中，避免了直接来求这个复杂的转化。这也就是Kernel Trick。
+其中，$\varphi(x) = \Sigma_p^{\frac{1}{2}}\phi(x)$。那么，我们利用Kernel Trick可以有效的避免求$\phi(X)$，而是直接通过$K(x,x')$中包含的高维空间的转化。而{ Bayesian Linear Regression + Kernel Trick中就蕴含了一个Non-Linear Transformation inner product。}我们就可以将这个转换定义到一个核空间中，避免了直接来求这个复杂的转化。这也就是Kernel Trick。
 
 看到了这里，大家很容易会产生一个疑惑，那就是，好像这里的GPR并没有和GP有一毛钱的关系。而实际上这里的GPR有两种不同的思考角度，也就是两种View，而这两种View可以得到equal result：
 

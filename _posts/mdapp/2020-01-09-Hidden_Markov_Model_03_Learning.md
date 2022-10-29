@@ -77,7 +77,7 @@ tags:
 \end{equation}
 
 而其中，
-{\color{red}
+{
 \begin{equation}
     P(O|\lambda) =  \sum_{i_1}\cdots\sum_{i_T} \pi_{i_1} \prod_{t=2}^T a_{i_{t-1},i_{t}} \prod_{t=1}^T b_{i_1}(o_t)
 \end{equation}

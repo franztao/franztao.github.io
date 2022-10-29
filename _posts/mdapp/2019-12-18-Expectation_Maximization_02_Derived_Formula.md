@@ -80,7 +80,7 @@ M-step:
 
 所以，实际上，$\log P(X|\theta) = ELBO + KL(Q||P)$。其中，$P(Z|X,\theta)$为后验分布(Posterior)。并且，KL散度的值一定是大于零的。所以，$\log P(X|\theta) \geq ELBO$，当且仅当$P(Z|X,\theta) = Q(Z)$时等号成立。
 
-{\color{red} EM算法的一个想法就是想让ELBO不断的增加，从而使$\log P(X|\theta)$不断的变大的一种攀爬的迭代方法。}
+{ EM算法的一个想法就是想让ELBO不断的增加，从而使$\log P(X|\theta)$不断的变大的一种攀爬的迭代方法。}
 
 那么，我们对下界进行优化，使下界尽可能的变大，就可以使目标函数不断的上升，那么我们可以得到：
 \begin{equation}

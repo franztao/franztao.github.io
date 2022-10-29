@@ -115,7 +115,7 @@ $$
 \begin{equation}
     \nabla_\theta \mathcal{L}(\theta) = \mathbb{E}_{P_{\mathrm{data}}}[ \nabla_\theta \log \hat{P}(x_i;\theta) ] - \mathbb{E}_{P_{\mathrm{model}}}[\nabla_\theta \log \hat{P}(X;\theta)]
 \end{equation}
-{\color{red}而极大似然估计的目的就是使真实分布$P_{\mathrm{data}}$和建立的模型$P_{\mathrm{model}}$靠的越近越好。}如何从$P_{\mathrm{model}}$中进行采样呢？因为是梯度上升法，在$t$时刻，想要求$t+1$时刻的参数，那么$\theta^{(t)}$是已知的。即为在$t+1$时刻，$P_{\mathrm{model}}=P(X;\theta^{(t)})$。然后用Gibbs采样法，从$P_{\mathrm{model}}$中采出$m$个样本$\{\hat{x}_i\}_{i=1}^m$，Gibbs采样时MCMC的一种，前面在MCMC那一章有非常详细的分析。
+{而极大似然估计的目的就是使真实分布$P_{\mathrm{data}}$和建立的模型$P_{\mathrm{model}}$靠的越近越好。}如何从$P_{\mathrm{model}}$中进行采样呢？因为是梯度上升法，在$t$时刻，想要求$t+1$时刻的参数，那么$\theta^{(t)}$是已知的。即为在$t+1$时刻，$P_{\mathrm{model}}=P(X;\theta^{(t)})$。然后用Gibbs采样法，从$P_{\mathrm{model}}$中采出$m$个样本$\{\hat{x}_i\}_{i=1}^m$，Gibbs采样时MCMC的一种，前面在MCMC那一章有非常详细的分析。
 
 \subsection{梯度分析}
 为了使似然函数最大化，采用的是梯度上升法，对参数进行更新。
@@ -132,7 +132,7 @@ $$
 最终当$\theta$收敛时，梯度等于0，则表示得到了最优解。此时，$$ \sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|_{\theta=\theta^{(t)}} =  \sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)|_{\theta=\theta^{(t)}}$$
 可以近似的认为$P_{\mathrm{data}} = P_{\mathrm{model}}$。$P_{\mathrm{data}}$是真实分布，是不知道的，我们只能通过从中采样来得到经验分布。$P_\mathrm{model}$是自定义的假设，希望用这个假设的模型通过对经验分布的学习去逼近真实分布。梯度为零时，这两个分布近似相等，也就达到了我们的目的。
 
-下面我们将对梯度函数进行具体的分析，梯度函数可以分成两部分，第一部分是Postive phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|$；第二部分是Negative phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)$。$\theta$的改变会对$P_{\mathrm{model}}$产生影响，\textbf{{\color{red}记住我们的目标是令$P_{\mathrm{data}} = P_{\mathrm{model}}$。}}假设，对$P_{\mathrm{data}}$和$P_{\mathrm{model}}$的采样结果如下所示：
+下面我们将对梯度函数进行具体的分析，梯度函数可以分成两部分，第一部分是Postive phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|$；第二部分是Negative phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)$。$\theta$的改变会对$P_{\mathrm{model}}$产生影响，\textbf{{记住我们的目标是令$P_{\mathrm{data}} = P_{\mathrm{model}}$。}}假设，对$P_{\mathrm{data}}$和$P_{\mathrm{model}}$的采样结果如下所示：
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200308152246.png}
@@ -172,7 +172,7 @@ $$
 主要问题就是Mixing time时间太长了，有可能$k \longrightarrow \infty$，这个值实在是太大了。如果，无向图比较简单还好，如果无向图模型过于复杂的话，MCMC很难知道什么时候会到达平稳状态。于是，需要想想别的办法。
 
 \subsection{对比散度(Contrastive Divergence)}
-对比散度(Contrastive Divergence)是Hinton在2000年提出来的大作，核心目的是：\textbf{{\color{red}通过寻找合适的初始值来缩短收敛到平稳分布的时间(Mixing time)}}。CD在之前的Gradient Ascent in MCMC上只做出了一点点的改动。
+对比散度(Contrastive Divergence)是Hinton在2000年提出来的大作，核心目的是：\textbf{{通过寻找合适的初始值来缩短收敛到平稳分布的时间(Mixing time)}}。CD在之前的Gradient Ascent in MCMC上只做出了一点点的改动。
 
 之前，Gibbs采样的初始值是从任意分布中进行采样得到的，我们想找一个合适的初始值，一开始就靠近真实分布，这样就可以压缩Mixing time了。
 

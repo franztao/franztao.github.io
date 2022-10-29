@@ -112,7 +112,7 @@ tags:
     \end{split}
 \end{equation}
 
-很显然，在这里，{\color{red} 我们就将一个带约束的问题转换成了一个无约束的问题。}
+很显然，在这里，{ 我们就将一个带约束的问题转换成了一个无约束的问题。}
 
 然而我们需要考虑一个问题，那就是$\mathcal{L}(w,b,\lambda)$是否一定和公式(7)等价呢？这需要探究验证一下。
 \begin{equation}
@@ -217,7 +217,7 @@ KKT条件可以描述为：
     \right.
 \end{equation}
 
-其中$\lambda_i(1-y_i(w^Tx_i+b)) = 0$是互补松弛条件(Complementary Relaxation Condition)。{\color{red} 满足KKT条件是原问题的对偶(dual)问题有强对偶关系的充分必要条件。}下面我们用一张图来进行理解KKT条件的作用：
+其中$\lambda_i(1-y_i(w^Tx_i+b)) = 0$是互补松弛条件(Complementary Relaxation Condition)。{ 满足KKT条件是原问题的对偶(dual)问题有强对偶关系的充分必要条件。}下面我们用一张图来进行理解KKT条件的作用：
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191114112701.png}
