@@ -117,7 +117,6 @@ text = st.text_input("Enter text:", "Transfer learning with transformers for tex
 run_id = st.text_input("Enter run ID:", open(Path(config.CONFIG_DIR, "run_id.txt")).read())
 prediction = main.predict_tag(text=text, run_id=run_id)
 st.write(prediction)
-
 ```
 
 ![推理](https://madewithml.com/static/images/mlops/dashboard/inference.png)
@@ -130,8 +129,6 @@ st.write(prediction)
 > - 以交互方式查看[false +/-](https://madewithml.com/courses/mlops/evaluation/#confusion-matrix)并与注释管道连接，以便可以查看和合并对数据的更改。
 > - 比较多个版本的性能，以可视化随时间推移的改进/回归（使用模型存储、git 标签等）
 
-
-
 ## 缓存
 
 有时我们可能有涉及计算量大的操作的视图，例如加载数据或模型工件。最好的做法是通过使用[`@st.cache`](https://docs.streamlit.io/library/api-reference/performance/st.cache)装饰器将它们包装为单独的函数来缓存这些操作。这要求 Streamlit 通过其输入的特定组合来缓存该函数，以在使用相同输入调用该函数时提供相应的输出。
@@ -142,9 +139,36 @@ def load_data():
     projects_fp = Path(config.DATA_DIR, "labeled_projects.csv")
     df = pd.read_csv(projects_fp)
     return df
-
 ```
 
 ## 部署
 
 我们有几种不同的选项来部署和管理我们的 Streamlit 仪表板。我们可以使用 Streamlit 的[共享功能](https://blog.streamlit.io/introducing-streamlit-sharing/)（测试版），它允许我们直接从 GitHub 无缝部署仪表板。随着我们向存储库提交更改，我们的仪表板将继续保持更新。另一种选择是将 Streamlit 仪表板与我们的 API 服务一起部署。我们可以使用 docker-compose 来启动一个单独的容器，或者简单地将其添加到 API 服务的 Dockerfile 的[ENTRYPOINT](https://docs.docker.com/engine/reference/builder/#entrypoint)并暴露适当的端口。后者可能是理想的，特别是如果您的仪表板不打算公开并且您希望增加安全性、性能等。
+
+直接.pt文件inference部署，推理时间过长，一般达不到线上高并发高tps的要求
+
+## 初识模型部署
+
+在软件工程中，部署指把开发完毕的软件投入使用的过程，包括环境配置、软件安装等步骤。类似地，对于深度学习模型来说，模型部署指让训练好的模型在特定环境中运行的过程。相比于软件部署，模型部署会面临更多的难题：
+
+1. 运行模型所需的环境难以配置。深度学习模型通常是由一些框架编写，比如 PyTorch、TensorFlow。由于框架规模、依赖环境的限制，这些框架不适合在手机、开发板等生产环境中安装。
+
+2. 深度学习模型的结构通常比较庞大，需要大量的算力才能满足实时运行的需求。模型的运行效率需要优化。 因为这些难题的存在，模型部署不能靠简单的环境配置与安装完成。经过工业界和学术界数年的探索，模型部署有了一条流行的流水线：
+
+![pipeline](https://user-images.githubusercontent.com/4560679/156556619-3da7a572-876b-4909-b26f-04e81190c546.png)
+
+为了让模型最终能够部署到某一环境上，开发者们可以使用任意一种深度学习框架来定义网络结构，并通过训练确定网络中的参数。之后，模型的结构和参数会被转换成一种只描述网络结构的中间表示，一些针对网络结构的优化会在中间表示上进行。最后，用面向硬件的高性能编程框架(如 CUDA，OpenCL）编写，能高效执行深度学习网络中算子的推理引擎会把中间表示转换成特定的文件格式，并在对应硬件平台上高效运行模型。
+
+这一条流水线解决了模型部署中的两大问题：使用对接深度学习框架和推理引擎的中间表示，开发者不必担心如何在新环境中运行各个复杂的框架；通过中间表示的网络结构优化和推理引擎对运算的底层优化，模型的运算效率大幅提升。
+
+现在，让我们从一个模型部署的[“Hello World”项目](https://mmdeploy.readthedocs.io/zh_CN/latest/tutorial/01_introduction_to_model_deployment.html)入手，见识一下模型部署各方面的知识吧！
+
+
+
+## 模型部署中常见的难题
+
+- 模型的动态化。出于性能的考虑，各推理框架都默认模型的输入形状、输出形状、结构是静态的。而为了让模型的泛用性更强，部署时需要在尽可能不影响原有逻辑的前提下，让模型的输入输出或是结构动态化。
+
+- 新算子的实现。深度学习技术日新月异，提出新算子的速度往往快于 ONNX 维护者支持的速度。为了部署最新的模型，部署工程师往往需要自己在 ONNX 和推理引擎中支持新算子。
+
+- 中间表示与推理引擎的兼容问题。由于各推理引擎的实现不同，对 ONNX 难以形成统一的支持。为了确保模型在不同的推理引擎中有同样的运行效果，部署工程师往往得为某个推理引擎定制模型代码，这为模型部署引入了许多工作量。
