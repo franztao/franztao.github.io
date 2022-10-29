@@ -145,3 +145,518 @@ import json
 import pandas as pd
 from urllib.request import urlopen
 ```
+
+```
+# Load labeled projects
+projects = pd.read_csv("https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/projects.csv")
+tags = pd.read_csv("https://raw.githubusercontent.com/GokuMohandas/Made-With-ML/main/datasets/tags.csv")
+df = ge.dataset.PandasDataset(pd.merge(projects, tags, on="id"))
+df["text"] = df.title + " " + df.description
+df.drop(["title", "description"], axis=1, inplace=True)
+df.head(5)
+```
+
+### 期望
+
+第一种测量形式可以是基于规则的，例如验证[对](https://docs.greatexpectations.io/en/latest/reference/glossary_of_expectations.html)缺失值、数据类型、值范围等的期望，就像我们在[数据测试课](https://madewithml.com/courses/mlops/testing/#expectations)中所做的那样。现在的不同之处在于，我们将根据实时生产数据验证这些期望。
+
+```
+# Simulated production data
+prod_df = ge.dataset.PandasDataset([{"text": "hello"}, {"text": 0}, {"text": "world"}])
+```
+
+```
+# Expectation suite
+df.expect_column_values_to_not_be_null(column="text")
+df.expect_column_values_to_be_of_type(column="text", type_="str")
+expectation_suite = df.get_expectation_suite()
+```
+
+```
+# Validate reference data
+df.validate(expectation_suite=expectation_suite, only_return_failures=True)["statistics"]
+```
+
+> {'evaluated_expectations': 2,
+>  'success_percent': 100.0,
+>  'successful_expectations': 2,
+>  'unsuccessful_expectations': 0}
+
+```
+# Validate production data
+prod_df.validate(expectation_suite=expectation_suite, only_return_failures=True)["statistics"]
+```
+
+> {'evaluated_expectations': 2,
+>  'success_percent': 50.0,
+>  'successful_expectations': 1,
+>  'unsuccessful_expectations': 1}
+
+### 单变量
+
+我们的任务可能涉及我们想要监控的单变量（1D）特征。虽然我们可以使用多种类型的假设检验，但一种流行的选择是[Kolmogorov-Smirnov (KS) 检验](https://en.wikipedia.org/wiki/Kolmogorov%E2%80%93Smirnov_test)。
+
+#### Kolmogorov-Smirnov (KS) 测试
+
+KS 检验确定两个分布的累积密度函数之间的最大距离。在这里，我们将测量两个不同数据子集之间输入文本特征的大小是否存在任何偏差。
+
+> TIPS
+> 
+> 虽然文本是我们任务中的直接特征，但我们还可以监控其他隐含特征，例如文本中未知标记的百分比（需要维护训练词汇表）等。虽然它们可能不会用于我们的机器学习模型，但它们可以是检测漂移的重要指标。
+
+```
+from alibi_detect.cd import KSDrift
+# Reference
+df["num_tokens"] = df.text.apply(lambda x: len(x.split(" ")))
+ref = df["num_tokens"][0:200].to_numpy()
+plt.hist(ref, alpha=0.75, label="reference")
+plt.legend()
+plt.show()
+
+# Initialize drift detector
+length_drift_detector = KSDrift(ref, p_val=0.01)
+
+# No drift
+no_drift = df["num_tokens"][200:400].to_numpy()
+plt.hist(ref, alpha=0.75, label="reference")
+plt.hist(no_drift, alpha=0.5, label="test")
+plt.legend()
+plt.show()
+```
+
+![KS测试无漂移](https://madewithml.com/static/images/mlops/monitoring/ks_no_drift.png)
+
+```
+length_drift_detector.predict(no_drift, return_p_val=True, return_distance=True)
+```
+
+> {'data': {'distance': array([0.09], dtype=float32),
+>   'is_drift': 0,
+>   'p_val': array([0.3927307], dtype=float32),
+>   'threshold': 0.01},
+>  'meta': {'data_type': None,
+>   'detector_type': 'offline',
+>   'name': 'KSDrift',
+>   'version': '0.9.1'}}
+
+> ↓ p 值 = ↑ 确信分布不同。
+
+```
+# Drift
+drift = np.random.normal(30, 5, len(ref))
+plt.hist(ref, alpha=0.75, label="reference")
+plt.hist(drift, alpha=0.5, label="test")
+plt.legend()
+plt.show()
+```
+
+![KS漂移检测](https://madewithml.com/static/images/mlops/monitoring/ks_drift.png)
+
+```
+length_drift_detector.predict(drift, return_p_val=True, return_distance=True)
+```
+
+```
+{'data': {'distance': array([0.63], dtype=float32),
+  'is_drift': 1,
+  'p_val': array([6.7101775e-35], dtype=float32),
+  'threshold': 0.01},
+ 'meta': {'data_type': None,
+  'detector_type': 'offline',
+  'name': 'KSDrift',
+  'version': '0.9.1'}}
+```
+
+#### 卡方检验
+
+同样，对于分类数据（输入特征、目标等），我们可以应用[Pearson 卡方检验](https://en.wikipedia.org/wiki/Pearson%27s_chi-squared_test)来确定生产中的事件频率是否与参考分布一致。
+
+> 我们正在为文本特征中的标记数创建一个分类变量，但我们可以非常非常地将其应用于标签分布本身、单个标签（二进制）、标签切片等。
+
+```
+from alibi_detect.cd import ChiSquareDrift
+# Reference
+df.token_count = df.num_tokens.apply(lambda x: "small" if x <= 10 else ("medium" if x <=25 else "large"))
+ref = df.token_count[0:200].to_numpy()
+plt.hist(ref, alpha=0.75, label="reference")
+plt.legend()
+
+# Initialize drift detector
+target_drift_detector = ChiSquareDrift(ref, p_val=0.01)
+
+# No drift
+no_drift = df.token_count[200:400].to_numpy()
+plt.hist(ref, alpha=0.75, label="reference")
+plt.hist(no_drift, alpha=0.5, label="test")
+plt.legend()
+plt.show()
+```
+
+![卡方检验无漂移](https://madewithml.com/static/images/mlops/monitoring/chi_no_drift.png)
+
+```
+target_drift_detector.predict(no_drift, return_p_val=True, return_distance=True)
+```
+
+> {'data': {'distance': array([4.135522], dtype=float32),
+>   'is_drift': 0,
+>   'p_val': array([0.12646863], dtype=float32),
+>   'threshold': 0.01},
+>  'meta': {'data_type': None,
+>   'detector_type': 'offline',
+>   'name': 'ChiSquareDrift',
+>   'version': '0.9.1'}}
+
+```
+# Drift
+drift = np.array(["small"]*80 + ["medium"]*40 + ["large"]*80)
+plt.hist(ref, alpha=0.75, label="reference")
+plt.hist(drift, alpha=0.5, label="test")
+plt.legend()
+plt.show()
+```
+
+![卡方检验漂移检测](https://madewithml.com/static/images/mlops/monitoring/chi_drift.png)
+
+```
+target_drift_detector.predict(drift, return_p_val=True, return_distance=True)
+```
+
+> {'data': {'is_drift': 1,
+>   'distance': array([118.03355], dtype=float32),
+>   'p_val': array([2.3406739e-26], dtype=float32),
+>   'threshold': 0.01},
+>  'meta': {'name': 'ChiSquareDrift',
+>   'detector_type': 'offline',
+>   'data_type': None}}
+
+### 多变量
+
+正如我们所看到的，测量漂移对于单变量数据相当简单，但对于多变量数据却很困难。我们将总结以下论文中概述的减少和测量方法：[Failing Loudly: An Empirical Study of Methods for Detecting Dataset Shift](https://arxiv.org/abs/1810.11953)。
+
+![多元漂移检测](https://madewithml.com/static/images/mlops/monitoring/failing_loudly.png)
+
+我们使用 tf-idf 对文本进行矢量化（以保持建模简单），它具有高维度并且在上下文中语义不丰富。但是，通常对于文本，使用单词/字符嵌入。因此，为了说明多变量数据上的漂移检测会是什么样子，让我们使用预训练嵌入来表示我们的文本。
+
+> 请务必参考我们的[embedding](https://madewithml.com/courses/foundations/embeddings/)和[transformer](https://madewithml.com/courses/foundations/transformers/)器课程，以了解有关这些主题的更多信息。但请注意，检测多变量文本嵌入的漂移仍然非常困难，因此通常更常见的是使用应用于表格特征或图像的这些方法。
+
+我们将从预训练模型加载分词器开始。
+
+```
+from transformers import AutoTokenizer
+model_name = "allenai/scibert_scivocab_uncased"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+vocab_size = len(tokenizer)
+print (vocab_size)
+```
+
+>  31090
+
+```
+# Tokenize inputs
+encoded_input = tokenizer(df.text.tolist(), return_tensors="pt", padding=True)
+ids = encoded_input["input_ids"]
+masks = encoded_input["attention_mask"]
+
+# Decode
+print (f"{ids[0]}\n{tokenizer.decode(ids[0])}")
+```
+
+> tensor([ 102, 2029, 467, 1778, 609, 137, 6446, 4857, 191, 1332,
+>          2399、13572、19125、1983、147、1954、165、6240、205、185、
+>           300、3717、7434、1262、121、537、201、137、1040、111、
+>           545、121、4714、205、103、0、0、0、0、0、
+>             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+>             0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+>             0])
+> [CLS] comparison between yolo and rcnn on real world videos bringing theory to experiment is cool. we can easily train models in colab and find the results in minutes. [SEP] [PAD] [PAD] ...
+
+```
+# Sub-word tokens
+print (tokenizer.convert_ids_to_tokens(ids=ids[0]))
+```
+
+> ['[CLS]', 'comparison', 'between', 'yo', '##lo', 'and', 'rc', '##nn', 'on', 'real', 'world', 'videos', 'bringing', 'theory', 'to', 'experiment', 'is', 'cool', '.', 'we', 'can', 'easily', 'train', 'models', 'in', 'col', '##ab', 'and', 'find', 'the', 'results', 'in', 'minutes', '.', '[SEP]', '[PAD]', '[PAD]', ...]
+
+接下来，我们将加载预训练模型的权重，并使用该`TransformerEmbedding`对象从隐藏状态中提取嵌入（跨令牌平均）。
+
+```
+from alibi_detect.models.pytorch import TransformerEmbedding
+# Embedding layer
+emb_type = "hidden_state"
+layers = [-x for x in range(1, 9)]  # last 8 layers
+embedding_layer = TransformerEmbedding(model_name, emb_type, layers)
+
+# Embedding dimension
+embedding_dim = embedding_layer.model.embeddings.word_embeddings.embedding_dim
+embedding_dim
+```
+
+> 768
+
+#### 降维
+
+现在我们需要使用降维方法来将我们的表示维度减少到更易于管理的东西（例如 32 暗淡），这样我们就可以运行我们的两个样本测试来检测漂移。热门选项包括：
+
+- [主成分分析（PCA）](https://en.wikipedia.org/wiki/Principal_component_analysis)：保持数据集可变性的正交变换。
+- [自动编码器（AE）](https://en.wikipedia.org/wiki/Autoencoder)：消耗输入并尝试从较低维空间重建它同时最小化错误的网络。这些可以是经过训练的，也可以是未经训练的（大声失败的论文建议未经训练）。
+- [黑盒移位检测器（BBSD）](https://arxiv.org/abs/1802.03916)：在训练数据上训练的实际模型可以用作降维器。我们可以使用 softmax 输出（多变量）或实际预测（单变量）。
+
+```
+import torch
+import torch.nn as nn
+# Device
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+print(device)
+
+# Untrained autoencoder (UAE) reducer
+encoder_dim = 32
+reducer = nn.Sequential(
+    embedding_layer,
+    nn.Linear(embedding_dim, 256),
+    nn.ReLU(),
+    nn.Linear(256, encoder_dim)
+).to(device).eval()
+
+
+
+
+```
+
+
+
+我们可以将上述所有操作包装到一个预处理函数中，该函数将使用输入文本并生成简化表示。
+
+```
+from alibi_detect.cd.pytorch import preprocess_drift
+from functools import partial
+# Preprocessing with the reducer
+max_len = 100
+batch_size = 32
+preprocess_fn = partial(preprocess_drift, model=reducer, tokenizer=tokenizer,
+                        max_len=max_len, batch_size=batch_size, device=device)
+
+
+
+```
+
+
+
+#### 最大平均差异 (MMD)
+
+在对我们的多元数据应用降维技术后，我们可以使用不同的统计测试来计算漂移。一个流行的选项是[最大平均差异 (MMD)](https://jmlr.csail.mit.edu/papers/v13/gretton12a.html)，这是一种基于内核的方法，它通过计算两个分布的特征的平均嵌入之间的距离来确定两个分布之间的距离。
+
+```
+from alibi_detect.cd import MMDDrift
+# Initialize drift detector
+mmd_drift_detector = MMDDrift(ref, backend="pytorch", p_val=.01, preprocess_fn=preprocess_fn)# No drift
+no_drift = df.text[200:400].to_list()
+mmd_drift_detector.predict(no_drift)
+
+
+```
+
+> {'data': {'distance': 0.0021169185638427734,
+>   'distance_threshold': 0.0032651424,
+>   'is_drift': 0,
+>   'p_val': 0.05999999865889549,
+>   'threshold': 0.01},
+>  'meta': {'backend': 'pytorch',
+>   'data_type': None,
+>   'detector_type': 'offline',
+>   'name': 'MMDDriftTorch',
+>   'version': '0.9.1'}}
+
+```
+# Drift
+drift = ["UNK " + text for text in no_drift]
+mmd_drift_detector.predict(drift)
+
+```
+
+
+
+## 在线的
+
+到目前为止，我们已经将漂移检测方法应用于离线数据，以尝试了解参考窗口大小应该是什么，p 值是合适的等。但是，我们需要在在线生产设置中应用这些方法，以便我们可以尽可能容易地捕捉漂移。
+
+> 许多监控库和平台都为其检测方法提供了[在线等效项。](https://docs.seldon.io/projects/alibi-detect/en/latest/cd/methods.html#online)
+
+通常，参考窗口很大，因此我们有一个适当的基准来比较我们的生产数据点。至于测试窗口，它越小，我们就能越快捕捉到突然的漂移。然而，更大的测试窗口将使我们能够识别更微妙/渐进的漂移。所以最好组合不同大小的窗口来定期监控。
+
+```
+from alibi_detect.cd import MMDDriftOnline
+# Online MMD drift detector
+ref = df.text[0:800].to_list()
+online_mmd_drift_detector = MMDDriftOnline(
+    ref, ert=400, window_size=200, backend="pytorch", preprocess_fn=preprocess_fn)
+
+```
+
+> Generating permutations of kernel matrix..
+> 100%|██████████| 1000/1000 [00:00<00:00, 13784.22it/s]
+> Computing thresholds: 100%|██████████| 200/200 [00:32<00:00,  6.11it/s]
+
+
+
+随着数据开始流入，我们可以使用检测器来预测每个点的漂移。我们的检测器应该比我们的正常数据更快地检测到漂移数据集中的漂移。
+
+```
+def simulate_production(test_window):
+    i = 0
+    online_mmd_drift_detector.reset()
+    for text in test_window:
+        result = online_mmd_drift_detector.predict(text)
+        is_drift = result["data"]["is_drift"]
+        if is_drift:
+            break
+        else:
+            i += 1
+    print (f"{i} steps")
+
+```
+
+```
+# Normal
+test_window = df.text[800:]
+simulate_production(test_window)
+
+```
+
+> 27 steps
+
+```
+# Drift
+test_window = "UNK" * len(df.text[800:])
+simulate_production(test_window)
+
+```
+
+> 11 steps
+
+关于刷新参考和测试窗口的频率还有几个考虑因素。我们可以基于新观察的数量或没有漂移的时间等。我们还可以根据我们通过监控了解的系统来调整各种阈值（ERT、窗口大小等）。
+
+## 异常值
+
+通过漂移，我们将生产数据窗口与参考数据进行比较，而不是查看任何一个特定数据点。虽然每个单独的点可能不是异常或异常值，但点组可能会导致漂移。说明这一点的最简单方法是想象重复为我们的实时模型提供相同的输入数据点。实际数据点可能没有异常特征，但反复喂它会导致特征分布发生变化并导致漂移。
+
+![异常值检测](https://madewithml.com/static/images/mlops/monitoring/outliers.png)
+
+不幸的是，检测异常值并不容易，因为很难构成异常值的标准。因此，异常值检测任务通常是无监督的，并且需要随机流算法来识别潜在的异常值。幸运的是，有几个强大的库，例如[PyOD](https://pyod.readthedocs.io/en/latest/)、[Alibi Detect](https://docs.seldon.io/projects/alibi-detect/en/latest/)、[WhyLogs](https://whylogs.readthedocs.io/en/latest/)（使用[Apache DataSketches](https://datasketches.apache.org/)）等，它们提供了一套异常值检测功能（目前主要用于表格和图像数据）。
+
+通常，异常值检测算法适合（例如通过重建）训练集以了解正常数据的样子，然后我们可以使用阈值来预测异常值。如果我们有一个带有异常值的小标记数据集，我们可以凭经验选择我们的阈值，但如果没有，我们可以选择一些合理的容差。
+
+```
+from alibi_detect.od import OutlierVAE
+X_train = (n_samples, n_features)
+outlier_detector = OutlierVAE(
+    threshold=0.05,
+    encoder_net=encoder,
+    decoder_net=decoder,
+    latent_dim=512
+)
+outlier_detector.fit(X_train, epochs=50)
+outlier_detector.infer_threshold(X, threshold_perc=95)  # infer from % outliers
+preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
+
+```
+
+
+
+> 当我们识别异常值时，我们可能想让最终用户知道模型的响应可能不可靠。此外，我们可能希望从下一个训练集中删除异常值，或者进一步检查它们并对其进行上采样，以防它们是传入特征未来分布情况的早期迹象。
+
+## 解决方案
+
+仅仅能够测量漂移或识别异常值是不够的，还能够对其采取行动。我们希望能够对漂移发出警报，对其进行检查然后采取行动。
+
+### 警报
+
+一旦我们确定了异常值和/或测量了统计上显着的漂移，我们需要设计一个工作流程来通知利益相关者这些问题。监控的负面含义是由误报警报引起的疲劳。这可以通过根据对我们的特定应用程序重要的内容选择适当的约束（例如警报阈值）来缓解。例如，阈值可以是：
+
+- 固定值/范围，用于我们具体了解预期上限/下限的情况。
+  
+  ```
+  if percentage_unk_tokens > 5%:
+      trigger_alert()
+  
+  ```
+
+- [预测](https://www.datadoghq.com/blog/forecasts-datadog/)阈值取决于先前的输入、时间等。
+  
+  ```
+  if current_f1 < forecast_f1(current_time):
+      trigger_alert()
+  
+  ```
+  
+  
+
+- 不同漂移检测器的适当 p 值（↓ p 值 = ↑ 确信分布不同）。
+  
+  ```
+  from alibi_detect.cd import KSDrift
+  length_drift_detector = KSDrift(reference, p_val=0.01)
+  
+  ```
+  
+  
+
+一旦我们精心设计了警报工作流程，我们就可以在出现问题时通过电子邮件、[Slack](https://slack.com/)、[PageDuty](https://www.pagerduty.com/)等通知利益相关者。利益相关者可以是不同级别的（核心工程师、经理等），他们可以订阅警报与他们相关的。
+
+### 检查
+
+一旦我们收到警报，我们需要在采取行动之前对其进行检查。警报需要几个组件才能让我们完全检查它：
+
+- 触发的特定警报
+- 相关元数据（时间、输入、输出等）
+- 失败的阈值/期望
+- 进行的漂移检测测试
+- 来自参考和测试窗口的数据
+- 相关时间窗口的日志[记录](https://madewithml.com/courses/mlops/logging/)
+
+```
+# Sample alerting ticket
+{
+    "triggered_alerts": ["text_length_drift"],
+    "threshold": 0.05,
+    "measurement": "KSDrift",
+    "distance": 0.86,
+    "p_val": 0.03,
+    "reference": [],
+    "target": [],
+    "logs": ...
+}
+
+```
+
+
+
+有了这些信息，我们可以从警报开始向后工作，以确定问题的根本原因。**根本原因分析 (RCA)**在监控方面是重要的第一步，因为我们希望防止同样的问题再次影响我们的系统。通常会触发许多警报，但它们实际上可能都是由相同的潜在问题引起的。在这种情况下，我们只想智能地触发一个指出核心问题的警报。例如，假设我们收到一条警报，表明我们的整体用户满意度评分正在下降，但我们还收到另一条警报，指出我们的北美用户的满意度评分也很低。这是系统将自动评估跨许多不同切片和聚合的用户满意度评分的漂移，以发现只有特定区域的用户遇到问题，但由于它是一个受欢迎的用户群，它最终也会触发所有聚合下游警报！
+
+### 行为
+
+根据情况，我们可以采取许多不同的方式来漂移。最初的冲动可能是在新数据上重新训练我们的模型，但它可能并不总能解决根本问题。
+
+- 确保所有数据预期均已通过。
+- 确认没有数据架构更改。
+- 在新的移位数据集上重新训练模型。
+- 将参考窗口移动到更新的数据或赋予它更多的权重。
+- 确定异常值是否是潜在的有效数据点。
+
+## 生产
+
+由于检测漂移和异常值可能涉及计算密集型操作，因此我们需要一种能够在我们的事件数据流（例如[Kafka](https://kafka.apache.org/)）之上执行无服务器工作负载的解决方案。通常，这些解决方案将摄取有效负载（例如模型的输入和输出）并可以触发监控工作负载。这使我们能够将用于监控的资源与我们的实际 ML 应用程序隔离开来，并根据需要对其进行扩展。
+
+![无服务器生产监控](https://madewithml.com/static/images/mlops/monitoring/serverless.png)
+
+在实际实施监控系统时，我们有多种选择，从完全托管到从头开始。几种流行的托管解决方案是[Arize](https://arize.com/)、[Arthur](https://www.arthur.ai/)、[Fiddler](https://www.fiddler.ai/ml-monitoring)、[Gantry](https://gantry.io/)、[Mona](https://www.monalabs.io/)、[WhyLabs](https://whylabs.ai/)等，所有这些都允许我们创建自定义监控视图、触发警报等。甚至还有几个很棒的开源解决方案，例如[EvidentlyAI](https://evidentlyai.com/)、[TorchDrift](https://torchdrift.org/) ,[为什么日志](https://whylogs.readthedocs.io/en/latest/)等
+
+我们经常会注意到监控解决方案是作为更大部署选项的一部分提供的，例如[Sagemaker](https://docs.aws.amazon.com/sagemaker/latest/dg/model-monitor.html)、[TensorFlow Extended (TFX)](https://www.tensorflow.org/tfx)、[TorchServe](https://pytorch.org/serve/)等。如果我们已经在使用 Kubernetes，我们可以将[KNative](https://knative.dev/)或[Kubeless](https://kubeless.io/)用于无服务器工作负载管理。但我们也可以使用更高级别的框架，例如[KFServing](https://www.kubeflow.org/docs/components/kfserving/)或[Seldon 核心](https://docs.seldon.io/projects/seldon-core/en/v0.4.0/#)，它们本机使用 KNative 等无服务器框架。
+
+## 参考
+
+- [无监督漂移检测方法概述](https://onlinelibrary.wiley.com/doi/full/10.1002/widm.1381)
+- [大声失败：检测数据集偏移方法的实证研究](https://arxiv.org/abs/1810.11953)
+- [生产中模型的监控和可解释性](https://arxiv.org/abs/2007.06299)
+- [使用黑盒预测器检测和校正标签移位](https://arxiv.org/abs/1802.03916)
+- [数据流上的异常值和异常模式检测](https://link.springer.com/article/10.1007/s11227-018-2674-1)

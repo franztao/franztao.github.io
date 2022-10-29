@@ -163,8 +163,6 @@ def load_data():
 
 现在，让我们从一个模型部署的[“Hello World”项目](https://mmdeploy.readthedocs.io/zh_CN/latest/tutorial/01_introduction_to_model_deployment.html)入手，见识一下模型部署各方面的知识吧！
 
-
-
 ## 模型部署中常见的难题
 
 - 模型的动态化。出于性能的考虑，各推理框架都默认模型的输入形状、输出形状、结构是静态的。而为了让模型的泛用性更强，部署时需要在尽可能不影响原有逻辑的前提下，让模型的输入输出或是结构动态化。
