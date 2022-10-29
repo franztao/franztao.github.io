@@ -1,17 +1,21 @@
+
 ---
 layout:     post
-title:      dsadsa
+title:      Linear_Regression_01
 subtitle:   2022年10月
-date:       2022-10-10
+date:       2022-10-30
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - EDA
+    - Linear
+    - Regression
+    - 01
+---
+            
 
----    
 
-
+\maketitle
 
 数据集$D=\{(x_1, y_1), (x_2, y_2), \cdots, (x_N, y_N)\}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$，$i=1, \ 2,\cdots,\ N$。
 
