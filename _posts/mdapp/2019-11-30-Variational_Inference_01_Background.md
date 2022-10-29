@@ -2,7 +2,7 @@
 layout:     post
 title:      Variational_Inference_01_Background
 subtitle:   2022年10月
-date:       2022-10-30
+date:       2022-10-29
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true

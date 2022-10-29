@@ -2,7 +2,7 @@
 layout:     post
 title:      Support_Vector_Machine_03_Weak_Duality_Proof
 subtitle:   2022年10月
-date:       2022-10-30
+date:       2022-10-29
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true

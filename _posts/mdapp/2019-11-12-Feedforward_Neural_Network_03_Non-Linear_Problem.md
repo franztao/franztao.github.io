@@ -2,7 +2,7 @@
 layout:     post
 title:      Feedforward_Neural_Network_03_Non-Linear_Problem
 subtitle:   2022年10月
-date:       2022-10-30
+date:       2022-10-29
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
