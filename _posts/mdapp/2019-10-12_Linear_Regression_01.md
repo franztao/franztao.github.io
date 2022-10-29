@@ -12,7 +12,6 @@ tags:
 ---    
 
 
-\maketitle
 
 数据集$D=\{(x_1, y_1), (x_2, y_2), \cdots, (x_N, y_N)\}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$，$i=1, \ 2,\cdots,\ N$。
 
