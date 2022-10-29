@@ -1,17 +1,15 @@
 ---
 layout:     post
-title:      Linear_Regression_01
+title:      dsadsa
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2022-10-10
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - Linear
-    - Regression
-    - 01
----
-            
+    - EDA
+
+---    
 
 
 \maketitle
