@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classification_01
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-10-29
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classification
     - 01
 ---
-            
 
+    
 \maketitle
 
 本节的主要目的是，有关于机器学习的导图。对频率派的有关统计学习方法做一个大致的梳理。而在贝叶斯派的学习中，是使用有关于概率图的模型。在频率派的有关统计学习方法中，我们可以大致的分为，线性回归和线性分类。

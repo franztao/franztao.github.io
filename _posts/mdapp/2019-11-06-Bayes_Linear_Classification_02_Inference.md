@@ -2,7 +2,7 @@
 layout:     post
 title:      Bayes_Linear_Classification_02_Inference
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-06
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 02
     - Inference
 ---
-            
 
+    
 
 \maketitle
 

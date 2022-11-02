@@ -2,7 +2,7 @@
 layout:     post
 title:      Feedforward_Neural_Network_02_Development
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-11
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 02
     - Development
 ---
-            
 
+    
 \maketitle
 本节主要是来讨论一下，机器学习的发展历史，看看如何从感知机到深度学习。
 \section{从时间的发展角度来看}

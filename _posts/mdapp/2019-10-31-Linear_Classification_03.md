@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classification_03
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-10-31
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classification
     - 03
 ---
-            
 
+    
 \maketitle
 本小节为线性分类的第三小节，主要推导了线性判别分析算法，也就是Fisher算法。Fisher算法的主要思想是：{ 类内小，类间大。}这有点类似于，软件过程里的松耦合，高内聚的思想。这个思想转换成数学语言也就是，同一类数据之间的方差要小，不同类数据之间的均值的差距要大。那么，我们对数据的描述如下所示：
 \begin{equation}

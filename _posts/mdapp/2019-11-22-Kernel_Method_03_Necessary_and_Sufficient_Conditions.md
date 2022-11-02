@@ -2,7 +2,7 @@
 layout:     post
 title:      Kernel_Method_03_Necessary_and_Sufficient_Conditions
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-22
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Sufficient
     - Conditions
 ---
-            
 
+    
 \maketitle
 在上一小节中，我们描述了正定核的两个定义，并且认为这两个定义之间是相互等价的。下面我们就要证明他们之间的等价性。
 \section{充分性证明}

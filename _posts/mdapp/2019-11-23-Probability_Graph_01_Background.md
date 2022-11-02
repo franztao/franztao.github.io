@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-23
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 
 \maketitle
 机器学习的重要思想就是，对已有的数据进行分析，然后对未知数据来进行预判或者预测等。这里的图和我们之前学习的数据结构中的图有点不太一样，俗话说有图有真相，这里的图是将概率的特征引入到图中，方便我们进行直观分析。

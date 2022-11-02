@@ -2,7 +2,7 @@
 layout:     post
 title:      Gaussian_Process_03_Function_View
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-15
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Function
     - View
 ---
-            
 
+    
 \maketitle
 在上一小节中，我们从Weight-Space View来看Gaussian Process Regression，好像和Gaussian Process并没有什么关系。但是这一小节，我们从函数的角度来看就可以看到了。
 \section{Recall Gaussian Process}

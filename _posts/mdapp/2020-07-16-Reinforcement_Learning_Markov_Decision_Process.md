@@ -2,7 +2,7 @@
 layout:     post
 title:      Reinforcement_Learning_Markov_Decision_Process
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-07-16
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Decision
     - Process
 ---
-            
 
+    
 %\pagestyle{empty}
 
 \maketitle

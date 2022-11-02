@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_09_Max_Product_Algorithm
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-10
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -14,8 +14,8 @@ tags:
     - Product
     - Algorithm
 ---
-            
 
+    
 \maketitle
 我们在这里再总结一下概率图模型有什么用。对于一个图，Graph = $\{ X,E \}$，其中$X$代表的是普通变量，$E$代表的是Evidence，也就是观测变量。
 

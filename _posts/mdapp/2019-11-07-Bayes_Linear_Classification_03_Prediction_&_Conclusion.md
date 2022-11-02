@@ -2,7 +2,7 @@
 layout:     post
 title:      Bayes_Linear_Classification_03_Prediction_&_Conclusion
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-07
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - &
     - Conclusion
 ---
-            
 
+    
 \maketitle
 根据上一节中提到的Inference，我们已经成功的推断出了$p(w|Data)$的分布。表述如下所示：
 \begin{equation}

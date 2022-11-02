@@ -2,7 +2,7 @@
 layout:     post
 title:      Expectation_Maximization_02_Derived_Formula
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-18
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Derived
     - Formula
 ---
-            
 
+    
 \maketitle
 机器学习中，所谓的模型实际上就可以看成是一堆的参数。根据极大似然估计的思想，我们要求解的对象的是：
 \begin{equation}

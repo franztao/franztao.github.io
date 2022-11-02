@@ -2,7 +2,7 @@
 layout:     post
 title:      Conditional_Random_Field_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-02-20
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

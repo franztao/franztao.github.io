@@ -2,7 +2,7 @@
 layout:     post
 title:      Support_Vector_Machine_03_Weak_Duality_Proof
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-16
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Duality
     - Proof
 ---
-            
 
+    
 \maketitle
 在前面我们已经展示的Hard Margin和Soft Margin SVM的建模和求解。前面提到的SVM有三宝，间隔，对偶，核技巧。前面我们已经分析了间隔，大家对于其中用到的对偶，虽然我们用比较直觉性的方法进行了解释，但是估计大家还是有点懵逼。这节我们希望给到通用性的证明，这里实际上就是用到了约束优化问题。
 

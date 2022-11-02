@@ -2,7 +2,7 @@
 layout:     post
 title:      Hidden_Markov_Model_03_Learning
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-09
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 03
     - Learning
 ---
-            
 
+    
 \maketitle
 首先我们回顾一下，上一节讲的有关Evaluation的问题。Evaluation可以被我们描述为在已知模型$\lambda$的情况下，求观察序列的概率。也就是：
 \begin{equation}

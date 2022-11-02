@@ -2,7 +2,7 @@
 layout:     post
 title:      Kalman_Filter_02_Model_Construction_and_Solution
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-17
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - and
     - Solution
 ---
-            
 
+    
 \maketitle
 Filtering问题公式话的表达即为$P(z_t|x_1,x_2,\cdots,x_t)$，是一种On-Line Learning的思路，随着越来越多的数据不断的被观测到，隐藏状态得到不断的更新。也就是在观察变量序列$\{x_1,x_2,\cdots,x_t\}$下，求得隐变量状态$z_t$的分布。模型表达为如下所示：
 \begin{figure}[H]

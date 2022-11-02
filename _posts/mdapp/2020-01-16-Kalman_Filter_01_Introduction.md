@@ -2,7 +2,7 @@
 layout:     post
 title:      Kalman_Filter_01_Introduction
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-16
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 01
     - Introduction
 ---
-            
 
+    
 \maketitle
 我们知道在概率图模型中，加入了time的因素，就得到了Dynamic Model，实际上也就说我们通常所说的State Space Model。
 

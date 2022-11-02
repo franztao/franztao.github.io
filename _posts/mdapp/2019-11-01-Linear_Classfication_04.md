@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classfication_04
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-01
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classfication
     - 04
 ---
-            
 
+    
 \maketitle
 在前面的两小节中我们，我们讨论了有关于线性分类问题中的硬分类问题，也就是感知机和Fisher线性判别分析。那么，我们接下来的部分需要讲讲软分类问题。软分类问题，可以大体上分为概率判别模型和概率生成模型，概率生成模型也就是高斯判别分析(Gaussian Discriminate Analysis)，朴素贝叶斯(Naive Bayes)。而线性判别模型也就是本章需要讲述的重点，Logistic Regression。
 

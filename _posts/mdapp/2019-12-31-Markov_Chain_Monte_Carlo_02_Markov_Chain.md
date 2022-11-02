@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_02_Markov_Chain
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-31
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Markov
     - Chain
 ---
-            
 
+    
 \maketitle
 在上一小节中，我们描述了三种采样方法，也就是概率分布采样法，拒绝采样法和重要性采样法。这三种采样方法在高维情况下的采样效率很低，所以我们需要另找方法。
 \section{基础概念介绍}

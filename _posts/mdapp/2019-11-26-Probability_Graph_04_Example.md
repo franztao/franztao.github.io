@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_04_Example
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-26
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 04
     - Example
 ---
-            
 
+    
 \maketitle
 上一节中，我们讲的是模型通用的一些概念，这一节开始，我们要讲一讲贝叶斯网络具体的例子。我们从单一，混合，时间和连续，四个角度来看看Bayesian Network，这个四个方法是一步一步越来越难的。
 

@@ -2,7 +2,7 @@
 layout:     post
 title:      Sigmoid_Belief_Network
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-03-17
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Belief
     - Network
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

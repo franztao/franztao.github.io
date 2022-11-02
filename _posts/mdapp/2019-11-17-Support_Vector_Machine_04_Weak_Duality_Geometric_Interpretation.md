@@ -2,7 +2,7 @@
 layout:     post
 title:      Support_Vector_Machine_04_Weak_Duality_Geometric_Interpretation
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-17
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -16,8 +16,8 @@ tags:
     - Geometric
     - Interpretation
 ---
-            
 
+    
 \maketitle
 上一小节中我们讨论了有关弱对偶性的证明，这一节我们从几何的角度来解释一下有关对偶问题。为了方便描述，我们将对偶问题进行简化为如下形式：
 \begin{equation}

@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_06_Inference_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-28
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Inference
     - Background
 ---
-            
 
+    
 \maketitle
 推断(Inference)这个词，对于有一定机器学习基础的同学来说，一定是听说过，这也是贝叶斯方法中一个非常重要的理论性研究。那么什么是推断呢？推断说白了，就是求概率。比如，对于一个联合概率密度函数$p(x)=p(x_1,x_2,\cdots,x_p)$。我们需要求的有哪些呢？
 

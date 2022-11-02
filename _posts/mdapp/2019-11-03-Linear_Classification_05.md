@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classification_05
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-03
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classification
     - 05
 ---
-            
 
+    
 \maketitle
 
 前面讲的方法都是概率判别模型，包括，Logistic Regression和Fisher判别分析。接下来我们将要学习的是概率生成模型部分，也就是现在讲到的Gaussian Discriminate Analysis。数据集的相关定义为：

@@ -2,7 +2,7 @@
 layout:     post
 title:      Kernel_Method_02_The_Definition_of_Positive_Kernel_Function
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-21
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -17,8 +17,8 @@ tags:
     - Kernel
     - Function
 ---
-            
 
+    
 \maketitle
 上一节中，我们已经讲了什么是核函数，也讲了什么是核技巧，以及核技巧存在的意义是什么。我们首先想想，上一小节我们提到的核函数的定义。
 

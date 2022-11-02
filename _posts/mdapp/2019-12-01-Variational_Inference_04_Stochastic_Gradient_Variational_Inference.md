@@ -2,7 +2,7 @@
 layout:     post
 title:      Variational_Inference_04_Stochastic_Gradient_Variational_Inference
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-01
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Variational
     - Inference
 ---
-            
 
+    
 \maketitle
 在上一小节中，我们分析了Mean Field Theory Variational Inference，通过平均假设来得到变分推断的理论，是一种classical VI，我们可以将其看成Coordinate Ascend。而另一种方法是Stochastic Gradient Variational Inference (SGVI)。
 

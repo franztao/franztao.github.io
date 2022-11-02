@@ -2,7 +2,7 @@
 layout:     post
 title:      Expectation_Maximization_01_Algorithm_Convergence
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-17
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Algorithm
     - Convergence
 ---
-            
 
+    
 \maketitle
 Expectation Maximization (EM)算法，中文名字叫做“期望最大”算法。是用来解决具有隐变量的混合模型的高斯分布。在比较简单的情况中，我们可以直接得出我们想要求得的参数的解析解，比如：MLE: $p(X|\theta)$。我们想要求解的结果就是：
 \begin{equation}

@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_01_Sampling_Method
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-30
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Sampling
     - Method
 ---
-            
 
+    
 \maketitle
 其实在之前的Inference Variational那一节中，我们讲到过一些有关于Markov Chain Monte Carlo (MCMC)的知识。也就是我们有一些数据$X$，看到这些数据$X$，并且有一些隐变量$Z$，我们给隐变量一些先验，根据观测数据来推后验知识，也就是$P(Z|X)$。
 

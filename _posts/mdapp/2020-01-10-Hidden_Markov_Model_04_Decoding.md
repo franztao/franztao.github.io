@@ -2,7 +2,7 @@
 layout:     post
 title:      Hidden_Markov_Model_04_Decoding
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-10
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 04
     - Decoding
 ---
-            
 
+    
 \maketitle
 Decoding问题可被我们描述为：
 \begin{equation}

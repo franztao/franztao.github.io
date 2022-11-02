@@ -2,7 +2,7 @@
 layout:     post
 title:      Gaussian_Network
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-02-26
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -10,8 +10,8 @@ tags:
     - Gaussian
     - Network
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

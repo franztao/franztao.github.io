@@ -2,7 +2,7 @@
 layout:     post
 title:      Spectral_Clustering
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-03-03
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -10,8 +10,8 @@ tags:
     - Spectral
     - Clustering
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

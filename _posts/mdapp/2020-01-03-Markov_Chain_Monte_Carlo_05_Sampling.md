@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_05_Sampling
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-03
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -14,8 +14,8 @@ tags:
     - 05
     - Sampling
 ---
-            
 
+    
 \maketitle
 在前面的章节中，我们已经基本介绍了Markov Chain Monte Carlo Sampling的基本概念，基本思路和主要方法。那么这一小节中，我们将主要来介绍一下，什么是采样？我们为什么而采样？什么样的样本是好的样本？以及我们采样中主要会遇到哪些困难？
 \section{采样的动机}

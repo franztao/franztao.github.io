@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_08_Belief_Propagation
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-08
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Belief
     - Propagation
 ---
-            
 
+    
 \maketitle
 
 在上一小节中，我们已经介绍了变量消除(Variable Elimination)，Variable Elimination的思想是Probability Graph中的核心思想之一。上一节中我们就已经介绍了，这实际上就是乘法对加法的分配律。但是，Variable Elimination中有很多的问题，比如重复计算和最优计算次序不好确定的问题。所以，我们这一节来介绍Belief Propagation来解决重复计算的问题。

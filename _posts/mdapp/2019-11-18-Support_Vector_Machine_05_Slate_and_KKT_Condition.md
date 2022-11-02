@@ -2,7 +2,7 @@
 layout:     post
 title:      Support_Vector_Machine_05_Slate_and_KKT_Condition
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-18
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -16,8 +16,8 @@ tags:
     - KKT
     - Condition
 ---
-            
 
+    
 \maketitle
 首先，我们整理一下前面得到的有关约束优化的模型。我们可以描述为：
 \begin{equation}

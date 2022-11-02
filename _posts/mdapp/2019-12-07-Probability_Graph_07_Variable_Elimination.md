@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_07_Variable_Elimination
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-07
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Variable
     - Elimination
 ---
-            
 
+    
 \maketitle
 在上一小节中，我们简单的介绍了推断的背景和分类，我们知道了大致有哪些推断的方法。推断的任务可以被我们介绍为：给定已知的$p(x) = (x_1,x_2,\cdots,x_p)$，我们需要求的有三个：
 

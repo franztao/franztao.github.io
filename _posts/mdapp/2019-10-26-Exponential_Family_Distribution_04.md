@@ -2,7 +2,7 @@
 layout:     post
 title:      Exponential_Family_Distribution_04
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-10-26
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - Distribution
     - 04
 ---
-            
 
+    
 \maketitle
 从这节开始，我们将从最大熵的角度来解析指数族分布。首先，我们需要定义一下什么是熵？所谓熵，就是用来衡量信息反映的信息量的多少的单位。这里我们首先介绍一下，什么是熵？
 

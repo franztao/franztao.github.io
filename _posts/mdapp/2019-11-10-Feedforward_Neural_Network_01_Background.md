@@ -2,7 +2,7 @@
 layout:     post
 title:      Feedforward_Neural_Network_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-10
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 \maketitle
 
 本节的主要目的是从一个较高的角度来介绍一下，什么是深度学习，并且给深度学习一个较好的总结，给大家一个较好的印象。机器学习是目前最火热的一个研究方向，而机器学习大致可以分为，频率派和贝叶斯派。频率派逐渐演变出了统计机器学习，而贝叶斯派逐渐演变出了PGM，也就是概率图模型。下面我们分开进行描述。

@@ -2,7 +2,7 @@
 layout:     post
 title:      Guassian_Process_01_Introduction
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-13
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 01
     - Introduction
 ---
-            
 
+    
 \maketitle
 本小节我们将进入Gaussian Process的学习。Gaussian自然指的就是Gaussian Distribution，而Process指的就是随机过程。在一维的Gaussian Distribution中我们可以令$p(x) = \mathcal{N}(\mu,\sigma^2)$。如果对应到高维高斯分布的话，也就是(Multivariate Gaussian Distribution)也就是我们通常意义上说的Gaussian Network，对于任意的$x\in \mathbb{R}^p$，有$p(x) = \mathcal{N}(\mu,\Sigma)$，且$\Sigma$是一个$p\times p$维的向量，$p< +\infty$。如果是一个无限维的Gaussian Distribution，那么就是我们今天要讨论的Gaussian Process了。首先我们给出Gaussian Process的详细定义，{Gaussian Process：定义在连续域上的无限多个高维随机变量所组成的随机过程。 }所谓连续域指的就是时间或者空间。下面我们来进行详细的解释。
 

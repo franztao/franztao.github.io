@@ -2,7 +2,7 @@
 layout:     post
 title:      Hidden_Markov_Model_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-07
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 \maketitle
 机器学习大致可以分为两个派别，也就是频率派和贝叶斯派的方法，这个之前，我们都有过详细的说明。这里再大致的回顾一下。
 

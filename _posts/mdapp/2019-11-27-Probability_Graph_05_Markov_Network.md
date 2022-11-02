@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_05_Markov_Network
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-27
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Markov
     - Network
 ---
-            
 
+    
 \maketitle
 上一小节中，我们分析了有向图Bayesian Network，得到了因子分解法，$p(x) = \prod_{i=1}^N p(x_i|x_{pa(i)})$。虽然，有向图中可以方便直观的表达条件独立性，但是它也有它的局限性。也就是我们提到的对于Head to Head的结构来说，当中间节点被观察到的时候，反而是两端的节点是相关的。这违反了条件独立性的特点，也就是当某些变量被观察到时，其他变量之间是独立的特点，这种情况有点反常，并不太好办。
 

@@ -2,7 +2,7 @@
 layout:     post
 title:      Conditional_Random_Field
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-02-21
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Random
     - Field
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

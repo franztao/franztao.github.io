@@ -2,7 +2,7 @@
 layout:     post
 title:      Support_Vector_Machine_01_Hard_Margin_Modeling_and_Solution
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-13
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -17,8 +17,8 @@ tags:
     - and
     - Solution
 ---
-            
 
+    
 \maketitle
 
 众所周知，Support Vector Machine (SVM)有三宝，间隔，对偶，核技巧。所以，SVM可以大致被分为三类：hard-margin SVM；soft-margin SVM；kernel SVM。

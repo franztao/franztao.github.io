@@ -2,7 +2,7 @@
 layout:     post
 title:      Feedforward_Neural_Network_03_Non-Linear_Problem
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-12
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -14,8 +14,8 @@ tags:
     - Non-Linear
     - Problem
 ---
-            
 
+    
 \maketitle
 实际上在1958年就已经成功的提出了Perceptron Linear Analysis (PLA)，标志着人工智能的正式诞生。但是，Minsky在1969年提出PLA无法解决非线性分类问题，让人工智能陷入了10年的低谷。后来的发展，人们开始寻找到越来越多的，解决非线性分类问题的方法。于是，我们提出了三种解决非线性问题的方法。
 

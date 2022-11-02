@@ -2,7 +2,7 @@
 layout:     post
 title:      Bayes_Linear_Classification_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-05
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 \maketitle
 
 数据集$D=\{(x_i,y_i)\}^{N}_{i=1}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$。

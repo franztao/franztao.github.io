@@ -2,7 +2,7 @@
 layout:     post
 title:      Variational_Inference_02_Algorithm
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-30
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 02
     - Algorithm
 ---
-            
 
+    
 \maketitle
 我们将$X$：Observed data；$Z$：Latent Variable + Parameters。那么$(X,Z)$为complete data。根据我们的贝叶斯分布公式，我们所要求的后验分布为：
 \begin{equation}

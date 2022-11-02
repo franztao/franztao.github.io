@@ -2,7 +2,7 @@
 layout:     post
 title:      Generative_Model
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-05-25
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -10,8 +10,8 @@ tags:
     - Generative
     - Model
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_03_Metropolis_Hastings_Sampling
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-01
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -16,8 +16,8 @@ tags:
     - Hastings
     - Sampling
 ---
-            
 
+    
 \maketitle
 上一节中我们讲解了Detailed Balance，这是平稳分布的充分必要条件。Detailed Balance为：
 \begin{equation}

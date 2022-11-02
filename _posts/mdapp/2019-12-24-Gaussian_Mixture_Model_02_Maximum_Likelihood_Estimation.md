@@ -2,7 +2,7 @@
 layout:     post
 title:      Gaussian_Mixture_Model_02_Maximum_Likelihood_Estimation
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-24
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Likelihood
     - Estimation
 ---
-            
 
+    
 \maketitle
 本节我们想使用极大似然估计来求解Gaussian Mixture Model (GMM)的最优参数结果。首先，我们明确一下参数的意义：
 

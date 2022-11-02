@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Regression_01
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-10-12
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Regression
     - 01
 ---
-            
 
+    
 
 \maketitle
 

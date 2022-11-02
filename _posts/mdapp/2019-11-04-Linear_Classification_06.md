@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classification_06
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-04
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classification
     - 06
 ---
-            
 
+    
 \maketitle
 
 本节主要是介绍一下Naive Bayes Classification，也就是朴素贝叶斯分类。朴素贝叶斯分类器的核心思想也就是，条件独立性假设。这是一种最简单的概率图模型，也就是一种有向图模型。

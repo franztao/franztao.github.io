@@ -2,7 +2,7 @@
 layout:     post
 title:      Generative_Adversarial_Network
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-06-06
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Adversarial
     - Network
 ---
-            
 
+    
 \maketitle
 %\pagestyle{empty}
 \tableofcontents

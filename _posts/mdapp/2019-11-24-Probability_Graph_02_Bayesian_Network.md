@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_02_Bayesian_Network
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-24
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Bayesian
     - Network
 ---
-            
 
+    
 \maketitle
 
 概率图模型中，图是用来表达的，将概率嵌入到了图中之后，使得表达变得非常的清晰明了。在我们的联合概率计算中，出现了一些问题：

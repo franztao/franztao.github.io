@@ -2,7 +2,7 @@
 layout:     post
 title:      Hidden_Markov_Model_02_Evaluation
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-08
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - 02
     - Evaluation
 ---
-            
 
+    
 \maketitle
 Evaluation的问题可以被我们描述为：给定一个$\lambda$，如何求得$P(O|\lambda)$。也就是在给定模型$\lambda$的情况下，求某个观测序列出现的概率。
 

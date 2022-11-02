@@ -2,7 +2,7 @@
 layout:     post
 title:      Linear_Classification_02
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-10-30
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -11,8 +11,8 @@ tags:
     - Classification
     - 02
 ---
-            
 
+    
 
 \maketitle
 本节的主要内容是描述两类硬分类模型，也就是感知机模型和线性判别模型(Fisher判别模型)的算法原理和推导过程。

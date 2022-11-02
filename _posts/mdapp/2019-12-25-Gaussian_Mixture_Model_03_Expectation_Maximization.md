@@ -2,7 +2,7 @@
 layout:     post
 title:      Gaussian_Mixture_Model_03_Expectation_Maximization
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-25
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -14,8 +14,8 @@ tags:
     - Expectation
     - Maximization
 ---
-            
 
+    
 \maketitle
 上一小节中，我们看到了使用极大似然估计的方法，我们根本就求不出最优参数$\theta$的解析解。所以，我们使用迭代的方法来求近似解。
 

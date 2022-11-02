@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_03_D-Separation
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-25
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 03
     - D-Separation
 ---
-            
 
+    
 \maketitle
 上一小节中，我们已经大致介绍了概率图之间的三种基本拓扑结构。下面我们来介绍一下，这三种拓扑结构的运用，以及如何扩展到我们的贝叶斯模型中。
 

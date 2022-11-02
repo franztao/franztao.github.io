@@ -2,7 +2,7 @@
 layout:     post
 title:      Probability_Graph_10_Moral_and_Factor_Graph
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-11
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Factor
     - Graph
 ---
-            
 
+    
 \maketitle
 在这一小节中，我们将要介绍两种特殊的概率结构，也就是Moral Graph和Factor Graph。
 

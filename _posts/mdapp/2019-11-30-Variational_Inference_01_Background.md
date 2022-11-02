@@ -2,7 +2,7 @@
 layout:     post
 title:      Variational_Inference_01_Background
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-11-30
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -12,8 +12,8 @@ tags:
     - 01
     - Background
 ---
-            
 
+    
 \maketitle
 
 这一小节的主要目的是清楚我们为什么要使用Variational Inference，表达一下Inference到底有什么用。机器学习，我们可以从频率角度和贝叶斯角度两个角度来看，其中频率角度可以被解释为优化问题，贝叶斯角度可以被解释为积分问题。

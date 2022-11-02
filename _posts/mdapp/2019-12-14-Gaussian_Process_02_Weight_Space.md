@@ -2,7 +2,7 @@
 layout:     post
 title:      Gaussian_Process_02_Weight_Space
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2019-12-14
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -13,8 +13,8 @@ tags:
     - Weight
     - Space
 ---
-            
 
+    
 \maketitle
 Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。我们从Bayesian Linear Regression的角度来引出的Gaussian Progress Regression。
 

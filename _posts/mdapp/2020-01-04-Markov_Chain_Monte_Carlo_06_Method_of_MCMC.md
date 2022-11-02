@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_06_Method_of_MCMC
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-04
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -16,8 +16,8 @@ tags:
     - of
     - MCMC
 ---
-            
 
+    
 \maketitle
 这一小节主要是对前面的补充，希望可以详细的介绍一下MCMC原理，将前面的知识点可以顺利的串起来。MCMC采样中，我们借助了一条马氏链，马氏链的性质，经过若干步以后会收敛到一个平稳分布。马尔可夫链的组成可以大致分成两个部分：
 

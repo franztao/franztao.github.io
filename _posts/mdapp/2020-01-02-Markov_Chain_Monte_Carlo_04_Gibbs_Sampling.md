@@ -2,7 +2,7 @@
 layout:     post
 title:      Markov_Chain_Monte_Carlo_04_Gibbs_Sampling
 subtitle:   2022年10月
-date:       2022-10-29
+date:       2020-01-02
 author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
@@ -15,8 +15,8 @@ tags:
     - Gibbs
     - Sampling
 ---
-            
 
+    
 \maketitle
 如果我们要向一个高维的分布$P(Z) = P(Z_1,Z_2,\cdots,Z_N)$中进行采样。那么我们怎么来进行采样呢？我们的思想就是一维一维的来，在对每一维进行采样的时候固定住其他的维度，这就是Gibbs Sampling。
 
