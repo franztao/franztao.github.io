@@ -15,7 +15,7 @@ tags:
 
     
 
-\maketitle
+
 
 本节主要对指数族分布的概念和性质的一个小小的总结。指数族分布是一个广泛存在于机器学习研究中的分布。包括，Guassian分布，Bernoulli分布(类别分布)，二项分布(多项式分布)，泊松分布，Beta分布，Dirichlet分布，Gamma分布和Gibbs分布等。
 

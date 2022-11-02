@@ -13,7 +13,7 @@ tags:
 ---
 
     
-\maketitle
+
 在前面的两小节中我们，我们讨论了有关于线性分类问题中的硬分类问题，也就是感知机和Fisher线性判别分析。那么，我们接下来的部分需要讲讲软分类问题。软分类问题，可以大体上分为概率判别模型和概率生成模型，概率生成模型也就是高斯判别分析(Gaussian Discriminate Analysis)，朴素贝叶斯(Naive Bayes)。而线性判别模型也就是本章需要讲述的重点，Logistic Regression。
 
 \section{从线性回归到线性分类}

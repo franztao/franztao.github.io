@@ -19,7 +19,7 @@ tags:
 ---
 
     
-\maketitle
+
 
 众所周知，Support Vector Machine (SVM)有三宝，间隔，对偶，核技巧。所以，SVM可以大致被分为三类：hard-margin SVM；soft-margin SVM；kernel SVM。
 

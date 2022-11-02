@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 Decoding问题可被我们描述为：
 \begin{equation}
     \hat{I} = \arg\max_{I} P(I|O,\lambda)

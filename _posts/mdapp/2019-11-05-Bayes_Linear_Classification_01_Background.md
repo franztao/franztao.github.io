@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 
 数据集$D=\{(x_i,y_i)\}^{N}_{i=1}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$。
 

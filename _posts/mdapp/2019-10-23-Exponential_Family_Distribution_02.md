@@ -15,7 +15,7 @@ tags:
 
     
 
-\maketitle
+
 
 本节的主要内容是演示Guassian Distribution的指数族表达形式，将高斯函数的形式转换为指数族分布的通用表达形式。
 

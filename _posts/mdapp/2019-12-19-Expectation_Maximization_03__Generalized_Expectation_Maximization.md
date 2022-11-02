@@ -17,7 +17,7 @@ tags:
 ---
 
     
-\maketitle
+
 本小节中，我们想要介绍三个方便的知识点。1. 从狭义的EM算法推广到广义的EM算法；2. 狭义的EM实际上只是广义的EM的一个特例；3. 真正的开始介绍EM算法。
 
 $X$：Observed Variable $\longrightarrow$ $X=\{ x_i \}_{i=1}^N$；

@@ -18,7 +18,7 @@ tags:
 ---
 
     
-\maketitle
+
 首先，我们整理一下前面得到的有关约束优化的模型。我们可以描述为：
 \begin{equation}
     \left\{

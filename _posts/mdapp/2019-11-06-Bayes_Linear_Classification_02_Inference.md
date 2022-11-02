@@ -16,7 +16,7 @@ tags:
 
     
 
-\maketitle
+
 
 数据集$D=\{(x_i,y_i)\}^{N}_{i=1}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$。数据矩阵为：(这样可以保证每一行为一个数据点)
 

@@ -13,14 +13,14 @@ tags:
 ---
 
     
-\maketitle
+
 %\pagestyle{empty}
 \tableofcontents
 \newpage
 %\pagestyle{fancy}
 \setcounter{page}{1} %new page
 \clearpage
-\maketitle
+
 
 \section{什么是Generative Adversarial Network？}
 首先，我们需要充分的了解什么是生成对抗网络（tive Adversarial Network，GAN）？顾名思义，首先它是一种生成模型，它的核心是对样本数据建模。下面我们将举个例子来详细的说明一下什么是GAN。

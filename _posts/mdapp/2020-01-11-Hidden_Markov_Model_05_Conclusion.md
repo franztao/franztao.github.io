@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 Hidden Markov Model实际上是一个Dynamic Model。我们以Guassian Mixture Model (GMM)为例。对于一个观测状态，在隐变量状态给定的情况下，是符合一个Gaussian Distribution，也就是$D(O|i_1)\sim \mathcal{N}(\mu,\Sigma)$。如果，加入了time的因素就是Hidden Markov Model，而其中$\{ i_1,i_2,\cdots,i_T \}$是离散的就行，这些我们在第一章的背景部分有过讨论。而观测变量$o_1$是离散的还是连续的都不重要。
 
 \section{Hidden Markov Model简述}

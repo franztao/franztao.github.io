@@ -13,14 +13,14 @@ tags:
 ---
 
     
-\maketitle
+
 %\pagestyle{empty}
 \tableofcontents
 \newpage
 %\pagestyle{fancy}
 \setcounter{page}{1} %new page
 \clearpage
-\maketitle
+
 
 \section{Introduction}
 本章介绍的是深度玻尔兹曼机(Deep Boltzmann Machines，DBM)，应该算是玻尔兹曼机系列的最后一个模型了。我们前面介绍的三种玻尔兹曼机和今天将要介绍的深度玻尔兹曼机的概率图模型如下图所示，从左往右分别是深度信念网络(Deep Belief Network)，限制玻尔兹曼机(Restricted Boltzmann Machine，RBM)，和DBM，玻尔兹曼机(General Boltzmann Machine，BM)：

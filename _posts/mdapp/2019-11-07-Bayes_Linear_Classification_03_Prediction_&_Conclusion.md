@@ -12,12 +12,11 @@ tags:
     - Classification
     - 03
     - Prediction
-    - &
     - Conclusion
 ---
 
     
-\maketitle
+
 根据上一节中提到的Inference，我们已经成功的推断出了$p(w|Data)$的分布。表述如下所示：
 \begin{equation}
     p(W|X,Y) \sim \mathcal{N}(\mu_w, \Sigma_w)

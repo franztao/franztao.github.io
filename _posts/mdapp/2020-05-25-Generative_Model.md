@@ -12,14 +12,14 @@ tags:
 ---
 
     
-\maketitle
+
 %\pagestyle{empty}
 \tableofcontents
 \newpage
 %\pagestyle{fancy}
 \setcounter{page}{1} %new page
 \clearpage
-\maketitle
+
 
 \section{生成模型的定义}
 前面所详细描述的模型以浅层的机器学习为主。本章将承上启下引出后面深度机器学习的部分。本小节，主要讲述的是什么是生成模型，它是不是只是生成样本，生成数据？它的任务是什么？精准的定义是什么？

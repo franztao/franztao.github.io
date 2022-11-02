@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 Expectation Maximization (EM)算法，中文名字叫做“期望最大”算法。是用来解决具有隐变量的混合模型的高斯分布。在比较简单的情况中，我们可以直接得出我们想要求得的参数的解析解，比如：MLE: $p(X|\theta)$。我们想要求解的结果就是：
 \begin{equation}
     \theta_{MLE} = \arg\max_{\theta}\log p(X|\theta)

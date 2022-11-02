@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 机器学习中，所谓的模型实际上就可以看成是一堆的参数。根据极大似然估计的思想，我们要求解的对象的是：
 \begin{equation}
     \theta_{MLE} = \log P(X|\theta)

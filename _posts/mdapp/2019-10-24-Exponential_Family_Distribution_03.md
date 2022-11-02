@@ -15,7 +15,7 @@ tags:
 
     
 
-\maketitle
+
 
 本小节主要介绍Exponential Distribution中对数配分函数和充分统计量，还有极大似然估计和充分统计量的关系。
 

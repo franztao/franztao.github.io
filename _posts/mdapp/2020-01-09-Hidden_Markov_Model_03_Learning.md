@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 首先我们回顾一下，上一节讲的有关Evaluation的问题。Evaluation可以被我们描述为在已知模型$\lambda$的情况下，求观察序列的概率。也就是：
 \begin{equation}
     P(O|\lambda) = \sum_I P(O,I|\lambda) = \sum_{i_1}\cdots\sum_{i_T} \pi_{i_1} \prod_{t=2}^T a_{i_{t-1},i_{t}} \prod_{t=1}^T b_{i_1}(o_t)

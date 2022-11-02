@@ -14,7 +14,7 @@ tags:
 ---
 
     
-\maketitle
+
 我们知道在概率图模型中，加入了time的因素，就得到了Dynamic Model，实际上也就说我们通常所说的State Space Model。
 
 \textbf{如果状态是离散的}，就是我们上一节提到了Hidden Markov Model (HMM)；\textbf{如果状态是连续的}，如果状态之间的关系是线性的，就是Linear Dynamic System (Kalman Filter)，或者说是Linear Gaussian Model；如果状态之间的关系是Non-Linear的或者Non-Gaussian的，那么也就是Particle Filter。我们这一章主要描述的就是Kalman Filter。

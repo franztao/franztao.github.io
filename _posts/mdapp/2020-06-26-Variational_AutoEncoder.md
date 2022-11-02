@@ -12,16 +12,16 @@ tags:
 ---
 
     
-\maketitle
+
 %\pagestyle{empty}
 \tableofcontents
 \newpage
 %\pagestyle{fancy}
 \setcounter{page}{1} %new page
 \clearpage
-\maketitle
 
-\maketitle
+
+
 
 \section{Introduction}
 本小节主要介绍的是变分自编码器（Variational AutoEncoder），VAE在之前的变分推断中就有介绍，具体在“随机梯度变分推断（SGVI）”中已进行描述。其中采用了重参数化技巧，也就是Amortized Inference。VAE在很多blog中都有详细的解释，这里只是很简单的描述其思想，希望可以抛转引玉。

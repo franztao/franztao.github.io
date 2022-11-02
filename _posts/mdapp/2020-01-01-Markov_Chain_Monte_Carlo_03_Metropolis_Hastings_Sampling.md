@@ -18,7 +18,7 @@ tags:
 ---
 
     
-\maketitle
+
 上一节中我们讲解了Detailed Balance，这是平稳分布的充分必要条件。Detailed Balance为：
 \begin{equation}
     \pi(x)P(x\mapsto x^\ast) = \pi(x^\ast)P(x^\ast \mapsto x)

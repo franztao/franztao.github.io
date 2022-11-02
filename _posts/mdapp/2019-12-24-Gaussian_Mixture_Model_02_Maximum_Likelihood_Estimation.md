@@ -17,7 +17,7 @@ tags:
 ---
 
     
-\maketitle
+
 本节我们想使用极大似然估计来求解Gaussian Mixture Model (GMM)的最优参数结果。首先，我们明确一下参数的意义：
 
 $X$：Observed data，$X = (x_1, x_2, \cdots, x_N)$。

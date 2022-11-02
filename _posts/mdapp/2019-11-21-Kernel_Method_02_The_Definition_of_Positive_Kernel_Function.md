@@ -19,7 +19,7 @@ tags:
 ---
 
     
-\maketitle
+
 上一节中，我们已经讲了什么是核函数，也讲了什么是核技巧，以及核技巧存在的意义是什么。我们首先想想，上一小节我们提到的核函数的定义。
 
 对于一个映射$K$，我们有两个输入空间$\mathcal{X}\times\mathcal{X},\mathcal{X}\in\mathbb{R}^p$，可以形成一个映射$\mathcal{X}\times \mathcal{X}\mapsto\mathbb{R}$。对于，$\forall\ x,z \in \mathcal{X}$，存在一个映射$\phi:\mathcal{X}\mapsto \mathbb{R}$，使得$K(x,z)=<\phi(x),\phi(z)>$。那么这个$K(\cdot)$，就被我们称为核函数。(<>代表内积运算)

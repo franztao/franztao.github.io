@@ -16,7 +16,7 @@ tags:
 ---
 
     
-\maketitle
+
 这一章开始，我们将进入到Guassian Mixture Model (GMM)的学习。而为什么要学习GMM呢？这是因为单峰分布已经不能准备的反映数据的分布了。正如下面的一个分布：
 \begin{figure}[H]
     \centering

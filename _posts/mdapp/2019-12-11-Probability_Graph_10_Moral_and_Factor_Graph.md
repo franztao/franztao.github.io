@@ -17,7 +17,7 @@ tags:
 ---
 
     
-\maketitle
+
 在这一小节中，我们将要介绍两种特殊的概率结构，也就是Moral Graph和Factor Graph。
 
 \section{Moral Graph}

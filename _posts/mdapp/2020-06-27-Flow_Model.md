@@ -12,7 +12,7 @@ tags:
 ---
 
     
-\maketitle
+
 
 \section{Introduction}
 在上一小节中讲到了Latent Variable Model（LAM），VAE。其主要思想就是将隐变量扩充为高维连续的分布，来增强模型的表达能力。而LAM模型中的核心困难是$P(X)$计算不出来，因为$P(X) = \int_Z P(X|Z)P(Z) dZ$，而$Z$的维度过高$P(X)$算不出来。而根据Bayesian公式：

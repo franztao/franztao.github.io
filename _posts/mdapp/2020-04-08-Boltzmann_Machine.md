@@ -12,7 +12,7 @@ tags:
 ---
 
     
-\maketitle
+
 %\pagestyle{empty}
 \tableofcontents
 \newpage

@@ -17,7 +17,7 @@ tags:
     
 %\pagestyle{empty}
 
-\maketitle
+
 \tableofcontents
 \newpage
 \setcounter{page}{1} %new page

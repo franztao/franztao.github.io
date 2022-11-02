@@ -15,7 +15,7 @@ tags:
 ---
 
     
-\maketitle
+
 Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。我们从Bayesian Linear Regression的角度来引出的Gaussian Progress Regression。
 
 \section{Recall Bayesian Linear Regression}

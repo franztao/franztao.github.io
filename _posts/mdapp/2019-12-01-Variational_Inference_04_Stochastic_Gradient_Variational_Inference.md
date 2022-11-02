@@ -17,7 +17,7 @@ tags:
 ---
 
     
-\maketitle
+
 在上一小节中，我们分析了Mean Field Theory Variational Inference，通过平均假设来得到变分推断的理论，是一种classical VI，我们可以将其看成Coordinate Ascend。而另一种方法是Stochastic Gradient Variational Inference (SGVI)。
 
 对于隐变量参数$z$和数据集$x$。$z \longrightarrow x$是Generative Model，也就是$p(x|z)$和$p(x,z)$，这个过程也被我们称为Decoder。$x \longrightarrow z$是Inference Model，这个过程被我们称为Encoder，表达关系也就是$p(z|x)$。
