@@ -1,0 +1,192 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>&#128276;【OpenBMB论文速读】第一篇</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="6o2otqvdu4koa4lg9o8cumom43">&#128276;【OpenBMB论文速读】第一篇</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="2022-11-06-note_%E3%80%90OpenBMB%E8%AE%BA%E6%96%87%E9%80%9F%E8%AF%BB%E3%80%91%E7%AC%AC%E4%B8%80%E7%AF%87%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91_files/images/%F0%9F%94%94%E3%80%90OpenBMB%E8%AE%BA%E6%96%87%E9%80%9F%E8%AF%BB%E3%80%91%E7%AC%AC%E4%B8%80%E7%AF%87.jpg"></div>
+<h2 class="topic">
+<a name="4qr76bo7kd3u82qmcoqef7j29e">&#128279; 文章：The Power of Scale for Parameter-Efficient Prompt Tuning (EMNLP 2021) https://aclanthology.org/2021.emnlp-main.243/</a>
+</h2>
+<h2 class="topic">
+<a name="5bejmglgmuqa9ftjp9ccl7heo0">&#129488;作者介绍</a>
+</h2>
+<h3 class="topic">
+<a name="5vkicggvln1k6l85ivb9hnum68">&nbsp;Brian Lester (Google Research)</a>
+</h3>
+<h3 class="topic">
+<a name="0agss8ahb5qrue7cp869u949b5">&nbsp;Rami Al-Rfou (Google Research)</a>
+</h3>
+<h3 class="topic">
+<a name="0477e296t4l8utnthkcbkabrb5">&nbsp;&nbsp;Theano</a>
+</h3>
+<h3 class="topic">
+<a name="3g623aahtibg4oqdf88omuknlp">&nbsp;&nbsp;DeepWalk</a>
+</h3>
+<h3 class="topic">
+<a name="4phs5d4hi48d3l81j51fumvsfj">&nbsp;Noah Constant (Google Research)</a>
+</h3>
+<h3 class="topic">
+<a name="6vv4ehe0kunf8r5485r237j2oa">&nbsp;其他代表工作：</a>
+</h3>
+<h3 class="topic">
+<a name="3hlj6mrh1j7jvbioglp040q2do">&nbsp;&nbsp;mT5</a>
+</h3>
+<h3 class="topic">
+<a name="2rrtctopkh56aqmmddfik9o4c8">&nbsp;&nbsp;FLAN (Fine-tuned language models are zero-shot learners)</a>
+</h3>
+<h2 class="topic">
+<a name="63m9j9ej3ogqdu9949di2dfvps">&#128273;关键词和摘要</a>
+</h2>
+<h3 class="topic">
+<a name="3e5jsc3538meifhoubbc3fgj6m">&nbsp;Keywords: Large-scale PLMs, Parameter-efficient Tuning, Prompt Tuning</a>
+</h3>
+<h3 class="topic">
+<a name="4917p9t2o904ahhm8p45ui6cii">&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="56d0e76op53j1bij5b37kqsht5">&nbsp;&nbsp;Prompt变成可学习的向量，固定PLM，微调Prompt来适配下游任务</a>
+</h3>
+<h3 class="topic">
+<a name="04i0t5e8hci6dnc1v0c4alq4t7">&nbsp;&nbsp;PLM参数规模越大，Prompt Tuning的性能和全参数微调越接近</a>
+</h3>
+<h3 class="topic">
+<a name="0jaj8ktnjh22bja1h15rlujss7">&nbsp;&nbsp;这种基于Soft Prompt的Prompt Tuning方法可以看作是Prefix Tuning的简化版本（只加在输入上）</a>
+</h3>
+<h2 class="topic">
+<a name="1ms876c9ssve88ij2uuo1nfq8c">⚙️研究设计和结论</a>
+</h2>
+<h3 class="topic">
+<a name="6auceqhgviatmlfudcltuar7qt">&nbsp;方法   </a>
+</h3>
+<h3 class="topic">
+<a name="36ll5fn847p2vbn0cv247qi5ui">&nbsp;&nbsp;模型示意图：</a>
+</h3>
+<h3 class="topic">
+<a name="34lrvmi1jatrtiodhc19gg17as">&nbsp;&nbsp;模型基本思路：</a>
+</h3>
+<h3 class="topic">
+<a name="502g3em2qpnirdqtckj6bnt4nr">&nbsp;&nbsp;&nbsp;经典分类：P(Y | X; θ)</a>
+</h3>
+<h3 class="topic">
+<a name="3vf3dj0j595ro6cd01h8nm4m7i">&nbsp;&nbsp;&nbsp;&nbsp;Hard Prompt: P(Y | [P;X] ; θ)</a>
+</h3>
+<h3 class="topic">
+<a name="1j4meo7mahls6a7ddft873alqq">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Soft Prompt: P(Y | [P;X] ; θ; Δ)</a>
+</h3>
+<h3 class="topic">
+<a name="1s24scmsakf7atp8uj3ra92lpq">&nbsp;&nbsp;&nbsp;                Pre-Training</a>
+</h3>
+<h3 class="topic">
+<a name="1hbe0hprnkpm42dp019drmk04s">&nbsp;&nbsp;&nbsp;&nbsp;        Fine-Tuning</a>
+</h3>
+<h3 class="topic">
+<a name="5v9r9rm0jk04gghja97c7q9mm2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;            Prompt Tuning</a>
+</h3>
+<h3 class="topic">
+<a name="7i6k3ke8q1hi4618qokrn1nkju">&nbsp;&nbsp;实现细节：</a>
+</h3>
+<h3 class="topic">
+<a name="5jf9icfgunl1p8f0at87pmi6dj">&nbsp;&nbsp;&nbsp;模型参数量</a>
+</h3>
+<h3 class="topic">
+<a name="4hrigrthdrqm1r63123cfv9li2">&nbsp;&nbsp;&nbsp;&nbsp;参数量：T5 ~ T5-XXL(10B)</a>
+</h3>
+<h3 class="topic">
+<a name="63nqet0aq92q7pr71eflk2elpc">&nbsp;&nbsp;&nbsp;&nbsp;预训练：LM Adaptation</a>
+</h3>
+<h3 class="topic">
+<a name="3dq8vb44qb8g9m7e8mar6ujq2a">&nbsp;&nbsp;&nbsp;Prompt长度：</a>
+</h3>
+<h3 class="topic">
+<a name="12k4v4bosddspas4rl9al9ihnc">&nbsp;&nbsp;&nbsp;&nbsp;1、5、20、100、150</a>
+</h3>
+<h3 class="topic">
+<a name="5aneps9gv0cvhhemvcn16itft1">&nbsp;&nbsp;&nbsp;初始化方法：</a>
+</h3>
+<h3 class="topic">
+<a name="04i54ieipqc6fcd5nkkb44qu6c">&nbsp;&nbsp;&nbsp;&nbsp;随机初始化</a>
+</h3>
+<h3 class="topic">
+<a name="5e65o2svfkd2s5pp4ipo46omu0">&nbsp;&nbsp;&nbsp;&nbsp;使用预设文本的词向量初始化，类似于设计hard prompt，然后将hard prompt转化为soft prompt</a>
+</h3>
+<h3 class="topic">
+<a name="13gen4rtajbqoh5gcjvoj4fjdn">&nbsp;&nbsp;&nbsp;&nbsp;使用类别词向量初始化，类似于提供选项</a>
+</h3>
+<h3 class="topic">
+<a name="54kvirsnmehs224gdujnul8s44">&nbsp;实验</a>
+</h3>
+<h3 class="topic">
+<a name="1rjrucua6485k6bmfo3vufa9ok">&nbsp;&nbsp;数据集：SuperGLUE</a>
+</h3>
+<h3 class="topic">
+<a name="7sbpbhgtt1fadjr7tu00u836tu">&nbsp;&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="4duvmb0nkqnfjb88me4ba7rlbb">&nbsp;&nbsp;&nbsp;Prompt的规模越大，性能相对而言会越好</a>
+</h3>
+<h3 class="topic">
+<a name="79dc26aj3m1ituahn98tm9r311">&nbsp;&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="30bvcc7hgu6i39lf0fsc84oqan">&nbsp;&nbsp;&nbsp;基于语义信息的初始化比随机初始化要好</a>
+</h3>
+<h3 class="topic">
+<a name="71p7ev0ln5brt3c0ok293eist4">&nbsp;&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="3r7ll7jgtk1rrda4o5jtgvs126">&nbsp;&nbsp;&nbsp;LM Adaptation 对性能提升显著</a>
+</h3>
+<h3 class="topic">
+<a name="11g0t8f0d182nb26n5egbgckks">&nbsp;&nbsp;&nbsp;Prompt Tuning还是需要大模型有较好的文本生成能力</a>
+</h3>
+<h3 class="topic">
+<a name="5dfkhbgqsdeolsfom7gt8pihm7">&nbsp;&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="17qotj1bui1btbjlvp8h11a0v9">&nbsp;&nbsp;&nbsp;模型参数规模越大，Prompt Tuning效果越好</a>
+</h3>
+<h3 class="topic">
+<a name="26hhs2a21a3utfdgbqpqt0slr7">&nbsp;&nbsp;&nbsp;10B参数时与全参数微调性能接近</a>
+</h3>
+<h2 class="topic">
+<a name="1mj39uqci0qs91f895hiu2c7sk">&#128218;论文贡献</a>
+</h2>
+<h3 class="topic">
+<a name="4rcaokp6tek8p8oi4hjp6h9ko2">&nbsp;优点（计算友好）</a>
+</h3>
+<h3 class="topic">
+<a name="6ldef68libc4p7f8ib0a7fe299">&nbsp;&nbsp;大模型的微调新范式</a>
+</h3>
+<h3 class="topic">
+<a name="45kete0l04d17dff6bbs6kl25l">&nbsp;&nbsp;一个中心模型服务多个下游任务，节省参数存储量</a>
+</h3>
+<h3 class="topic">
+<a name="2g6g2f3ldp3dbei14lldbg1j6u">&nbsp;&nbsp;无需优化模型参数，节省优化器的计算量和存储量</a>
+</h3>
+<h3 class="topic">
+<a name="72ouees6uc782ckl68hj8r0g1c">&nbsp;&nbsp;只在输入层进行操作，适合多任务场景下的计算合并</a>
+</h3>
+<h3 class="topic">
+<a name="1mgt88aoag8kn61do5in3t73j5">&nbsp;缺点（性能和收敛性存在问题）</a>
+</h3>
+<h3 class="topic">
+<a name="0jbdb3c2p1vsdnm1iccn2n05hf">&nbsp;&nbsp;Prompt Tuning的收敛速度很慢</a>
+</h3>
+<h3 class="topic">
+<a name="6p62qt279t0q83dhth0oisrlma">&nbsp;&nbsp;Prompt Tuning的模型性能不稳定</a>
+</h3>
+<h3 class="topic">
+<a name="3t8sp0hs9a5dtq7q54onkuu2df">&nbsp;&nbsp;Few-shot场景上表现不佳</a>
+</h3>
+<h2 class="topic">
+<a name="6hp1ka692is1aaci0ld750tl3g"></a>
+</h2>
+</body>
+</html>

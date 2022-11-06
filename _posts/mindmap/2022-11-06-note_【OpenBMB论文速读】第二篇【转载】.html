@@ -1,0 +1,171 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>&#128276;【OpenBMB论文速读】第二篇</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="3298hmbdu4qv6ri44qs26igc0q">&#128276;【OpenBMB论文速读】第二篇</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="2022-11-06-note_%E3%80%90OpenBMB%E8%AE%BA%E6%96%87%E9%80%9F%E8%AF%BB%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AF%87%E3%80%90%E8%BD%AC%E8%BD%BD%E3%80%91_files/images/%F0%9F%94%94%E3%80%90OpenBMB%E8%AE%BA%E6%96%87%E9%80%9F%E8%AF%BB%E3%80%91%E7%AC%AC%E4%BA%8C%E7%AF%87.jpg"></div>
+<h2 class="topic">
+<a name="1obk416uktfv677dpbohajn8uh">&#128279; 文章：PPT: Pre-trained Prompt Tuning for Few-shot Learning (ACL 2022) https://aclanthology.org/2022.acl-long.576.pdf</a>
+</h2>
+<h2 class="topic">
+<a name="1dcv030eqlenojpunq2m5u7eam">&#129488;作者介绍</a>
+</h2>
+<h3 class="topic">
+<a name="42t7r9avt1ck521ua5t5qknv9b">&nbsp;Tsinghua CoAI &amp; THUNLP</a>
+</h3>
+<h2 class="topic">
+<a name="32u2e6cbg6067unnqlmm5i9jn3">&#128273;关键词和摘要</a>
+</h2>
+<h3 class="topic">
+<a name="15u5s3n2cgjo30ve5fo29drs6m">&nbsp;Keywords: Large-scale PLMs, Parameter-efficient Tuning, Prompt Tuning, Pre-trained Prompts</a>
+</h3>
+<h3 class="topic">
+<a name="6ip3fgcmudbasslt35djkqann3">&nbsp;</a>
+</h3>
+<h3 class="topic">
+<a name="76jog0crjeedmog7dk94hd5ki6">&nbsp;&nbsp;PLM参数规模越大，Prompt Tuning和全参数微调性能越接近</a>
+</h3>
+<h3 class="topic">
+<a name="2jm22ugg2jmdc8aem02b9nbsdf">&nbsp;&nbsp;性能接近前提：下游任务训练样本充足</a>
+</h3>
+<h3 class="topic">
+<a name="6b8pk75tv8p5lbdpvjrqn4cndh">&nbsp;&nbsp;在小样本场景下，Prompt Tuning和全参数微调的性能差异会变大</a>
+</h3>
+<h3 class="topic">
+<a name="1tc3rdb48lki9uic8psr7hpo6o">&nbsp;&nbsp;解决方案：预训练 Prompt，基于预训练的Prompt进行Prompt Tuning</a>
+</h3>
+<h2 class="topic">
+<a name="4vp8m1gnp2hg3il8k5t5aq8air">⚙️研究设计和结论</a>
+</h2>
+<h3 class="topic">
+<a name="7emto7fcqp77ami6r0j8ph9pff">&nbsp;方法   </a>
+</h3>
+<h3 class="topic">
+<a name="3i1pg8dm2b9tnlirlkkl3vs4sr">&nbsp;&nbsp;简单回顾：</a>
+</h3>
+<h3 class="topic">
+<a name="26v4fqignfat79lhuh5im8osc5">&nbsp;&nbsp;预实验：</a>
+</h3>
+<h3 class="topic">
+<a name="0nfnis21gg8cshin4vf16c130e">&nbsp;&nbsp;&nbsp;全量训练集参与微调</a>
+</h3>
+<h3 class="topic">
+<a name="1b2nm052u251qbftr4des89196">&nbsp;&nbsp;&nbsp;&nbsp;大模型，训练样本充足，Prompt Tuning和全参数微调性能接近</a>
+</h3>
+<h3 class="topic">
+<a name="55jj53p0edmdj2gkhr7gtqql83">&nbsp;&nbsp;&nbsp;少量训练样本参与微调</a>
+</h3>
+<h3 class="topic">
+<a name="0711bkg4hvej41qjhi5gliu10c">&nbsp;&nbsp;&nbsp;&nbsp;大模型，小样本场景，Prompt Tuning效果较差</a>
+</h3>
+<h3 class="topic">
+<a name="7nm96sum51l44ab1jpam1iq8cc">&nbsp;&nbsp;&nbsp;在 Soft Prompt的基础上加入Hard Prompt可以提升小样本学习效果</a>
+</h3>
+<h3 class="topic">
+<a name="258rsis3k22smd1jlp8anajfjg">&nbsp;&nbsp;&nbsp;&nbsp;样本较少时，比较难学习到好的Soft Prompt，需要一个好的初始化来缩小参数搜索空间</a>
+</h3>
+<h3 class="topic">
+<a name="1cf9i3h2a1dpipb1skbqiuq0gf">&nbsp;&nbsp;&nbsp;那是不是可以采用Hard Prompt的向量来初始化Soft Prompt？</a>
+</h3>
+<h3 class="topic">
+<a name="6n71nmlq2svkbfbrp7bctg7bpg">&nbsp;&nbsp;&nbsp;&nbsp;简单使用Hard Prompt的词向量来进行Soft Prompt的初始化效果较差</a>
+</h3>
+<h3 class="topic">
+<a name="17smqev2l70c35vku5lmrsph2t">&nbsp;&nbsp;实现细节：</a>
+</h3>
+<h3 class="topic">
+<a name="5jp74j9g178la5cens0mhp47b9">&nbsp;&nbsp;&nbsp;预训练Soft Prompt</a>
+</h3>
+<h3 class="topic">
+<a name="0fugopvgsaql5500f60rhhkush">&nbsp;&nbsp;&nbsp;&nbsp;为每一种任务模式预训练Soft Prompt</a>
+</h3>
+<h3 class="topic">
+<a name="2h03a9lq33g56e2udjd049raie">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;单句分类任务</a>
+</h3>
+<h3 class="topic">
+<a name="6hj376s4db5s31iulpajj2fsnj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;句对分类任务</a>
+</h3>
+<h3 class="topic">
+<a name="1flqvqmppe71tiivin79hkotij">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;生成任务</a>
+</h3>
+<h3 class="topic">
+<a name="4plfs6ghfb88h4pg7bbi8i3jpq">&nbsp;&nbsp;&nbsp;更加统一的预训练Prompt</a>
+</h3>
+<h3 class="topic">
+<a name="2d5c5kots21tke6qgmtnvvbo04">&nbsp;&nbsp;&nbsp;&nbsp;用选择题形式统一所有文本理解任务</a>
+</h3>
+<h3 class="topic">
+<a name="2ttv6q58proe3u4i7rvt5k4vhp">&nbsp;实验</a>
+</h3>
+<h3 class="topic">
+<a name="5h4apd61qc9tfmn62353ub17dt">&nbsp;&nbsp;模型</a>
+</h3>
+<h3 class="topic">
+<a name="2i4ounup2kd18rfosnni74ui7o">&nbsp;&nbsp;&nbsp;英文：T5-XXL（10B）</a>
+</h3>
+<h3 class="topic">
+<a name="75drtsueaakco3q134036jo4b6">&nbsp;&nbsp;&nbsp;中文：CPM-2（10B）</a>
+</h3>
+<h3 class="topic">
+<a name="3k6q2lgd20rfbgpd1lrhj6gaeg">&nbsp;&nbsp;实验设定</a>
+</h3>
+<h3 class="topic">
+<a name="3k0pr3jpe18pn7ok98lmt3edo2">&nbsp;&nbsp;&nbsp;PPT：预训练Soft Prompt</a>
+</h3>
+<h3 class="topic">
+<a name="03br21fd5mr940beemsjqi6gu4">&nbsp;&nbsp;&nbsp;Hybrid PPT：预训练Soft Prompt+Hard Prompt</a>
+</h3>
+<h3 class="topic">
+<a name="3gv3r2s5800g16smbmqtfqb1tp">&nbsp;&nbsp;&nbsp;Unified PPT: 选择题形式统一所有文本理解任务</a>
+</h3>
+<h3 class="topic">
+<a name="00f24sdua6k15ijpiclbovu0uj">&nbsp;&nbsp;英文实验</a>
+</h3>
+<h3 class="topic">
+<a name="7ff2lct1tcm5ofqiv4vclsb5iq">&nbsp;&nbsp;&nbsp;英文数据集上预训练Soft Prompt带来了小样本学习场景上的显著提升</a>
+</h3>
+<h3 class="topic">
+<a name="5la2cv42qiq2lubirmjsi1unj2">&nbsp;&nbsp;中文实验</a>
+</h3>
+<h3 class="topic">
+<a name="49vm4hcbnc2v83go27p3h3gq8p">&nbsp;&nbsp;&nbsp;中文数据集上预训练Soft Prompt带来了小样本学习场景上的显著提升</a>
+</h3>
+<h3 class="topic">
+<a name="1a19dd0pulfohgjk1oqrllf9pr">&nbsp;&nbsp;收敛性分析</a>
+</h3>
+<h3 class="topic">
+<a name="6sd74srcajct3d051opke7ndjc">&nbsp;&nbsp;&nbsp;预训练Soft Prompt缓解了Prompt Tuning收敛慢的问题</a>
+</h3>
+<h2 class="topic">
+<a name="5gi2b68vg52ci4jthkees95v64">&#128218;论文贡献</a>
+</h2>
+<h3 class="topic">
+<a name="099g6ljqt9lfipm05ear1qb4rr">&nbsp;优点（简单实用）</a>
+</h3>
+<h3 class="topic">
+<a name="2q3u6a4d5o2fmrqe43728nggi7">&nbsp;&nbsp;强化了Prompt Tuning应对各种任务场景的能力</a>
+</h3>
+<h3 class="topic">
+<a name="1k55u06qbqsjc1acolo6cogg42">&nbsp;&nbsp;缓解了Prompt Tuning收敛慢的问题</a>
+</h3>
+<h3 class="topic">
+<a name="3vqhpleocv4pbm2s7c6277278p">&nbsp;&nbsp;预训练Prompt易于操作</a>
+</h3>
+<h3 class="topic">
+<a name="07rbubdrrnlkhtk93v5ao0u4fi">&nbsp;缺点</a>
+</h3>
+<h3 class="topic">
+<a name="1qartf0kqjphs9djb9edff6ujo">&nbsp;&nbsp;合并同类任务需要人工设计</a>
+</h3>
+<h2 class="topic">
+<a name="1fuspldstek2k2qe6hu7ofjb6l"></a>
+</h2>
+</body>
+</html>
