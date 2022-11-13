@@ -1,0 +1,331 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+<meta content="text/css" http-equiv="Content-Style-Type">
+<title>推荐系统</title>
+</head>
+<body>
+<h1 align="center" class="root">
+<a name="4njlpggr2qld8ovm22dgk7r9ie">推荐系统</a>
+</h1>
+<div align="center" class="globalOverview">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/images/%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F.jpg"></div>
+<h2 class="topic">
+<a name="6iast3jf4p5un9ubnf66e0hv74">推荐系统</a>
+</h2>
+<h3 class="topic">
+<a name="1r44e5kf2mca8tmmfhvfcci1ns">&nbsp;推荐系统是什么</a>
+</h3>
+<h3 class="topic">
+<a name="2gma95krt8tqndb2n0n8p6hs3k">&nbsp;&nbsp;推荐系统是帮助用户发现内容，克服信息过载的重要工具</a>
+</h3>
+<h3 class="topic">
+<a name="5m42s7rr8lgssamuslu4shqa85">&nbsp;&nbsp;&nbsp;信息过载： 信息过载是信息时代信息过于丰富的负面影响之一。指社会信息超过了个人或系统所能接受、处理或有效利用的范围，并导致故障的状况。</a>
+</h3>
+<h3 class="topic">
+<a name="0lctvs8tq57rg8i519o7j5gkhr">&nbsp;&nbsp;它通过分析用户行为，对用户兴趣建模。从而预测用户的兴趣并给用户做推荐；</a>
+</h3>
+<h3 class="topic">
+<a name="210s9kqj30lol72l4qqo8fbcia">&nbsp;&nbsp;&nbsp;兴趣建模： 根据用户过去的喜好来推测未来可能喜欢什么物料的过程。</a>
+</h3>
+<h3 class="topic">
+<a name="4p59sm1elk4h3jt0n3s4iqptjg">&nbsp;早期的推荐系统</a>
+</h3>
+<h3 class="topic">
+<a name="5ksin4vtrd9hcubqa2kgbcfoen">&nbsp;&nbsp;基于热度推荐</a>
+</h3>
+<h3 class="topic">
+<a name="1pfhhf0cbl5jeftafr0i9jdfch">&nbsp;&nbsp;&nbsp;好处：热度高的直播质量有保证。热度高大概率符合大众的喜好或者符合当前的潮流趋势等等，是有脱颖而出的地方。</a>
+</h3>
+<h3 class="topic">
+<a name="0drq78jomfv5j84l8nlls8njnq">&nbsp;&nbsp;&nbsp;坏处：流量全部集中在头部主播，小主播难以得到有效的曝光。 如果这一情况长期存在，小主播直播热情没了，可能就不直播了。这样会对平台的整体利益造成损害。&#13;
+难以做到&ldquo;千人千面&rdquo;的个性化推荐效果。 有可能所有用户看到的都是头部主播，这样就无法做到个性化推荐，也会造成用户看腻的情况。</a>
+</h3>
+<h2 class="topic">
+<a name="5kjqsbuq8fg49dcrfp4e384sin">现代推荐系统</a>
+</h2>
+<h3 class="topic">
+<a name="7g5mnq3ll5vp70hu918hb1fa6s">&nbsp;架构</a>
+</h3>
+<h3 class="topic">
+<a name="5e42tku19kctvlfe4ck64l4hcb">&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img height="204" src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/12ml6f5r94jravhgnecl24frnj.png" width="400"></p>
+<h3 class="topic">
+<a name="70r9kdka30d97rlnr0bbk37uh9">&nbsp;召回 VS 排序</a>
+</h3>
+<h3 class="topic">
+<a name="7cmjckh2dk2llmjtj25e6vj8o9">&nbsp;&nbsp;召回阶段： 用些成本低、易实现、速度快的模型（如协同过滤）进行初步筛选</a>
+</h3>
+<h3 class="topic">
+<a name="350ed3gjsp4nokjji9lmsiq29u">&nbsp;&nbsp;&nbsp;Youtube召回模型</a>
+</h3>
+<h3 class="topic">
+<a name="0s9ehn40tsokf0quee66p53i1n">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/53pfhrdovnnh386vfdu9rbg1oi.png"></p>
+<div class="notesContainer">
+<p>Youtube的召回模型是比较复杂的，上面提到的召回模型都是用到了用户和物品的id类特征，而Youtube模型用到了性别、地理信息、样本的时间和一些embedded特征等。这个模型的特点就是：模型最后一层的输出当作用户的隐向量，是在线上实时计算的，就是每次用户来经过嵌入层变成向量再到ReLU这样的网络得到一个输出作为用户的隐向量；最后一层的权重当作物品的隐向量，这一部分是离线训练好后直接存储起来，线上不用直接更新，直接拿出来用就行；这些线上拿到用户的隐向量以及存储的物品隐向量以后，做一个基于类似最近邻查找的方法基于内积进行最近邻查找，其实就是把用户隐向量和所有物品隐向量做内积，然后根据内积进行排序。</p>
+</div>
+<h3 class="topic">
+<a name="2scp9vlil36l7iv5isltb9v9ch">&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/2incf0kd3bnqoh59vu5n8bgrvt.png"></p>
+<h3 class="topic">
+<a name="4hgj2s5cb15bq5m7khu4imjs9d">&nbsp;&nbsp;排序阶段： 用更全面的数据、更精细的特征、更复杂的模型进行精挑细选；</a>
+</h3>
+<h3 class="topic">
+<a name="373kpcmkrppb2fd1sgo8e3ov79">&nbsp;&nbsp;&nbsp;重排阶段一般用List Wise排序，关于List Wise排序，可以从两个角度来说：一个是优化目标或损失函数；一个是推荐模块的模型结构。</a>
+</h3>
+<div class="notesContainer">
+<p>https://zhuanlan.zhihu.com/p/100019681</p>
+</div>
+<h3 class="topic">
+<a name="48dcfs083i7cts7d2jvt2vgrq0">&nbsp;&nbsp;&nbsp;&nbsp;早期的排序模型</a>
+</h3>
+<h3 class="topic">
+<a name="2derejh2oqn8jh8hqoj31k2q07">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;逻辑回归（LR）</a>
+</h3>
+<h3 class="topic">
+<a name="6enpc6fldkmkih012mbh9dt98a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/5nql8h831t2r9nfn3llutmhle0.png"></p>
+<h3 class="topic">
+<a name="0mdnr6aup0gg9d4juffj50s4ah">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/4j133u9jp6ap2e7s2duc99mb9v.png"></p>
+<h3 class="topic">
+<a name="2utegklfmvsff40sl0ep2jb6ub">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;因式分解机（FM）</a>
+</h3>
+<h3 class="topic">
+<a name="5n722m863878kc0uc90le7jo0t">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/21ad73cd7vd42cu9i756ju401o.png"></p>
+<h3 class="topic">
+<a name="328mvlj48j4gh6caajcd4l0tcr">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缺点</a>
+</h3>
+<h3 class="topic">
+<a name="48vomchouk09sal2r7n5nl7p38">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;FM只能进行二阶特征交叉，如果想学高阶特征交叉，FM公式后边又要加入很多项，这样组合起来的维度是爆炸的，所以就引入了GBDT+LR模型。</a>
+</h3>
+<h3 class="topic">
+<a name="5c0mmi0c6skjqalkq23dirfqu1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;GBDT+LR</a>
+</h3>
+<h3 class="topic">
+<a name="7q7g99rdf6kbgi651g9r005cfs">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/5cq6h18r6gbgehbl6btbdqh7im.png"></p>
+<div class="notesContainer">
+<p>He X, Pan J, Jin O, et al. Practical lessons from predicting clicks on ads at facebook[C]//Proceedings of the Eighth International Workshop on Data Mining for Online Advertising. 2014: 1-9.</p>
+</div>
+<h3 class="topic">
+<a name="0pctmgfv0hqbb5n590ao06srvd">&nbsp;&nbsp;&nbsp;&nbsp;深度排序模型</a>
+</h3>
+<h3 class="topic">
+<a name="4odo6dpvr9615t2prus0jq1jlc">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wide&amp;Deep类模型，如(x)DeepFM、DCN、DIN；</a>
+</h3>
+<h3 class="topic">
+<a name="03h090k25r754lgggjsntshdtk">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Wide&amp;Deep</a>
+</h3>
+<h3 class="topic">
+<a name="7l30b9u87krbblnf81c2hbm6ed">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/6atq1744v2d15e2jbm5ngt10r6.png"></p>
+<h3 class="topic">
+<a name="0upecqrs6vl4n37d5m01o973o1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; FM + DNN = DeepFM</a>
+</h3>
+<h3 class="topic">
+<a name="48nqat0p6tvcap8mk575srvkhk">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/4gbo7fn17ho9o0f6gla0h6b8oi.png"></p>
+<h3 class="topic">
+<a name="2iovcuem17c18p5srvpq90r1e6">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DIN</a>
+</h3>
+<h3 class="topic">
+<a name="1e3e39s9ioumcfmmqoba51fi2r">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/7p3h2qmqaqeq7nn9metmbm7tfd.png"></p>
+<h3 class="topic">
+<a name="00827irprg0eg78l2ca15lveb2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/2oh3e8441qo6317lbjcllml8ko.png"></p>
+<div class="notesContainer">
+<p>Wide&amp;Deep类模型区别就在两部分：一是特征交叉的方式是隐式/显示、元素级/向量级、二阶/高阶中的哪一个；二是所有Embedding的级联方式是concatenate/weighted sum/product/attention中的哪一种。</p>
+<p></p>
+<p>https://mp.weixin.qq.com/s/e6Spp7smIEUUExJxHzUOFA</p>
+</div>
+<h3 class="topic">
+<a name="12pp4cm11dbkcfes8rufa1akms">&nbsp;基于邻域的协同过滤</a>
+</h3>
+<h3 class="topic">
+<a name="6qf1fcni72teaouq7ot39freo4">&nbsp;&nbsp;邻域建模的目的</a>
+</h3>
+<h3 class="topic">
+<a name="5h0l5ecrs5rur1d5vr6e3nj9fl">&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/2s8pabp5fn5nc4hnqtve0ae2ft.png"></p>
+<h3 class="topic">
+<a name="0bimb5ej7da2tedg3svnael5lj">&nbsp;&nbsp;&nbsp;把用户对电影的原始评分日志转换成评分矩阵的形式，并且矩阵中会存在大量的空白项；</a>
+</h3>
+<h3 class="topic">
+<a name="4qu7931fbd08ckh5ibg8lforbt">&nbsp;&nbsp;&nbsp;建模的过程就是填充空白项的过程，这样就得到了所有用户对所有电影的评分（喜好程度），然后就可据此进行个性化推荐了</a>
+</h3>
+<h3 class="topic">
+<a name="5k1im7mctdtno24nkdqpn1f2u6">&nbsp;&nbsp;方法</a>
+</h3>
+<h3 class="topic">
+<a name="74d33d9m4cuubob27i7fer6adp">&nbsp;&nbsp;&nbsp;计算用户/物品之间的余弦相似度</a>
+</h3>
+<h3 class="topic">
+<a name="282jhknrhfjlf5egkaejm40i9p">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/5h4jt635m60urkkru6g9qrp7uh.png"></p>
+<h3 class="topic">
+<a name="2oa4jes2ems9oi5t4rjnhs3i8s">&nbsp;&nbsp;&nbsp;基于相似度和现有评分矩阵填充缺失值</a>
+</h3>
+<h3 class="topic">
+<a name="356rsh9hbuc4nnbqul1ni5nb5l">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/6sv6j0c40sv67ssnmmg4hpuicl.png"></p>
+<h3 class="topic">
+<a name="2butrup0rsdkl783ohkhb71u3g">&nbsp;&nbsp;缺点</a>
+</h3>
+<h3 class="topic">
+<a name="6t896l6bqd4vto4n0jvg9cigpa">&nbsp;&nbsp;&nbsp;这是一种基于统计的方法，不是优化学习的方法。（没有学习过程和设立指标进行优化得到最优模型的过程）&#13;
+只用了局部数据计算相似度、进行推荐，更像是一种策略。没有用到全局数据。&#13;
+当用户或物品维度很大时，会占用很大的内存。</a>
+</h3>
+<h3 class="topic">
+<a name="5shlnnn8h5poerjcs089f0rc3q">&nbsp;基于隐向量的协同过滤</a>
+</h3>
+<h3 class="topic">
+<a name="35973modu2v4lbci26dbq0ogge">&nbsp;&nbsp;基于矩阵分解方法建模的目的也是补全缺失值</a>
+</h3>
+<h3 class="topic">
+<a name="0advt00ncjn5frdacnfib112ig">&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/057i3cnulikh9cenv9pgcsmhjl.png"></p>
+<h3 class="topic">
+<a name="3u88lnlcj1abb9v1a4em1vjc77">&nbsp;&nbsp;&nbsp;方法</a>
+</h3>
+<h3 class="topic">
+<a name="227458pchp47mrfl0hv81olu45">&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/42ipfejgu05jf27c6777pdsvll.png"></p>
+<h3 class="topic">
+<a name="7e4fvfmm2m6u3832c9mt8mqpvq">&nbsp;&nbsp;&nbsp;&nbsp;显示反馈常用方法</a>
+</h3>
+<h3 class="topic">
+<a name="25qu1jq6svp5g6725tm8m307h7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/0ku22dsasm4g7d5mbsbcc0evsd.png"></p>
+<h3 class="topic">
+<a name="2oiqvrq8ihtqndkuifkhea68vq">&nbsp;&nbsp;&nbsp;&nbsp;隐示反馈常用方法</a>
+</h3>
+<h3 class="topic">
+<a name="0r1lptd4hst1un05ui9gamio7b">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/06p0fdvu3n9v3cu4d631ntk5cm.png"></p>
+<div class="notesContainer">
+<p>Hu Y, Koren Y, Volinsky C. Collaborative filtering for implicit feedback datasets[C]//2008 Eighth IEEE International Conference on Data Mining. Ieee, 2008: 263-272.</p>
+</div>
+<h3 class="topic">
+<a name="3foa8efejrdnj8qvln9p3itloj">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/7il9ob948dae7lbhep2dpprtbm.png"></p>
+<h3 class="topic">
+<a name="4hsi47ntq0d40u6iqlkugfe4ll">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;优点</a>
+</h3>
+<h3 class="topic">
+<a name="6g11c79dcr35b6qfvrskmqu622">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;模型简单易实现；&#13;
+线上速度快（可以离线训练，线上只需要做点积）；&#13;
+存储少（高维稀疏的评分矩阵变为两个低维稠密的隐向量矩阵）；</a>
+</h3>
+<h3 class="topic">
+<a name="2au2g30p60dfmntqfu3plherpi">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;缺点</a>
+</h3>
+<h3 class="topic">
+<a name="241qthg0k5iuh0tihc78k6lu4a">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;推荐结果可解释性较差；&#13;
+未用到其他特征，不够综合、全面（和ranking系列模型比）</a>
+</h3>
+<h3 class="topic">
+<a name="3v0kpl2sl9i940ekkg5nrmob9p">&nbsp;&nbsp;基于深度学习的矩阵分解</a>
+</h3>
+<h3 class="topic">
+<a name="1i3phqdfq0jo2dlli6p94vg1rh">&nbsp;&nbsp;&nbsp;why</a>
+</h3>
+<h3 class="topic">
+<a name="51g25hj7hh80frm1sh3a7ef7up">&nbsp;&nbsp;&nbsp;&nbsp;学到用户/物品的隐向量后，直接用内积描述用户-物品交互关系（matching function） 有一定的局限性，即内积函数（inner product function）限制了MF的表现力 。</a>
+</h3>
+<h3 class="topic">
+<a name="4epl2qiou4dkfkfdc7kc8rgpsp">&nbsp;&nbsp;&nbsp;how</a>
+</h3>
+<h3 class="topic">
+<a name="1m0rm3cnqurc2v6ajfh3cpakd5">&nbsp;&nbsp;&nbsp;&nbsp;即借鉴深度学习中的方法，使用深度神经网络 （DNN） 从数据中自动学习用户/物品隐向量的交互函数（即内积函数），在增强表现力的同时也可以引入一定的泛化能力。</a>
+</h3>
+<h3 class="topic">
+<a name="2o68ui92m9c3osd7skbvap4ejh">&nbsp;&nbsp;&nbsp;paper</a>
+</h3>
+<h3 class="topic">
+<a name="30jbm1rmqdc7ehituivhbl46l9">&nbsp;&nbsp;&nbsp;&nbsp;Neural Collaborative Filtering（NCF）</a>
+</h3>
+<div class="notesContainer">
+<p>He X, Liao L, Zhang H, et al. Neural collaborative filtering[C]//Proceedings of the 26th international conference on world wide web. 2017: 173-182.</p>
+</div>
+<h3 class="topic">
+<a name="5pesfdksvc4ddq5un17a1soaqn">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/67vvjmvmkbhd79si8h6r1nffch.png"></p>
+<h3 class="topic">
+<a name="3912uvkra42ov7oqki29drfn4d">&nbsp;&nbsp;&nbsp;&nbsp;NeuMF</a>
+</h3>
+<div class="notesContainer">
+<p>He X, Liao L, Zhang H, et al. Neural collaborative filtering[C]//Proceedings of the 26th international conference on world wide web. 2017: 173-182.</p>
+</div>
+<h3 class="topic">
+<a name="40h8crsnrrfb7q5nsib9j74tl7">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/4jb882h53g1ieh2catse3vcpd7.png"></p>
+<div class="notesContainer">
+<p>它提出了一个GMF Layer（广义矩阵分解层）和一个DNN层。可以看到拿到用户和物品的隐向量之后，一方面在GMF层做元素级别的乘积，其实内积就是对应位置相乘再相加，NeuMF稍微改进了一下，对应位置相乘完之后，不是直接相加，而是再学一次权重，这就是在接一个Dense层来学习一下权重，相当于传统的矩阵分解权重不在都为1，而是用网络学习。另一方面，加入了一个DNN层。把用户隐向量和物品隐向量直接Concatenate起来以后，直接接入一个DNN层。最后将两方面的结果Concatenate起来接到输出层。</p>
+</div>
+<h3 class="topic">
+<a name="5tcccv4bhifb56it7na8d2oi5q">&nbsp;特征工程</a>
+</h3>
+<h3 class="topic">
+<a name="0voja94m6n1lhnh75jhfg5v3v1">&nbsp;&nbsp;</a>
+</h3>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/00uvq891cfpkecidffrlr8kium.png"></p>
+<h3 class="topic">
+<a name="612ufmolbvufnc8csrkf6fqnmd">&nbsp;</a>
+</h3>
+<p class="summary">(<a href="#12pp4cm11dbkcfes8rufa1akms">基于邻域的协同过滤</a>, <a href="#5shlnnn8h5poerjcs089f0rc3q">基于隐向量的协同过滤</a>)</p>
+<p class="topicImage">
+<img src="%E6%8E%A8%E8%8D%90%E7%B3%BB%E7%BB%9F_files/79jnsn6fjste0quiqpkedan4qr.png"></p>
+<h3 class="topic">
+<a name="2ib52nlnhc22djn8ktlb5ihqeo">&nbsp;&nbsp;</a>
+</h3>
+</body>
+</html>
