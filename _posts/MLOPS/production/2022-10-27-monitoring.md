@@ -21,7 +21,7 @@ tags:
 
 确保我们的模型运行良好的第一步是确保实际系统正常运行。这可以包括特定于服务请求的指标，例如延迟、吞吐量、错误率等，以及基础设施利用率，例如 CPU/GPU 利用率、内存等。
 
-![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-27-15-34-33-cba3cf6f-569f-4b6b-bce4-6f733ded96f9.jpeg)
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-10-27-15-34-33-cba3cf6f-569f-4b6b-bce4-6f733ded96f9.jpeg)
 
 幸运的是，大多数云提供商甚至编排层都将通过仪表板免费提供对我们系统健康状况的洞察。如果我们不这样做，我们可以轻松地使用[Grafana](https://grafana.com/)、[Datadog](https://www.datadoghq.com/)等从日志中提取系统性能指标，以创建自定义仪表板并设置警报。
 
@@ -94,7 +94,7 @@ plt.legend()
 
 我们需要首先了解可能导致模型性能下降（模型漂移）的不同类型的问题。做到这一点的最好方法是查看我们正在尝试建模的所有移动部分以及每个部分如何体验漂移。
 
-![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-10-27-15-40-46-image.png)
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-10-27-15-40-46-image.png)
 
 ### 数据漂移
 

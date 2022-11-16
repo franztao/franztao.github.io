@@ -11,7 +11,6 @@ tags:
 
 ---
 
-
 ## 评估机器学习模型
 
 ___
@@ -310,7 +309,7 @@ for i in indices:
 
 但这些都是相当粗糙的技术，因为神经网络很容易[过度自信](https://arxiv.org/abs/1706.04599)，因此如果不校准它们就无法使用它们的置信度。
 
-![准确性与信心](https://madewithml.com/static/images/mlops/evaluation/calibration.png)
+![准确性与可信度](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/calibration.png)
 
 - **假设**：_“与预测的类标签相关的概率应该反映其真实正确性的可能性。”_
 - **现实**：_“现代（大型）神经网络不再经过良好校准”_
@@ -477,20 +476,20 @@ print(json.dumps(metrics["slices"], indent=2))
 
 与粗粒度评估相比，手动创建切片是识别数据集中问题子集的巨大改进，但如果我们未能识别数据集中有问题的切片怎么办？[SliceLine](https://mboehm7.github.io/resources/sigmod2021b_sliceline.pdf)是最近的一项工作，它使用线性代数和基于剪枝的技术来识别大切片（指定最小切片大小），这些切片会导致前向传递产生有意义的错误。如果不进行剪枝，自动切片识别将变得计算密集，因为它涉及枚举数据点的许多组合以识别切片。但是使用这种技术，我们可以在我们的数据集中发现我们没有明确寻找的隐藏的表现不佳的子集！
 
-![切片查找器 GUI](https://madewithml.com/static/images/mlops/evaluation/slicefinder.png)
+![切片查找器 GUI](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/slicefinder.png)
 
 ### 隐藏分层
 
 如果生成切片的特征是隐式/隐藏的怎么办？
 
-![子组示例](https://madewithml.com/static/images/mlops/evaluation/subgroups.png)
+![子组示例](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/subgroups.png)
 
 为了解决这个问题，最近出现了[基于聚类的技术](https://arxiv.org/abs/2011.12945)来识别这些隐藏切片并改进系统。
 
 1. 通过无监督聚类估计隐式子类标签
 2. 使用这些集群训练新的更强大的模型
 
-![通过聚类和训练来识别子组。](https://madewithml.com/static/images/mlops/evaluation/clustering.png)
+![通过聚类和训练来识别子组。](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/clustering.png)
 
 ### 模型修补
 
@@ -501,7 +500,7 @@ print(json.dumps(metrics["slices"], indent=2))
 3. 使用人为引入的子组特征来增强数据
 4. 在增强数据上训练新的稳健模型
 
-![使用学习的子组转换来增加数据。](https://madewithml.com/static/images/mlops/evaluation/model_patching.png)
+![使用学习的子组转换来增加数据。](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/model_patching.png)
 
 ## 可解释性
 
@@ -530,7 +529,7 @@ explainer = LimeTextExplainer(class_names=label_encoder.classes)
 explainer.explain_instance(text, classifier_fn=pipe.predict_proba, top_labels=1).show_in_notebook(text=True)
 ```
 
-![用于机器学习可解释性的 LIME](https://madewithml.com/static/images/mlops/evaluation/lime.png)
+![用于机器学习可解释性的 LIME](https://raw.githubusercontent.com/franztao/blog_picture/main/mlop/lime.png)
 
 > 我们还可以使用我们在[embeddings lesson](https://madewithml.com/courses/foundations/embeddings/#interpretability)中所做的特定于模型的可解释性方法来识别文本中最有影响力的 n-gram。
 
@@ -553,7 +552,6 @@ explainer.explain_instance(text, classifier_fn=pipe.predict_proba, top_labels=1)
 tokens = ["revolutionized", "disrupted"]
 texts = [f"Transformers applied to NLP have {token} the ML field." for token in tokens]
 predict_tag(texts=texts)
-
 ```
 
 ```
@@ -562,14 +560,11 @@ predict_tag(texts=texts)
 
 - `directional`：变化应该会影响产出。
 
-
-
 ```
 # DIRectional expectations (changes with known outputs)
 tokens = ["text classification", "image classification"]
 texts = [f"ML applied to {token}." for token in tokens]
 predict_tag(texts=texts)
-
 ```
 
 ```
@@ -583,7 +578,6 @@ predict_tag(texts=texts)
 tokens = ["natural language processing", "mlops"]
 texts = [f"{token} is the next big wave in machine learning." for token in tokens]
 predict_tag(texts=texts)
-
 ```
 
 ```
@@ -628,11 +622,9 @@ AB 测试涉及将生产流量发送到我们当前的系统（控制组）和�
 
 > 在许多情况下，如果我们只是尝试比较某个指标的不同版本，AB 测试可能需要一段时间才能达到静态显着性，因为流量在不同组之间平均分配。在这种情况下，[multi-armed bandits](https://en.wikipedia.org/wiki/Multi-armed_bandit)将是一种更好的方法，因为它们会不断地将流量分配给性能更好的版本。
 
-### 金丝雀测试
+### canary测试
 
 Canary 测试涉及将大部分生产流量发送到当前部署的系统，但将一小部分用户的流量发送到我们正在尝试评估的新系统。同样，随着我们逐步推出新系统，我们需要确保相同的用户继续与相同的系统进行交互。
-
-![金丝雀部署](https://madewithml.com/static/images/mlops/systems-design/canary.png)
 
 ### 影子测试
 
@@ -669,8 +661,13 @@ Canary 测试涉及将大部分生产流量发送到当前部署的系统，但�
 
 ___
 
-本文英文原版,要引用此内容，请使用：
+本文主体源自以下链接：
 
 ```
-
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Evaluation - Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
 ```
