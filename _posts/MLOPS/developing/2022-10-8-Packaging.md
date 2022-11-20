@@ -15,7 +15,7 @@ tags:
 
 ## Intuition
 
-到目前为止，一直在笔记本内部工作，这使能够非常快速地训练模型。但是，笔记本并不容易投入生产，而且并不总是能够控制环境（例如，Google Colab 会定期更新其软件包）。当使用[notebook](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)时，有一组预加载的包（`!pip list`在 notebook 中运行以查看所有包）。但是现在想要明确定义环境，以便可以在本地（为和团队成员）以及在部署到生产环境时重现它。在 Python 中打包时有[许多推荐的工具](https://packaging.python.org/guides/tool-recommendations/)，将使用经过验证的[Pip](https://pip.pypa.io/en/stable/)。
+到目前为止，一直在note本内部工作，这使能够非常快速地训练模型。但是，note本并不容易投入生产，而且并不总是能够控制环境（例如，Google Colab 会定期更新其软件包）。当使用[notebook](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)时，有一组预加载的包（`!pip list`在 notebook 中运行以查看所有包）。但是现在想要明确定义环境，以便可以在本地（为和团队成员）以及在部署到生产环境时重现它。在 Python 中打包时有[许多推荐的工具](https://packaging.python.org/guides/tool-recommendations/)，将使用经过验证的[Pip](https://pip.pypa.io/en/stable/)。
 
 > 有许多替代依赖管理和打包工具，例如[Poetry](https://python-poetry.org/)，但这些新选项仍有许多变化。将坚持使用 Pip，因为它适用于应用程序，并且不想处理[长解决周期](https://github.com/python-poetry/poetry/issues/2094)之类的问题。
 
@@ -29,7 +29,7 @@ tags:
 
 ## 项目
 
-虽然将在[下一课](https://madewithml.com/courses/mlops/organization/)中将代码从笔记本组织到脚本，但现在将创建主项目目录，以便可以将打包组件保存在那里。将调用主项目目录`mlops`，但您可以随意命名它。
+虽然将在[下一课](https://madewithml.com/courses/mlops/organization/)中将代码从note本组织到脚本，但现在将创建主项目目录，以便可以将打包组件保存在那里。将调用主项目目录`mlops`，但您可以随意命名它。
 
 ```
 # Create and change into the directory

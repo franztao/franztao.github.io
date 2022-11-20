@@ -225,7 +225,7 @@ Epoch: 90 | train_loss: 0.16197, val_loss: 0.46488
 
 `mlflow server -h 0.0.0.0 -p 8000 --backend-store-uri $PWD/experiments/`
 
-并打开[http://localhost:8000/](http://localhost:8000/)以查看仪表板。但是，如果您使用的是 Google colab，将使用 [localtunnel](https://github.com/localtunnel/localtunnel)在该笔记本和公共 URL 之间创建连接。
+并打开[http://localhost:8000/](http://localhost:8000/)以查看仪表板。但是，如果您使用的是 Google colab，将使用 [localtunnel](https://github.com/localtunnel/localtunnel)在该note本和公共 URL 之间创建连接。
 
 > 如果未安装 localtunnel，您可能需要先`!npm install -g localtunnel`在单元格中运行。
 

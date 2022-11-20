@@ -331,7 +331,7 @@ default_args = {
 
 在这两种情况下，都将`task_2`下游任务设置为`task_1`.
 
-笔记
+note
 
 甚至可以通过使用这些符号来定义关系来创建复杂的 DAG。
 
@@ -395,7 +395,7 @@ default_args = {
 
 ![xcoms](https://madewithml.com/static/images/mlops/orchestration/xcoms.png)
 
-警告
+warning
 
 在任务之间传递的数据应该很小（元数据、指标等），因为 Airflow 的元数据数据库无法容纳大型工件。但是，如果确实需要存储和使用任务的大量结果，最好使用外部数据存储（博客存储、模型注册表等）并使用 Spark 或内部数据系统（如数据仓库）执行繁重的处理。
 
@@ -445,7 +445,7 @@ default_args = {
 <span>)</span>
 </code></pre></div></td></tr></tbody></table>
 
-警告
+warning
 
 根据`start_date`and `schedule_interval`，工作流程应该已经被触发了几次，Airflow 将尝试[赶上](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#catchup)当前时间。`catchup=False`可以通过在定义 DAG 时进行设置来避免这种情况。还可以将此配置设置为默认参数的一部分：
 
@@ -715,7 +715,7 @@ What are you processing your files with?
    
    ```
 
-这将打开一个交互式笔记本，可以在其中填写以下详细信息：
+这将打开一个交互式note本，可以在其中填写以下详细信息：
 
 ```
 datasource_name = “dwh"
@@ -752,7 +752,7 @@ Which data asset (accessible by data connector "default_inferred_data_connector_
 Name the new Expectation Suite [mlops.projects.warning]: projects
 ```
 
-这将打开一个交互式笔记本，可以在其中定义期望。同样为标签数据资产创建一个套件。
+这将打开一个交互式note本，可以在其中定义期望。同样为标签数据资产创建一个套件。
 
 期望`mlops_course.projects`
 
@@ -810,7 +810,7 @@ Name the new Expectation Suite [mlops.projects.warning]: projects
 great_expectations checkpoint new projects
 ```
 
-当然，这将打开一个交互式笔记本。只需确保以下信息正确（默认值可能不正确）：
+当然，这将打开一个交互式note本。只需确保以下信息正确（默认值可能不正确）：
 
 ```
 datasource_name: dwh

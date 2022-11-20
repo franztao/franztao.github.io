@@ -94,9 +94,9 @@ tags:
 
 > 如果您不熟悉此处的建模概念，请务必查看[基础课程](https://madewithml.com/#foundations)。
 > 
-> 笔记
+> note
 > 
-> 使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在继续学习本笔记本之后的其他课程时，请随意选择任何型号。
+> 使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在继续学习本note本之后的其他课程时，请随意选择任何型号。
 
 将首先设置一些将在不同基线实验中使用的函数。
 
@@ -399,7 +399,7 @@ oversample = RandomOverSampler(sampling_strategy="all")
 X_over, y_over = oversample.fit_resample(X_train, y_train)
 ```
 
-> 警告
+> warning
 > 
 > 重要的是，仅在训练拆分上应用采样，这样就不会在其他数据拆分中引入数据泄漏。
 
@@ -463,7 +463,7 @@ Epoch: 90 | train_loss: 0.16197, val_loss: 0.46488
 
 可以进一步优化训练管道，例如[提前停止](https://madewithml.com/courses/foundations/utilities/#early-stopping)将使用创建的验证集的功能。但是希望在建模阶段简化这个与模型无关的课程
 
-> 警告
+> warning
 > 
 > SGDClassifier有一个标志，您可以在[其中](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)`early_stopping`指定要用于验证的训练集的一部分。为什么这对来说是个坏主意？因为已经在训练集中应用了过采样，所以如果这样做，会引入数据泄漏。
 
@@ -550,7 +550,7 @@ y_prob = model.predict_proba(vectorizer.transform([text]))
 
 将创建一个自定义预测函数，如果多数类不高于某个 softmax 分数，则预测`other`该类。在[目标](https://madewithml.com/courses/mlops/design/#objectives)中，认为精度对来说非常重要，可以利用标签和 QA 工作流程来提高后续手动检查期间的召回率。
 
-> 警告
+> warning
 > 
 > 模型可能会受到过度自信的影响，因此应用此限制可能不如想象的那么有效，尤其是对于更大的神经网络。有关更多信息，请参阅[评估课程的](https://madewithml.com/courses/mlops/evaluation/)[自信学习](https://madewithml.com/courses/mlops/evaluation/#confident-learning)部分。
 
@@ -564,7 +564,7 @@ threshold
 
 0.6742890218960005
 
-> 警告
+> warning
 > 
 > 在验证拆分中执行此操作非常重要，因此不会在评估测试拆分之前使用训练拆分或泄漏信息来夸大值。
 

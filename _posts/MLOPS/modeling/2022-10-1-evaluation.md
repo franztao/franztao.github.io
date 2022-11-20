@@ -60,7 +60,7 @@ print (json.dumps(metrics["overall"], indent=4))
 }
 ```
 
-> 笔记
+> note
 > 
 > 来自 scikit-learn的[precision\_recall\_fscore\_support()](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_recall_fscore_support.html)函数有一个名为的输入参数`average`，它具有以下选项。将对不同的度量粒度使用不同的平均方法。
 > 

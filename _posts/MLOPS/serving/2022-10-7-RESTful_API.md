@@ -83,7 +83,7 @@ https:// localhost: 8000 /models/{modelId}/ ?filter=passed #details
 - `DELETE`: 删除资源。
 - 
 
-> 笔记
+> note
 > 
 > 您可以使用`POST`or `PUT`request 方法来创建和修改资源，但主要区别在于`PUT`幂等性，这意味着您可以重复调用该方法，并且每次都会产生相同的状态。然而，`POST`多次调用可能会导致创建多个实例，因此每次都会更改整体状态。
 
@@ -622,7 +622,7 @@ class PredictPayload(BaseModel):
 
 在这里，将一个对象定义为一个名为`PredictPayload`的对象列表。每个对象都是一个默认的字符串，并且必须至少有 1 个字符。`Text``texts``Text``None`
 
-> 笔记
+> note
 > 
 > 可以`PredictPayload`这样定义：
 > 

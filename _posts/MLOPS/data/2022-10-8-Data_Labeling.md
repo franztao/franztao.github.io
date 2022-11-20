@@ -21,7 +21,7 @@ tags:
 
 ---
 
-> 警告
+> warning
 > 
 > 注意不要在数据集中包含预测期间不可用的特征，从而导致[数据泄漏](https://madewithml.com/courses/mlops/feature-store/#intuition)。
 

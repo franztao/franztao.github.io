@@ -191,7 +191,7 @@ print (json.dumps(args, indent=2, cls=NumpyEncoder))
 
 
 
-...现在终于准备好从使用 Jupyter 笔记本转向 Python 脚本了。将重新审视迄今为止所做的一切，但这次使用适当的软件工程原则，例如面向对象编程 (OOP)、样式、测试等。
+...现在终于准备好从使用 Jupyter note本转向 Python 脚本了。将重新审视迄今为止所做的一切，但这次使用适当的软件工程原则，例如面向对象编程 (OOP)、样式、测试等。
 
 ___
 

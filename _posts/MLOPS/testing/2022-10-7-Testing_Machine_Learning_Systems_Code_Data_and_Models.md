@@ -15,9 +15,9 @@ tags:
 
 在本课中，将学习如何测试代码、数据和模型，以构建可以可靠迭代的机器学习系统。测试是确保某些东西按预期工作的一种方式。被激励在开发周期中尽早实施测试并发现错误来源，以便可以降低[下游成本](https://assets.deepsource.io/39ed384/images/blog/cost-of-fixing-bugs/chart.jpg)和浪费时间。一旦设计了测试，可以在每次更改或添加到代码库时自动执行它们。
 
-小费
+tip
 
-强烈建议您在完成之前的课程_后_探索本课程，因为主题（和代码）是迭代开发的。但是，确实创建了 [testing-ml](https://github.com/GokuMohandas/testing-ml)存储库，可通过交互式笔记本快速概览。
+强烈建议您在完成之前的课程_后_探索本课程，因为主题（和代码）是迭代开发的。但是，确实创建了 [testing-ml](https://github.com/GokuMohandas/testing-ml)存储库，可通过交互式note本快速概览。
 
 ### 测试类型
 
@@ -270,7 +270,7 @@ E + where False = is_crisp(fruit='orange')
 
 ```
 
-小费
+tip
 
 重要的是要测试[上面](https://madewithml.com/courses/mlops/testing//#how-should-we-test)概述的各种输入和预期输出，并且**永远不要假设测试是微不足道的**。在上面的例子中，如果函数没有考虑大小写，测试“apple”和“Apple”是很重要的！
 
@@ -711,7 +711,7 @@ pytest -m "not fruits"  #  runs all tests besides those marked with `fruits`
 
 ```
 
-小费
+tip
 
 使用标记的正确方法是明确列出在[pyproject.toml](https://github.com/GokuMohandas/mlops-course/blob/main/pyproject.toml)文件中创建的标记。在这里，可以指定必须在此文件中使用`--strict-markers`标志定义所有标记，然后在`markers`列表中声明标记（以及有关它们的一些信息）：
 
@@ -774,7 +774,7 @@ python3 -m pytest --cov tagifai --cov-report html
 
 ![测试覆盖率](https://madewithml.com/static/images/mlops/testing/coverage.png)
 
-警告
+warning
 
 虽然有 100% 的覆盖率，但这并不意味着应用程序是完美的。覆盖率只是表示在测试中执行的一段代码，不一定是它的每一部分都经过测试，更不用说彻底测试了。因此，覆盖率**永远**不应被用作正确性的表示。但是，将覆盖率保持在 100% 非常有用，这样就可以知道新功能何时尚未测试。在 CI/CD 课程中，将了解在推送到特定分支时如何使用 GitHub 操作来实现 100% 的覆盖率。
 
@@ -850,7 +850,7 @@ python3 -m pytest --cov tagifai --cov-report html
     </code></pre></div></td></tr></tbody></table>
     
 
-笔记
+note
 
 您可以使用 pytest 标记标记计算密集型测试，并且仅在对影响模型的系统进行更改时才执行它们。
 

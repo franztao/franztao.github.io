@@ -13,11 +13,11 @@ tags:
 
 ## 组织机器学习代码
 
-从笔记本转移到 Python 脚本时组织代码。
+从note本转移到 Python 脚本时组织代码。
 
 ## Intuition
 
-有组织的代码就是有可读的、可重现的、健壮的代码。您的团队、经理，最重要的是，您未来的自己，将感谢您为组织工作付出的最初努力。在本课中，将讨论如何将代码从[笔记本](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)迁移和组织到 Python 脚本。
+有组织的代码就是有可读的、可重现的、健壮的代码。您的团队、经理，最重要的是，您未来的自己，将感谢您为组织工作付出的最初努力。在本课中，将讨论如何将代码从[note本](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)迁移和组织到 Python 脚本。
 
 ## Editor
 
@@ -159,7 +159,7 @@ tagifai/
 `
 ```
 
-当将代码从笔记本移动到[下面](https://madewithml.com/courses/mlops/organization/#project)`main.py`适当的脚本时，将在内部定义这些核心操作：
+当将代码从note本移动到[下面](https://madewithml.com/courses/mlops/organization/#project)`main.py`适当的脚本时，将在内部定义这些核心操作：
 
 - `elt_data`：提取、加载和转换数据。
 - `optimize`：调整超参数以针对目标进行优化。
@@ -169,7 +169,7 @@ tagifai/
 
 ### Utilities
 
-在开始从笔记本中移动代码之前，应该有意识地了解*如何*将功能移动到脚本中。笔记本内有临时进程是很常见的，因为只要笔记本在运行，它就会保持状态。例如，可以像这样在笔记本中设置种子：
+在开始从note本中移动代码之前，应该有意识地了解*如何*将功能移动到脚本中。note本内有临时进程是很常见的，因为只要note本在运行，它就会保持状态。例如，可以像这样在note本中设置种子：
 
 ```
 # Set seeds
@@ -207,7 +207,7 @@ tagifai/
 
 ## 项目
 
-在将代码从笔记本迁移到脚本时，最好根据实用程序进行组织。例如，可以为数据处理、训练、评估、预测等 ML 开发的各个阶段创建脚本：
+在将代码从note本迁移到脚本时，最好根据实用程序进行组织。例如，可以为数据处理、训练、评估、预测等 ML 开发的各个阶段创建脚本：
 
 将创建不同的 python 文件来包装数据和 ML 功能：
 

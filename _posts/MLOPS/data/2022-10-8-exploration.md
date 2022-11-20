@@ -96,7 +96,7 @@ def display_word_cloud(tag="natural-language-processing"):
 
 Looks like the `title` text feature has some good signal for the respective classes and matches our intuition. We can repeat this for the `description` text feature as well. This information will become useful when we decide how to use our features for modeling.
 
-> 到目前为止，所做的所有工作都在 IPython 笔记本中，但在仪表板课程中，将使用[Streamlit](https://streamlit.io/)将所有这些转移到交互式仪表板中。
+> 到目前为止，所做的所有工作都在 IPython note本中，但在仪表板课程中，将使用[Streamlit](https://streamlit.io/)将所有这些转移到交互式仪表板中。
 
 本文主体源自以下链接：
 ```
