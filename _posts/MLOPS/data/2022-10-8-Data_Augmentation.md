@@ -11,62 +11,62 @@ tags:
 
 ---
 
-
 在训练数据拆分上评估数据增强，以增加高质量训练样本的数量。
 
-## 直觉
+## Intuition
 
-经常希望通过数据增强来增加训练数据的大小和多样性。它涉及使用现有样本来生成合成但现实的示例。
+我们通常希望通过数据扩充来增加训练数据的规模和多样性。它涉及使用现有样本生成合成但真实的示例。
 
-1.  **拆分数据集**。希望首先拆分数据集，因为如果允许将生成的样本放置在不同的数据拆分中，许多增强技术将导致某种形式的数据泄漏。
-    
-    > 例如，一些扩充涉及为句子中的某些关键标记生成同义词。如果允许从同一原始句子生成的句子进入不同的拆分，可能会在不同拆分中泄漏具有几乎相同嵌入表示的样本。
-    
-2.  **增加训练拆分**。只想在训练集上应用数据增强，因为验证和测试拆分应该用于提供对实际数据点的准确估计。
-    
-3.  **检查和验证**. 如果增强的数据样本不是模型在生产中可能遇到的可能输入，那么仅仅为了增加训练样本大小而增加是没有用的。
-    
+1. **拆分数据集**。我们想首先拆分我们的数据集，因为如果我们允许将生成的样本放置在不同的数据拆分中，许多增强技术会导致某种形式的数据泄漏。
+   
+   > 例如，一些增强涉及为句子中的某些关键标记生成同义词。如果我们允许来自相同来源句子的生成句子进入不同的拆分，我们可能会在不同的拆分中泄漏具有几乎相同的嵌入表示的样本。
 
-数据增强的确切方法很大程度上取决于数据类型和应用程序。以下是可以增强不同模式的数据的几种方法：
+2. **增加训练拆分**。我们只想在训练集上应用数据增强，因为我们的验证和测试拆分应该用于提供对实际数据点的准确估计。
 
-![数据增强类型](https://madewithml.com/static/images/mlops/augmentation/snorkel.png)
+3. **检查和验证**。如果扩充数据样本不是我们的模型在生产中可能遇到的输入，那么仅仅为了增加我们的训练样本大小而扩充是没有用的。
 
--   **一般**：归一化、平滑、随机噪声、合成过采样 ( [SMOTE](https://arxiv.org/abs/1106.1813) ) 等。
--   **Natural language processing (NLP)**: substitutions (synonyms, tfidf, embeddings, masked models), random noise, spelling errors, etc.
--   **Computer vision (CV)**: crop, flip, rotate, pad, saturate, increase brightness, etc.
+数据扩充的确切方法在很大程度上取决于数据类型和应用程序。以下是可以增强不同数据模式的几种方法：
 
-Warning
+![数据扩充类型](https://madewithml.com/static/images/mlops/augmentation/snorkel.png)
 
-While the transformations on some data modalities, such as images, are easy to inspect and validate, others may introduce silent errors. For example, shifting the order of tokens in text can significantly alter the meaning (“this is really cool” → “is this really cool”). Therefore, it’s important to measure the noise that our augmentation policies will introduce and do have granular control over the transformations that take place.
+[使用 Snorkel 进行数据扩充](https://www.snorkel.org/blog/tanda)
 
-## Libraries
+- **一般**：归一化、平滑、随机噪声、合成过采样（[SMOTE](https://arxiv.org/abs/1106.1813)）等。
+- **自然语言处理（NLP）**：替换（同义词、tfidf、嵌入、屏蔽模型）、随机噪声、拼写错误等。
+- **计算机视觉（CV）**：裁剪、翻转、旋转、填充、饱和、增加亮度等。
 
-Depending on the feature types and tasks, there are many data augmentation libraries which allow us to extend our training data.
+警告
 
-### Natural language processing (NLP)
+虽然某些数据模式（例如图像）的转换很容易检查和验证，但其他模式可能会引入无提示错误。例如，改变文本中标记的顺序可以显着改变含义（“这真的很酷”→“这真的很酷吗”）。因此，重要的是要衡量我们的增强策略将引入的噪声，并对发生的转换进行精细控制。
 
--   [NLPAug](https://github.com/makcedward/nlpaug): data augmentation for NLP.
--   [TextAttack](https://github.com/QData/TextAttack): a framework for adversarial attacks, data augmentation, and model training in NLP.
--   [TextAugment](https://github.com/dsfsi/textaugment): text augmentation library.
+## library
 
-### Computer vision (CV)
+根据特征类型和任务，有许多数据增强库允许我们扩展我们的训练数据。
 
--   [Imgaug](https://github.com/aleju/imgaug): image augmentation for machine learning experiments.
--   [Albumentations](https://github.com/albumentations-team/albumentations): fast image augmentation library.
--   [Augmentor](https://github.com/mdbloice/Augmentor): image augmentation library in Python for machine learning.
--   [Kornia.augmentation](https://github.com/kornia/kornia): a module to perform data augmentation in the GPU.
--   [SOLT](https://github.com/MIPT-Oulu/solt): data augmentation library for Deep Learning, which supports images, segmentation masks, labels and key points.
+### 自然语言处理 (NLP)
 
-### Other
+- [NLPAug](https://github.com/makcedward/nlpaug)：NLP 的数据增强。
+- [TextAttack](https://github.com/QData/TextAttack)：用于 NLP 中的对抗性攻击、数据增强和模型训练的框架。
+- [TextAugment](https://github.com/dsfsi/textaugment)：文本增强库。
 
--   [Snorkel](https://github.com/snorkel-team/snorkel): system for generating training data with weak supervision.
--   [DeltaPy⁠⁠](https://github.com/firmai/deltapy): tabular data augmentation and feature engineering.
--   [Audiomentations](https://github.com/iver56/audiomentations): a Python library for audio data augmentation.
--   [Tsaug](https://github.com/arundo/tsaug): a Python package for time series augmentation.
+### 计算机视觉（简历）
 
-## Application
+- [Imgaug](https://github.com/aleju/imgaug)：用于机器学习实验的图像增强。
+- [Albumentations](https://github.com/albumentations-team/albumentations)：快速图像增强库。
+- [Augmentor](https://github.com/mdbloice/Augmentor)：用于机器学习的 Python 图像增强库。
+- [Kornia.augmentation](https://github.com/kornia/kornia)：在 GPU 中执行数据增强的模块。
+- [SOLT](https://github.com/MIPT-Oulu/solt)：用于深度学习的数据增强库，支持图像、分割掩码、标签和关键点。
 
-Let's use the [nlpaug](https://github.com/makcedward/nlpaug) library to augment our dataset and assess the quality of the generated samples.
+### 其他
+
+- [Snorkel](https://github.com/snorkel-team/snorkel)：在弱监督下生成训练数据的系统。
+- [DeltaPy⁠⁠](https://github.com/firmai/deltapy)：表格数据扩充和特征工程。
+- [Audiomentations](https://github.com/iver56/audiomentations)：一个用于音频数据增强的 Python 库。
+- [Tsaug](https://github.com/arundo/tsaug)：一个用于时间序列增强的 Python 包。
+
+## 应用
+
+让我们使用[nlpaug](https://github.com/makcedward/nlpaug)库来扩充我们的数据集并评估生成样本的质量。
 
 ```
 pip install nlpaug==1.1.0 transformers==3.0.2 -q
@@ -74,192 +74,196 @@ pip install snorkel==0.9.8 -q
 
 ```
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>import</span> <span>nlpaug.augmenter.word</span> <span>as</span> <span>naw</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Load tokenizers and transformers</span>
-<span>substitution</span> <span>=</span> <span>naw</span><span>.</span><span>ContextualWordEmbsAug</span><span>(</span><span>model_path</span><span>=</span><span>"distilbert-base-uncased"</span><span>,</span> <span>action</span><span>=</span><span>"substitute"</span><span>)</span>
-<span>insertion</span> <span>=</span> <span>naw</span><span>.</span><span>ContextualWordEmbsAug</span><span>(</span><span>model_path</span><span>=</span><span>"distilbert-base-uncased"</span><span>,</span> <span>action</span><span>=</span><span>"insert"</span><span>)</span>
-<span>text</span> <span>=</span> <span>"Conditional image generation using Variational Autoencoders and GANs."</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Substitutions</span>
-<span>substitution</span><span>.</span><span>augment</span><span>(</span><span>text</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
 ```
-hierarchical risk mapping using variational signals and gans.
+import nlpaug.augmenter.word as naw
+# Load tokenizers and transformers
+substitution = naw.ContextualWordEmbsAug(model_path="distilbert-base-uncased", action="substitute")
+insertion = naw.ContextualWordEmbsAug(model_path="distilbert-base-uncased", action="insert")
+text = "Conditional image generation using Variational Autoencoders and GANs."
 
 ```
 
-Substitution doesn't seem like a great idea for us because there are certain keywords that provide strong signal for our tags so we don't want to alter those. Also, note that these augmentations are NOT deterministic and will vary every time we run them. Let's try insertion...
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Insertions</span>
-<span>insertion</span><span>.</span><span>augment</span><span>(</span><span>text</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
 ```
-automated conditional inverse image generation algorithms using multiple variational autoencoders and gans.
+# Substitutions
+substitution.augment(text)
 
 ```
 
-A little better but still quite fragile and now it can potentially insert key words that can influence false positive tags to appear. Maybe instead of substituting or inserting new tokens, let's try simply swapping machine learning related keywords with their aliases. We'll use Snorkel's [transformation functions](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial) to easily achieve this.
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Replace dashes from tags &amp; aliases</span>
-<span>def</span> <span>replace_dash</span><span>(</span><span>x</span><span>):</span>
-    <span>return</span> <span>x</span><span>.</span><span>replace</span><span>(</span><span>"-"</span><span>,</span> <span>" "</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Aliases</span>
-<span>aliases_by_tag</span> <span>=</span> <span>{</span>
-    <span>"computer-vision"</span><span>:</span> <span>[</span><span>"cv"</span><span>,</span> <span>"vision"</span><span>],</span>
-    <span>"mlops"</span><span>:</span> <span>[</span><span>"production"</span><span>],</span>
-    <span>"natural-language-processing"</span><span>:</span> <span>[</span><span>"nlp"</span><span>,</span> <span>"nlproc"</span><span>]</span>
-<span>}</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Flatten dict</span>
-<span>flattened_aliases</span> <span>=</span> <span>{}</span>
-<span>for</span> <span>tag</span><span>,</span> <span>aliases</span> <span>in</span> <span>aliases_by_tag</span><span>.</span><span>items</span><span>():</span>
-    <span>tag</span> <span>=</span> <span>replace_dash</span><span>(</span><span>x</span><span>=</span><span>tag</span><span>)</span>
-    <span>if</span> <span>len</span><span>(</span><span>aliases</span><span>):</span>
-        <span>flattened_aliases</span><span>[</span><span>tag</span><span>]</span> <span>=</span> <span>aliases</span>
-    <span>for</span> <span>alias</span> <span>in</span> <span>aliases</span><span>:</span>
-        <span>_aliases</span> <span>=</span> <span>aliases</span> <span>+</span> <span>[</span><span>tag</span><span>]</span>
-        <span>_aliases</span><span>.</span><span>remove</span><span>(</span><span>alias</span><span>)</span>
-        <span>flattened_aliases</span><span>[</span><span>alias</span><span>]</span> <span>=</span> <span>_aliases</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>print</span> <span>(</span><span>flattened_aliases</span><span>[</span><span>"natural language processing"</span><span>])</span>
-<span>print</span> <span>(</span><span>flattened_aliases</span><span>[</span><span>"nlp"</span><span>])</span>
-</code></pre></div></td></tr></tbody></table>
+替换对我们来说似乎不是一个好主意，因为某些关键字为我们的标签提供了强烈的信号，所以我们不想改变它们。另外请注意，这些增强不是确定性的，每次我们运行它们时都会有所不同。让我们尝试插入...
 
 ```
+# Insertions
+insertion.augment(text)
+
+```
+
+
+
+使用多个变分自动编码器和甘斯的自动条件逆图像生成算法。
+
+好一点但仍然很脆弱，现在它可能会插入可能影响误报标签出现的关键词。也许不是替换或插入新标记，而是让我们尝试简单地用它们的别名交换机器学习相关的关键字。我们将使用 Snorkel 的[转换函数](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial)来轻松实现这一点。
+
+```
+
+# Replace dashes from tags & aliases
+def replace_dash(x):
+    return x.replace("-", " ")
+
+```
+
+```
+# Aliases
+aliases_by_tag = {
+    "computer-vision": ["cv", "vision"],
+    "mlops": ["production"],
+    "natural-language-processing": ["nlp", "nlproc"]
+}
+
+```
+
+```
+# Flatten dict
+flattened_aliases = {}
+for tag, aliases in aliases_by_tag.items():
+    tag = replace_dash(x=tag)
+    if len(aliases):
+        flattened_aliases[tag] = aliases
+    for alias in aliases:
+        _aliases = aliases + [tag]
+        _aliases.remove(alias)
+        flattened_aliases[alias] = _aliases
+
+```
+
+```
+print (flattened_aliases["natural language processing"])
+print (flattened_aliases["nlp"])
+
+```
+
 ['nlp', 'nlproc']
 ['nlproc', 'natural language processing']
 
-```
-
-> For now we'll use tags and aliases as they are in `aliases_by_tag` but we could account for plurality of tags using the [inflect](https://github.com/jaraco/inflect) package or apply stemming before replacing aliases, etc.
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># We want to match with the whole word only</span>
-<span>print</span> <span>(</span><span>"gan"</span> <span>in</span> <span>"This is a gan."</span><span>)</span>
-<span>print</span> <span>(</span><span>"gan"</span> <span>in</span> <span>"This is gandalf."</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># \b matches spaces</span>
-<span>def</span> <span>find_word</span><span>(</span><span>word</span><span>,</span> <span>text</span><span>):</span>
-    <span>word</span> <span>=</span> <span>word</span><span>.</span><span>replace</span><span>(</span><span>"+"</span><span>,</span> <span>"\+"</span><span>)</span>
-    <span>pattern</span> <span>=</span> <span>re</span><span>.</span><span>compile</span><span>(</span><span>fr</span><span>"\b(</span><span>{</span><span>word</span><span>}</span><span>)\b"</span><span>,</span> <span>flags</span><span>=</span><span>re</span><span>.</span><span>IGNORECASE</span><span>)</span>
-    <span>return</span> <span>pattern</span><span>.</span><span>search</span><span>(</span><span>text</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Correct behavior (single instance)</span>
-<span>print</span> <span>(</span><span>find_word</span><span>(</span><span>"gan"</span><span>,</span> <span>"This is a gan."</span><span>))</span>
-<span>print</span> <span>(</span><span>find_word</span><span>(</span><span>"gan"</span><span>,</span> <span>"This is gandalf."</span><span>))</span>
-</code></pre></div></td></tr></tbody></table>
+> 现在我们将按原样使用标签和别名，但我们可以使用[inflect](https://github.com/jaraco/inflect)`aliases_by_tag`包来解释多个标签，或者在替换别名之前应用词干提取等。
 
 ```
+# We want to match with the whole word only
+print ("gan" in "This is a gan.")
+print ("gan" in "This is gandalf.")
+
+```
+
+```
+# \b matches spaces
+def find_word(word, text):
+    word = word.replace("+", "\+")
+    pattern = re.compile(fr"\b({word})\b", flags=re.IGNORECASE)
+    return pattern.search(text)
+
+```
+
+```
+# Correct behavior (single instance)
+print (find_word("gan", "This is a gan."))
+print (find_word("gan", "This is gandalf."))
+
+```
+
 <re.Match object; span=(10, 13), match='gan'>
 None
 
-```
 
-Now let's use snorkel's [`transformation_function`](https://snorkel.readthedocs.io/en/latest/packages/_autosummary/augmentation/snorkel.augmentation.transformation_function.html) to systematically apply this transformation to our data.
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>from</span> <span>snorkel.augmentation</span> <span>import</span> <span>transformation_function</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td><div><pre><span></span><span> 1</span>
-<span> 2</span>
-<span> 3</span>
-<span> 4</span>
-<span> 5</span>
-<span> 6</span>
-<span> 7</span>
-<span> 8</span>
-<span> 9</span>
-<span>10</span>
-<span>11</span>
-<span>12</span>
-<span>13</span>
-<span>14</span>
-<span>15</span></pre></div></td><td><div><pre><span></span><code><span>@transformation_function</span><span>()</span>
-<span>def</span> <span>swap_aliases</span><span>(</span><span>x</span><span>):</span>
-    <span>"""Swap ML keywords with their aliases."""</span>
-    <span># Find all matches</span>
-    <span>matches</span> <span>=</span> <span>[]</span>
-    <span>for</span> <span>i</span><span>,</span> <span>tag</span> <span>in</span> <span>enumerate</span><span>(</span><span>flattened_aliases</span><span>):</span>
-        <span>match</span> <span>=</span> <span>find_word</span><span>(</span><span>tag</span><span>,</span> <span>x</span><span>.</span><span>text</span><span>)</span>
-        <span>if</span> <span>match</span><span>:</span>
-            <span>matches</span><span>.</span><span>append</span><span>(</span><span>match</span><span>)</span>
-    <span># Swap a random match with a random alias</span>
-    <span>if</span> <span>len</span><span>(</span><span>matches</span><span>):</span>
-        <span>match</span> <span>=</span> <span>random</span><span>.</span><span>choice</span><span>(</span><span>matches</span><span>)</span>
-        <span>tag</span> <span>=</span> <span>x</span><span>.</span><span>text</span><span>[</span><span>match</span><span>.</span><span>start</span><span>():</span><span>match</span><span>.</span><span>end</span><span>()]</span>
-        <span>x</span><span>.</span><span>text</span> <span>=</span> <span>f</span><span>"</span><span>{</span><span>x</span><span>.</span><span>text</span><span>[:</span><span>match</span><span>.</span><span>start</span><span>()]</span><span>}{</span><span>random</span><span>.</span><span>choice</span><span>(</span><span>flattened_aliases</span><span>[</span><span>tag</span><span>])</span><span>}{</span><span>x</span><span>.</span><span>text</span><span>[</span><span>match</span><span>.</span><span>end</span><span>():]</span><span>}</span><span>"</span>
-    <span>return</span> <span>x</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Swap</span>
-<span>for</span> <span>i</span> <span>in</span> <span>range</span><span>(</span><span>3</span><span>):</span>
-    <span>sample_df</span> <span>=</span> <span>pd</span><span>.</span><span>DataFrame</span><span>([{</span><span>"text"</span><span>:</span> <span>"a survey of reinforcement learning for nlp tasks."</span><span>}])</span>
-    <span>sample_df</span><span>.</span><span>text</span> <span>=</span> <span>sample_df</span><span>.</span><span>text</span><span>.</span><span>apply</span><span>(</span><span>preprocess</span><span>,</span> <span>lower</span><span>=</span><span>True</span><span>,</span> <span>stem</span><span>=</span><span>False</span><span>)</span>
-    <span>print</span> <span>(</span><span>swap_aliases</span><span>(</span><span>sample_df</span><span>.</span><span>iloc</span><span>[</span><span>0</span><span>])</span><span>.</span><span>text</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Undesired behavior (needs contextual insight)</span>
-<span>for</span> <span>i</span> <span>in</span> <span>range</span><span>(</span><span>3</span><span>):</span>
-    <span>sample_df</span> <span>=</span> <span>pd</span><span>.</span><span>DataFrame</span><span>([{</span><span>"text"</span><span>:</span> <span>"Autogenerate your CV to apply for jobs using NLP."</span><span>}])</span>
-    <span>sample_df</span><span>.</span><span>text</span> <span>=</span> <span>sample_df</span><span>.</span><span>text</span><span>.</span><span>apply</span><span>(</span><span>preprocess</span><span>,</span> <span>lower</span><span>=</span><span>True</span><span>,</span> <span>stem</span><span>=</span><span>False</span><span>)</span>
-    <span>print</span> <span>(</span><span>swap_aliases</span><span>(</span><span>sample_df</span><span>.</span><span>iloc</span><span>[</span><span>0</span><span>])</span><span>.</span><span>text</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
+现在让我们使用 snorkel[`transformation_function`](https://snorkel.readthedocs.io/en/latest/packages/_autosummary/augmentation/snorkel.augmentation.transformation_function.html)系统地将此转换应用于我们的数据。
 
 ```
+from snorkel.augmentation import transformation_function
+
+```
+
+```
+@transformation_function()
+def swap_aliases(x):
+    """Swap ML keywords with their aliases."""
+    # Find all matches
+    matches = []
+    for i, tag in enumerate(flattened_aliases):
+        match = find_word(tag, x.text)
+        if match:
+            matches.append(match)
+    # Swap a random match with a random alias
+    if len(matches):
+        match = random.choice(matches)
+        tag = x.text[match.start():match.end()]
+        x.text = f"{x.text[:match.start()]}{random.choice(flattened_aliases[tag])}{x.text[match.end():]}"
+    return x
+
+```
+
+```
+# Swap
+for i in range(3):
+    sample_df = pd.DataFrame([{"text": "a survey of reinforcement learning for nlp tasks."}])
+    sample_df.text = sample_df.text.apply(preprocess, lower=True, stem=False)
+    print (swap_aliases(sample_df.iloc[0]).text)
+
+```
+
+```
+# Undesired behavior (needs contextual insight)
+for i in range(3):
+    sample_df = pd.DataFrame([{"text": "Autogenerate your CV to apply for jobs using NLP."}])
+    sample_df.text = sample_df.text.apply(preprocess, lower=True, stem=False)
+    print (swap_aliases(sample_df.iloc[0]).text)
+
+```
+
 autogenerate vision apply jobs using nlp
 autogenerate cv apply jobs using natural language processing
 autogenerate cv apply jobs using nlproc
 
-```
 
-Now we'll define a [augmentation policy](https://snorkel.readthedocs.io/en/latest/packages/augmentation.html) to apply our transformation functions with certain rules (how many samples to generate, whether to keep the original data point, etc.)
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>from</span> <span>snorkel.augmentation</span> <span>import</span> <span>ApplyOnePolicy</span><span>,</span> <span>PandasTFApplier</span>
-</code></pre></div></td></tr></tbody></table>
+使用 nlp 自动生成视觉应用作业
+使用自然语言处理自动生成简历申请职位
+使用 nlproc 自动生成简历申请工作
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Transformation function (TF) policy</span>
-<span>policy</span> <span>=</span> <span>ApplyOnePolicy</span><span>(</span><span>n_per_original</span><span>=</span><span>5</span><span>,</span> <span>keep_original</span><span>=</span><span>True</span><span>)</span>
-<span>tf_applier</span> <span>=</span> <span>PandasTFApplier</span><span>([</span><span>swap_aliases</span><span>],</span> <span>policy</span><span>)</span>
-<span>train_df_augmented</span> <span>=</span> <span>tf_applier</span><span>.</span><span>apply</span><span>(</span><span>train_df</span><span>)</span>
-<span>train_df_augmented</span><span>.</span><span>drop_duplicates</span><span>(</span><span>subset</span><span>=</span><span>[</span><span>"text"</span><span>],</span> <span>inplace</span><span>=</span><span>True</span><span>)</span>
-<span>train_df_augmented</span><span>.</span><span>head</span><span>()</span>
-</code></pre></div></td></tr></tbody></table>
-
-|  | text | tags |
-| --- | --- | --- |
-| 0 | laplacian pyramid reconstruction refinement se... | computer-vision |
-| 1 | extract stock sentiment news headlines project... | natural-language-processing |
-| 2 | big bad nlp database collection 400 nlp datasets... | natural-language-processing |
-| 2 | big bad natural language processing database c... | natural-language-processing |
-| 2 | big bad nlproc database collection 400 nlp dat... | natural-language-processing |
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>len</span><span>(</span><span>train_df</span><span>),</span> <span>len</span><span>(</span><span>train_df_augmented</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
+现在我们将定义一个[增强策略](https://snorkel.readthedocs.io/en/latest/packages/augmentation.html)来应用我们的转换函数与某些规则（生成多少样本，是否保留原始数据点等）
 
 ```
+from snorkel.augmentation import ApplyOnePolicy, PandasTFApplier
+
+```
+
+```
+# Transformation function (TF) policy
+policy = ApplyOnePolicy(n_per_original=5, keep_original=True)
+tf_applier = PandasTFApplier([swap_aliases], policy)
+train_df_augmented = tf_applier.apply(train_df)
+train_df_augmented.drop_duplicates(subset=["text"], inplace=True)
+train_df_augmented.head()
+
+```
+
+```
+len(train_df), len(train_df_augmented)
+
+```
+
 (668, 913)
 
-```
+现在，我们将跳过数据扩充，因为它变化无常，而且根据经验，它不会显着提高性能。但是，一旦我们可以控制要扩充的词汇类型以及扩充的确切内容，我们就会看到这会非常有效。
 
-现在，将跳过数据增强，因为它非常变幻无常，并且从经验上看它并没有太大的提高性能。但是可以看到，一旦可以控制要扩充的词汇类型以及要扩充的内容，这将如何非常有效。
+> 警告
+> 
+> 无论我们使用什么方法，重要的是要验证我们不仅仅是为了扩充而扩充。我们可以通过执行任何现有的[数据验证测试](https://madewithml.com/courses/mlops/testing#data)甚至创建特定的测试来应用于增强数据来做到这一点。
 
-警告
 
-无论使用什么方法，重要的是要验证不仅仅是为了增强而增强。可以通过执行任何现有的[数据验证测试](https://madewithml.com/courses/mlops/testing#data)，甚至创建特定的测试来应用于增强数据来做到这一点。
-
-___
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},

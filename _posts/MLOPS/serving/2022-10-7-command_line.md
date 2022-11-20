@@ -13,10 +13,9 @@ tags:
 
 ---
 
-
 使用命令行界面 (CLI) 应用程序来组织应用程序的进程。
 
-## 直觉
+## Intuition
 
 当模型要提供服务时，需要考虑将应用程序的功能公开给自己、团队成员以及最终最终使用用户。实现这一点的接口会有所不同。回想一下[Organization lesson](https://madewithml.com/courses/mlops/organization/)，通过终端和 Python 解释器执行[main operations](https://madewithml.com/courses/mlops/organization/#operations)
 
@@ -56,14 +55,11 @@ app = typer.Typer()
 @app.command()
 def elt_data():
     ...
-
 ```
-
-
 
 将对要通过 CLI 访问的所有其他功能重复相同的操作：`elt_data()`、`train_model()`、`optimize()`、`predict_tag()`。将使其所有参数都是可选的，以便可以在 bash 命令中明确定义它们。例如，将成为.`def train_model(args_fp: str, ...):``def train_model(args_fp: str = "config/args.json", ...):`
 
-查看`tagifai/main.py`函数头
+> 查看`tagifai/main.py`函数头
 
 ```
 @app.command()
@@ -92,7 +88,6 @@ def optimize(
 @app.command()
 def predict_tag(text: str = "", run_id: str = None) -> None:
     ...
-
 ```
 
 ## 命令
@@ -103,27 +98,25 @@ def predict_tag(text: str = "", run_id: str = None) -> None:
 python tagifai/main.py --help
 ```
 
-> Typer 还附带了一个名为[typer-cli](https://typer.tiangolo.com/typer-cli/)的实用工具
+> Typer 还附带一个名为[typer-cli](https://typer.tiangolo.com/typer-cli/)的实用工具，但与我们的其他库存在一些依赖冲突，因此我们不会使用它。
 
 ```
-用法：main.py [OPTIONS] 命令 [ARGS]...
+Usage: main.py [OPTIONS] COMMAND [ARGS]...
 
-选项：
-  --help 显示此消息并退出。
+Options:
+  --help       Show this message and exit.
 
-命令：
-  elt-data 提取、加载和转换数据。
-  label-data 使用约束标记数据。
-  优化 优化超参数。
-  predict-tag 文本的预测标签。
-  train-model 在给定参数的情况下训练模型。
+Commands:
+  elt-data     Extract, load and transform data.
+  label-data   Label data using constraints.
+  optimize     Optimize hyperparameters.
+  predict-tag  Predict tag for text.
+  train-model  Train a model given arguments.
 ```
 
 ## Arguments
 
 使用 Typer，函数的输入参数会自动呈现为命令行选项。例如，`predict_tags`函数`text`使用一个可选`run_id`的作为输入，它们自动成为`predict-tags`CLI 命令的参数。
-
-
 
 ```
 @app.command()
@@ -140,7 +133,6 @@ def predict_tag(text: str = "", run_id: str = None) -> None:
     prediction = predict.predict(texts=[text], artifacts=artifacts)
     logger.info(json.dumps(prediction, indent=2))
     return prediction
-
 ```
 
 但是也可以就这个特定的命令寻求帮助，而无需进入代码：
@@ -184,6 +176,7 @@ python tagifai/main.py predict-tag --text="Transfer learning with transformers f
 ___
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},

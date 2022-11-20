@@ -13,7 +13,7 @@ tags:
 
 使用配置和虚拟环境来创建用于重现结果的设置。
 
-## 直觉
+## Intuition
 
 到目前为止，一直在笔记本内部工作，这使能够非常快速地训练模型。但是，笔记本并不容易投入生产，而且并不总是能够控制环境（例如，Google Colab 会定期更新其软件包）。当使用[notebook](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)时，有一组预加载的包（`!pip list`在 notebook 中运行以查看所有包）。但是现在想要明确定义环境，以便可以在本地（为和团队成员）以及在部署到生产环境时重现它。在 Python 中打包时有[许多推荐的工具](https://packaging.python.org/guides/tool-recommendations/)，将使用经过验证的[Pip](https://pip.pypa.io/en/stable/)。
 
@@ -23,39 +23,33 @@ tags:
 
 在开始打包之前，需要一种创建文件和运行命令的方法。可以通过终端来执行此操作，这将允许运行 bash、zsh 等语言来执行命令。无论您的操作系统或命令行界面 (CLI) 编程语言如何，运行的所有命令都应该相同。
 
-小费
-
-强烈建议您使用[iTerm2](https://iterm2.com/) (Mac) 或[ConEmu](https://conemu.github.io/) (Windows) 代替默认终端，因为它具有丰富的功能。
+> Tip
+> 
+> 强烈建议您使用[iTerm2](https://iterm2.com/) (Mac) 或[ConEmu](https://conemu.github.io/) (Windows) 代替默认终端，因为它具有丰富的功能。
 
 ## 项目
 
-While we'll organize our code from our notebook to scripts in the [next lesson](https://madewithml.com/courses/mlops/organization/), we'll create the main project directory now so that we can save our packaging components there. We'll call our main project directory `mlops` but feel free to name it anything you'd like.
+虽然我们将在[下一课](https://madewithml.com/courses/mlops/organization/)中将我们的代码从笔记本组织到脚本，但我们现在将创建主项目目录，以便我们可以将打包组件保存在那里。我们将调用我们的主项目目录`mlops`，但您可以随意命名它。
 
 ```
 # Create and change into the directory
 mkdir mlops
 cd mlops
-
 ```
 
 ## Python
 
-First thing we'll do is set up the correct version of Python. We'll be using version `3.7.13` specifically but any version of Python 3 should work. Though you could download different Python versions online, we highly recommend using a version manager such as [pyenv](https://github.com/pyenv/pyenv).
+我们要做的第一件事是设置正确的 Python 版本。我们将`3.7.13`专门使用版本，但任何版本的 Python 3 都应该可以使用。虽然您可以在线下载不同的 Python 版本，但我们强烈建议您使用版本管理器，例如[pyenv](https://github.com/pyenv/pyenv)。
 
-> Pyenv works for Mac & Linux, but if you're on windows, we recommend using [pyenv-win](https://github.com/pyenv-win/pyenv-win).
+> Pyenv 适用于 Mac 和 Linux，但如果你在 Windows 上，我们建议使用[pyenv-win](https://github.com/pyenv-win/pyenv-win)。
 
-brew install pyenv  
-python --versionPython 3.6.9pyenv versionssystem  
-\* 3.6.9pyenv install 3.7.13  
-pyenv local 3.7.13system  
-3.6.9  
-\* 3.7.13python --versionPython 3.7.13
 
-> We highly recommend using Python `3.7.13` because, while using another version of Python will work, we may face some conflicts with certain package versions that may need to be resolved.
 
-## Virtual environment
+> 我们强烈建议使用 Python `3.7.13`，因为虽然使用其他版本的 Python 也可以，但我们可能会遇到与某些可能需要解决的包版本的冲突。
 
-Next, we'll set up a [virtual environment](https://docs.python.org/3/library/venv.html) so we can isolate the required packages for our application. This will also keep components separated from other projects which may have different dependencies. Once we create our virtual environment, we'll activate it and install our required packages.
+## 虚拟环境
+
+接下来，我们将设置一个[虚拟环境](https://docs.python.org/3/library/venv.html)，以便为我们的应用程序隔离所需的包。这也将使组件与可能具有不同依赖关系的其他项目分开。一旦我们创建了我们的虚拟环境，我们将激活它并安装我们需要的包。
 
 ```
 python3 -m venv venv
@@ -64,151 +58,145 @@ python3 -m pip install pip setuptools wheel
 
 ```
 
-Let's unpack what's happening here:
 
-1.  Creating a Python virtual environment named `venv`.
-2.  Activate our virtual environment. Type `deactivate` to exit the virtual environment.
-3.  Upgrading required packages so we download the latest package wheels.
 
-Our virtual environment directory `venv` should be visible when we list the directories in our project:
+让我们解开这里发生的事情：
+
+1. 创建一个名为`venv`.
+2. 激活我们的虚拟环境。输入`deactivate`退出虚拟环境。
+3. 升级所需的包，以便我们下载最新的包轮。
+
+`venv`当我们列出项目中的目录时，我们的虚拟环境目录应该是可见的：
+
+
+
+我们会知道我们的虚拟环境是活跃的，因为我们会在终端上显示它的名字。我们可以通过确保`pip freeze`不返回任何内容来进一步验证。
+
+`(venv) ➜  mlops: pip freeze`
+
+### 要求
+
+我们将创建一个名为的单独文件`requirements.txt`，我们将在其中指定要安装的包（及其版本）。虽然我们可以将这些要求直接放在里面`setup.py`，但许多应用程序仍然在寻找一个单独的`requirements.txt`.
+
+`touch requirements.txt`
+
+我们应该将包及其版本添加到我们`requirements.txt`的项目中，因为我们的项目需要它们。不建议先安装所有包然后再安装，`pip freeze > requirements.txt`因为它会将我们所有包的依赖项转储到文件中（即使是我们没有明确安装的包）。为了缓解这种情况，可以使用[pipreqs](https://github.com/bndr/pipreqs)、[pip-tools](https://github.com/jazzband/pip-tools)、[pipchill](https://github.com/rbanffy/pip-chill)等工具，它们只会列出非依赖项的包。但是，它们的依赖关系解析并不总是准确的，并且当您想为不同的任务（开发、测试等）分离包时不起作用。
+
+> Tip
+> 
+> 如果我们遇到包版本之间的冲突，我们可以通过指定包需要高于某个版本而不是确切版本来放宽约束。我们还可以为所有包指定无版本，并允许 pip 解决所有冲突。然后我们可以看到实际安装了哪个版本并将该信息添加到我们的`requirements.txt`文件中。
+> 
+> ```
+> # requirements.txt
+> <PACKAGE>==<VERSION>  # exact version
+> <PACKAGE>==<VERSION>  # above version
+> <PACKAGE>             # no version
+> 
+> ```
+
+
+
+### 设置
+
+让我们创建一个名为的文件`setup.py`，以提供有关如何设置虚拟环境的说明。
+
+`touch setup.py`
 
 ```
-mlops/
-├── venv/
-├── requirements.txt
-└── setup.py
+# setup.py
+from pathlib import Path
+from setuptools import find_namespace_packages, setup
 
 ```
 
-We'll know our virtual environment is active because we will it's name on the terminal. We can further validate by making sure `pip freeze` returns nothing.
+
+
+
+
+我们将从提取打包的需求开始`requirements.txt`：
 
 ```
-(venv) ➜  mlops: pip freeze
-
-```
-
-### Requirements
-
-We'll create a separate file called `requirements.txt` where we'll specify the packages (with their versions) that we want to install. While we could place these requirements directly inside `setup.py`, many applications still look for a separate `requirements.txt`.
-
-We should be adding packages with their versions to our `requirements.txt` as we require them for our project. It's inadvisable to install all packages and then do `pip freeze > requirements.txt` because it dumps the dependencies of all our packages into the file (even the ones we didn't explicitly install). To mitigate this, there are tools such as [pipreqs](https://github.com/bndr/pipreqs), [pip-tools](https://github.com/jazzband/pip-tools), [pipchill](https://github.com/rbanffy/pip-chill), etc. that will only list the packages that are not dependencies. However, they're dependency resolving is not always accurate and don't work when you want to separate packages for different tasks (developing, testing, etc.).
-
-Tip
-
-If we experience conflicts between package versions, we can relax constraints by specifying that the package needs to be above a certain version, as opposed to the exact version. We could also specify no version for all packages and allow pip to resolve all conflicts. And then we can see which version were actually installed and add that information to our `requirements.txt` file.
-
-```
-# requirements.txt
-<PACKAGE>==<VERSION>  # exact version
-<PACKAGE>==<VERSION>  # above version
-<PACKAGE>             # no version
+# Load packages from requirements.txt
+BASE_DIR = Path(__file__).parent
+with open(Path(BASE_DIR, "requirements.txt"), "r") as file:
+    required_packages = [ln.strip() for ln in file.readlines()]
 
 ```
 
-### Setup
 
-Let's create a file called `setup.py` to provide instructions on how to set up our virtual environment.
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># setup.py</span>
-<span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
-<span>from</span> <span>setuptools</span> <span>import</span> <span>find_namespace_packages</span><span>,</span> <span>setup</span>
-</code></pre></div></td></tr></tbody></table>
 
-We'll start by extracting the require packaged from `requirements.txt`:
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># Load packages from requirements.txt</span>
-<span>BASE_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>__file__</span><span>)</span><span>.</span><span>parent</span>
-<span>with</span> <span>open</span><span>(</span><span>Path</span><span>(</span><span>BASE_DIR</span><span>,</span> <span>"requirements.txt"</span><span>),</span> <span>"r"</span><span>)</span> <span>as</span> <span>file</span><span>:</span>
-    <span>required_packages</span> <span>=</span> <span>[</span><span>ln</span><span>.</span><span>strip</span><span>()</span> <span>for</span> <span>ln</span> <span>in</span> <span>file</span><span>.</span><span>readlines</span><span>()]</span>
-</code></pre></div></td></tr></tbody></table>
+该`setup.py`文件的核心是`setup`描述如何设置我们的包及其依赖项的对象。我们的包将被调用`tagifai`，它将包含运行它所需的所有要求。前几行涵盖[元数据](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html#metadata)（名称、描述等），然后我们定义需求。在这里我们声明我们需要等于或高于 3.7 的 Python 版本，然后将我们需要的包传递给`install_requires`.
 
-The heart of the `setup.py` file is the `setup` object which describes how to set up our package and it's dependencies. Our package will be called `tagifai` and it will encompass all the requirements needed to run it. The first several lines cover [metadata](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html#metadata) (name, description, etc.) and then we define the requirements. Here we're stating that we require a Python version equal to or above 3.7 and then passing in our required packages to `install_requires`.
+```
+# setup.py
+setup(
+    name="tagifai",
+    version=0.1,
+    description="Classify machine learning projects.",
+    author="Goku Mohandas",
+    author_email="goku@madewithml.com",
+    url="https://madewithml.com/",
+    python_requires=">=3.7",
+    install_requires=[required_packages],
+)
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># setup.py</span>
-<span>setup</span><span>(</span>
-    <span>name</span><span>=</span><span>"tagifai"</span><span>,</span>
-    <span>version</span><span>=</span><span>0.1</span><span>,</span>
-    <span>description</span><span>=</span><span>"Classify machine learning projects."</span><span>,</span>
-    <span>author</span><span>=</span><span>"Goku Mohandas"</span><span>,</span>
-    <span>author_email</span><span>=</span><span>"goku@madewithml.com"</span><span>,</span>
-    <span>url</span><span>=</span><span>"https://madewithml.com/"</span><span>,</span>
-    <span>python_requires</span><span>=</span><span>"&gt;=3.7"</span><span>,</span>
-    <span>install_requires</span><span>=</span><span>[</span><span>required_packages</span><span>],</span>
-<span>)</span>
-</code></pre></div></td></tr></tbody></table>
+```
 
-View setup.py
 
-<table><tbody><tr><td><div><pre><span></span><span> 1</span>
-<span> 2</span>
-<span> 3</span>
-<span> 4</span>
-<span> 5</span>
-<span> 6</span>
-<span> 7</span>
-<span> 8</span>
-<span> 9</span>
-<span>10</span>
-<span>11</span>
-<span>12</span>
-<span>13</span>
-<span>14</span>
-<span>15</span>
-<span>16</span>
-<span>17</span>
-<span>18</span>
-<span>19</span>
-<span>20</span></pre></div></td><td><div><pre><span></span><code><span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
-<span>from</span> <span>setuptools</span> <span>import</span> <span>find_namespace_packages</span><span>,</span> <span>setup</span><span></span>
-<span></span>
-<span># Load packages from requirements.txt</span>
-<span>BASE_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>__file__</span><span>)</span><span>.</span><span>parent</span>
-<span>with</span> <span>open</span><span>(</span><span>Path</span><span>(</span><span>BASE_DIR</span><span>,</span> <span>"requirements.txt"</span><span>),</span> <span>"r"</span><span>)</span> <span>as</span> <span>file</span><span>:</span>
-    <span>required_packages</span> <span>=</span> <span>[</span><span>ln</span><span>.</span><span>strip</span><span>()</span> <span>for</span> <span>ln</span> <span>in</span> <span>file</span><span>.</span><span>readlines</span><span>()]</span><span></span>
-<span></span>
-<span># Define our package</span>
-<span>setup</span><span>(</span>
-    <span>name</span><span>=</span><span>"tagifai"</span><span>,</span>
-    <span>version</span><span>=</span><span>0.1</span><span>,</span>
-    <span>description</span><span>=</span><span>"Classify machine learning projects."</span><span>,</span>
-    <span>author</span><span>=</span><span>"Goku Mohandas"</span><span>,</span>
-    <span>author_email</span><span>=</span><span>"goku@madewithml.com"</span><span>,</span>
-    <span>url</span><span>=</span><span>"https://madewithml.com/"</span><span>,</span>
-    <span>python_requires</span><span>=</span><span>"&gt;=3.7"</span><span>,</span>
-    <span>packages</span><span>=</span><span>find_namespace_packages</span><span>(),</span>
-    <span>install_requires</span><span>=</span><span>[</span><span>required_packages</span><span>],</span>
-<span>)</span>
-</code></pre></div></td></tr></tbody></table>
 
-## Usage
 
-We don't have any packages defined in our `requirements.txt` file but if we did, we can use the `setup.py` file, we can now install our packages like so:
+
+查看setup.py
+
+```
+from pathlib import Path
+from setuptools import find_namespace_packages, setup
+
+# Load packages from requirements.txt
+BASE_DIR = Path(__file__).parent
+with open(Path(BASE_DIR, "requirements.txt"), "r") as file:
+    required_packages = [ln.strip() for ln in file.readlines()]
+
+# Define our package
+setup(
+    name="tagifai",
+    version=0.1,
+    description="Classify machine learning projects.",
+    author="Goku Mohandas",
+    author_email="goku@madewithml.com",
+    url="https://madewithml.com/",
+    python_requires=">=3.7",
+    packages=find_namespace_packages(),
+    install_requires=[required_packages],
+)
+
+```
+
+## 用法
+
+我们的`requirements.txt`文件中没有定义任何包，但如果定义了，我们可以使用该`setup.py`文件，现在我们可以像这样安装我们的包：
 
 ```
 python3 -m pip install -e .            # installs required packages only
 
 ```
 
-```
-Obtaining file:///Users/goku/Documents/madewithml/mlops
-  Preparing metadata (setup.py) ... done
-Installing collected packages: tagifai
-  Running setup.py develop for tagifai
-Successfully installed tagifai-0.1
+
+
+> `-e`or标志以`--editable`开发模式安装项目，这样我们就可以进行更改而无需重新安装包。
+
+现在，如果我们这样做，`pip freeze`我们应该看到它`tagifai`已安装。
+
+`pip freeze`
 
 ```
-
-> The `-e` or `--editable` flag installs a project in develop mode so we can make changes without having to reinstall packages.
-
-现在，如果这样做，`pip freeze`应该看到它`tagifai`已安装。
-
-```
-# 没有版本控制的可编辑安装 (tagifai==0.1)
+# Editable install with no version control (tagifai==0.1)
 -e /Users/goku/Documents/madewithml/mlops
-
 ```
 
-还应该`tagifai.egg-info`在项目目录中看到一个目录：
+我们还应该`tagifai.egg-info`在我们的项目目录中看到一个目录：
 
 ```
 mlops/
@@ -216,14 +204,14 @@ mlops/
 ├── venv/
 ├── requirements.txt
 └── setup.py
-
 ```
 
-setup.py 文件有许多替代品，例如pyproject.toml[`setup.cfg`](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html)和更新的[pyproject.toml](https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html)。
+setup.py 文件有许多替代方案，例如[`setup.cfg`](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html)和更新的[pyproject.toml](https://setuptools.pypa.io/en/latest/userguide/pyproject_config.html)。
 
 ___
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},
