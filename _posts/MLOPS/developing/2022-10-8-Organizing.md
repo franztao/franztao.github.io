@@ -13,17 +13,17 @@ tags:
 
 ## 组织机器学习代码
 
-从笔记本转移到 Python 脚本时组织我们的代码。
+从笔记本转移到 Python 脚本时组织代码。
 
 ## 直觉
 
-有组织的代码就是有可读的、可重现的、健壮的代码。您的团队、经理，最重要的是，您未来的自己，将感谢您为组织工作付出的最初努力。在本课中，我们将讨论如何将代码从[笔记本](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)迁移和组织到 Python 脚本。
+有组织的代码就是有可读的、可重现的、健壮的代码。您的团队、经理，最重要的是，您未来的自己，将感谢您为组织工作付出的最初努力。在本课中，将讨论如何将代码从[笔记本](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)迁移和组织到 Python 脚本。
 
 ## 编辑
 
-在我们开始编码之前，我们需要一个空间来完成它。代码编辑器有多种选择，例如[VSCode](https://code.visualstudio.com/)、[Atom](https://atom.io/)、[Sublime](https://www.sublimetext.com/)、[PyCharm](https://www.jetbrains.com/pycharm/)、[Vim](https://www.vim.org/)等，它们都提供独特的功能，同时提供代码编辑和执行的基本操作。由于 VSCode 的简单性、多语言支持、附加组件和不断增长的行业采用，我们将使用 VSCode 来编辑和执行我们的代码。
+在开始编码之前，需要一个空间来完成它。代码编辑器有多种选择，例如[VSCode](https://code.visualstudio.com/)、[Atom](https://atom.io/)、[Sublime](https://www.sublimetext.com/)、[PyCharm](https://www.jetbrains.com/pycharm/)、[Vim](https://www.vim.org/)等，它们都提供独特的功能，同时提供代码编辑和执行的基本操作。由于 VSCode 的简单性、多语言支持、附加组件和不断增长的行业采用，将使用 VSCode 来编辑和执行代码。
 
-> 欢迎您使用任何编辑器，但我们将使用一些可能特定于 VSCode 的附加组件。
+> 欢迎您使用任何编辑器，但将使用一些可能特定于 VSCode 的附加组件。
 
 1.  从源代码为您的系统安装 VSCode：[https ://code.visualstudio.com/](https://code.visualstudio.com/)
 2.  打开命令面板（在 mac`F1`上是Cmd++ Shift）`P`→ 输入“首选项：打开设置（UI）”→ 点击Enter
@@ -69,7 +69,7 @@ code --list-extensions | xargs -L 1 echo code --install-extension
 
 ```
 
-一旦我们都设置好 VSCode，我们可以从创建我们的项目目录开始，我们将使用它来组织我们所有的脚本。有很多方法可以启动一个项目，但这里是我们推荐的路径：
+一旦都设置好 VSCode，可以从创建项目目录开始，将使用它来组织所有的脚本。有很多方法可以启动一个项目，但这里是推荐的路径：
 
 1.  使用终端创建目录 ( `mkdir <PROJECT_NAME>`)。
 2.  Change into the project directory you just made (`cd <PROJECT_NAME>`).

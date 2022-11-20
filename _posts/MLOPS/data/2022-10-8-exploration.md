@@ -1,4 +1,5 @@
 ---
+
 layout:     post
 title:      探索性数据分析
 subtitle:   2022年10月
@@ -10,20 +11,21 @@ tags:
     - EDA
 
 ---
-有目的性的探索我们的数据集以获取具体的优化方向和思路。
 
-## 直觉
+有目的性的探索数据集以获取具体的优化方向和思路。
 
-探索性数据分析 (EDA) 以了解我们数据集的信号和细微差别。这是一个循环过程，可以在我们开发过程的各个阶段（标记之前/之后、预处理等）完成，具体取决于问题的定义程度。例如，如果我们不确定如何标记或预处理我们的数据，我们可以使用 EDA 来解决这个问题。
+## Intuition
 
-我们将从 EDA 开始我们的项目，这是一个经常被误解的重要（且有趣）的过程。以下是对 EDA 的思考：
+探索性数据分析 (EDA) 以了解数据集的信号和细微差别。这是一个循环过程，可以在开发过程的各个阶段（标记之前/之后、预处理等）完成，具体取决于问题的定义程度。例如，如果不确定如何标记或预处理数据，可以使用 EDA 来解决这个问题。
+
+将从 EDA 开始项目，这是一个经常被误解的重要（且有趣）的过程。以下是对 EDA 的思考：
 
 - 不仅仅是可视化一组规定的图（相关矩阵等）。
 - 目标是说服自己您拥有的数据足以完成任务。
 - 使用 EDA 回答重要问题并且容易地获得洞察力。
 - 不是一次性的过程；随着数据的增长，希望重新访问 EDA 来获得数据分布变化、异常等。
 
-让我们使用 EDA 回答几个关键问题。
+让使用 EDA 回答几个关键问题。
 
 ```
 from collections import Counter
@@ -73,7 +75,7 @@ tags.most_common()
 
 ## Wordcloud
 
-每个标签的标题和描述中是否有足够的信号？这很重要，因为我们想要验证我们最初的假设，即项目的标题和描述是极具影响力的特征。
+每个标签的标题和描述中是否有足够的信号？这很重要，因为想要验证最初的假设，即项目的标题和描述是极具影响力的特征。
 
 ```
 # Most frequent tokens for each tag
@@ -94,4 +96,4 @@ def display_word_cloud(tag="natural-language-processing"):
 
 Looks like the `title` text feature has some good signal for the respective classes and matches our intuition. We can repeat this for the `description` text feature as well. This information will become useful when we decide how to use our features for modeling.
 
-> 到目前为止，我们所做的所有工作都在 IPython 笔记本中，但在我们的仪表板课程中，我们将使用[Streamlit](https://streamlit.io/)将所有这些转移到交互式仪表板中。
+> 到目前为止，所做的所有工作都在 IPython 笔记本中，但在仪表板课程中，将使用[Streamlit](https://streamlit.io/)将所有这些转移到交互式仪表板中。

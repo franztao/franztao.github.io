@@ -15,17 +15,17 @@ tags:
 
 ## 直觉
 
-到目前为止，我们一直在笔记本内部工作，这使我们能够非常快速地训练模型。但是，笔记本并不容易投入生产，而且我们并不总是能够控制环境（例如，Google Colab 会定期更新其软件包）。当我们使用[notebook](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)时，我们有一组预加载的包（`!pip list`在 notebook 中运行以查看所有包）。但是现在我们想要明确定义我们的环境，以便我们可以在本地（为我们和团队成员）以及在我们部署到生产环境时重现它。在 Python 中打包时有[许多推荐的工具](https://packaging.python.org/guides/tool-recommendations/)，我们将使用经过验证的[Pip](https://pip.pypa.io/en/stable/)。
+到目前为止，一直在笔记本内部工作，这使能够非常快速地训练模型。但是，笔记本并不容易投入生产，而且并不总是能够控制环境（例如，Google Colab 会定期更新其软件包）。当使用[notebook](https://github.com/GokuMohandas/mlops-course/blob/main/notebooks/tagifai.ipynb)时，有一组预加载的包（`!pip list`在 notebook 中运行以查看所有包）。但是现在想要明确定义环境，以便可以在本地（为和团队成员）以及在部署到生产环境时重现它。在 Python 中打包时有[许多推荐的工具](https://packaging.python.org/guides/tool-recommendations/)，将使用经过验证的[Pip](https://pip.pypa.io/en/stable/)。
 
-> 有许多替代依赖管理和打包工具，例如[Poetry](https://python-poetry.org/)，但这些新选项仍有许多变化。我们将坚持使用 Pip，因为它适用于我们的应用程序，并且不想处理[长解决周期](https://github.com/python-poetry/poetry/issues/2094)之类的问题。
+> 有许多替代依赖管理和打包工具，例如[Poetry](https://python-poetry.org/)，但这些新选项仍有许多变化。将坚持使用 Pip，因为它适用于应用程序，并且不想处理[长解决周期](https://github.com/python-poetry/poetry/issues/2094)之类的问题。
 
 ## 终端
 
-在开始打包之前，我们需要一种创建文件和运行命令的方法。我们可以通过终端来执行此操作，这将允许我们运行 bash、zsh 等语言来执行命令。无论您的操作系统或命令行界面 (CLI) 编程语言如何，我们运行的所有命令都应该相同。
+在开始打包之前，需要一种创建文件和运行命令的方法。可以通过终端来执行此操作，这将允许运行 bash、zsh 等语言来执行命令。无论您的操作系统或命令行界面 (CLI) 编程语言如何，运行的所有命令都应该相同。
 
 小费
 
-我们强烈建议您使用[iTerm2](https://iterm2.com/) (Mac) 或[ConEmu](https://conemu.github.io/) (Windows) 代替默认终端，因为它具有丰富的功能。
+强烈建议您使用[iTerm2](https://iterm2.com/) (Mac) 或[ConEmu](https://conemu.github.io/) (Windows) 代替默认终端，因为它具有丰富的功能。
 
 ## 项目
 
@@ -200,7 +200,7 @@ Successfully installed tagifai-0.1
 
 > The `-e` or `--editable` flag installs a project in develop mode so we can make changes without having to reinstall packages.
 
-现在，如果我们这样做，`pip freeze`我们应该看到它`tagifai`已安装。
+现在，如果这样做，`pip freeze`应该看到它`tagifai`已安装。
 
 ```
 # 没有版本控制的可编辑安装 (tagifai==0.1)
@@ -208,7 +208,7 @@ Successfully installed tagifai-0.1
 
 ```
 
-我们还应该`tagifai.egg-info`在我们的项目目录中看到一个目录：
+还应该`tagifai.egg-info`在项目目录中看到一个目录：
 
 ```
 mlops/

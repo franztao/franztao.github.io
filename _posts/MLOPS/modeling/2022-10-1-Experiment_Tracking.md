@@ -15,13 +15,13 @@ tags:
 
 ## 直觉
 
-到目前为止，我们一直在训练和评估我们不同的基线，但还没有真正跟踪这些实验。我们将解决这个问题，但定义一个适当的实验跟踪过程，我们将用于所有未来的实验（包括超参数优化）。实验跟踪是管理所有不同实验及其组件（例如参数、指标、模型和其他工件）的过程，它使我们能够：
+到目前为止，一直在训练和评估不同的基线，但还没有真正跟踪这些实验。将解决这个问题，但定义一个适当的实验跟踪过程，将用于所有未来的实验（包括超参数优化）。实验跟踪是管理所有不同实验及其组件（例如参数、指标、模型和其他工件）的过程，它使能够：
 
 -   **组织**特定实验的所有必要组件。重要的是把所有东西都放在一个地方并且知道它在哪里，这样你以后可以使用它们。
 -   使用保存的实验（轻松）**重现过去的结果。**
 -   **记录**跨时间、数据、想法、团队等的迭代改进。
 
-实验跟踪有很多选项，但我们将使用[MLFlow](https://mlflow.org/)（100% 免费和[开源](https://github.com/mlflow/mlflow)），因为它具有我们需要的所有功能（以及[不断增长的集成支持](https://medium.com/pytorch/mlflow-and-pytorch-where-cutting-edge-ai-meets-mlops-1985cf8aa789)）。我们可以在我们自己的服务器和数据库上运行 MLFlow，因此没有存储成本/限制，使其成为最受欢迎的选项之一，并被 Microsoft、Facebook、Databricks 和其他公司使用。您还可以设置自己的跟踪服务器，以在多个团队成员之间同步运行同一任务。
+实验跟踪有很多选项，但将使用[MLFlow](https://mlflow.org/)（100% 免费和[开源](https://github.com/mlflow/mlflow)），因为它具有需要的所有功能（以及[不断增长的集成支持](https://medium.com/pytorch/mlflow-and-pytorch-where-cutting-edge-ai-meets-mlops-1985cf8aa789)）。可以在自己的服务器和数据库上运行 MLFlow，因此没有存储成本/限制，使其成为最受欢迎的选项之一，并被 Microsoft、Facebook、Databricks 和其他公司使用。您还可以设置自己的跟踪服务器，以在多个团队成员之间同步运行同一任务。
 
 There are also several popular options such as a [Comet ML](https://www.comet.ml/site/) (used by Google AI, HuggingFace, etc.), [Neptune](https://neptune.ai/) (used by Roche, NewYorker, etc.), [Weights and Biases](https://www.wandb.com/) (used by Open AI, Toyota Research, etc.). These are fantastic tools that provide features like dashboards, seamless integration, hyperparameter search, reports and even [debugging](https://wandb.ai/latentspace/published-work/The-Science-of-Debugging-with-W-B-Reports--Vmlldzo4OTI3Ng)!
 
@@ -41,7 +41,7 @@ pip install mlflow==1.23.1 -q
 <span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
 </code></pre></div></td></tr></tbody></table>
 
-输入参数`args`包含所有需要的参数，很高兴将它们全部组织在一个变量下，这样我们就可以轻松地记录它并为不同的实验调整它（我们会在进行[超参数优化](https://madewithml.com/courses/mlops/optimization/)时看到这一点）。
+输入参数`args`包含所有需要的参数，很高兴将它们全部组织在一个变量下，这样就可以轻松地记录它并为不同的实验调整它（会在进行[超参数优化](https://madewithml.com/courses/mlops/optimization/)时看到这一点）。
 
 <table><tbody><tr><td></td><td><div><pre><span></span><code><span># Specify arguments</span>
 <span>args</span> <span>=</span> <span>Namespace</span><span>(</span>
@@ -56,7 +56,7 @@ pip install mlflow==1.23.1 -q
 <span>)</span>
 </code></pre></div></td></tr></tbody></table>
 
-接下来，我们将设置我们的模型注册表，其中将存储所有实验及其各自的运行。我们还将使用特定的运行 ID 从此注册表中加载经过训练的模型。
+接下来，将设置模型注册表，其中将存储所有实验及其各自的运行。还将使用特定的运行 ID 从此注册表中加载经过训练的模型。
 
 <table><tbody><tr><td></td><td><div><pre><span></span><code><span># Set tracking URI</span>
 <span>MODEL_REGISTRY</span> <span>=</span> <span>Path</span><span>(</span><span>"experiments"</span><span>)</span>
@@ -66,7 +66,7 @@ pip install mlflow==1.23.1 -q
 
 小费
 
-在 Windows 上，我们设置跟踪 URI 的最后一行应该有三个正斜杠：
+在 Windows 上，设置跟踪 URI 的最后一行应该有三个正斜杠：
 
 <table><tbody><tr><td></td><td><div><pre><span></span><code><span>mlflow</span><span>.</span><span>set_tracking_uri</span><span>(</span><span>"file:///"</span> <span>+</span> <span>str</span><span>(</span><span>MODEL_REGISTRY</span><span>.</span><span>absolute</span><span>()))</span>
 </code></pre></div></td></tr></tbody></table>

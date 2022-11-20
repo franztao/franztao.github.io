@@ -13,11 +13,11 @@ tags:
 
 ## 直觉
 
-在本课中，我们将学习如何测试代码、数据和模型，以构建可以可靠迭代的机器学习系统。测试是我们确保某些东西按预期工作的一种方式。我们被激励在开发周期中尽早实施测试并发现错误来源，以便我们可以降低[下游成本](https://assets.deepsource.io/39ed384/images/blog/cost-of-fixing-bugs/chart.jpg)和浪费时间。一旦我们设计了我们的测试，我们可以在每次更改或添加到我们的代码库时自动执行它们。
+在本课中，将学习如何测试代码、数据和模型，以构建可以可靠迭代的机器学习系统。测试是确保某些东西按预期工作的一种方式。被激励在开发周期中尽早实施测试并发现错误来源，以便可以降低[下游成本](https://assets.deepsource.io/39ed384/images/blog/cost-of-fixing-bugs/chart.jpg)和浪费时间。一旦设计了测试，可以在每次更改或添加到代码库时自动执行它们。
 
 小费
 
-我们强烈建议您在完成之前的课程_后_探索本课程，因为主题（和代码）是迭代开发的。但是，我们确实创建了 [testing-ml](https://github.com/GokuMohandas/testing-ml)存储库，可通过交互式笔记本快速概览。
+强烈建议您在完成之前的课程_后_探索本课程，因为主题（和代码）是迭代开发的。但是，确实创建了 [testing-ml](https://github.com/GokuMohandas/testing-ml)存储库，可通过交互式笔记本快速概览。
 
 ### 测试类型
 
@@ -27,58 +27,58 @@ tags:
 2.  `Integration tests`：测试单个组件的组合功能（例如数据处理）。
 3.  `System tests`：对给定输入（例如训练、推理等）的预期输出的系统设计进行测试。
 4.  `Acceptance tests`：用于验证是否满足要求的测试，通常称为用户验收测试 (UAT)。
-5.  `Regression tests`：基于我们之前看到的错误的测试，以确保新的更改不会重新引入它们。
+5.  `Regression tests`：基于之前看到的错误的测试，以确保新的更改不会重新引入它们。
 
-虽然 ML 系统本质上是概率性的，但它们由许多确定性组件组成，可以以与传统软件系统类似的方式进行测试。当我们从测试代码转向测试[数据](https://madewithml.com/courses/mlops/testing//./#data)和[模型](https://madewithml.com/courses/mlops/testing//./#models)时，测试 ML 系统之间的区别就开始了。
+虽然 ML 系统本质上是概率性的，但它们由许多确定性组件组成，可以以与传统软件系统类似的方式进行测试。当从测试代码转向测试[数据](https://madewithml.com/courses/mlops/testing//./#data)和[模型](https://madewithml.com/courses/mlops/testing//./#models)时，测试 ML 系统之间的区别就开始了。
 
 ![测试类型](https://madewithml.com/static/images/mlops/testing/tests.png)
 
-> 还有许多其他类型的功能和非功能测试，例如冒烟测试（快速健康检查）、性能测试（负载、压力）、安全测试等，但我们可以在上面的系统测试中概括所有这些.
+> 还有许多其他类型的功能和非功能测试，例如冒烟测试（快速健康检查）、性能测试（负载、压力）、安全测试等，但可以在上面的系统测试中概括所有这些.
 
-### 我们应该如何测试？
+### 应该如何测试？
 
 编写测试时使用的框架是[Arrange Act Assert](http://wiki.c2.com/?ArrangeActAssert)方法。
 
 -   `Arrange`：设置不同的输入进行测试。
--   `Act`：将输入应用到我们要测试的组件上。
--   `Assert`：确认我们收到了预期的输出。
+-   `Act`：将输入应用到要测试的组件上。
+-   `Assert`：确认收到了预期的输出。
 
-> `Cleaning`是此方法的非官方第四步，因为重要的是不要留下可能影响后续测试的先前测试的残留物。我们可以使用[pytest-randomly](https://github.com/pytest-dev/pytest-randomly)等包通过随机执行测试来测试状态依赖性。
+> `Cleaning`是此方法的非官方第四步，因为重要的是不要留下可能影响后续测试的先前测试的残留物。可以使用[pytest-randomly](https://github.com/pytest-dev/pytest-randomly)等包通过随机执行测试来测试状态依赖性。
 
-在 Python 中，有许多工具，例如[unittest](https://docs.python.org/3/library/unittest.html)、[pytest](https://docs.pytest.org/en/stable/)等，可以让我们在遵守_Arrange Act Assert_框架的同时轻松实现我们的测试。这些工具具有强大的内置功能，例如参数化、过滤器等，可以大规模测试许多条件。
+在 Python 中，有许多工具，例如[unittest](https://docs.python.org/3/library/unittest.html)、[pytest](https://docs.pytest.org/en/stable/)等，可以让在遵守_Arrange Act Assert_框架的同时轻松实现测试。这些工具具有强大的内置功能，例如参数化、过滤器等，可以大规模测试许多条件。
 
-### 我们应该测试什么？
+### 应该测试什么？
 
-在_安排_我们的输入和_断言_我们的预期输出时，我们应该测试输入和输出的哪些方面？
+在_安排_输入和_断言_预期输出时，应该测试输入和输出的哪些方面？
 
 -   **输入**：数据类型、格式、长度、边缘情况（最小/最大、小/大等）
 -   **输出**：数据类型、格式、异常、中间和最终输出
 
-> [👉 我们将在下面介绍与我们的数据](https://madewithml.com/courses/mlops/testing//./#data)和[模型](https://madewithml.com/courses/mlops/testing//./#models)有关的测试内容的具体细节。
+> [👉 将在下面介绍与数据](https://madewithml.com/courses/mlops/testing//./#data)和[模型](https://madewithml.com/courses/mlops/testing//./#models)有关的测试内容的具体细节。
 
 ## 最佳实践
 
-不管我们使用什么框架，将测试与开发过程紧密结合是很重要的。
+不管使用什么框架，将测试与开发过程紧密结合是很重要的。
 
--   `atomic`：在创建函数和类时，我们需要确保它们具有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，以便我们可以轻松地测试它们。如果没有，我们需要将它们拆分成更细粒度的组件。
--   `compose`：当我们创建新组件时，我们希望编写测试来验证它们的功能。这是确保可靠性和及早发现错误的好方法。
--   `reuse`：我们应该维护中央存储库，其中核心功能在源头进行测试并在许多项目中重用。这显着减少了每个新项目代码库的测试工作量。
--   `regression`：我们想解释回归测试中遇到的新错误，这样我们就可以确保将来不会重新引入相同的错误。
--   `coverage`：我们希望确保我们的代码库[100% 覆盖](https://madewithml.com/courses/mlops/testing//#coverage)。这并不意味着要为每一行代码编写测试，而是要考虑每一行代码。
--   `automate`：如果我们忘记在提交到存储库之前运行测试，我们希望在对代码库进行更改时自动运行测试。我们将在后续课程中学习如何使用[预提交挂钩在本地执行此操作，并通过](https://madewithml.com/courses/mlops/testing//../pre-commit/)[GitHub 操作](https://madewithml.com/courses/mlops/testing//../cicd/#github-actions)远程执行此操作。
+-   `atomic`：在创建函数和类时，需要确保它们具有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，以便可以轻松地测试它们。如果没有，需要将它们拆分成更细粒度的组件。
+-   `compose`：当创建新组件时，希望编写测试来验证它们的功能。这是确保可靠性和及早发现错误的好方法。
+-   `reuse`：应该维护中央存储库，其中核心功能在源头进行测试并在许多项目中重用。这显着减少了每个新项目代码库的测试工作量。
+-   `regression`：想解释回归测试中遇到的新错误，这样就可以确保将来不会重新引入相同的错误。
+-   `coverage`：希望确保代码库[100% 覆盖](https://madewithml.com/courses/mlops/testing//#coverage)。这并不意味着要为每一行代码编写测试，而是要考虑每一行代码。
+-   `automate`：如果忘记在提交到存储库之前运行测试，希望在对代码库进行更改时自动运行测试。将在后续课程中学习如何使用[预提交挂钩在本地执行此操作，并通过](https://madewithml.com/courses/mlops/testing//../pre-commit/)[GitHub 操作](https://madewithml.com/courses/mlops/testing//../cicd/#github-actions)远程执行此操作。
 
 ## 测试驱动开发
 
-[测试驱动开发 (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)是在编写功能之前编写测试以确保始终编写测试的过程。这与先编写功能然后再编写测试形成对比。以下是我们对此的看法：
+[测试驱动开发 (TDD)](https://en.wikipedia.org/wiki/Test-driven_development)是在编写功能之前编写测试以确保始终编写测试的过程。这与先编写功能然后再编写测试形成对比。以下是对此的看法：
 
--   随着我们的进步编写测试很好，但这确实意味着 100% 的正确性。
+-   随着进步编写测试很好，但这确实意味着 100% 的正确性。
 -   在进入代码或测试之前，最初的时间应该花在设计上。
 
-如果这些测试没有意义并且不包含可能的输入、中间体和输出的领域，那么完美的覆盖并不意味着我们的应用程序没有错误。因此，我们应该在面临错误时朝着更好的设计和敏捷性努力，快速解决它们并围绕它们编写测试用例以避免下一次。
+如果这些测试没有意义并且不包含可能的输入、中间体和输出的领域，那么完美的覆盖并不意味着应用程序没有错误。因此，应该在面临错误时朝着更好的设计和敏捷性努力，快速解决它们并围绕它们编写测试用例以避免下一次。
 
 ## 应用
 
-在我们的[应用程序](https://github.com/GokuMohandas/mlops-course)中，我们将测试代码、数据和模型。我们将首先创建一个`tests`带有`code`子目录的单独目录来测试我们的`tagifai`脚本。我们将在下面创建用于测试[数据](https://madewithml.com/courses/mlops/testing//#🔢nbsp-data)和[模型](https://madewithml.com/courses/mlops/testing//#🤖nbsp-models)的子目录。
+在[应用程序](https://github.com/GokuMohandas/mlops-course)中，将测试代码、数据和模型。将首先创建一个`tests`带有`code`子目录的单独目录来测试`tagifai`脚本。将在下面创建用于测试[数据](https://madewithml.com/courses/mlops/testing//#🔢nbsp-data)和[模型](https://madewithml.com/courses/mlops/testing//#🤖nbsp-models)的子目录。
 
 ```
 mkdir tests
@@ -100,20 +100,20 @@ tests/
 
 ```
 
-在学习了本课中的所有概念_后_，请随意编写测试并将它们组织在这些脚本中。我们建议使用我们[`tests`](https://github.com/GokuMohandas/mlops-course/tree/main/tests)在 GitHub 上的目录作为参考。
+在学习了本课中的所有概念_后_，请随意编写测试并将它们组织在这些脚本中。建议使用[`tests`](https://github.com/GokuMohandas/mlops-course/tree/main/tests)在 GitHub 上的目录作为参考。
 
-> 请注意，我们的`tagifai/train.py`脚本没有相应的`tests/code/test_train.py`. 一些脚本具有带有依赖项（例如工件）的大型函数（例如`train.train()`、`train.optimize()`、等），通过.`predict.predict()``tests/code/test_main.py`
+> 请注意，`tagifai/train.py`脚本没有相应的`tests/code/test_train.py`. 一些脚本具有带有依赖项（例如工件）的大型函数（例如`train.train()`、`train.optimize()`、等），通过.`predict.predict()``tests/code/test_main.py`
 
 ## 🧪 Pytest
 
-我们将使用[pytest](https://docs.pytest.org/en/stable/)作为我们的测试框架，因为它具有强大的内置功能，例如[参数化](https://madewithml.com/courses/mlops/testing//#parametrize)、[固定装置](https://madewithml.com/courses/mlops/testing//#fixtures)、[标记](https://madewithml.com/courses/mlops/testing//#markers)等。
+将使用[pytest](https://docs.pytest.org/en/stable/)作为测试框架，因为它具有强大的内置功能，例如[参数化](https://madewithml.com/courses/mlops/testing//#parametrize)、[固定装置](https://madewithml.com/courses/mlops/testing//#fixtures)、[标记](https://madewithml.com/courses/mlops/testing//#markers)等。
 
 ```
 pip install pytest==7.1.2
 
 ```
 
-由于这个测试包不是核心机器学习操作的组成部分，让我们在我们的中创建一个单独的列表`setup.py`并将其添加到我们的`extras_require`：
+由于这个测试包不是核心机器学习操作的组成部分，让在中创建一个单独的列表`setup.py`并将其添加到`extras_require`：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -144,11 +144,11 @@ pip install pytest==7.1.2
 <span class="p">)</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们创建了一个明确的`test`选项，因为用户只想下载测试包。[当我们使用CI/CD 工作流](https://madewithml.com/courses/mlops/testing//../cicd/)通过 GitHub Actions 运行测试时，我们将看到这一点。
+创建了一个明确的`test`选项，因为用户只想下载测试包。[当使用CI/CD 工作流](https://madewithml.com/courses/mlops/testing//../cicd/)通过 GitHub Actions 运行测试时，将看到这一点。
 
 ### 配置
 
-Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，我们也可以添加到现有`pyproject.toml`文件中以配置任何其他测试目录。进入目录后，pytest 会查找以 开头的 python 脚本，`tests_*.py`但我们也可以将其配置为读取任何其他文件模式。
+Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，也可以添加到现有`pyproject.toml`文件中以配置任何其他测试目录。进入目录后，pytest 会查找以 开头的 python 脚本，`tests_*.py`但也可以将其配置为读取任何其他文件模式。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -161,7 +161,7 @@ Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，
 
 ### 断言
 
-让我们看看样本测试及其结果是什么样的。假设我们有一个简单的函数来确定水果是否脆：
+让看看样本测试及其结果是什么样的。假设有一个简单的函数来确定水果是否脆：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -186,7 +186,7 @@ Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，
     <span class="k">return</span> <span class="kc">False</span>
 </code></pre></div></td></tr></tbody></table>
 
-为了测试这个功能，我们可以使用[断言语句](https://docs.pytest.org/en/stable/assert.html)来映射输入和预期的输出。单词后面的语句`assert`必须返回 True。
+为了测试这个功能，可以使用[断言语句](https://docs.pytest.org/en/stable/assert.html)来映射输入和预期的输出。单词后面的语句`assert`必须返回 True。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -205,9 +205,9 @@ Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，
         <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="s2">"pear"</span><span class="p">)</span>
 </code></pre></div></td></tr></tbody></table>
 
-> 我们还可以对[异常](https://docs.pytest.org/en/stable/assert.html#assertions-about-expected-exceptions)进行断言，就像我们在第 6-8 行中所做的那样，其中 with 语句下的所有操作都应该引发指定的异常。
+> 还可以对[异常](https://docs.pytest.org/en/stable/assert.html#assertions-about-expected-exceptions)进行断言，就像在第 6-8 行中所做的那样，其中 with 语句下的所有操作都应该引发指定的异常。
 
-`assert`在我们的项目中使用的例子
+`assert`在项目中使用的例子
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -236,7 +236,7 @@ Pytest 期望测试在`tests`默认情况下组织在一个目录下。但是，
 
 ### 执行
 
-我们可以使用几个不同的粒度级别执行上面的测试：
+可以使用几个不同的粒度级别执行上面的测试：
 
 ```
 python3 -m pytest                                           # all tests
@@ -246,7 +246,7 @@ python3 -m pytest tests/food/test_fruits.py::test_is_crisp  # tests for a single
 
 ```
 
-在上面运行我们的特定测试将产生以下输出：
+在上面运行特定测试将产生以下输出：
 
 ```
 python3 -m pytest tests/food/test_fruits.py::test_is_crisp
@@ -258,7 +258,7 @@ python3 -m pytest tests/food/test_fruits.py::test_is_crisp
 
 ```
 
-如果我们在此测试中的任何断言失败，我们将看到失败的断言，以及我们函数的预期和实际输出。
+如果在此测试中的任何断言失败，将看到失败的断言，以及函数的预期和实际输出。
 
 ```
 测试/食物/test_fruits.py F [100%]
@@ -272,11 +272,11 @@ E + where False = is_crisp(fruit='orange')
 
 小费
 
-重要的是要测试我们[上面](https://madewithml.com/courses/mlops/testing//#how-should-we-test)概述的各种输入和预期输出，并且**永远不要假设测试是微不足道的**。在我们上面的例子中，如果我们的函数没有考虑大小写，我们测试“apple”和“Apple”是很重要的！
+重要的是要测试[上面](https://madewithml.com/courses/mlops/testing//#how-should-we-test)概述的各种输入和预期输出，并且**永远不要假设测试是微不足道的**。在上面的例子中，如果函数没有考虑大小写，测试“apple”和“Apple”是很重要的！
 
 ### 课程
 
-我们还可以通过创建测试类来测试类及其各自的功能。在我们的测试类中，我们可以选择定义在我们设置或拆除类实例或使用类方法时自动执行的[函数。](https://docs.pytest.org/en/stable/xunit_setup.html)
+还可以通过创建测试类来测试类及其各自的功能。在测试类中，可以选择定义在设置或拆除类实例或使用类方法时自动执行的[函数。](https://docs.pytest.org/en/stable/xunit_setup.html)
 
 -   `setup_class`：为任何类实例设置状态。
 -   `teardown_class`: 拆除 setup\_class 中创建的状态。
@@ -334,7 +334,7 @@ E + where False = is_crisp(fruit='orange')
         <span class="k">assert</span> <span class="bp">self</span><span class="o">.</span><span class="n">fruit</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"apple"</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们可以通过指定类名来为我们的类执行所有测试：
+可以通过指定类名来为类执行所有测试：
 
 ```
 python3 -m pytest tests/food/test_fruits.py::TestFruit
@@ -346,7 +346,7 @@ python3 -m pytest tests/food/test_fruits.py::TestFruit
 
 ```
 
-`class`在我们的项目中测试 a 的示例
+`class`在项目中测试 a 的示例
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -469,7 +469,7 @@ python3 -m pytest tests/food/test_fruits.py::TestFruit
 
 ### 参数化
 
-到目前为止，在我们的测试中，我们必须创建单独的断言语句来验证输入和预期输出的不同组合。然而，这里有一点冗余，因为输入总是作为参数输入到我们的函数中，并且输出与我们的预期输出进行比较。为了消除这种冗余，pytest 有一个[`@pytest.mark.parametrize`](https://docs.pytest.org/en/stable/parametrize.html)装饰器，它允许我们将输入和输出表示为参数。
+到目前为止，在测试中，必须创建单独的断言语句来验证输入和预期输出的不同组合。然而，这里有一点冗余，因为输入总是作为参数输入到函数中，并且输出与预期输出进行比较。为了消除这种冗余，pytest 有一个[`@pytest.mark.parametrize`](https://docs.pytest.org/en/stable/parametrize.html)装饰器，它允许将输入和输出表示为参数。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -502,7 +502,7 @@ python3 -m pytest 测试/食物/test_is_crisp_parametrize.py ...    [100%]
 3.  `[Line 9]`：将参数名称传递给测试函数。
 4.  `[Line 10]`：包括必要的断言语句，这些语句将为步骤 2 中列表中的每个组合执行。
 
-同样，我们也可以传入一个异常作为预期结果：
+同样，也可以传入一个异常作为预期结果：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -523,7 +523,7 @@ python3 -m pytest 测试/食物/test_is_crisp_parametrize.py ...    [100%]
         <span class="n">is_crisp</span><span class="p">(</span><span class="n">fruit</span><span class="o">=</span><span class="n">fruit</span><span class="p">)</span>
 </code></pre></div></td></tr></tbody></table>
 
-`parametrize`我们项目中的示例
+`parametrize`项目中的示例
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -568,7 +568,7 @@ python3 -m pytest 测试/食物/test_is_crisp_parametrize.py ...    [100%]
 
 ### 夹具
 
-参数化允许我们减少测试函数内部的冗余，但是如何减少不同测试函数之间的冗余呢？例如，假设不同的函数都有一个数据框作为输入。在这里，我们可以使用pytest的内置[fixture](https://docs.pytest.org/en/stable/fixture.html)，它是一个在test函数之前执行的函数。
+参数化允许减少测试函数内部的冗余，但是如何减少不同测试函数之间的冗余呢？例如，假设不同的函数都有一个数据框作为输入。在这里，可以使用pytest的内置[fixture](https://docs.pytest.org/en/stable/fixture.html)，它是一个在test函数之前执行的函数。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -587,7 +587,7 @@ python3 -m pytest 测试/食物/test_is_crisp_parametrize.py ...    [100%]
 
 > 请注意，fixture 的名称和 test 函数的输入是相同的 ( `my_fruit`)。
 
-我们也可以将fixture 应用到类中，当调用类中的任何方法时都会调用fixture 函数。
+也可以将fixture 应用到类中，当调用类中的任何方法时都会调用fixture 函数。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -596,7 +596,7 @@ python3 -m pytest 测试/食物/test_is_crisp_parametrize.py ...    [100%]
     <span class="o">...</span>
 </code></pre></div></td></tr></tbody></table>
 
-`fixtures`我们项目中的示例
+`fixtures`项目中的示例
 
 In our project, we use fixtures to efficiently pass a set of inputs (ex. Pandas DataFrame) to different testing functions that require them (cleaning, splitting, etc.).
 
@@ -663,9 +663,9 @@ Note that we don't use the `df` fixture directly (we pass in `df.copy()`) inside
 
 Tip
 
-在围绕数据集创建固定装置时，最佳做法是创建一个仍遵循相同架构的简化版本。例如，在我们上面的数据框夹具中，我们正在创建一个较小的数据框，它仍然具有与我们实际数据框相同的列名。虽然我们可以加载我们的实际数据集，但随着我们的数据集随时间变化（新标签、删除标签、非常大的数据集等），它可能会导致问题
+在围绕数据集创建固定装置时，最佳做法是创建一个仍遵循相同架构的简化版本。例如，在上面的数据框夹具中，正在创建一个较小的数据框，它仍然具有与实际数据框相同的列名。虽然可以加载实际数据集，但随着数据集随时间变化（新标签、删除标签、非常大的数据集等），它可能会导致问题
 
-Fixtures 可以有不同的范围，这取决于我们如何使用它们。例如，我们的`df`夹具具有模块范围，因为我们不想在每次测试后都重新创建它，而是希望为我们模块中的所有测试只创建一次（`tests/test_data.py`）。
+Fixtures 可以有不同的范围，这取决于如何使用它们。例如，`df`夹具具有模块范围，因为不想在每次测试后都重新创建它，而是希望为模块中的所有测试只创建一次（`tests/test_data.py`）。
 
 -   `function`: 每次测试后，fixture 都会被销毁。`[default]`
 -   `class`：夹具在类中的最后一次测试后被销毁。
@@ -675,11 +675,11 @@ Fixtures 可以有不同的范围，这取决于我们如何使用它们。例�
 
 功能是最低级别的范围，而[会话](https://docs.pytest.org/en/6.2.x/fixture.html#scope-sharing-fixtures-across-classes-modules-packages-or-session)是最高级别。首先执行最高级别的范围固定装置。
 
-> 通常，当我们在一个特定的测试文件中有许多夹具时，我们可以将它们全部组织在一个`fixtures.py`脚本中并根据需要调用它们。
+> 通常，当在一个特定的测试文件中有许多夹具时，可以将它们全部组织在一个`fixtures.py`脚本中并根据需要调用它们。
 
 ### 标记
 
-我们已经能够以各种粒度级别（所有测试、脚本、函数等）执行我们的测试，但我们可以使用[标记](https://docs.pytest.org/en/stable/mark.html)创建自定义粒度。我们已经使用了一种类型的标记（参数化），但还有其他几种[内置标记](https://docs.pytest.org/en/stable/mark.html#mark)。例如，[`skipif`](https://docs.pytest.org/en/stable/skipping.html#id1)如果满足条件，标记允许我们跳过测试的执行。例如，假设我们只想在 GPU 可用时测试训练我们的模型：
+已经能够以各种粒度级别（所有测试、脚本、函数等）执行测试，但可以使用[标记](https://docs.pytest.org/en/stable/mark.html)创建自定义粒度。已经使用了一种类型的标记（参数化），但还有其他几种[内置标记](https://docs.pytest.org/en/stable/mark.html#mark)。例如，[`skipif`](https://docs.pytest.org/en/stable/skipping.html#id1)如果满足条件，标记允许跳过测试的执行。例如，假设只想在 GPU 可用时测试训练模型：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -694,7 +694,7 @@ Fixtures 可以有不同的范围，这取决于我们如何使用它们。例�
     <span class="k">pass</span>
 </code></pre></div></td></tr></tbody></table>
 
-[除了一些保留](https://docs.pytest.org/en/stable/reference.html#marks)的标记名称外，我们还可以创建自己的自定义标记。
+[除了一些保留](https://docs.pytest.org/en/stable/reference.html#marks)的标记名称外，还可以创建自己的自定义标记。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -703,7 +703,7 @@ Fixtures 可以有不同的范围，这取决于我们如何使用它们。例�
     <span class="k">assert</span> <span class="n">my_fruit</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s2">"apple"</span>
 </code></pre></div></td></tr></tbody></table>
 
-`-m`我们可以使用需要（区分大小写）标记表达式的标志来执行它们，如下所示：
+`-m`可以使用需要（区分大小写）标记表达式的标志来执行它们，如下所示：
 
 ```
 pytest -m "fruits"      #  runs all tests marked with `fruits`
@@ -713,7 +713,7 @@ pytest -m "not fruits"  #  runs all tests besides those marked with `fruits`
 
 小费
 
-使用标记的正确方法是明确列出我们在[pyproject.toml](https://github.com/GokuMohandas/mlops-course/blob/main/pyproject.toml)文件中创建的标记。在这里，我们可以指定必须在此文件中使用`--strict-markers`标志定义所有标记，然后在我们的`markers`列表中声明我们的标记（以及有关它们的一些信息）：
+使用标记的正确方法是明确列出在[pyproject.toml](https://github.com/GokuMohandas/mlops-course/blob/main/pyproject.toml)文件中创建的标记。在这里，可以指定必须在此文件中使用`--strict-markers`标志定义所有标记，然后在`markers`列表中声明标记（以及有关它们的一些信息）：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -739,18 +739,18 @@ pytest -m "not fruits"  #  runs all tests besides those marked with `fruits`
 </span><span class="hll"><span class="p">]</span><span class="w"></span>
 </span></code></pre></div></td></tr></tbody></table>
 
-完成此操作后，我们可以通过执行查看所有现有的标记列表，`pytest --markers`当我们尝试使用此处未定义的新标记时会收到错误消息。
+完成此操作后，可以通过执行查看所有现有的标记列表，`pytest --markers`当尝试使用此处未定义的新标记时会收到错误消息。
 
 ### 覆盖范围
 
-当我们为应用程序的组件开发测试时，重要的是要知道我们对代码库的覆盖程度以及知道我们是否遗漏了任何东西。我们可以使用[Coverage](https://coverage.readthedocs.io/)库来跟踪和可视化我们的测试占代码库的多少。使用 pytest，由于[pytest-cov](https://pytest-cov.readthedocs.io/)插件，使用这个包变得更加容易。
+当为应用程序的组件开发测试时，重要的是要知道对代码库的覆盖程度以及知道是否遗漏了任何东西。可以使用[Coverage](https://coverage.readthedocs.io/)库来跟踪和可视化测试占代码库的多少。使用 pytest，由于[pytest-cov](https://pytest-cov.readthedocs.io/)插件，使用这个包变得更加容易。
 
 ```
 pip install pytest-cov==2.10.1
 
 ```
 
-我们将把它添加到我们的`setup.py`脚本中：
+将把它添加到`setup.py`脚本中：
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -770,17 +770,17 @@ python3 -m pytest --cov tagifai --cov-report html
 
 ![pytest](https://madewithml.com/static/images/mlops/testing/pytest.png)
 
-在这里，我们要求覆盖 tagifai 和 app 目录中的所有代码，并以 HTML 格式生成报告。当我们运行它时，我们将看到我们的测试目录中的测试正在执行，而覆盖插件正在跟踪我们的应用程序中的哪些行正在执行。测试完成后，我们可以查看生成的报告（默认为`htmlcov/index.html`）并单击各个文件以查看哪些部分未被任何测试覆盖。当我们忘记测试某些条件、异常等时，这尤其有用。
+在这里，要求覆盖 tagifai 和 app 目录中的所有代码，并以 HTML 格式生成报告。当运行它时，将看到测试目录中的测试正在执行，而覆盖插件正在跟踪应用程序中的哪些行正在执行。测试完成后，可以查看生成的报告（默认为`htmlcov/index.html`）并单击各个文件以查看哪些部分未被任何测试覆盖。当忘记测试某些条件、异常等时，这尤其有用。
 
 ![测试覆盖率](https://madewithml.com/static/images/mlops/testing/coverage.png)
 
 警告
 
-虽然我们有 100% 的覆盖率，但这并不意味着我们的应用程序是完美的。覆盖率只是表示在测试中执行的一段代码，不一定是它的每一部分都经过测试，更不用说彻底测试了。因此，覆盖率**永远**不应被用作正确性的表示。但是，将覆盖率保持在 100% 非常有用，这样我们就可以知道新功能何时尚未测试。在我们的 CI/CD 课程中，我们将了解在推送到特定分支时如何使用 GitHub 操作来实现 100% 的覆盖率。
+虽然有 100% 的覆盖率，但这并不意味着应用程序是完美的。覆盖率只是表示在测试中执行的一段代码，不一定是它的每一部分都经过测试，更不用说彻底测试了。因此，覆盖率**永远**不应被用作正确性的表示。但是，将覆盖率保持在 100% 非常有用，这样就可以知道新功能何时尚未测试。在 CI/CD 课程中，将了解在推送到特定分支时如何使用 GitHub 操作来实现 100% 的覆盖率。
 
 ### 排除项
 
-有时编写测试来覆盖应用程序中的每一行是没有意义的，但我们仍然希望考虑这些行，以便我们可以保持 100% 的覆盖率。应用排除时，我们有两个级别的权限：
+有时编写测试来覆盖应用程序中的每一行是没有意义的，但仍然希望考虑这些行，以便可以保持 100% 的覆盖率。应用排除时，有两个级别的权限：
 
 1.  通过添加此评论来原谅行`# pragma: no cover, <MESSAGE>`
     
@@ -793,7 +793,7 @@ python3 -m pytest --cov tagifai --cov-report html
             <span class="k">raise</span> <span class="n">optuna</span><span class="o">.</span><span class="n">TrialPruned</span><span class="p">()</span>
     </code></pre></div></td></tr></tbody></table>
     
-2.  `pyproject.toml`通过在我们的配置中指定文件来排除文件：
+2.  `pyproject.toml`通过在配置中指定文件来排除文件：
     
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
@@ -803,18 +803,18 @@ python3 -m pytest --cov tagifai --cov-report html
 <span class="n">omit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">[</span><span class="s">"app/gunicorn.py"</span><span class="p">]</span><span class="w"></span>
 </code></pre></div></td></tr></tbody></table>
 
-> 重点是我们能够通过评论为这些排除项添加理由，以便我们的团队可以遵循我们的推理。
+> 重点是能够通过评论为这些排除项添加理由，以便团队可以遵循推理。
 
-现在我们已经有了测试传统软件的基础，让我们在机器学习系统的背景下深入测试我们的数据和模型。
+现在已经有了测试传统软件的基础，让在机器学习系统的背景下深入测试数据和模型。
 
 
 ## 型号
 
-测试 ML 系统的最后一个方面涉及在训练、评估、推理和部署期间测试我们的模型。
+测试 ML 系统的最后一个方面涉及在训练、评估、推理和部署期间测试模型。
 
 ### 训练
 
-我们希望在开发训练管道时迭代地编写测试，以便我们可以快速发现错误。这一点尤为重要，因为与传统软件不同，ML 系统可以运行完成而不会引发任何异常/错误，但可能会产生不正确的系统。我们还希望快速捕获错误以节省时间和计算。
+希望在开发训练管道时迭代地编写测试，以便可以快速发现错误。这一点尤为重要，因为与传统软件不同，ML 系统可以运行完成而不会引发任何异常/错误，但可能会产生不正确的系统。还希望快速捕获错误以节省时间和计算。
 
 -   检查模型输出的形状和值
     
@@ -863,7 +863,7 @@ python3 -m pytest --cov tagifai --cov-report html
 
 ### 行为测试
 
-行为测试是测试输入数据和预期输出的过程，同时将模型视为黑盒（与模型无关的评估）。它们不一定在本质上是对抗性的，但更多的是我们在部署模型后可能期望在现实世界中看到的扰动类型。关于这个主题的具有里程碑意义的论文是[Beyond Accuracy: Behavioral Testing of NLP Models with CheckList](https://arxiv.org/abs/2005.04118)，它将行为测试分为三种类型的测试：
+行为测试是测试输入数据和预期输出的过程，同时将模型视为黑盒（与模型无关的评估）。它们不一定在本质上是对抗性的，但更多的是在部署模型后可能期望在现实世界中看到的扰动类型。关于这个主题的具有里程碑意义的论文是[Beyond Accuracy: Behavioral Testing of NLP Models with CheckList](https://arxiv.org/abs/2005.04118)，它将行为测试分为三种类型的测试：
 
 -   `invariance`：更改不应影响输出。
     
@@ -936,7 +936,7 @@ python3 -m pytest --cov tagifai --cov-report html
 
 ```
 
-我们可以将这些测试转换为系统的参数化测试：
+可以将这些测试转换为系统的参数化测试：
 
 ```
 mkdir tests/model
@@ -1160,11 +1160,11 @@ touch tests/model/test_behavioral.py
 
 ### 推理
 
-部署我们的模型后，大多数用户将使用它进行推理（直接/间接），因此测试它的各个方面非常重要。
+部署模型后，大多数用户将使用它进行推理（直接/间接），因此测试它的各个方面非常重要。
 
 #### 加载工件
 
-这是我们第一次不从内存中加载我们的组件，因此我们希望确保所需的工件（模型权重、编码器、配置等）都能够被加载。
+这是第一次不从内存中加载组件，因此希望确保所需的工件（模型权重、编码器、配置等）都能够被加载。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -1175,7 +1175,7 @@ touch tests/model/test_behavioral.py
 
 #### 预言
 
-一旦我们加载了我们的工件，我们就准备好测试我们的预测管道。我们应该只用一个输入和一批输入来测试样本（例如，填充有时会产生意想不到的后果）。
+一旦加载了工件，就准备好测试预测管道。应该只用一个输入和一批输入来测试样本（例如，填充有时会产生意想不到的后果）。
 
 <table class="highlighttable"><tbody><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">1 </font></font></span>
 <span class="normal"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2 </font></font></span>
@@ -1204,7 +1204,7 @@ touch tests/model/test_behavioral.py
 
 ## 生成文件
 
-让我们在其中创建一个目标，`Makefile`这将允许我们一次调用执行所有测试：
+让在其中创建一个目标，`Makefile`这将允许一次调用执行所有测试：
 
 ```
 # Test
@@ -1224,16 +1224,16 @@ make test
 
 ## 测试与监控
 
-最后，我们将讨论测试和[监控](https://madewithml.com/courses/mlops/testing//../monitoring/)之间的相似点和区别。它们都是 ML 开发管道的组成部分，并且相互依赖以进行迭代。测试可确保我们的系统（代码、数据和模型）达到我们在离线时建立的预期。鉴于监控涉及这些期望继续在线传递实时生产数据，同时还通过以下方式确保其数据分布[与](https://madewithml.com/courses/mlops/testing//../monitoring/#measuring-drift)参考窗口（通常是训练数据的子集）具有可比性吨n. 当这些条件不再成立时，我们需要更仔细地检查（再培训可能并不总能解决我们的根本问题）。
+最后，将讨论测试和[监控](https://madewithml.com/courses/mlops/testing//../monitoring/)之间的相似点和区别。它们都是 ML 开发管道的组成部分，并且相互依赖以进行迭代。测试可确保系统（代码、数据和模型）达到在离线时建立的预期。鉴于监控涉及这些期望继续在线传递实时生产数据，同时还通过以下方式确保其数据分布[与](https://madewithml.com/courses/mlops/testing//../monitoring/#measuring-drift)参考窗口（通常是训练数据的子集）具有可比性吨n. 当这些条件不再成立时，需要更仔细地检查（再培训可能并不总能解决根本问题）。
 
-对于[监控](https://madewithml.com/courses/mlops/testing//../monitoring/)，我们在测试期间不必考虑很多不同的问题，因为它涉及我们尚未看到的（实时）数据。
+对于[监控](https://madewithml.com/courses/mlops/testing//../monitoring/)，在测试期间不必考虑很多不同的问题，因为它涉及尚未看到的（实时）数据。
 
 -   特征和预测分布（漂移）、类型、模式不匹配等。
 -   使用间接信号（因为标签可能不容易获得）确定模型性能（整体和数据切片的滚动和窗口度量）。
--   在大数据的情况下，我们需要知道要标记哪些数据点并进行上采样以进行训练。
+-   在大数据的情况下，需要知道要标记哪些数据点并进行上采样以进行训练。
 -   识别异常和异常值。
 
-> [我们将在监控](https://madewithml.com/courses/mlops/testing//../monitoring/)课程中更深入地（和代码）介绍所有这些概念。
+> [将在监控](https://madewithml.com/courses/mlops/testing//../monitoring/)课程中更深入地（和代码）介绍所有这些概念。
 
 ## 资源
 

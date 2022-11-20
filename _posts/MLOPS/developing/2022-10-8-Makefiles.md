@@ -16,9 +16,9 @@ tags:
 
 ## 直觉
 
-尽管我们只完成了课程的一半，但已经有很多不同的命令需要跟踪。为了帮助组织一切，我们将使用[`Makefile`](https://opensource.com/article/18/8/what-how-makefile)一个自动化工具来组织我们的命令。我们将首先在项目的根目录中创建此文件。
+尽管只完成了课程的一半，但已经有很多不同的命令需要跟踪。为了帮助组织一切，将使用[`Makefile`](https://opensource.com/article/18/8/what-how-makefile)一个自动化工具来组织命令。将首先在项目的根目录中创建此文件。
 
-在我们的顶部，`Makefile`我们需要指定我们希望所有命令在其中执行的 shell 环境：
+在顶部，`Makefile`需要指定希望所有命令在其中执行的 shell 环境：
 
 ```
 # Makefile

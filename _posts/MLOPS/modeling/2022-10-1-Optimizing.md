@@ -17,18 +17,18 @@ tags:
 
 ## 直觉
 
-优化是在我们的实验中微调超参数以优化特定目标的过程。它可能是一个涉及计算的过程，具体取决于参数的数量、搜索空间和模型架构。超参数不仅包括模型的参数，还包括来自预处理、分割等的参数（选择）。当我们查看所有可以调整的不同参数时，它很快就变成了一个非常大的搜索空间。然而，仅仅因为某些东西是超参数并不意味着我们需要调整它。
+优化是在实验中微调超参数以优化特定目标的过程。它可能是一个涉及计算的过程，具体取决于参数的数量、搜索空间和模型架构。超参数不仅包括模型的参数，还包括来自预处理、分割等的参数（选择）。当查看所有可以调整的不同参数时，它很快就变成了一个非常大的搜索空间。然而，仅仅因为某些东西是超参数并不意味着需要调整它。
 
 -   `lower=True`修复一些超参数（例如在预处理期间）并将它们从调整子集中删除是绝对可以的。请务必注意您正在修复哪些参数以及您这样做的理由。
 -   您最初可以只调整一小部分但有影响力的超参数子集，您认为这些子集会产生最佳结果。
 
-我们希望优化我们的超参数，以便我们能够了解它们中的每一个如何影响我们的目标。通过在合理的搜索空间中进行多次试验，我们可以确定不同参数的接近理想值。这也是确定较小参数是否产生与较大参数（效率）相似的性能的好机会。
+希望优化超参数，以便能够了解它们中的每一个如何影响目标。通过在合理的搜索空间中进行多次试验，可以确定不同参数的接近理想值。这也是确定较小参数是否产生与较大参数（效率）相似的性能的好机会。
 
-超参数调整有很多选项（[Optuna](https://github.com/optuna/optuna)、[Ray tune](https://github.com/ray-project/ray/tree/master/python/ray/tune)、[Hyperopt](https://github.com/hyperopt/hyperopt)等）。我们将使用 Optuna 是因为它的简单性、流行性和效率，尽管它们都同样如此。这实际上归结为熟悉程度以及库是否具有易于测试和可用的特定实现。
+超参数调整有很多选项（[Optuna](https://github.com/optuna/optuna)、[Ray tune](https://github.com/ray-project/ray/tree/master/python/ray/tune)、[Hyperopt](https://github.com/hyperopt/hyperopt)等）。将使用 Optuna 是因为它的简单性、流行性和效率，尽管它们都同样如此。这实际上归结为熟悉程度以及库是否具有易于测试和可用的特定实现。
 
 ## 应用
 
-执行超参数优化时需要考虑许多因素，幸运的是 Optuna 允许我们轻松[实现](https://optuna.readthedocs.io/en/stable/reference/)它们。我们将进行一项小型研究，其中我们将调整一组参数（当我们将代码移动到 Python 脚本时，我们将对参数空间进行更彻底的[研究）。](https://optuna.readthedocs.io/en/stable/reference/study.html)以下是研究的过程：
+执行超参数优化时需要考虑许多因素，幸运的是 Optuna 允许轻松[实现](https://optuna.readthedocs.io/en/stable/reference/)它们。将进行一项小型研究，其中将调整一组参数（当将代码移动到 Python 脚本时，将对参数空间进行更彻底的[研究）。](https://optuna.readthedocs.io/en/stable/reference/study.html)以下是研究的过程：
 
 1.  定义目标（指标）并确定优化[方向](https://optuna.readthedocs.io/en/stable/reference/generated/optuna.study.StudyDirection.html#optuna.study.StudyDirection)。
 2.  `[OPTIONAL]`选择一个[采样器](https://optuna.readthedocs.io/en/stable/reference/samplers.html)来确定后续试验的参数。（默认是基于树的采样器）。
@@ -40,7 +40,7 @@ pip install optuna==2.10.0 numpyencoder==0.3.0 -q
 
 ```
 
-我们将使用与以前相同的训练函数，因为我们已经添加了在`trial`参数不是时修剪特定运行的功能`None`。
+将使用与以前相同的训练函数，因为已经添加了在`trial`参数不是时修剪特定运行的功能`None`。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_3"><span></span><code><span># Pruning (inside train() function)</span>
 <span>trial</span><span>.</span><span>report</span><span>(</span><span>val_loss</span><span>,</span> <span>epoch</span><span>)</span>
@@ -50,7 +50,7 @@ pip install optuna==2.10.0 numpyencoder==0.3.0 -q
 
 ## 客观的
 
-我们需要定义一个目标函数，该函数将使用试验和一组参数并生成要优化的指标（`f1`在我们的例子中）。
+需要定义一个目标函数，该函数将使用试验和一组参数并生成要优化的指标（`f1`在例子中）。
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -93,7 +93,7 @@ pip install optuna==2.10.0 numpyencoder==0.3.0 -q
 
 ## 学习
 
-我们已准备好使用[MLFlowCallback](https://optuna.readthedocs.io/en/stable/reference/generated/optuna.integration.MLflowCallback.html)开始我们的研究，这样我们就可以跟踪所有不同的试验。
+已准备好使用[MLFlowCallback](https://optuna.readthedocs.io/en/stable/reference/generated/optuna.integration.MLflowCallback.html)开始研究，这样就可以跟踪所有不同的试验。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_5"><span></span><code><span>from</span> <span>numpyencoder</span> <span>import</span> <span>NumpyEncoder</span>
 <span>from</span> <span>optuna.integration.mlflow</span> <span>import</span> <span>MLflowCallback</span>
@@ -141,7 +141,7 @@ pip install optuna==2.10.0 numpyencoder==0.3.0 -q
 
 ![比较试验](https://madewithml.com/static/images/mlops/hyperparameter_optimization/compare.png)
 
-1.  在对比页面中，我们可以通过各种镜头（轮廓、平行坐标等）查看结果
+1.  在对比页面中，可以通过各种镜头（轮廓、平行坐标等）查看结果
 
 ![等高线图](https://madewithml.com/static/images/mlops/hyperparameter_optimization/contour.png)
 
@@ -195,7 +195,7 @@ pip install optuna==2.10.0 numpyencoder==0.3.0 -q
 
 ```
 
-...现在我们终于准备好从使用 Jupyter 笔记本转向 Python 脚本了。我们将重新审视我们迄今为止所做的一切，但这次使用适当的软件工程原则，例如面向对象编程 (OOP)、样式、测试等。 → [https://madewithml.com/#mlops](https://madewithml.com/#mlops)
+...现在终于准备好从使用 Jupyter 笔记本转向 Python 脚本了。将重新审视迄今为止所做的一切，但这次使用适当的软件工程原则，例如面向对象编程 (OOP)、样式、测试等。 → [https://madewithml.com/#mlops](https://madewithml.com/#mlops)
 
 ___
 

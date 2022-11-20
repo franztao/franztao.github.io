@@ -16,29 +16,29 @@ tags:
 
 ## 直觉
 
-我们的[CLI 应用程序](https://madewithml.com/courses/mlops/cli/)使与我们的模型交互变得更加容易，特别是对于可能不想深入研究代码库的团队成员。但是使用 CLI 为我们的模型提供服务有几个限制：
+[CLI 应用程序](https://madewithml.com/courses/mlops/cli/)使与模型交互变得更加容易，特别是对于可能不想深入研究代码库的团队成员。但是使用 CLI 为模型提供服务有几个限制：
 
 -   用户需要访问终端、代码库、虚拟环境等。
 -   终端上的 CLI 输出不可导出
 
-为了解决这些问题，我们将开发一个应用程序编程接口 (API)，_任何人都_可以通过一个简单的请求与我们的应用程序进行交互。
+为了解决这些问题，将开发一个应用程序编程接口 (API)，_任何人都_可以通过一个简单的请求与应用程序进行交互。
 
-> 最终用户可能不会直接与我们的 API 交互，但可能会使用向我们发送请求的 UI/UX 组件。
+> 最终用户可能不会直接与 API 交互，但可能会使用向发送请求的 UI/UX 组件。
 
 ## 服务
 
-API 允许不同的应用程序实时相互通信。但是在提供预测服务时，我们需要首先决定是批量还是实时进行，这完全基于特征空间（有限与无限制）。
+API 允许不同的应用程序实时相互通信。但是在提供预测服务时，需要首先决定是批量还是实时进行，这完全基于特征空间（有限与无限制）。
 
 ### 批量服务
 
-我们可以对一组有限的输入进行批量预测，然后将其写入数据库以进行低延迟推理。当用户或下游进程实时发送推理请求时，会返回数据库中的缓存结果。
+可以对一组有限的输入进行批量预测，然后将其写入数据库以进行低延迟推理。当用户或下游进程实时发送推理请求时，会返回数据库中的缓存结果。
 
 ![批量服务](https://madewithml.com/static/images/mlops/systems-design/batch_serving.png)
 
 -   ✅ 生成和缓存预测，以便为用户提供非常快速的推理。
 -   ✅ 该模型不需要作为它自己的服务进行旋转，因为它从未实时使用。
 -   ❌ 如果用户开发了当前预测所基于的旧数据未捕获的新兴趣，则预测可能会变得陈旧。
--   ❌ 输入特征空间必须是有限的，因为我们需要在需要实时预测之前生成所有预测。
+-   ❌ 输入特征空间必须是有限的，因为需要在需要实时预测之前生成所有预测。
 
 批量服务任务
 
@@ -46,11 +46,11 @@ API 允许不同的应用程序实时相互通信。但是在提供预测服务�
 
 显示答案
 
-_根据现有_用户的观看历史推荐他们喜欢的内容。然而，在我们第二天处理他们的历史记录之前，_新用户可能只会收到一些基于他们明确兴趣的通用推荐。_即使我们不进行批量服务，缓存非常流行的输入特征集（例如，明确兴趣的组合导致某些推荐内容）可能仍然有用，以便我们可以更快地提供这些预测。
+_根据现有_用户的观看历史推荐他们喜欢的内容。然而，在第二天处理他们的历史记录之前，_新用户可能只会收到一些基于他们明确兴趣的通用推荐。_即使不进行批量服务，缓存非常流行的输入特征集（例如，明确兴趣的组合导致某些推荐内容）可能仍然有用，以便可以更快地提供这些预测。
 
 ### 实时服务
 
-我们还可以提供实时预测，通常是通过使用适当的输入数据向 API 发出请求。
+还可以提供实时预测，通常是通过使用适当的输入数据向 API 发出请求。
 
 ![实时服务](https://madewithml.com/static/images/mlops/systems-design/real_time_serving.png)
 
@@ -58,13 +58,13 @@ _根据现有_用户的观看历史推荐他们喜欢的内容。然而，在我
 -   ❌ 需要托管微服务来处理请求流量。
 -   ❌ 需要实时监控，因为输入空间是无限的，这可能会产生错误的预测。
 
-在本课中，我们将创建启用实时服务所需的 API。在我们的情况下，交互涉及客户端（用户、其他应用程序等）向服务器发送带有适当输入的_请求_（例如预测请求）（我们的应用程序具有经过训练的模型）并接收_响应_（例如预测）作为回报。
+在本课中，将创建启用实时服务所需的 API。在情况下，交互涉及客户端（用户、其他应用程序等）向服务器发送带有适当输入的_请求_（例如预测请求）（应用程序具有经过训练的模型）并接收_响应_（例如预测）作为回报。
 
 ![客户端 API 交互](https://madewithml.com/static/images/mlops/api/interactions.png)
 
 ## 要求
 
-用户将以请求的形式与我们的 API 进行交互。让我们看一下请求的不同组成部分：
+用户将以请求的形式与 API 进行交互。让看一下请求的不同组成部分：
 
 ### URI
 
@@ -98,7 +98,7 @@ PUT /models/<existing_model> -d {}   # updates an existing model based on inform
 
 ```
 
-我们可以使用[cURL](https://linuxize.com/post/curl-rest-api/)通过以下选项执行 API 调用：
+可以使用[cURL](https://linuxize.com/post/curl-rest-api/)通过以下选项执行 API 调用：
 
 ```
 用法：curl [选项...]
@@ -109,7 +109,7 @@ PUT /models/<existing_model> -d {}   # updates an existing model based on inform
 
 ```
 
-例如，如果我们想要 GET all `models`，我们的 cURL 命令将如下所示：
+例如，如果想要 GET all `models`， cURL 命令将如下所示：
 
 ```
 curl -X GET "http://localhost:8000/models"
@@ -139,7 +139,7 @@ curl -X POST "http://localhost:8000/models" \   # method and URI
 
 ## 回复
 
-我们从服务器收到的响应是我们发送的请求的结果。响应还包括标题和正文，其中应包含正确的 HTTP 状态代码以及显式消息、数据等。
+从服务器收到的响应是发送的请求的结果。响应还包括标题和正文，其中应包含正确的 HTTP 状态代码以及显式消息、数据等。
 
 ```
 {
@@ -152,13 +152,13 @@ curl -X POST "http://localhost:8000/models" \   # method and URI
 
 ```
 
-> 我们可能还希望在响应中包含其他元数据，例如模型版本、使用的数据集等。下游消费者可能感兴趣的任何内容或可能对检查有用的元数据。
+> 可能还希望在响应中包含其他元数据，例如模型版本、使用的数据集等。下游消费者可能感兴趣的任何内容或可能对检查有用的元数据。
 
 根据具体情况，有许多[HTTP 状态代码可供选择，但以下是最常见的选项：](https://en.wikipedia.org/wiki/List_of_HTTP_status_codes)
 
 ## 最佳实践
 
-在设计我们的 API 时，需要遵循一些最佳实践：
+在设计 API 时，需要遵循一些最佳实践：
 
 -   URI 路径、消息等应尽可能明确。避免使用神秘的资源名称等。
 -   使用名词而不是动词来命名资源。请求方法已经考虑了动词（✅  `GET /users`不是 ❌  `GET /get_users`）。
@@ -168,7 +168,7 @@ curl -X POST "http://localhost:8000/models" \   # method and URI
 
 ## 应用
 
-我们将在一个单独的`app`目录中定义我们的 API，因为将来我们可能会有额外的包，例如`tagifai`，我们不希望我们的应用程序附加到任何一个包。在我们的`app`目录中，我们将创建以下脚本：
+将在一个单独的`app`目录中定义 API，因为将来可能会有额外的包，例如`tagifai`，不希望应用程序附加到任何一个包。在`app`目录中，将创建以下脚本：
 
 ```
 mkdir app
@@ -186,13 +186,13 @@ app/
 
 ```
 
--   [`api.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/api.py)：将包含我们的 API 初始化和端点的主脚本。
+-   [`api.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/api.py)：将包含 API 初始化和端点的主脚本。
 -   [`gunicorn.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/gunicorn.py)：用于定义 API worker 配置的脚本。
--   [`schemas.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/schemas.py)：我们将在资源端点中使用的不同对象的定义。
+-   [`schemas.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/schemas.py)：将在资源端点中使用的不同对象的定义。
 
 ## 快速API
 
-我们将使用[FastAPI](https://fastapi.tiangolo.com/)作为我们的框架来构建我们的 API 服务。还有很多其他框架选项，例如[Flask](https://flask.palletsprojects.com/)、[Django](https://www.djangoproject.com/)，甚至是非基于 Python 的选项，例如[Node](https://nodejs.org/en/)、[Angular](https://angular.io/)等。FastAPI 结合了这些框架的许多优点，并且正在迅速成熟并被更广泛地采用。它的显着优势包括：
+将使用[FastAPI](https://fastapi.tiangolo.com/)作为框架来构建 API 服务。还有很多其他框架选项，例如[Flask](https://flask.palletsprojects.com/)、[Django](https://www.djangoproject.com/)，甚至是非基于 Python 的选项，例如[Node](https://nodejs.org/en/)、[Angular](https://angular.io/)等。FastAPI 结合了这些框架的许多优点，并且正在迅速成熟并被更广泛地采用。它的显着优势包括：
 
 -   用 Python 开发
 -   高性能[\_](https://fastapi.tiangolo.com/benchmarks/)
@@ -212,11 +212,11 @@ fastapi==0.78.0
 
 ```
 
-> 您对框架的选择还取决于您团队的现有系统和流程。然而，随着微服务的广泛采用，我们可以将我们的特定应用程序包装在我们选择的任何框架中并公开适当的资源，以便所有其他系统都可以轻松地与之通信。
+> 您对框架的选择还取决于您团队的现有系统和流程。然而，随着微服务的广泛采用，可以将特定应用程序包装在选择的任何框架中并公开适当的资源，以便所有其他系统都可以轻松地与之通信。
 
 ### 初始化
 
-第一步是`api.py`通过定义标题、描述和版本等元数据在我们的脚本中初始化我们的 API：
+第一步是`api.py`通过定义标题、描述和版本等元数据在脚本中初始化 API：
 
 <table><tbody><tr><td></td><td><div><pre id="__code_29"><span></span><code><span># app/api.py</span>
 <span>from</span> <span>fastapi</span> <span>import</span> <span>FastAPI</span><span></span>
@@ -229,7 +229,7 @@ fastapi==0.78.0
 <span>)</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们的第一个端点将是一个简单的端点，我们希望显示一切都按预期工作。端点的路径将只是`/`（当用户访问我们的基本 URI 时），它将是一个`GET`请求。这个简单的端点通常用作健康检查，以确保我们的应用程序确实启动并正常运行。
+第一个端点将是一个简单的端点，希望显示一切都按预期工作。端点的路径将只是`/`（当用户访问基本 URI 时），它将是一个`GET`请求。这个简单的端点通常用作健康检查，以确保应用程序确实启动并正常运行。
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -258,13 +258,13 @@ fastapi==0.78.0
     <span>return</span> <span>response</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们通过第 4 行中的路径操作装饰器让我们的应用程序知道端点位于，`/`并且我们返回带有`200 OK`HTTP 状态代码的 JSON 响应。
+通过第 4 行中的路径操作装饰器让应用程序知道端点位于，`/`并且返回带有`200 OK`HTTP 状态代码的 JSON 响应。
 
-> 在我们的实际[`api.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/api.py)脚本中，您会注意到甚至我们的索引函数看起来也不同。别担心，我们正在慢慢地将组件添加到我们的端点并在此过程中证明它们的合理性。
+> 在实际[`api.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/api.py)脚本中，您会注意到甚至索引函数看起来也不同。别担心，正在慢慢地将组件添加到端点并在此过程中证明它们的合理性。
 
 ### 发射
 
-我们正在使用[Uvicorn](https://www.uvicorn.org/)，这是一个快速的[ASGI](https://en.wikipedia.org/wiki/Asynchronous_Server_Gateway_Interface)服务器，可以在单个进程中运行异步代码来启动我们的应用程序。
+正在使用[Uvicorn](https://www.uvicorn.org/)，这是一个快速的[ASGI](https://en.wikipedia.org/wiki/Asynchronous_Server_Gateway_Interface)服务器，可以在单个进程中运行异步代码来启动应用程序。
 
 ```
 pip install uvicorn==0.17.6
@@ -277,7 +277,7 @@ uvicorn==0.17.6
 
 ```
 
-我们可以使用以下命令启动我们的应用程序：
+可以使用以下命令启动应用程序：
 
 ```
 uvicorn app.api:app \       # location of app (`app` directory > `api.py` script > `app` object)
@@ -299,16 +299,16 @@ INFO：等待应用程序启动。
 
 ```
 
-> 请注意，我们只重新加载对特定目录的更改，因为这是为了避免重新加载不会影响我们的应用程序的文件，例如日志文件等。
+> 请注意，只重新加载对特定目录的更改，因为这是为了避免重新加载不会影响应用程序的文件，例如日志文件等。
 
-如果我们想管理多个 uvicorn 工作者以在我们的应用程序中启用并行性，我们可以将[Gunicorn](https://gunicorn.org/)与 Uvicorn 结合使用。这通常在我们将处理有意义的流量的生产环境中完成。我们已经包含了一个[`app/gunicorn.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/gunicorn.py)带有可定制配置的脚本，我们可以使用以下命令启动所有工作人员：
+如果想管理多个 uvicorn 工作者以在应用程序中启用并行性，可以将[Gunicorn](https://gunicorn.org/)与 Uvicorn 结合使用。这通常在将处理有意义的流量的生产环境中完成。已经包含了一个[`app/gunicorn.py`](https://github.com/GokuMohandas/mlops-course/tree/main/app/gunicorn.py)带有可定制配置的脚本，可以使用以下命令启动所有工作人员：
 
 ```
 gunicorn -c config/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app
 
 ```
 
-我们还将这两个命令添加到我们的`README.md`文件中：
+还将这两个命令添加到`README.md`文件中：
 
 ```
 uvicorn app.api:app --host 0.0.0.0 --port 8000 --reload --reload-dir tagifai --reload-dir app  # dev
@@ -318,7 +318,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 
 ### 要求
 
-现在我们的应用程序正在运行，我们可以`GET`使用几种不同的方法提交我们的请求：
+现在应用程序正在运行，可以`GET`使用几种不同的方法提交请求：
 
 -   在浏览器上访问端点[http://localhost:8000/](http://localhost:8000/)
 -   卷曲
@@ -328,7 +328,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
     
     ```
     
--   通过代码访问端点。在这里，我们展示了如何使用 Python 中的[requests](https://requests.readthedocs.io/en/master/)库来完成它，但它可以使用大多数流行的语言来完成。您甚至可以使用[在线工具](https://curl.trillworks.com/)将您的 cURL 命令转换为代码！
+-   通过代码访问端点。在这里，展示了如何使用 Python 中的[requests](https://requests.readthedocs.io/en/master/)库来完成它，但它可以使用大多数流行的语言来完成。您甚至可以使用[在线工具](https://curl.trillworks.com/)将您的 cURL 命令转换为代码！
     
     <table><tbody><tr><td></td><td><div><pre id="__code_7"><span></span><code><span>import</span> <span>json</span>
     <span>import</span> <span>requests</span><span></span>
@@ -339,7 +339,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
     
 -   使用[Postman](https://www.postman.com/use-cases/application-development/)等外部工具，这对于托管测试非常有用，您可以保存并与其他人共享等。
 
-对于所有这些，我们将从我们的 API 中看到完全相同的响应：
+对于所有这些，将从 API 中看到完全相同的响应：
 
 ```
 {
@@ -352,7 +352,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 
 ### 装饰器
 
-在我们`GET \`上面的请求响应中，关于实际请求的信息并不多，但是有 URL、时间戳等详细信息很有用。但是我们不想为每个端点单独执行此操作，所以让我们使用[装饰器](https://madewithml.com/courses/foundations/python/#decorators)自动将相关元数据添加到我们的响应中
+在`GET \`上面的请求响应中，关于实际请求的信息并不多，但是有 URL、时间戳等详细信息很有用。但是不想为每个端点单独执行此操作，所以让使用[装饰器](https://madewithml.com/courses/foundations/python/#decorators)自动将相关元数据添加到响应中
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -401,7 +401,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
     <span>return</span> <span>wrap</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们在第 10 行传入了一个[Request](https://fastapi.tiangolo.com/advanced/using-request-directly/)实例，因此我们可以访问请求方法和 URL 等信息。因此，我们的端点函数也需要将此 Request 对象作为输入参数。一旦我们从端点函数接收到结果`f`，我们就可以附加额外的细节并返回更多信息的响应。要使用这个装饰器，我们只需要相应地包装我们的函数。
+在第 10 行传入了一个[Request](https://fastapi.tiangolo.com/advanced/using-request-directly/)实例，因此可以访问请求方法和 URL 等信息。因此，端点函数也需要将此 Request 对象作为输入参数。一旦从端点函数接收到结果`f`，就可以附加额外的细节并返回更多信息的响应。要使用这个装饰器，只需要相应地包装函数。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_9"><span></span><code><span>@app</span><span>.</span><span>get</span><span>(</span><span>"/"</span><span>)</span>
 <span><span>@construct_response</span>
@@ -427,7 +427,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 
 ```
 
-还有一些我们应该注意的内置装饰器。我们已经看到了路径操作装饰器（例如`@app.get("/")`），它定义了端点的路径以及[其他属性](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/)。还有[事件装饰器](https://fastapi.tiangolo.com/advanced/events/)( `@app.on_event()`)，我们可以使用它来启动和关闭我们的应用程序。例如，我们使用 ( `@app.on_event("startup")`) 事件来加载模型以用于推理的工件。将其作为事件执行的好处是，我们的服务在完成之前不会启动，因此不会过早处理任何请求并导致错误。类似地，我们可以用 ( ) 来执行关闭事件`@app.on_event("shutdown")`，例如保存日志、清理等。
+还有一些应该注意的内置装饰器。已经看到了路径操作装饰器（例如`@app.get("/")`），它定义了端点的路径以及[其他属性](https://fastapi.tiangolo.com/tutorial/path-operation-configuration/)。还有[事件装饰器](https://fastapi.tiangolo.com/advanced/events/)( `@app.on_event()`)，可以使用它来启动和关闭应用程序。例如，使用 ( `@app.on_event("startup")`) 事件来加载模型以用于推理的工件。将其作为事件执行的好处是，服务在完成之前不会启动，因此不会过早处理任何请求并导致错误。类似地，可以用 ( ) 来执行关闭事件`@app.on_event("shutdown")`，例如保存日志、清理等。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_10"><span></span><code><span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
 <span>from</span> <span>config</span> <span>import</span> <span>config</span>
@@ -444,15 +444,15 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 
 ### 文档
 
-当我们定义一个端点时，FastAPI 会根据它的输入、输入、输出等自动生成一些文档（遵守[OpenAPI](https://swagger.io/specification/)标准）。我们可以通过在 api 运行时转到任何浏览器上的端点来访问[Swagger UI](https://swagger.io/tools/swagger-ui/)以获取我们的文档`/docs`.
+当定义一个端点时，FastAPI 会根据它的输入、输入、输出等自动生成一些文档（遵守[OpenAPI](https://swagger.io/specification/)标准）。可以通过在 api 运行时转到任何浏览器上的端点来访问[Swagger UI](https://swagger.io/tools/swagger-ui/)以获取文档`/docs`.
 
 ![API 文档](https://madewithml.com/static/images/mlops/api/documentation.png)
 
-单击端点 > `Try it out`\>`Execute`以查看服务器的响应将是什么样子。由于这是一个`GET`没有任何输入的请求，我们的请求正文是空的，但对于其他方法，我们需要提供一些信息（我们将在发出`POST`请求时说明这一点）。
+单击端点 > `Try it out`\>`Execute`以查看服务器的响应将是什么样子。由于这是一个`GET`没有任何输入的请求，请求正文是空的，但对于其他方法，需要提供一些信息（将在发出`POST`请求时说明这一点）。
 
 ![执行 API 调用](https://madewithml.com/static/images/mlops/api/execute.png)
 
-请注意，我们的端点是在 UI 中的部分下组织的。我们可以`tags`在脚本中定义端点时使用：
+请注意，端点是在 UI 中的部分下组织的。可以`tags`在脚本中定义端点时使用：
 
 <table><tbody><tr><td></td><td><div><pre id="__code_11"><span></span><code><span><span>@app</span><span>.</span><span>get</span><span>(</span><span>"/"</span><span>,</span> <span>tags</span><span>=</span><span>[</span><span>"General"</span><span>])</span>
 </span><span>@construct_response</span>
@@ -470,14 +470,14 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
 
 ## 资源
 
-在为我们的 API 设计资源时，我们需要考虑以下问题：
+在为 API 设计资源时，需要考虑以下问题：
 
 -   `[USERS]`: 谁是最终用户？这将定义需要公开哪些资源。
     
     -   想要与 API 交互的开发人员。
     -   想要测试和检查模型及其性能的产品团队。
     -   想要对传入项目进行分类的后端服务。
--   `[ACTIONS]`：我们的用户希望能够执行哪些操作？
+-   `[ACTIONS]`：用户希望能够执行哪些操作？
     
     -   给定输入集的预测
     -   性能检查
@@ -510,7 +510,7 @@ gunicorn -c app/gunicorn.py -k uvicorn.workers.UvicornWorker app.api:app  # prod
     <span>return</span> <span>response</span>
 </code></pre></div></td></tr></tbody></table>
 
-请注意，我们在这里传递了一个可选的查询参数`filter`来指示我们关心的性能子集。我们可以`GET`像这样在我们的请求中包含这个参数：
+请注意，在这里传递了一个可选的查询参数`filter`来指示关心的性能子集。可以`GET`像这样在请求中包含这个参数：
 
 ```
 curl -X "GET" \
@@ -519,7 +519,7 @@ curl -X "GET" \
 
 ```
 
-这只会产生我们通过查询参数指示的性能子集：
+这只会产生通过查询参数指示的性能子集：
 
 ```
 {
@@ -542,7 +542,7 @@ curl -X "GET" \
 
 ### 路径参数
 
-我们的下一个端点将是`GET`用于训练模型的参数。这一次，我们使用了一个路径参数`args`，它是 URI 中的**必填**字段。
+下一个端点将是`GET`用于训练模型的参数。这一次，使用了一个路径参数`args`，它是 URI 中的**必填**字段。
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -569,7 +569,7 @@ curl -X "GET" \
     <span>return</span> <span>response</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们可以`GET`像这样执行我们的请求，其中`param`是请求 URI 路径的一部分，而不是它的查询字符串的一部分。
+可以`GET`像这样执行请求，其中`param`是请求 URI 路径的一部分，而不是它的查询字符串的一部分。
 
 ```
 curl -X "GET" \
@@ -578,7 +578,7 @@ curl -X "GET" \
 
 ```
 
-我们会收到这样的回复：
+会收到这样的回复：
 
 ```
 {
@@ -594,7 +594,7 @@ curl -X "GET" \
 
 ```
 
-我们还可以创建一个端点来生成所有使用的参数：
+还可以创建一个端点来生成所有使用的参数：
 
 看法`GET /args`
 
@@ -623,7 +623,7 @@ curl -X "GET" \
     <span>return</span> <span>response</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们可以`GET`像这样执行我们的请求，其中`param`是请求 URI 路径的一部分，而不是它的查询字符串的一部分。
+可以`GET`像这样执行请求，其中`param`是请求 URI 路径的一部分，而不是它的查询字符串的一部分。
 
 ```
 curl -X "GET" \
@@ -632,7 +632,7 @@ curl -X "GET" \
 
 ```
 
-我们会收到这样的回复：
+会收到这样的回复：
 
 ```
 {
@@ -661,7 +661,7 @@ curl -X "GET" \
 
 ### 模式
 
-现在是时候定义我们的预测端点了。我们需要使用我们想要分类的输入，因此我们需要定义在定义这些输入时需要遵循的模式。
+现在是时候定义预测端点了。需要使用想要分类的输入，因此需要定义在定义这些输入时需要遵循的模式。
 
 ```
 # app/schemas.py
@@ -677,19 +677,19 @@ class PredictPayload(BaseModel):
 
 ```
 
-在这里，我们将一个对象定义为一个名为`PredictPayload`的对象列表。每个对象都是一个默认的字符串，并且必须至少有 1 个字符。`Text``texts``Text``None`
+在这里，将一个对象定义为一个名为`PredictPayload`的对象列表。每个对象都是一个默认的字符串，并且必须至少有 1 个字符。`Text``texts``Text``None`
 
 笔记
 
-我们可以`PredictPayload`这样定义我们的：
+可以`PredictPayload`这样定义：
 
 <table><tbody><tr><td></td><td><div><pre id="__code_19"><span></span><code><span>class</span> <span>PredictPayload</span><span>(</span><span>BaseModel</span><span>):</span>
     <span>texts</span><span>:</span> <span>List</span><span>[</span><span>str</span><span>]</span> <span>=</span> <span>Query</span><span>(</span><span>None</span><span>,</span> <span>min_length</span><span>=</span><span>1</span><span>)</span>
 </code></pre></div></td></tr></tbody></table>
 
-但是我们想创建非常明确的模式，以防我们将来想要合并更多的[验证](https://madewithml.com/courses/mlops/api/#validation)或添加额外的参数。
+但是想创建非常明确的模式，以防将来想要合并更多的[验证](https://madewithml.com/courses/mlops/api/#validation)或添加额外的参数。
 
-我们现在可以在我们的预测端点中使用这个有效载荷：
+现在可以在预测端点中使用这个有效载荷：
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -722,7 +722,7 @@ class PredictPayload(BaseModel):
     <span>return</span> <span>response</span>
 </code></pre></div></td></tr></tbody></table>
 
-`PredictPayload`当我们想要使用我们的`/predict`端点时，我们需要遵守架构：
+`PredictPayload`当想要使用`/predict`端点时，需要遵守架构：
 
 ```
 curl -X 'POST' 'http://0.0.0.0:8000/predict' \
@@ -764,7 +764,7 @@ curl -X 'POST' 'http://0.0.0.0:8000/predict' \
 
 #### 内置
 
-我们在[`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/)这里使用 pydantic 的对象，因为它为我们所有的模式提供了内置的验证。在我们的例子中，如果一个`Text`实例少于 1 个字符，那么我们的服务将返回相应的错误消息和代码：
+在[`BaseModel`](https://pydantic-docs.helpmanual.io/usage/models/)这里使用 pydantic 的对象，因为它为所有的模式提供了内置的验证。在例子中，如果一个`Text`实例少于 1 个字符，那么服务将返回相应的错误消息和代码：
 
 ```
 curl -X POST "http://localhost:8000/predict" -H  "accept: application/json" -H  "Content-Type: application/json" -d "{\"texts\":[{\"text\":\"\"}]}"
@@ -794,7 +794,7 @@ curl -X POST "http://localhost:8000/predict" -H  "accept: application/json" -H  
 
 #### 风俗
 
-我们还可以使用装饰器在特定实体上添加自定义验证`@validator`，就像我们确保列表`texts`不为空一样。
+还可以使用装饰器在特定实体上添加自定义验证`@validator`，就像确保列表`texts`不为空一样。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_23"><span></span><code><span>class</span> <span>PredictPayload</span><span>(</span><span>BaseModel</span><span>):</span>
     <span>texts</span><span>:</span> <span>List</span><span>[</span><span>Text</span><span>]</span><span></span>
@@ -827,7 +827,7 @@ curl -X POST "http://localhost:8000/predict" -H  "accept: application/json" -H  
 
 ```
 
-最后，我们可以在类[`schema_extra`](https://fastapi.tiangolo.com/tutorial/schema-extra-example/)下添加一个对象`Config`来描述示例的`PredictPayload`外观。当我们这样做时，它会自动出现在我们端点的文档中（单击`Try it out`）。
+最后，可以在类[`schema_extra`](https://fastapi.tiangolo.com/tutorial/schema-extra-example/)下添加一个对象`Config`来描述示例的`PredictPayload`外观。当这样做时，它会自动出现在端点的文档中（单击`Try it out`）。
 
 <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
 <span><span><span>2 </span></span></span>
@@ -870,7 +870,7 @@ curl -X POST "http://localhost:8000/predict" -H  "accept: application/json" -H  
 
 ## 产品
 
-为了使我们的 API 成为一个独立的产品，我们需要为我们的用户和资源创建和管理一个数据库。这些用户将拥有用于身份验证的凭据，并使用他们的权限与我们的服务进行通信。当然，我们可以显示一个渲染的前端，以使所有这些与 HTML 表单、按钮等无缝连接。这正是[旧 MWML 平台](https://twitter.com/madewithml/status/1284503478685978625)的构建方式，我们利用 FastAPI 为每天 500K+ 的服务请求提供高性能。
+为了使 API 成为一个独立的产品，需要为用户和资源创建和管理一个数据库。这些用户将拥有用于身份验证的凭据，并使用他们的权限与服务进行通信。当然，可以显示一个渲染的前端，以使所有这些与 HTML 表单、按钮等无缝连接。这正是[旧 MWML 平台](https://twitter.com/madewithml/status/1284503478685978625)的构建方式，利用 FastAPI 为每天 500K+ 的服务请求提供高性能。
 
 如果您正在构建产品，那么我强烈建议您使用这个[生成模板](https://fastapi.tiangolo.com/project-generation/)来开始。它包括您的产品所需的主干架构：
 
@@ -881,11 +881,11 @@ curl -X POST "http://localhost:8000/predict" -H  "accept: application/json" -H  
 -   Docker 集成
 -   那么多！
 
-但是，对于大多数 ML 开发人员来说，由于微服务的广泛采用，我们不需要做所有这些。设计良好的 API 服务可以与所有其他服务（与框架无关）无缝通信，将适合任何流程并为整个产品增加价值。我们的主要重点应该是确保我们的服务正常工作并不断改进，这正是下一组课程将关注的内容（[测试](https://madewithml.com/courses/mlops/testing/)和[监控](https://madewithml.com/courses/mlops/monitoring/)）
+但是，对于大多数 ML 开发人员来说，由于微服务的广泛采用，不需要做所有这些。设计良好的 API 服务可以与所有其他服务（与框架无关）无缝通信，将适合任何流程并为整个产品增加价值。主要重点应该是确保服务正常工作并不断改进，这正是下一组课程将关注的内容（[测试](https://madewithml.com/courses/mlops/testing/)和[监控](https://madewithml.com/courses/mlops/monitoring/)）
 
 ## 模型服务器
 
-除了将我们的模型包装为单独的、可扩展的微服务之外，我们还可以使用专门构建的模型服务器来托管我们的模型。模型服务器提供具有 API 层的注册表，以无缝检查、更新、服务、回滚等多个版本的模型。它们还提供自动扩展以满足吞吐量和延迟需求。流行的选项包括[BentoML](https://www.bentoml.com/)、[MLFlow](https://docs.databricks.com/applications/mlflow/model-serving.html)、[TorchServe](https://pytorch.org/serve/)、[RedisAI](https://oss.redislabs.com/redisai/)、[Nvidia Triton Inference Server](https://developer.nvidia.com/nvidia-triton-inference-server)等。
+除了将模型包装为单独的、可扩展的微服务之外，还可以使用专门构建的模型服务器来托管模型。模型服务器提供具有 API 层的注册表，以无缝检查、更新、服务、回滚等多个版本的模型。它们还提供自动扩展以满足吞吐量和延迟需求。流行的选项包括[BentoML](https://www.bentoml.com/)、[MLFlow](https://docs.databricks.com/applications/mlflow/model-serving.html)、[TorchServe](https://pytorch.org/serve/)、[RedisAI](https://oss.redislabs.com/redisai/)、[Nvidia Triton Inference Server](https://developer.nvidia.com/nvidia-triton-inference-server)等。
 
 > 模型服务器因其在整个团队中标准化模型部署和服务流程的能力而被广泛采用——实现无缝升级、验证和集成。
 

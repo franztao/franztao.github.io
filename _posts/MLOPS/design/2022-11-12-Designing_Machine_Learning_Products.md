@@ -7,33 +7,32 @@ author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - Blog
+    - design
 ---
-
 
 ## 设计机器学习产品
 
 ___
 
-用于指导机器学习系统开发周期的模板，该模板将产品需求、设计文档和项目考虑因素考虑在内。
+用于指导机器学习系统开发周期的模板，该模板考虑了产品要求、设计文档和项目注意事项。
 
 ## 概述
 
-在本课程中，我们不仅会开发机器学习模型，还会讨论以可重现、可靠和稳健的方式将我们的模型投入生产所需的所有重要 ML 系统和软件设计组件。我们将从为我们将要构建的精确产品设置场景开始。虽然这是一门技术课程，但最初的产品设计过程非常关键，是区分优秀产品和平庸产品的关键。本课将提供如何思考 ML + 产品的结构。
+在本课程中，不仅会开发机器学习模型，还会讨论以可重现、可靠和稳健的方式将模型投入生产所需的所有重要 ML 系统和软件设计组件。将从为将要构建的精确产品设置场景开始。虽然这是一门技术课程，但最初的产品设计过程非常关键，是区分优秀产品与平庸产品的关键所在。本课将提供如何思考 ML + 产品的结构。
 
 ## 模板
 
-此模板旨在指导机器学习产品开发。虽然此模板最初将按顺序完成，但它自然会涉及基于迭代反馈的非线性参与。对于我们产品的每个主要版本，我们都应该遵循这个模板，这样所有的决策都是透明的和记录在案的。
+该模板旨在指导机器学习产品开发。虽然此模板最初将按顺序完成，但它自然会涉及基于迭代反馈的非线性参与。对于产品的每个主要版本，都应该遵循此模板，以便所有决策制定都是透明的并记录在案。
 
-[产品](https://madewithml.com/courses/mlops/design/#product)（_什么_和_原因_）→[工程](https://madewithml.com/courses/mlops/design/#engineering)（_如何_）→[项目](https://madewithml.com/courses/mlops/design/#project)（_谁_和_何时_）
+产品（*什么*和*为什么*）→工程（*如何*）→项目（*谁*和*什么时候*）
 
-虽然我们的文档会很详细，但我们可以通过浏览机器学习画布来开始这个过程：
+虽然文档会很详细，但可以通过浏览机器学习画布来开始这个过程：
 
 [![机器学习画布](https://madewithml.com/static/images/mlops/design/ml_canvas.png)](https://madewithml.com/static/templates/ml-canvas.pdf)
 
-👉   Download a PDF of the ML canvas to use for your own products → [ml-canvas.pdf](https://madewithml.com/static/templates/ml-canvas.pdf) (right click the link and hit "Save Link As...")
+👉 下载 ML 画布的 PDF 以用于您自己的产品 → [ml-canvas.pdf](https://madewithml.com/static/templates/ml-canvas.pdf)（右键单击链接并点击“链接另存为...”）
 
-From this high-level canvas, we can create detailed documentation for each release:
+从这个高级画布，可以为每个版本创建详细的文档：
 
 ```
 # Documentation
@@ -45,133 +44,113 @@ From this high-level canvas, we can create detailed documentation for each relea
 | ├── 📄 project planning     [Project]
 ├── ...
 └── 📂 release-n
-
 ```
 
-> Throughout this lesson, we'll state and justify the assumptions we made to simplify the problem space.
+> 在本课中，将陈述并证明为简化问题空间所做的假设。
 
-## Product Management
+## 产品管理
 
-\[_What_ & _Why_\]: motivate the need for the product and outline the objectives and key results.
+\[ _What_ & _Why_ \]：激发对产品的需求并概述目标和关键结果。
 
-Note
+> 笔记
+> 
+> 下面的每个部分都有一个名为“任务”的下拉组件，它将讨论与正在尝试构建的特定产品相关的特定主题。
 
-Each section below has a dropdown component called "Our task", which will discuss the specific topic with respect to the specific product that we're trying to build.
+### 概述
 
-### Overview
+#### 背景
 
-#### Background
+通过以客户为中心的方法为正在尝试做的事情设定场景：
 
-Set the scene for what we're trying to do through a customer-centric approach:
+- `customer`：要解决的客户的个人资料
+- `goal`: 客户的主要目标
+- `pains`：客户实现目标的障碍
+- `gains`：什么可以使客户的工作更轻松？
 
--   `customer`: profile of the customer we want to address
--   `goal`: main goal for the customer
--   `pains`: obstacles in the way of the customer achieving the goal
--   `gains`: what would make the job easier for the customer?
+任务
 
-Our task
+- `customer`：机器学习开发人员和研究人员。
+- `goal`：及时了解工作、知识等方面的 ML 内容。
+- `pains`: 互联网上散布着太多未分类的内容。
+- `gains`：一个中央位置，其中包含来自受信任的第 3 方来源的分类内容。
 
--   `customer`: machine learning developers and researchers.
--   `goal`: stay up-to-date on ML content for work, knowledge, etc.
--   `pains`: too much uncategorized content scattered around the internet.
--   `gains`: a central location with categorized content from trusted 3rd party sources.
+#### 价值主张
 
-#### Value proposition
+提出可以通过以产品为中心的方法创造的价值：
 
-Propose the value we can create through a product-centric approach:
+- `product`：需要建立什么来帮助客户实现他们的目标？
+- `alleviates`: 该产品将如何减轻痛点？
+- `advantages`：产品将如何创造收益？
 
--   `product`: what needs to be build to help the customer reach their goal?
--   `alleviates`: how will the product reduce pains?
--   `advantages`: how will the product create gains?
+任务
 
-Our task
+- `product`：从流行来源发现和分类 ML 内容的服务。
+- `alleviates`：及时展示分类内容供客户发现。
+- `advantages`：客户只需访问产品即可了解最新信息。
 
--   `product`: service that discovers and categorizes ML content from popular sources.
--   `alleviates`: timely display categorized content for customers to discover.
--   `advantages`: customers only have to visit our product to stay up-to-date.
+![产品模型](https://madewithml.com/static/images/mlops/design/product.png)
 
-![产品样机](https://madewithml.com/static/images/mlops/design/product.png)
+> 是的，在意识到它加剧了噪音和炒作之前，确实构建了它。因此，转向教导社区如何负责任地开发、部署和维护机器学习。
 
-> Yes, we actually did build this before realizing it exacerbated noise and hype. And so, we pivoted into teaching the community how to responsibly deliver value with ML.
+#### 目标
 
-#### Objectives
+将产品分解为想要关注的关键目标。
 
-Breakdown the product into key objectives that we want to focus on.
+**任务**
 
-Our task
+- 允许客户添加和分类他们自己的项目。
+- 从可信来源发现 ML 内容以引入平台。
+- 对传入的内容（高精度）进行分类，以便客户轻松发现。**\[重点\]**
+- 在平台上显示分类内容（最近、热门、推荐等）
 
--   Allow customers to add and categorize their own projects.
--   Discover ML content from trusted sources to bring into our platform.
--   Classify incoming content (with high precision) for our customers to easily discover. **\[OUR FOCUS\]**
--   Display categorized content on our platform (recent, popular, recommended, etc.)
+### 解决方案
 
-### Solution
+描述满足目标所需的解决方案，包括它的核心功能、集成、备选方案、约束以及超出范围的内容。
 
-Describe the solution required to meet our objectives, including it's core features, integration, alternatives, constraints and what's out-of-scope.
+> 可能需要单独的文档（线框、用户故事、模型等）。
 
-> May require separate documentation (wireframes, user stories, mock-ups, etc.).
+**任务**
 
-Our task
+开发一个可以对传入内容进行分类的模型，以便它可以在平台上按类别进行组织。
 
-Develop a model that can classify the incoming content so that it can be organized by category on our platform.
+`Core features`:
 
-`Core features`:
-
--   ML service that will predict the correct categories for incoming content. **\[OUR FOCUS\]**
--   user feedback process for incorrectly classified content.
--   workflows to categorize content that the service was incorrect about or not as confident in.
--   duplicate screening for content that already exists on the platform.
+- 将为传入内容预测正确类别的 ML 服务。**[重点]**
+- 错误分类内容的用户反馈过程。
+- 对服务不正确或不自信的内容进行分类的工作流程。
+- 对平台上已有的内容进行重复筛选。
 
 `Integrations`:
 
--   categorized content will be sent to the UI service to be displayed.
--   classification feedback from users will sent to labeling workflows.
+- 分类后的内容将发送到 UI 服务进行显示。
+- 来自用户的分类反馈将发送到标签工作流程。
 
 `Alternatives`:
 
--   allow users to add content manually (bottleneck).
+- 允许用户手动添加内容（瓶颈）。
 
 `Constraints`:
 
--   maintain low latency (>100ms) when classifying incoming content. **\[Latency\]**
--   only recommend tags from our list of approved tags. **\[Security\]**
--   avoid duplicate content from being added to the platform. **\[UI/UX\]**
+- 在对传入内容进行分类时保持低延迟（>100 毫秒）。**[Latency]**
+- 只推荐批准的标签列表中的标签。**[安全]**
+- 避免将重复内容添加到平台。**[用户界面/用户体验]**
 
 `Out-of-scope`:
 
--   identify relevant tags beyond our approved list of tags.
--   using full-text HTML from content links to aid in classification.
--   interpretability for why we recommend certain tags.
--   identifying multiple categories (see [dataset](https://madewithml.com/courses/mlops/design/#dataset) section for details).
+- 识别超出批准的标签列表的相关标签。
+- 使用来自内容链接的全文 HTML 来帮助分类。
+- 为什么推荐某些标签的可解释性。
+- 识别多个类别（详见[数据集](https://madewithml.com/courses/mlops/design/#dataset)部分）。
 
-#### Feasibility
+#### 可行性
 
-How feasible is our solution and do we have the required resources to deliver it (data, $, team, etc.)?
+解决方案的可行性如何？是否拥有交付它所需的资源（数据、资金、团队等）？
 
-Our task
+**任务**
 
-We have a dataset of ML content that our users have manually added to the platform. We'll need to assess if it has the necessary signals to meet our [objectives](https://madewithml.com/courses/mlops/design/#objectives).
+有一个 ML 内容数据集，用户已手动将其添加到平台。需要评估它是否有必要的信号来实现[目标](https://madewithml.com/courses/mlops/design/#objectives)。
 
-| 
-Sample data point
-
- |
-| --- |
-| 
-
-```
-1
-2
-3
-4
-5
-6
-7
-```
-
-
-
- | 
+样本数据点
 
 ```
 {
@@ -181,180 +160,204 @@ Sample data point
     "description": "A Framework for Explaining Predictions of NLP Models",
     "tag": "natural-language-processing"
 }
-
 ```
 
+| 假设                      | 现实                       | 原因                                      |
+| ----------------------- | ------------------------ | --------------------------------------- |
+| 该数据集质量很高，因为它们是由实际用户添加的。 | 需要评估标签的质量，尤其是因为它是由用户创建的！ | 数据集质量很好，但在其中留下了一些错误，因此可以在评估过程中发现它们。 |
 
+## 工程
 
- |
+\[*如何*]：能否设计构建产品的方法。
 
-## Engineering
+### 数据
 
-\[_How_\]: can we engineer our approach for building the product.
+描述数据的训练和生产（批处理/流）来源。
 
-### Data
+**任务**
 
-Describe the training and production (batches/streams) sources of data.
+- **培训**：
+  
+  - 访问[输入数据](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/projects.csv)和[标签](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/tags.csv)进行训练。
+  - 有关特征来源和模式的信息。
+  - 是否应用了任何类型的样本来创建此数据集？
+  - 是否引入了任何数据泄漏？
 
-Our task
+- **制作**：
+  
+  - 从分散的来源（Reddit、Twitter 等）及时访问批量的 ML 内容
+  - 怎么能相信这个流只有与历史上看到的一致的数据？
+  
+  | 假设               | 现实                   | 原因                   |
+  | ---------------- | -------------------- | -------------------- |
+  | ML 流只有 ML 相关的内容。 | 过滤以从这些第 3 方流中删除垃圾内容。 | 将需要获取相关数据并构建另一个模型。 |
 
--   **training**:
-    -   access to [input data](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/projects.csv) and [labels](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/tags.csv) for training.
-    -   information on feature origins and schemas.
-    -   was there sampling of any kind applied to create this dataset?
-    -   are we introducing any data leaks?
--   **production**:
-    -   access to timely batches of ML content from scattered sources (Reddit, Twitter, etc.)
-    -   how can we trust that this stream only has data that is consistent with what we have historically seen?
+#### 标签
 
-#### Labeling
+描述标记过程以及如何确定特征和标签。
 
-Describe the labeling process and how we settled on the features and labels.
+任务
 
-Our task
+**标签**：使用机器学习类别（平台感兴趣的子集）进行标签。
 
-**Labeling**: labeled using categories of machine learning (a subset of which our platform is interested in).
+**特征**：文本特征（标题和描述）为分类任务提供信号。
 
-**Features**: text features (title and description) to provide signal for the classification task.
+**标签**：反映目前在平台上展示的内容类别：
 
-**Labels**: reflect the content categories we currently display on our platform:
+```
+['natural-language-processing',
+ 'computer-vision',
+ 'mlops',
+  ...
+ 'other']
+```
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>[</span><span>'natural-language-processing'</span><span>,</span>
- <span>'computer-vision'</span><span>,</span>
- <span>'mlops'</span><span>,</span>
-  <span>...</span>
- <span>'other'</span><span>]</span>
-</code></pre></div></td></tr></tbody></table>
+| 假设              | 现实               | 原因                       |
+| --------------- | ---------------- | ------------------------ |
+| 内容只能属于一个类别（多类）。 | 内容可以属于多个类别（多标签）。 | 为简单起见，许多图书馆不支持或复杂化多标签场景。 |
 
-### Evaluation
+### 评估
 
-Before we can model our objective, we need to be able to evaluate how we’re performing.
+在可以为目标建模之前，需要能够评估表现。
 
-#### Metrics
+#### 指标
 
-One of the hardest challenges with evaluation is tying our core [objectives](https://madewithml.com/courses/mlops/design/#objectives) (may be qualitative) with quantitative metrics that our model can optimize on.
+评估中最困难的挑战之一是将核心目标（可能是定性的）与模型可以优化的定量指标联系起来。
 
-Our task
+**任务**
 
-We want to be able to classify incoming data with high precision so we can display them properly. For the projects that we categorize as `other`, we can _recall_ any misclassified content using manual labeling workflows. We may also want to evaluate performance for specific classes or [slices](https://madewithml.com/courses/mlops/evaluation/#slices) of data.
+希望能够以高精度对传入数据进行分类，以便可以正确显示它们。对于归类为的项目`other`，可以使用手动标记工作流_召回任何错误分类的内容。可能还想评估特定类别或数据[片段](https://madewithml.com/courses/mlops/evaluation/#slices)的性能。
 
-What are our priorities
+优先事项是什么
 
-How do we decide which metrics to prioritize?
+如何决定优先考虑哪些指标？
 
-Show answer
+> 显示答案
+> 
+> 这完全取决于具体任务。例如，在电子邮件垃圾邮件检测器中，精度非常重要，因为它比看到一些垃圾邮件然后完全错过一封重要的电子邮件要好。随着时间的推移，需要迭代解决方案，以便改进所有评估指标，但重要的是要知道不能从一开始就包含哪些指标。
 
-It entirely depends on the specific task. For example, in an email spam detector, precision is very important because it's better than we some spam then completely miss an important email. Overtime, we need to iterate on our solution so all evaluation metrics improve but it's important to know which one's we can't comprise on from the get-go.
+#### 离线评估
 
-#### Offline evaluation
+[离线评估](https://madewithml.com/courses/mlops/evaluation/)需要一个黄金标准标记的数据集，可以使用它来对所有的[建模](https://madewithml.com/courses/mlops/design/#modeling)进行基准测试。
 
-[Offline evaluation](https://madewithml.com/courses/mlops/evaluation/) requires a gold standard labeled dataset that we can use to benchmark all of our [modeling](https://madewithml.com/courses/mlops/design/#modeling).
+**任务**
 
-Our task
+将使用[历史数据集](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/projects.csv)进行离线评估。还将创建要单独评估的数据[切片](https://madewithml.com/courses/mlops/evaluation/#slices)。
 
-We'll be using the [historical dataset](https://github.com/GokuMohandas/Made-With-ML/blob/main/datasets/projects.csv) for offline evaluation. We'll also be creating [slices](https://madewithml.com/courses/mlops/evaluation/#slices) of data that we want to evaluate in isolation.
+#### 在线测评
 
-#### Online evaluation
+[在线评估](https://madewithml.com/courses/mlops/evaluation/#online-evaluation)确保模型在生产中继续表现良好，并且可以使用标签或在没有标签的情况下使用[代理信号来](https://madewithml.com/courses/mlops/monitoring/#performance)执行。
 
-[Online evaluation](https://madewithml.com/courses/mlops/evaluation/#online-evaluation) ensures that our model continues to perform well in production and can be performed using labels or, in the event we don't readily have labels, [proxy signals](https://madewithml.com/courses/mlops/monitoring/#performance).
+任务
 
-Our task
+- 手动标记传入数据的子集以定期评估。
+- 询问查看新分类内容的初始用户集是否正确分类。
+- 允许用户报告模型错误分类的内容。
 
--   manually label a subset of incoming data to evaluate periodically.
--   asking the initial set of users viewing a newly categorized content if it's correctly classified.
--   allow users to report misclassified content by our model.
+在承诺替换现有的系统版本之前，衡量实时性能非常重要。
 
-It's important that we measure real-time performance before committing to replace our existing version of the system.
+- 内部canary发布、代理/实际性能监控等。
+- 推广到更大的内部团队以获得更多反馈。
+- A/B 推广到人口的一个子集，以更好地理解用户体验、效用等。
 
--   Internal canary rollout, monitoring for proxy/actual performance, etc.
--   Rollout to the larger internal team for more feedback.
--   A/B rollout to a subset of the population to better understand UX, utility, etc.
-
-> Not all releases have to be high stakes and external facing. We can always include internal releases, gather feedback and iterate until we’re ready to increase the scope.
+> 并非所有版本都必须是高风险和面向外部的。始终可以包括内部版本、收集反馈和迭代，直到准备好扩大范围。
 
 ### Modeling
 
-While the specific methodology we employ can differ based on the problem, there are core principles we always want to follow:
+虽然采用的具体方法可能因问题而异，但始终希望遵循以下核心原则：
 
--   **End-to-end utility**: the end result from every iteration should deliver minimum end-to-end utility so that we can benchmark iterations against each other and plug-and-play with the system.
--   **Manual before ML**: incorporate deterministic components where we define the rules before using probabilistic ones that infer rules from data → [baselines](https://madewithml.com/courses/mlops/baselines).
--   **Augment vs. automate**: allow the system to supplement the decision making process as opposed to making the final decision.
--   **Internal vs. external**: not all early releases have to be end-user facing. We can use early versions for internal validation, feedback, data collection, etc.
--   **Thorough**: every approach needs to be well [tested](https://madewithml.com/courses/mlops/testing/) (code, data + models) and [evaluated](https://madewithml.com/courses/mlops/evaluation/), so we can objectively benchmark different approaches.
+- **端到端效用**：每次迭代的最终结果应该提供最小的端到端效用，这样就可以对彼此的迭代进行基准测试，并与系统即插即用。
+- **ML 之前的手动操作：在定义规则之前合并确定性组件，然后使用从数据→**[基线](https://madewithml.com/courses/mlops/baselines)推断规则的概率组件。
+- **增强与自动化**：允许系统补充决策过程，而不是做出最终决定。
+- **内部与外部**：并非所有早期版本都必须面向最终用户。可以使用早期版本进行内部验证、反馈、数据收集等。
+- **彻底**：每种方法都需要经过良好的[测试](https://madewithml.com/courses/mlops/testing/)（代码、数据+模型）和[评估](https://madewithml.com/courses/mlops/evaluation/)，因此可以客观地对不同的方法进行基准测试。
 
-Our task
+**任务**
 
--   v1: creating a gold-standard labeled dataset that is representative of the problem space.
--   v2: rule-based text matching approaches to categorize content.
--   v3: probabilistically predicting labels from content title and description.
--   v4: ...
+- v1：创建代表问题空间的黄金标准标记数据集。
+- v2：基于规则的文本匹配方法对内容进行分类。
+- v3：从内容标题和描述中概率预测标签。
+- v4: ...
 
-Decouple POCs and implementations
+解耦 POC 和实现
 
-Each of these approaches would involve proof-of-concept (POC) release and an implementation release after validating it's utility over previous approaches. We should decouple POCs and implementations because if a POC doesn't prove successful, then we can't do the implementation and all the associated planning is no longer applicable.
+这些方法中的每一种都将涉及概念验证 (POC) 发布和在验证其相对于先前方法的实用性之后的实施发布。应该将 POC 和实施分离，因为如果 POC 没有证明是成功的，那么就无法实施，所有相关的计划也不再适用。
 
-Utility in starting simple
+开始简单的实用程序
 
-Some of the earlier, simpler, approaches may not deliver on a certain performance objective. What are some advantages of still starting simple?
+一些较早的、更简单的方法可能无法实现特定的性能目标。仍然从简单开始有哪些优点？
 
-Show answer
+显示答案
 
--   get internal feedback on end-to-end utility.
--   perform A/B testing to understand UI/UX design.
--   deployed locally to start generating more data required for more complex approaches.
+- 获得有关端到端实用程序的内部反馈。
+- 执行 A/B 测试以了解 UI/UX 设计。
+- 在本地部署以开始生成更复杂方法所需的更多数据。
 
-#### Feedback
+#### 反馈
 
-How do we receive feedback on our system and incorporate it into the next iteration? This can involve both human-in-the-loop feedback as well as automatic feedback via [monitoring](https://madewithml.com/courses/mlops/monitoring/), etc.
+如何接收对系统的反馈并将其纳入下一次迭代？这可能涉及人在环路反馈以及通过[监控](https://madewithml.com/courses/mlops/monitoring/)等自动反馈。
 
-Our task
+任务
 
--   enforce human-in-loop checks when there is low confidence in classifications.
--   allow users to report issues related to misclassification.
+- 当对分类的信心较低时，强制执行人工循环检查。
+- 允许用户报告与错误分类相关的问题。
 
-Always return to the value proposition
+始终回归价值主张
 
-While it's important to iterate and optimize the internals of our workflows, it's even more important to ensure that our ML systems are actually making an impact. We need to constantly engage with stakeholders (management, users) to iterate on why our ML system exists.
+虽然迭代和优化工作流程的内部结构很重要，但确保 ML 系统真正产生影响更为重要。需要不断地与利益相关者（管理层、用户）互动，以反复思考 ML 系统存在的原因。
 
 ![产品开发周期](https://madewithml.com/static/images/mlops/iteration/development_cycle.png)
 
-## Project Management
+## 项目管理
 
-\[_Who_ & _When_\]: organizing all the product requirements into manageable timelines so we can deliver on the vision.
+\[*谁*和*什么时候*]：将所有产品需求组织到可管理的时间表中，以便能够实现愿景。
 
-### Team
+### 团队
 
-Which teams and specific members from those teams need to be involved in this project? It’s important to consider even the minor features so that everyone is aware of it and so we can properly scope and prioritize our timelines. Keep in mind that this isn’t the only project that people might be working on.
+哪些团队和这些团队的特定成员需要参与该项目？重要的是要考虑即使是次要功能，这样每个人都知道它，这样就可以适当地确定时间表的范围和优先级。请记住，这不是人们可能从事的唯一项目。
 
-Our task
+任务
 
--   **Product**: the members responsible for outlining the product requirements and approving them may involve product managers, executives, external stakeholders, etc.
--   **System design**:
-    -   **Data engineering**: responsible for the data dependencies, which include robust workflows to continually deliver the data and ensuring that it’s properly validated and ready for downstream applications.
-    -   **Machine learning**: develop the probabilistic systems with appropriate evaluation.
-    -   **DevOps**: deploy the application and help autoscale based on traffic.
-    -   **UI/UX**: consume the system’s outputs to deliver the new experience to the user.
-    -   **Accessibility**: help educate the community for the new rollouts and to assist with decisions around sensitive issues.
-    -   **Site reliability**: maintain the application and to potentially oversee that online evaluation/monitoring workflows are working as they should.
--   **Project**: the members responsible for iterative engagement with the product and engineering teams to ensure that the right product is being built and that it’s being built appropriately may include project managers, engineering managers, etc.
+- **产品**：负责概述产品需求并批准它们的成员可能包括产品经理、高管、外部利益相关者等。
+- **系统设计**：
+  - **数据工程**：负责数据依赖性，其中包括稳健的工作流，以持续交付数据并确保数据经过适当验证并为下游应用程序做好准备。
+  - **机器学习**：开发具有适当评估的概率系统。
+  - **DevOps**：部署应用程序并帮助根据流量自动缩放。
+  - **UI/UX**：使用系统的输出来为用户提供新的体验。
+  - **辅助功能**：帮助对社区进行新推出的辅助，并协助围绕敏感问题做出决策。
+  - **站点可靠性**：维护应用程序并可能监督在线评估/监控工作流程是否正常工作。
+- **项目**：负责与产品和工程团队反复接触以确保构建正确的产品并且构建得当的成员可能包括项目经理、工程经理等。
 
-### Deliverables
+### 可交付成果
 
-We need to break down all the [objectives](https://madewithml.com/courses/mlops/design/#objectives) for a particular release into clear deliverables that specify the deliverable, contributors, dependencies, acceptance criteria and status. This will become the granular checklist that our teams will use to decide what to prioritize.
+需要将特定发布的所有目标分解为明确的可交付成果，这些可交付成果指定可交付成果、贡献者、依赖项、验收标准和状态。这将成为团队用来决定优先事项的详细清单。
 
-Our task
+**任务**
 
-### Timeline
+### 时间线
 
-This is where the project scoping begins to take place. Often, the stakeholders will have a desired time for release and the functionality to be delivered. There _will_ be a lot of back and forth on this based on the results from the feasibility studies, so it's very important to be thorough and transparent to set expectations.
+这是项目范围界定开始的地方。通常，利益相关者会有期望的发布时间和要交付的功能。根据可行性研究的结果，在这方面会有很多来回，因此设置期望时彻底和透明是非常重要的。
 
-Our task
+任务
 
-**v1**：对传入的内容（高精度）进行分类，以便我们的客户轻松发现。
+**v1**：对传入的内容（高精度）进行分类，以便客户轻松发现。
 
--   XX 进行的勘探研究
--   被 XX 推送给开发人员进行 A/B 测试
--   被 XX 推送到登台
--   被 XX 催促
+- XX进行的勘探研究
+- 由 XX 推送给开发人员进行 A/B 测试
+- 被 XX 推送到登机挂钩
+- 由 XX 推送到产品
 
-> 这是一个极其简化的时间线。一个实际的时间线将描述来自所有不同团队的时间线，它们在指定的时间约束或版本发布时用垂直线堆叠在一起。
+> 这是一个极其简化的时间表。实际的时间线将描述来自所有不同团队的时间线，这些时间线在指定的时间限制或版本发布时用垂直线堆叠在一起。
+
+___
+
+本文主体源自以下链接：
+
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

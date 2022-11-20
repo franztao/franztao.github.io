@@ -19,7 +19,7 @@ tags:
 
 -   由于模型复杂度低，通过超参数调整进行快速实验。
 -   发现数据问题、错误假设、代码中的错误等，因为模型本身并不复杂。
--   [帕累托原则](https://en.wikipedia.org/wiki/Pareto_principle)：我们可以用最少的初始努力实现良好的性能。
+-   [帕累托原则](https://en.wikipedia.org/wiki/Pareto_principle)：可以用最少的初始努力实现良好的性能。
 
 ## 过程
 
@@ -33,7 +33,7 @@ tags:
 
 要考虑的权衡
 
-在选择要进行的模型架构时，需要考虑哪些重要的权衡？我们如何优先考虑它们？
+在选择要进行的模型架构时，需要考虑哪些重要的权衡？如何优先考虑它们？
 
 显示答案
 
@@ -51,7 +51,7 @@ tags:
 
 迭代数据
 
-我们还可以在您的数据集上设置基线。不要使用固定的数据集并在模型上迭代，而是选择一个好的基线并在数据集上迭代：
+还可以在您的数据集上设置基线。不要使用固定的数据集并在模型上迭代，而是选择一个好的基线并在数据集上迭代：
 
 -   删除或修复数据样本（误报和否定）
 -   准备和转换特征
@@ -61,7 +61,7 @@ tags:
 
 ## 分布式训练
 
-我们需要为我们的应用程序做的所有训练都发生在一个工作人员和一个加速器（CPU/GPU）上，但是，我们会考虑对非常大的模型或在处理大型数据集时进行分布式训练。分布式训练可能涉及：
+需要为应用程序做的所有训练都发生在一个工作人员和一个加速器（CPU/GPU）上，但是，会考虑对非常大的模型或在处理大型数据集时进行分布式训练。分布式训练可能涉及：
 
 -   **数据并行性**：工作人员收到较大数据集的不同切片。
     -   _同步训练_使用[AllReduce](https://tech.preferred.jp/en/blog/technologies-behind-distributed-deep-learning-allreduce/#:~:text=AllReduce%20is%20an%20operation%20that,of%20length%20N%20called%20A_p.)聚合梯度并在每批结束时更新所有工作人员的权重（同步）。
@@ -72,10 +72,10 @@ tags:
 
 ## 优化
 
-当我们的数据或模型太大而无法训练时，分布式训练策略非常有用，但是当我们的模型太大而无法部署时呢？以下模型压缩技术通常用于使大型模型适合现有基础架构：
+当数据或模型太大而无法训练时，分布式训练策略非常有用，但是当模型太大而无法部署时呢？以下模型压缩技术通常用于使大型模型适合现有基础架构：
 
 -   [**修剪**](https://pytorch.org/tutorials/intermediate/pruning_tutorial.html)：删除权重（非结构化）或整个通道（结构化）以减小网络的大小。目标是保持模型的性能，同时增加其稀疏性。
--   [**量化**](https://pytorch.org/docs/stable/torch.quantization.html)：通过降低权重的精度（例如 32 位到 8 位）来减少权重的内存占用。我们可能会失去一些精度，但它不应该对性能产生太大影响。
+-   [**量化**](https://pytorch.org/docs/stable/torch.quantization.html)：通过降低权重的精度（例如 32 位到 8 位）来减少权重的内存占用。可能会失去一些精度，但它不应该对性能产生太大影响。
 -   [**蒸馏**](https://arxiv.org/abs/2011.14691)：训练较小的网络以“模仿”较大的网络，方法是让它重现较大网络层的输出。
 
 ![知识蒸馏](https://madewithml.com/static/images/mlops/baselines/kd.png)
@@ -84,21 +84,21 @@ tags:
 
 ## 基线
 
-每个应用程序的基线轨迹因任务而异。对于我们的应用程序，我们将遵循以下路径：
+每个应用程序的基线轨迹因任务而异。对于应用程序，将遵循以下路径：
 
 1.  [随机的](https://madewithml.com/courses/mlops/baselines/#random)
 2.  [基于规则](https://madewithml.com/courses/mlops/baselines/#rule-based)
 3.  [简单机器学习](https://madewithml.com/courses/mlops/baselines/#simple-ml)
 
-我们将激发对缓慢增加**表示**（例如文本向量化）和**架构**（例如逻辑回归）的复杂性的需求，并解决每个步骤的限制。
+将激发对缓慢增加**表示**（例如文本向量化）和**架构**（例如逻辑回归）的复杂性的需求，并解决每个步骤的限制。
 
 > 如果您不熟悉此处的建模概念，请务必查看[基础课程](https://madewithml.com/#foundations)。
 
 笔记
 
-我们使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在我们继续学习本笔记本之后的其他课程时，请随意选择任何型号。
+使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在继续学习本笔记本之后的其他课程时，请随意选择任何型号。
 
-我们将首先设置一些我们将在不同基线实验中使用的函数。
+将首先设置一些将在不同基线实验中使用的函数。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_2"><span></span><code><span>def</span> <span>set_seeds</span><span>(</span><span>seed</span><span>=</span><span>42</span><span>):</span>
     <span>"""Set seeds for reproducibility."""</span>
@@ -148,23 +148,23 @@ tags:
     <span>return</span> <span>X_train</span><span>,</span> <span>X_val</span><span>,</span> <span>X_test</span><span>,</span> <span>y_train</span><span>,</span> <span>y_val</span><span>,</span> <span>y_test</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们的数据集很小，因此我们将使用整个数据集进行训练，但对于较大的数据集，我们应该始终在一个小子集上进行测试（在必要时进行改组之后），这样我们就不会在计算上浪费时间。
+数据集很小，因此将使用整个数据集进行训练，但对于较大的数据集，应该始终在一个小子集上进行测试（在必要时进行改组之后），这样就不会在计算上浪费时间。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_5"><span></span><code><span>df</span> <span>=</span> <span>df</span><span>.</span><span>sample</span><span>(</span><span>frac</span><span>=</span><span>1</span><span>)</span><span>.</span><span>reset_index</span><span>(</span><span>drop</span><span>=</span><span>True</span><span>)</span>  <span># shuffle</span>
 <span>df</span> <span>=</span> <span>df</span><span>[:</span> <span>num_samples</span><span>]</span>  <span># None = all samples</span>
 </code></pre></div></td></tr></tbody></table>
 
-我们需要洗牌吗？
+需要洗牌吗？
 
 为什么打乱数据集很重要？
 
 显示答案
 
-我们_需要_打乱我们的数据，因为我们的数据是按时间顺序组织的。与早期项目相比，最新项目可能具有某些流行的功能或标签。如果我们在创建数据拆分之前不进行洗牌，那么我们的模型将只会在较早的信号上进行训练并且无法泛化。但是，在其他情况下（例如时间序列预测），洗牌会导致数据泄露。
+_需要_打乱数据，因为数据是按时间顺序组织的。与早期项目相比，最新项目可能具有某些流行的功能或标签。如果在创建数据拆分之前不进行洗牌，那么模型将只会在较早的信号上进行训练并且无法泛化。但是，在其他情况下（例如时间序列预测），洗牌会导致数据泄露。
 
 ### 随机的
 
-_动机_：我们想知道随机（机会）表现是什么样的。我们所有的努力都应该远远高于这个基线。
+_动机_：想知道随机（机会）表现是什么样的。所有的努力都应该远远高于这个基线。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_6"><span></span><code><span>from</span> <span>sklearn.metrics</span> <span>import</span> <span>precision_recall_fscore_support</span>
 </code></pre></div></td></tr></tbody></table>
@@ -217,7 +217,7 @@ _动机_：我们想知道随机（机会）表现是什么样的。我们所有
 
 ```
 
-我们假设每个类别都有相同的概率。让我们使用训练拆分来找出真正的概率是多少。
+假设每个类别都有相同的概率。让使用训练拆分来找出真正的概率是多少。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_11"><span></span><code tabindex="0"><span># Class frequencies</span>
 <span>p</span> <span>=</span> <span>[</span><span>Counter</span><span>(</span><span>y_test</span><span>)[</span><span>index</span><span>]</span><span>/</span><span>len</span><span>(</span><span>y_test</span><span>)</span> <span>for</span> <span>index</span> <span>in</span> <span>range</span><span>(</span><span>len</span><span>(</span><span>label_encoder</span><span>))]</span>
@@ -248,11 +248,11 @@ _动机_：我们想知道随机（机会）表现是什么样的。我们所有
 
 ```
 
-_限制_：我们没有使用输入中的标记来影响我们的预测，所以没有学到任何东西。
+_限制_：没有使用输入中的标记来影响预测，所以没有学到任何东西。
 
 ### 基于规则
 
-_动机_：我们希望在输入中使用信号（以及领域专业知识和辅助数据）来确定标签。
+_动机_：希望在输入中使用信号（以及领域专业知识和辅助数据）来确定标签。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_14"><span></span><code><span># Setup</span>
 <span>set_seeds</span><span>()</span>
@@ -314,11 +314,11 @@ _动机_：我们希望在输入中使用信号（以及领域专业知识和辅
 
 为什么召回率这么低？
 
-为什么我们的准确率很高，但我们的召回率却如此之低？
+为什么准确率很高，但召回率却如此之低？
 
 显示答案
 
-当我们的输入信号中没有使用这些特定的别名时，仅依赖别名会证明是灾难性的。为了改进这一点，我们可以构建一个包含相关术语的词袋。例如，将诸如`text classification`和之类的术语映射`named entity recognition`到`natural-language-processing`标签，但构建它是一项不平凡的任务。更不用说，随着数据环境的成熟，我们需要不断更新这些规则。
+当输入信号中没有使用这些特定的别名时，仅依赖别名会证明是灾难性的。为了改进这一点，可以构建一个包含相关术语的词袋。例如，将诸如`text classification`和之类的术语映射`named entity recognition`到`natural-language-processing`标签，但构建它是一项不平凡的任务。更不用说，随着数据环境的成熟，需要不断更新这些规则。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_20"><span></span><code><span># Pitfalls</span>
 <span>text</span> <span>=</span> <span>"Transfer learning with transformers for text classification."</span>
@@ -332,7 +332,7 @@ _动机_：我们希望在输入中使用信号（以及领域专业知识和辅
 
 小费
 
-我们还可以使用[词干提取](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html)来进一步完善我们基于规则的流程：
+还可以使用[词干提取](https://nlp.stanford.edu/IR-book/html/htmledition/stemming-and-lemmatization-1.html)来进一步完善基于规则的流程：
 
 <table><tbody><tr><td></td><td><div><pre id="__code_21"><span></span><code><span>from</span> <span>nltk.stem</span> <span>import</span> <span>PorterStemmer</span>
 <span>stemmer</span> <span>=</span> <span>PorterStemmer</span><span>()</span>
@@ -348,16 +348,16 @@ _动机_：我们希望在输入中使用信号（以及领域专业知识和辅
 
 但是这些基于规则的方法只能在绝对条件匹配时产生具有高确定性的标签，因此最好不要在这种方法上花费太多精力。
 
-_限制_：我们未能概括或学习任何隐式模式来预测标签，因为我们将输入中的标记视为孤立的实体。
+_限制_：未能概括或学习任何隐式模式来预测标签，因为将输入中的标记视为孤立的实体。
 
 ### 矢量化
 
 _动机_：
 
 -   _表示_：使用词频-逆文档频率[(TF-IDF)](https://en.wikipedia.org/wiki/Tf%E2%80%93idf)来捕获某个标记相对于所有输入对特定输入的重要性，而不是将输入文本中的单词视为孤立的标记。
--   _架构_：我们希望我们的模型能够有意义地提取编码信号以预测输出标签。
+-   _架构_：希望模型能够有意义地提取编码信号以预测输出标签。
 
-到目前为止，我们已经将输入文本中的单词视为孤立的标记，并且我们还没有真正捕捉到标记之间的任何含义。让我们使用 TF-IDF（通过 Scikit-learn's [`TfidfVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)）来捕获令牌对特定输入相对于所有输入的重要性。
+到目前为止，已经将输入文本中的单词视为孤立的标记，并且还没有真正捕捉到标记之间的任何含义。让使用 TF-IDF（通过 Scikit-learn's [`TfidfVectorizer`](https://scikit-learn.org/stable/modules/generated/sklearn.feature_extraction.text.TfidfVectorizer.html)）来捕获令牌对特定输入相对于所有输入的重要性。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_22"><span></span><code><span>from</span> <span>sklearn.feature_extraction.text</span> <span>import</span> <span>TfidfVectorizer</span>
 </code></pre></div></td></tr></tbody></table>
@@ -405,9 +405,9 @@ tao 大规模基准跟踪对象多样化数据集跟踪对象 tao 包含 2 907 �
 
 ### 数据不平衡
 
-对于我们的数据集，我们可能经常会注意到数据不平衡问题，其中一系列连续值（回归）或某些类别（分类）可能没有足够的数据量可供学习。这在训练时成为一个主要问题，因为模型将学习泛化到可用数据并在数据稀疏的区域表现不佳。有几种技术可以缓解数据不平衡，包括[重采样](https://github.com/scikit-learn-contrib/imbalanced-learn)、合并类权重、[增强](https://madewithml.com/courses/mlops/augmentation/)等。尽管理想的解决方案是为少数类收集更多数据！
+对于数据集，可能经常会注意到数据不平衡问题，其中一系列连续值（回归）或某些类别（分类）可能没有足够的数据量可供学习。这在训练时成为一个主要问题，因为模型将学习泛化到可用数据并在数据稀疏的区域表现不佳。有几种技术可以缓解数据不平衡，包括[重采样](https://github.com/scikit-learn-contrib/imbalanced-learn)、合并类权重、[增强](https://madewithml.com/courses/mlops/augmentation/)等。尽管理想的解决方案是为少数类收集更多数据！
 
-> 我们将使用[imblearn 包](https://imbalanced-learn.org/stable/)来确保我们对少数类进行过采样以等于多数类（带有大多数样本的标签）。
+> 将使用[imblearn 包](https://imbalanced-learn.org/stable/)来确保对少数类进行过采样以等于多数类（带有大多数样本的标签）。
 
 ```
 pip install imbalanced-learn==0.8.1 -q
@@ -424,7 +424,7 @@ pip install imbalanced-learn==0.8.1 -q
 
 警告
 
-重要的是，我们仅在火车拆分上应用采样，这样我们就不会在其他数据拆分中引入数据泄漏。
+重要的是，仅在火车拆分上应用采样，这样就不会在其他数据拆分中引入数据泄漏。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_30"><span></span><code><span># Class weights</span>
 <span>counts</span> <span>=</span> <span>np</span><span>.</span><span>bincount</span><span>(</span><span>y_over</span><span>)</span>
@@ -440,14 +440,14 @@ pip install imbalanced-learn==0.8.1 -q
 
 _限制_：
 
--   **表示**：TF-IDF 表示不封装超出频率的太多信号，但我们需要更细粒度的令牌表示。
--   **架构**：我们希望开发能够以更符合上下文的方式使用更好表示的编码的模型。
+-   **表示**：TF-IDF 表示不封装超出频率的太多信号，但需要更细粒度的令牌表示。
+-   **架构**：希望开发能够以更符合上下文的方式使用更好表示的编码的模型。
 
 ### 机器学习
 
-我们将使用随机梯度下降分类器 ( [SGDClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html) ) 作为我们的模型。我们将使用对数损失，以便它有效地与 SGD 进行[逻辑回归。](https://madewithml.com/courses/foundations/logistic-regression/)
+将使用随机梯度下降分类器 ( [SGDClassifier](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html) ) 作为模型。将使用对数损失，以便它有效地与 SGD 进行[逻辑回归。](https://madewithml.com/courses/foundations/logistic-regression/)
 
-> 我们这样做是因为我们希望对训练过程（epochs）有更多的控制，而不是使用 scikit-learn 的默认二阶优化方法（例如[LGBFS](https://en.wikipedia.org/wiki/Limited-memory_BFGS)）进行逻辑回归。
+> 这样做是因为希望对训练过程（epochs）有更多的控制，而不是使用 scikit-learn 的默认二阶优化方法（例如[LGBFS](https://en.wikipedia.org/wiki/Limited-memory_BFGS)）进行逻辑回归。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_31"><span></span><code><span>from</span> <span>sklearn</span> <span>import</span> <span>metrics</span>
 <span>from</span> <span>sklearn.linear_model</span> <span>import</span> <span>SGDClassifier</span>
@@ -508,11 +508,11 @@ _限制_：
 
 ```
 
-我们可以进一步优化我们的训练管道，例如[提前停止](https://madewithml.com/courses/foundations/utilities/#early-stopping)我们将使用我们创建的验证集的功能。但是我们希望在建模阶段简化这个与模型无关的课程😉
+可以进一步优化训练管道，例如[提前停止](https://madewithml.com/courses/foundations/utilities/#early-stopping)将使用创建的验证集的功能。但是希望在建模阶段简化这个与模型无关的课程😉
 
 警告
 
-SGDClassifier有一个标志，您可以在[其中](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)`early_stopping`指定要用于验证的训练集的一部分。为什么这对我们来说是个坏主意？因为我们已经在我们的训练集中应用了过采样，所以如果我们这样做，我们会引入数据泄漏。
+SGDClassifier有一个标志，您可以在[其中](https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.SGDClassifier.html)`early_stopping`指定要用于验证的训练集的一部分。为什么这对来说是个坏主意？因为已经在训练集中应用了过采样，所以如果这样做，会引入数据泄漏。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_34"><span></span><code tabindex="0"><span># Evaluate</span>
 <span>y_pred</span> <span>=</span> <span>model</span><span>.</span><span>predict</span><span>(</span><span>X_test</span><span>)</span>
@@ -532,9 +532,9 @@ SGDClassifier有一个标志，您可以在[其中](https://scikit-learn.org/sta
 
 小费
 
-Scikit-learn 有一个称为[管道](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)的概念，它允许我们将转换和训练步骤组合到一个可调用函数中。
+Scikit-learn 有一个称为[管道](https://scikit-learn.org/stable/modules/generated/sklearn.pipeline.Pipeline.html)的概念，它允许将转换和训练步骤组合到一个可调用函数中。
 
-我们可以从头开始创建管道：
+可以从头开始创建管道：
 
 <table><tbody><tr><td></td><td><div><pre id="__code_35"><span></span><code><span># Create pipeline from scratch</span>
 <span>from</span> <span>sklearn.pipeline</span> <span>import</span> <span>Pipeline</span>
@@ -552,8 +552,8 @@ Scikit-learn 有一个称为[管道](https://scikit-learn.org/stable/modules/gen
 
 _限制_：
 
--   _表示_：TF-IDF 表示没有封装太多频率以外的信号，但我们需要更细粒度的令牌表示，以说明令牌本身的重要性（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）。
--   _架构_：我们希望开发能够以更符合上下文的方式使用更好表示的编码的模型。
+-   _表示_：TF-IDF 表示没有封装太多频率以外的信号，但需要更细粒度的令牌表示，以说明令牌本身的重要性（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）。
+-   _架构_：希望开发能够以更符合上下文的方式使用更好表示的编码的模型。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_37"><span></span><code><span># Inference (with tokens similar to training data)</span>
 <span>text</span> <span>=</span> <span>"Transfer learning with transformers for text classification."</span>
@@ -603,11 +603,11 @@ _限制_：
 
 ```
 
-我们将创建一个自定义预测函数，如果多数类不高于某个 softmax 分数，则我们预测`other`该类。在我们的[目标](https://madewithml.com/courses/mlops/design/#objectives)中，我们认为精度对我们来说非常重要，我们可以利用标签和 QA 工作流程来提高后续手动检查期间的召回率。
+将创建一个自定义预测函数，如果多数类不高于某个 softmax 分数，则预测`other`该类。在[目标](https://madewithml.com/courses/mlops/design/#objectives)中，认为精度对来说非常重要，可以利用标签和 QA 工作流程来提高后续手动检查期间的召回率。
 
 警告
 
-我们的模型可能会受到过度自信的影响，因此应用此限制可能不如我们想象的那么有效，尤其是对于更大的神经网络。有关更多信息，请参阅[评估课程的](https://madewithml.com/courses/mlops/evaluation/)[自信学习](https://madewithml.com/courses/mlops/evaluation/#confident-learning)部分。[](https://madewithml.com/courses/mlops/evaluation/)
+模型可能会受到过度自信的影响，因此应用此限制可能不如想象的那么有效，尤其是对于更大的神经网络。有关更多信息，请参阅[评估课程的](https://madewithml.com/courses/mlops/evaluation/)[自信学习](https://madewithml.com/courses/mlops/evaluation/#confident-learning)部分。[](https://madewithml.com/courses/mlops/evaluation/)
 
 <table><tbody><tr><td></td><td><div><pre id="__code_41"><span></span><code tabindex="0"><span># Determine first quantile softmax score for the correct class (on validation split)</span>
 <span>y_pred</span> <span>=</span> <span>model</span><span>.</span><span>predict</span><span>(</span><span>X_val</span><span>)</span>
@@ -623,7 +623,7 @@ _限制_：
 
 警告
 
-我们在验证拆分中执行此操作非常重要，因此我们不会在评估测试拆分之前使用训练拆分或泄漏信息来夸大值。
+在验证拆分中执行此操作非常重要，因此不会在评估测试拆分之前使用训练拆分或泄漏信息来夸大值。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_42"><span></span><code tabindex="0"><span># Custom predict function</span>
 <span>def</span> <span>custom_predict</span><span>(</span><span>y_prob</span><span>,</span> <span>threshold</span><span>,</span> <span>index</span><span>):</span>
@@ -669,7 +669,7 @@ _限制_：
 
 小费
 
-我们甚至可以使用每个类别的阈值，特别是因为我们有一些数据不平衡，这会影响模型对某些类别的信心。
+甚至可以使用每个类别的阈值，特别是因为有一些数据不平衡，这会影响模型对某些类别的信心。
 
 <table><tbody><tr><td></td><td><div><pre id="__code_46"><span></span><code><span>y_pred</span> <span>=</span> <span>model</span><span>.</span><span>predict</span><span>(</span><span>X_val</span><span>)</span>
 <span>y_prob</span> <span>=</span> <span>model</span><span>.</span><span>predict_proba</span><span>(</span><span>X_val</span><span>)</span>
@@ -679,7 +679,7 @@ _限制_：
         <span>[</span><span>y_prob</span><span>[</span><span>i</span><span>][</span><span>index</span><span>]</span> <span>for</span> <span>i</span> <span>in</span> <span>np</span><span>.</span><span>where</span><span>(</span><span>y_pred</span><span>==</span><span>index</span><span>)[</span><span>0</span><span>]])</span>
 </code></pre></div></td></tr></tbody></table>
 
-> 这门 MLOps 课程实际上与模型无关（只要它产生概率分布），因此可以随意使用更复杂的表示（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）和更复杂的架构（[CNN](https://madewithml.com/courses/foundations/convolutional-neural-networks/)、[变压器](https://madewithml.com/courses/foundations/transformers/)等）。我们将在其余课程中使用这个基本的逻辑回归模型，因为它简单、快速并且实际上具有相当的性能（与最先进的预训练变压器相比，f1 差异<10%）。
+> 这门 MLOps 课程实际上与模型无关（只要它产生概率分布），因此可以随意使用更复杂的表示（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）和更复杂的架构（[CNN](https://madewithml.com/courses/foundations/convolutional-neural-networks/)、[变压器](https://madewithml.com/courses/foundations/transformers/)等）。将在其余课程中使用这个基本的逻辑回归模型，因为它简单、快速并且实际上具有相当的性能（与最先进的预训练变压器相比，f1 差异<10%）。
 
 ___
 
