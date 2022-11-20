@@ -32,9 +32,9 @@ tags:
 
 #### Typing
 
-对我们的代码尽可能明确是很重要的。我们已经讨论过为变量、函数等选择显式名称，但我们可以显式的另一种方法是为函数的输入和输出定义类型。
+对代码尽可能明确是很重要的。已经讨论过为变量、函数等选择显式名称，但可以显式的另一种方法是为函数的输入和输出定义类型。
 
-到目前为止，我们的函数看起来像这样：
+到目前为止，函数看起来像这样：
 
 ```
 def some_function(a, b):
@@ -44,7 +44,7 @@ def some_function(a, b):
 
 
 
-但是我们可以使用打字来合并更多信息：
+但是可以使用打字来合并更多信息：
 
 ```
 from typing import List
@@ -53,19 +53,19 @@ def some_function(a: List, b: int = 0) -> np.ndarray:
 
 ```
 
-在这里我们定义了：
+在这里定义了：
 
 - 输入参数`a`是一个列表
 - 输入参数`b`是一个整数，默认值为0
 - 输出参数`c`是一个 NumPy 数组
 
-我们可以使用许多其他数据类型，包括`List`、`Set`、`Dict`、和[更多](https://docs.python.org/3/library/typing.html)`Tuple`，以及包含的类型，例如,等。您还可以使用我们安装的包（例如）甚至我们自己定义的包中的类型类（例如）。[`Sequence`](https://docs.python.org/3/library/typing.html)`int``float``np.ndarray``LabelEncoder`
+可以使用许多其他数据类型，包括`List`、`Set`、`Dict`、和[更多](https://docs.python.org/3/library/typing.html)`Tuple`，以及包含的类型，例如,等。您还可以使用安装的包（例如）甚至自己定义的包中的类型类（例如）。[`Sequence`](https://docs.python.org/3/library/typing.html)`int``float``np.ndarray``LabelEncoder`
 
-> 从 Python 3.9+ 开始，[内置了](https://docs.python.org/3/whatsnew/3.9.html#type-hinting-generics-in-standard-collections)常用类型，因此我们不再需要导入它们`from typing import List, Set, Dict, Tuple, Sequence`。
+> 从 Python 3.9+ 开始，[内置了](https://docs.python.org/3/whatsnew/3.9.html#type-hinting-generics-in-standard-collections)常用类型，因此不再需要导入它们`from typing import List, Set, Dict, Tuple, Sequence`。
 
 ## 文档字符串
 
-我们可以通过添加文档字符串来描述整体实用程序、参数、返回、异常等，从而使我们的代码更加明确。让我们看一个例子：
+可以通过添加文档字符串来描述整体实用程序、参数、返回、异常等，从而使代码更加明确。让看一个例子：
 
 ```
 from typing import List
@@ -100,19 +100,19 @@ def some_function(a: List, b: int = 0) -> np.ndarray:
 
 
 
-让我们解压这个函数文档字符串的不同部分：
+让解压这个函数文档字符串的不同部分：
 
 - `[Line 3]`: 函数整体效用的总结。
-- `[Lines 5-12]`: 如何使用我们的功能的例子。
+- `[Lines 5-12]`: 如何使用功能的例子。
 - `[Lines 14-16]`: 函数输入参数的描述。
 - `[Lines 18-19]`：函数中可能引发的任何异常。
 - `[Lines 21-22]`：函数输出的描述。
 
-[我们将在下面的文档](https://madewithml.com/courses/mlops/documentation/#docs)部分呈现这些文档字符串以生成：
+[将在下面的文档](https://madewithml.com/courses/mlops/documentation/#docs)部分呈现这些文档字符串以生成：
 
 ![文档字符串](https://madewithml.com/static/images/mlops/documentation/docstrings.png)
 
-花时间用文档字符串更新我们项目中的所有函数和类，并确保参考[存储库](https://github.com/GokuMohandas/mlops-course)作为指南。请注意，您可能必须将某些库显式导入某些脚本，因为`type`需要它。例如，我们没有在`data.py`脚本中明确使用 Pandas 库，但是，我们确实使用 pandas 数据帧作为输入参数。
+花时间用文档字符串更新项目中的所有函数和类，并确保参考[存储库](https://github.com/GokuMohandas/mlops-course)作为指南。请注意，您可能必须将某些库显式导入某些脚本，因为`type`需要它。例如，没有在`data.py`脚本中明确使用 Pandas 库，但是，确实使用 pandas 数据帧作为输入参数。
 
 ```
 # tagifai/data.py
@@ -126,7 +126,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
 
 
 
-> 理想情况下，我们会在开发函数和类时将文档字符串添加到它们中，而不是在最后一次完成。
+> 理想情况下，会在开发函数和类时将文档字符串添加到它们中，而不是在最后一次完成。
 
 > Tip
 > 
@@ -136,13 +136,13 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
 
 ## 文档
 
-所以我们正在经历所有这些努力，将类型和文档字符串包括到我们的函数中，但它们都隐藏在我们的脚本中。如果我们可以收集所有这些努力并**自动**将其显示为文档会怎样？好吧，这正是我们将对以下开源包所做的 → 最终结果[在这里](https://gokumohandas.github.io/mlops-course)。
+所以正在经历所有这些努力，将类型和文档字符串包括到函数中，但它们都隐藏在脚本中。如果可以收集所有这些努力并**自动**将其显示为文档会怎样？好吧，这正是将对以下开源包所做的 → 最终结果[在这里](https://gokumohandas.github.io/mlops-course)。
 
 1. 安装所需的包：
    
    `pip install mkdocs==1.3.0 mkdocstrings==0.18.1`
    
-   我们不会将这些要求直接添加到我们的`requirements.txt`文件中，而是将其与我们所需的核心库隔离开来。我们想这样做是因为不是每个人都需要创建文档，因为它不是核心机器学习操作（训练、推理等）。我们将调整我们的`setup.py`脚本来实现这一点。我们将在一个`docs_packages`对象下定义这些包：
+   不会将这些要求直接添加到`requirements.txt`文件中，而是将其与所需的核心库隔离开来。想这样做是因为不是每个人都需要创建文档，因为它不是核心机器学习操作（训练、推理等）。将调整`setup.py`脚本来实现这一点。将在一个`docs_packages`对象下定义这些包：
    
    ```
    # setup.py
@@ -155,7 +155,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
    
-   然后我们将其添加到`setup()`脚本中的对象：
+   然后将其添加到`setup()`脚本中的对象：
    
    ```
    # Define our package
@@ -172,15 +172,15 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
    
-   现在我们可以安装这个包：
+   现在可以安装这个包：
    
    `python3 -m pip install -e ".[docs]"`
    
-   我们还定义了一个`dev`选项，我们将在课程中更新该选项，以便开发人员可以在一次调用中安装所有必需的和额外的包，而不是一次调用每个额外的必需包。
+   还定义了一个`dev`选项，将在课程中更新该选项，以便开发人员可以在一次调用中安装所有必需的和额外的包，而不是一次调用每个额外的必需包。
    
    `python3 -m pip install -e ".[dev]"`
    
-   我们创建了一个显式`doc`选项，因为用户只想下载文档包来生成文档（不需要其他包）。[当我们使用CI/CD 工作流](https://madewithml.com/courses/mlops/cicd/)通过 GitHub Actions 自动生成文档时，我们将看到这一点。
+   创建了一个显式`doc`选项，因为用户只想下载文档包来生成文档（不需要其他包）。[当使用CI/CD 工作流](https://madewithml.com/courses/mlops/cicd/)通过 GitHub Actions 自动生成文档时，将看到这一点。
 
 2. 初始化 mkdocs
    
@@ -198,7 +198,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
 
-3. 我们将首先用我们项目的特定信息 覆盖`index.md`我们目录中的默认文件：`docs`
+3. 将首先用项目的特定信息 覆盖`index.md`目录中的默认文件：`docs`
    
    ```
    ## Documentation
@@ -217,7 +217,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
 
-4. 接下来我们将为目录中的每个脚本创建文档文件`tagifai`：
+4. 接下来将为目录中的每个脚本创建文档文件`tagifai`：
    
    ```
    mkdir docs/tagifai
@@ -229,9 +229,9 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
    
-   > 让`docs`目录结构尽可能模仿我们项目的结构是有帮助的。随着我们在以后的课程中记录更多目录，这一点变得更加重要。
+   > 让`docs`目录结构尽可能模仿项目的结构是有帮助的。随着在以后的课程中记录更多目录，这一点变得更加重要。
 
-5. 接下来我们将添加`tagifai.<SCRIPT_NAME>`到`docs/tagifai`. `tagifai/<SCRIPT_NAME>.py`这将使用有关`mkdocstrings`插件的函数和类（使用它们的文档字符串）的信息填充文件。
+5. 接下来将添加`tagifai.<SCRIPT_NAME>`到`docs/tagifai`. `tagifai/<SCRIPT_NAME>.py`这将使用有关`mkdocstrings`插件的函数和类（使用它们的文档字符串）的信息填充文件。
    
    > 请务必查看[mkdocs 插件](https://github.com/mkdocs/mkdocs/wiki/MkDocs-Plugins)的完整列表。
    > 
@@ -241,7 +241,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    > 
    > ```
 
-6. 最后，我们将在`mkdocs.yml`mkdocs 自动创建的文件中添加一些配置：
+6. 最后，将在`mkdocs.yml`mkdocs 自动创建的文件中添加一些配置：
    
    ```
    # mkdocs.yml
@@ -268,15 +268,15 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    
 
-7. 在本地提供我们的文档：
+7. 在本地提供文档：
    
    `python3 -m mkdocs serve`
 
 ## 出版
 
-我们可以使用公共存储库的[GitHub 页面以及私有存储库的](https://www.mkdocs.org/user-guide/deploying-your-docs/)[私有文档](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)轻松地免费提供我们的文档。我们甚至可以将其托管在[自定义域](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)（例如公司的子域）上。
+可以使用公共存储库的[GitHub 页面以及私有存储库的](https://www.mkdocs.org/user-guide/deploying-your-docs/)[私有文档](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)轻松地免费提供文档。甚至可以将其托管在[自定义域](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)（例如公司的子域）上。
 
-> 请务必查看为我们的[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次我们对代码库进行更改时，我们将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使文档保持最新。
+> 请务必查看为[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使文档保持最新。
 
 ___
 

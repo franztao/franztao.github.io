@@ -29,7 +29,7 @@ tags:
 
 ## 应用
 
-我们将从初始化实验所需的所有参数开始。
+将从初始化实验所需的所有参数开始。
 
 ```
 pip install mlflow==1.23.1 -q
@@ -74,11 +74,11 @@ mlflow.set_tracking_uri("file://" + str(MODEL_REGISTRY.absolute()))
 > mlflow.set_tracking_uri("file:///" + str(MODEL_REGISTRY.absolute()))
 > ```
 
-> 当我们与其他团队成员合作时，这个模型注册表将存在于云端。我们团队的成员可以连接到它（通过身份验证）以保存和加载经过训练的模型。如果您不想设置和维护模型注册表，这就是[Comet ML](https://www.comet.ml/site/)、[Weights and Biases](https://www.wandb.com/)和其他平台等平台卸载大量技术设置的地方。
+> 当与其他团队成员合作时，这个模型注册表将存在于云端。团队的成员可以连接到它（通过身份验证）以保存和加载经过训练的模型。如果您不想设置和维护模型注册表，这就是[Comet ML](https://www.comet.ml/site/)、[Weights and Biases](https://www.wandb.com/)和其他平台等平台卸载大量技术设置的地方。
 
 ## 训练
 
-为了简单起见，我们将所有用于训练的组件封装到一个函数中，该函数返回我们希望能够从我们的实验中跟踪的所有工件。
+为了简单起见，将所有用于训练的组件封装到一个函数中，该函数返回希望能够从实验中跟踪的所有工件。
 
 > 现在忽略该`trial`参数（默认为`None`），因为它将在[超参数优化](https://madewithml.com/courses/mlops/optimization/)课程中用于修剪没有希望的试验。
 
@@ -158,7 +158,7 @@ def train(args, df, trial=None):
 
 ## 追踪
 
-使用 MLFlow 我们需要首先初始化一个实验，然后你可以在该实验下运行。
+使用 MLFlow 需要首先初始化一个实验，然后你可以在该实验下运行。
 
 ```
 import joblib
@@ -221,11 +221,11 @@ Epoch: 90 | train_loss: 0.16197, val_loss: 0.46488
 
 ## 查看
 
-让我们看看我们从实验中追踪到的内容。MLFlow 为我们提供了一个仪表板，供我们在本地主机端口上查看和探索我们的实验。如果您在本地计算机上运行它，您可以简单地运行 MLFlow 服务器：
+让看看从实验中追踪到的内容。MLFlow 为提供了一个仪表板，供在本地主机端口上查看和探索实验。如果您在本地计算机上运行它，您可以简单地运行 MLFlow 服务器：
 
 `mlflow server -h 0.0.0.0 -p 8000 --backend-store-uri $PWD/experiments/`
 
-并打开[http://localhost:8000/](http://localhost:8000/)以查看仪表板。但是，如果您使用的是 Google colab，我们将使用 [localtunnel](https://github.com/localtunnel/localtunnel)在该笔记本和公共 URL 之间创建连接。
+并打开[http://localhost:8000/](http://localhost:8000/)以查看仪表板。但是，如果您使用的是 Google colab，将使用 [localtunnel](https://github.com/localtunnel/localtunnel)在该笔记本和公共 URL 之间创建连接。
 
 > 如果未安装 localtunnel，您可能需要先`!npm install -g localtunnel`在单元格中运行。
 
@@ -240,17 +240,17 @@ get_ipython().system_raw("mlflow server -h 0.0.0.0 -p 8000 --backend-store-uri $
 
 
 
-MLFlow 创建一个包含所有实验及其各自运行的主仪表板。我们可以通过单击列标题对运行进行排序。
+MLFlow 创建一个包含所有实验及其各自运行的主仪表板。可以通过单击列标题对运行进行排序。
 
 ![mlflow仪表板](https://madewithml.com/static/images/mlops/experiment_tracking/dashboard.png)
 
-我们可以在主仪表板上单击我们的任何实验以进一步探索它（单击每次运行的时间戳链接）。然后单击左侧的指标以在图中查看它们：
+可以在主仪表板上单击任何实验以进一步探索它（单击每次运行的时间戳链接）。然后单击左侧的指标以在图中查看它们：
 
 ![实验指标](https://madewithml.com/static/images/mlops/experiment_tracking/plots.png)
 
 ## 加载中
 
-我们需要能够加载我们保存的实验工件以进行推理、再训练等。
+需要能够加载保存的实验工件以进行推理、再训练等。
 
 ```
 def load_dict(filepath):
@@ -309,7 +309,7 @@ predict_tag(texts=[text])
 
 > Tip
 > 
-> 我们还可以通过使用它的运行 ID 直接从模型注册表加载特定运行的模型工件，而无需将它们保存到临时目录。
+> 还可以通过使用它的运行 ID 直接从模型注册表加载特定运行的模型工件，而无需将它们保存到临时目录。
 > 
 > ```
 > artifact_uri = mlflow.get_run(run_id=run_id).info.artifact_uri.split("file://")[-1]

@@ -29,7 +29,7 @@ tags:
 
 ## 项目
 
-虽然我们将在[下一课](https://madewithml.com/courses/mlops/organization/)中将我们的代码从笔记本组织到脚本，但我们现在将创建主项目目录，以便我们可以将打包组件保存在那里。我们将调用我们的主项目目录`mlops`，但您可以随意命名它。
+虽然将在[下一课](https://madewithml.com/courses/mlops/organization/)中将代码从笔记本组织到脚本，但现在将创建主项目目录，以便可以将打包组件保存在那里。将调用主项目目录`mlops`，但您可以随意命名它。
 
 ```
 # Create and change into the directory
@@ -39,17 +39,17 @@ cd mlops
 
 ## Python
 
-我们要做的第一件事是设置正确的 Python 版本。我们将`3.7.13`专门使用版本，但任何版本的 Python 3 都应该可以使用。虽然您可以在线下载不同的 Python 版本，但我们强烈建议您使用版本管理器，例如[pyenv](https://github.com/pyenv/pyenv)。
+要做的第一件事是设置正确的 Python 版本。将`3.7.13`专门使用版本，但任何版本的 Python 3 都应该可以使用。虽然您可以在线下载不同的 Python 版本，但强烈建议您使用版本管理器，例如[pyenv](https://github.com/pyenv/pyenv)。
 
-> Pyenv 适用于 Mac 和 Linux，但如果你在 Windows 上，我们建议使用[pyenv-win](https://github.com/pyenv-win/pyenv-win)。
+> Pyenv 适用于 Mac 和 Linux，但如果你在 Windows 上，建议使用[pyenv-win](https://github.com/pyenv-win/pyenv-win)。
 
 
 
-> 我们强烈建议使用 Python `3.7.13`，因为虽然使用其他版本的 Python 也可以，但我们可能会遇到与某些可能需要解决的包版本的冲突。
+> 强烈建议使用 Python `3.7.13`，因为虽然使用其他版本的 Python 也可以，但可能会遇到与某些可能需要解决的包版本的冲突。
 
 ## 虚拟环境
 
-接下来，我们将设置一个[虚拟环境](https://docs.python.org/3/library/venv.html)，以便为我们的应用程序隔离所需的包。这也将使组件与可能具有不同依赖关系的其他项目分开。一旦我们创建了我们的虚拟环境，我们将激活它并安装我们需要的包。
+接下来，将设置一个[虚拟环境](https://docs.python.org/3/library/venv.html)，以便为应用程序隔离所需的包。这也将使组件与可能具有不同依赖关系的其他项目分开。一旦创建了虚拟环境，将激活它并安装需要的包。
 
 ```
 python3 -m venv venv
@@ -60,31 +60,31 @@ python3 -m pip install pip setuptools wheel
 
 
 
-让我们解开这里发生的事情：
+让解开这里发生的事情：
 
 1. 创建一个名为`venv`.
-2. 激活我们的虚拟环境。输入`deactivate`退出虚拟环境。
-3. 升级所需的包，以便我们下载最新的包轮。
+2. 激活虚拟环境。输入`deactivate`退出虚拟环境。
+3. 升级所需的包，以便下载最新的包轮。
 
-`venv`当我们列出项目中的目录时，我们的虚拟环境目录应该是可见的：
+`venv`当列出项目中的目录时，虚拟环境目录应该是可见的：
 
 
 
-我们会知道我们的虚拟环境是活跃的，因为我们会在终端上显示它的名字。我们可以通过确保`pip freeze`不返回任何内容来进一步验证。
+会知道虚拟环境是活跃的，因为会在终端上显示它的名字。可以通过确保`pip freeze`不返回任何内容来进一步验证。
 
 `(venv) ➜  mlops: pip freeze`
 
 ### 要求
 
-我们将创建一个名为的单独文件`requirements.txt`，我们将在其中指定要安装的包（及其版本）。虽然我们可以将这些要求直接放在里面`setup.py`，但许多应用程序仍然在寻找一个单独的`requirements.txt`.
+将创建一个名为的单独文件`requirements.txt`，将在其中指定要安装的包（及其版本）。虽然可以将这些要求直接放在里面`setup.py`，但许多应用程序仍然在寻找一个单独的`requirements.txt`.
 
 `touch requirements.txt`
 
-我们应该将包及其版本添加到我们`requirements.txt`的项目中，因为我们的项目需要它们。不建议先安装所有包然后再安装，`pip freeze > requirements.txt`因为它会将我们所有包的依赖项转储到文件中（即使是我们没有明确安装的包）。为了缓解这种情况，可以使用[pipreqs](https://github.com/bndr/pipreqs)、[pip-tools](https://github.com/jazzband/pip-tools)、[pipchill](https://github.com/rbanffy/pip-chill)等工具，它们只会列出非依赖项的包。但是，它们的依赖关系解析并不总是准确的，并且当您想为不同的任务（开发、测试等）分离包时不起作用。
+应该将包及其版本添加到`requirements.txt`的项目中，因为项目需要它们。不建议先安装所有包然后再安装，`pip freeze > requirements.txt`因为它会将所有包的依赖项转储到文件中（即使是没有明确安装的包）。为了缓解这种情况，可以使用[pipreqs](https://github.com/bndr/pipreqs)、[pip-tools](https://github.com/jazzband/pip-tools)、[pipchill](https://github.com/rbanffy/pip-chill)等工具，它们只会列出非依赖项的包。但是，它们的依赖关系解析并不总是准确的，并且当您想为不同的任务（开发、测试等）分离包时不起作用。
 
 > Tip
 > 
-> 如果我们遇到包版本之间的冲突，我们可以通过指定包需要高于某个版本而不是确切版本来放宽约束。我们还可以为所有包指定无版本，并允许 pip 解决所有冲突。然后我们可以看到实际安装了哪个版本并将该信息添加到我们的`requirements.txt`文件中。
+> 如果遇到包版本之间的冲突，可以通过指定包需要高于某个版本而不是确切版本来放宽约束。还可以为所有包指定无版本，并允许 pip 解决所有冲突。然后可以看到实际安装了哪个版本并将该信息添加到`requirements.txt`文件中。
 > 
 > ```
 > # requirements.txt
@@ -98,7 +98,7 @@ python3 -m pip install pip setuptools wheel
 
 ### 设置
 
-让我们创建一个名为的文件`setup.py`，以提供有关如何设置虚拟环境的说明。
+让创建一个名为的文件`setup.py`，以提供有关如何设置虚拟环境的说明。
 
 `touch setup.py`
 
@@ -113,7 +113,7 @@ from setuptools import find_namespace_packages, setup
 
 
 
-我们将从提取打包的需求开始`requirements.txt`：
+将从提取打包的需求开始`requirements.txt`：
 
 ```
 # Load packages from requirements.txt
@@ -127,7 +127,7 @@ with open(Path(BASE_DIR, "requirements.txt"), "r") as file:
 
 
 
-该`setup.py`文件的核心是`setup`描述如何设置我们的包及其依赖项的对象。我们的包将被调用`tagifai`，它将包含运行它所需的所有要求。前几行涵盖[元数据](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html#metadata)（名称、描述等），然后我们定义需求。在这里我们声明我们需要等于或高于 3.7 的 Python 版本，然后将我们需要的包传递给`install_requires`.
+该`setup.py`文件的核心是`setup`描述如何设置包及其依赖项的对象。包将被调用`tagifai`，它将包含运行它所需的所有要求。前几行涵盖[元数据](https://setuptools.pypa.io/en/latest/userguide/declarative_config.html#metadata)（名称、描述等），然后定义需求。在这里声明需要等于或高于 3.7 的 Python 版本，然后将需要的包传递给`install_requires`.
 
 ```
 # setup.py
@@ -176,7 +176,7 @@ setup(
 
 ## 用法
 
-我们的`requirements.txt`文件中没有定义任何包，但如果定义了，我们可以使用该`setup.py`文件，现在我们可以像这样安装我们的包：
+`requirements.txt`文件中没有定义任何包，但如果定义了，可以使用该`setup.py`文件，现在可以像这样安装包：
 
 ```
 python3 -m pip install -e .            # installs required packages only
@@ -185,9 +185,9 @@ python3 -m pip install -e .            # installs required packages only
 
 
 
-> `-e`or标志以`--editable`开发模式安装项目，这样我们就可以进行更改而无需重新安装包。
+> `-e`or标志以`--editable`开发模式安装项目，这样就可以进行更改而无需重新安装包。
 
-现在，如果我们这样做，`pip freeze`我们应该看到它`tagifai`已安装。
+现在，如果这样做，`pip freeze`应该看到它`tagifai`已安装。
 
 `pip freeze`
 
@@ -196,7 +196,7 @@ python3 -m pip install -e .            # installs required packages only
 -e /Users/goku/Documents/madewithml/mlops
 ```
 
-我们还应该`tagifai.egg-info`在我们的项目目录中看到一个目录：
+还应该`tagifai.egg-info`在项目目录中看到一个目录：
 
 ```
 mlops/

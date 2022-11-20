@@ -65,7 +65,7 @@ tags:
 如果您添加自己的扩展并希望与他人共享，只需运行此命令即可生成命令列表：
 ```
 
-一旦我们设置好 VSCode，我们就可以开始创建我们的项目目录，我们将使用它来组织我们所有的脚本。启动项目的方式有很多种，但我们推荐以下方式：
+一旦设置好 VSCode，就可以开始创建项目目录，将使用它来组织所有的脚本。启动项目的方式有很多种，但推荐以下方式：
 
 1. 使用终端创建目录 ( `mkdir <PROJECT_NAME>`)。
 
@@ -83,11 +83,11 @@ tags:
 
 ### 自述文件
 
-我们将从一个`README.md`文件开始我们的组织，该文件将提供有关我们目录中的文件的信息、执行操作的说明等。我们将不断更新此文件，以便我们可以为将来的信息编目。
+将从一个`README.md`文件开始组织，该文件将提供有关目录中的文件的信息、执行操作的说明等。将不断更新此文件，以便可以为将来的信息编目。
 
 `touch README.md`
 
-让我们从添加用于创建[虚拟环境](https://madewithml.com/courses/mlops/packaging/#virtual-environment)的说明开始：
+让从添加用于创建[虚拟环境](https://madewithml.com/courses/mlops/packaging/#virtual-environment)的说明开始：
 
 ```
 # Inside README.md
@@ -97,13 +97,13 @@ python3 -m pip install pip setuptools wheel
 python3 -m pip install -e .
 ```
 
-如果您按下位于编辑器右上角的预览按钮（下图中红色圆圈中的按钮），您可以看到`README.md`当我们为[git](https://madewithml.com/courses/mlops/git/)推送到远程主机时会是什么样子。
+如果您按下位于编辑器右上角的预览按钮（下图中红色圆圈中的按钮），您可以看到`README.md`当为[git](https://madewithml.com/courses/mlops/git/)推送到远程主机时会是什么样子。
 
 ![自述文件](https://madewithml.com/static/images/mlops/organization/readme.png)
 
 ### 配置
 
-接下来，我们将创建一个名为的配置目录`config`，我们可以在其中存储应用程序所需的组件。在此目录中，我们将创建一个`config.py`和一个`args.json`.
+接下来，将创建一个名为的配置目录`config`，可以在其中存储应用程序所需的组件。在此目录中，将创建一个`config.py`和一个`args.json`.
 
 ```
 mkdir config
@@ -116,7 +116,7 @@ config/
 └── config.py       - configuration setup
 ```
 
-在 内部`config.py`，我们将添加代码来定义关键目录位置（我们将在以后的课程中根据需要添加更多配置）：
+在 内部`config.py`，将添加代码来定义关键目录位置（将在以后的课程中根据需要添加更多配置）：
 
 ```
 # config.py
@@ -127,7 +127,7 @@ BASE_DIR = Path(__file__).parent.parent.absolute()
 CONFIG_DIR = Path(BASE_DIR, "config")
 ```
 
-在里面`args.json`，我们将添加与数据处理和模型训练相关的参数。
+在里面`args.json`，将添加与数据处理和模型训练相关的参数。
 
 ```
 {
@@ -146,7 +146,7 @@ CONFIG_DIR = Path(BASE_DIR, "config")
 
 ### 操作
 
-我们将从`tagifai`在我们的项目目录 ( `mlops`) 中创建我们的包目录 ( ) 开始。在这个包目录中，我们将创建一个`main.py`文件来定义我们希望能够执行的核心操作。
+将从`tagifai`在项目目录 ( `mlops`) 中创建包目录 ( ) 开始。在这个包目录中，将创建一个`main.py`文件来定义希望能够执行的核心操作。
 
 ```
 mkdir tagifai
@@ -159,7 +159,7 @@ tagifai/
 `
 ```
 
-当我们将代码从笔记本移动到[下面](https://madewithml.com/courses/mlops/organization/#project)`main.py`适当的脚本时，我们将在内部定义这些核心操作：
+当将代码从笔记本移动到[下面](https://madewithml.com/courses/mlops/organization/#project)`main.py`适当的脚本时，将在内部定义这些核心操作：
 
 - `elt_data`：提取、加载和转换数据。
 - `optimize`：调整超参数以针对目标进行优化。
@@ -169,7 +169,7 @@ tagifai/
 
 ### Utilities
 
-在我们开始从笔记本中移动代码之前，我们应该有意识地了解*如何*将功能移动到脚本中。笔记本内有临时进程是很常见的，因为只要笔记本在运行，它就会保持状态。例如，我们可以像这样在笔记本中设置种子：
+在开始从笔记本中移动代码之前，应该有意识地了解*如何*将功能移动到脚本中。笔记本内有临时进程是很常见的，因为只要笔记本在运行，它就会保持状态。例如，可以像这样在笔记本中设置种子：
 
 ```
 # Set seeds
@@ -180,7 +180,7 @@ random.seed(seed)
 
 
 
-但在我们的脚本中，我们应该将此功能包装为一个干净、可重用的函数，并带有适当的参数：
+但在脚本中，应该将此功能包装为一个干净、可重用的函数，并带有适当的参数：
 
 ```
 def set_seeds(seed=42):
@@ -192,7 +192,7 @@ def set_seeds(seed=42):
 
 
 
-我们可以将所有这些存储在包目录中的一个`utils.py`文件中。`tagifai`
+可以将所有这些存储在包目录中的一个`utils.py`文件中。`tagifai`
 
 `touch tagifai/utils.py`
 
@@ -207,9 +207,9 @@ tagifai/
 
 ## 项目
 
-在将我们的代码从笔记本迁移到脚本时，最好根据实用程序进行组织。例如，我们可以为数据处理、训练、评估、预测等 ML 开发的各个阶段创建脚本：
+在将代码从笔记本迁移到脚本时，最好根据实用程序进行组织。例如，可以为数据处理、训练、评估、预测等 ML 开发的各个阶段创建脚本：
 
-我们将创建不同的 python 文件来包装我们的数据和 ML 功能：
+将创建不同的 python 文件来包装数据和 ML 功能：
 
 ```
 cd tagifai
@@ -230,17 +230,17 @@ tagifai/
 
 
 
-> 我们可能在其他项目中有其他脚本，因为它们是必要的。例如，我们通常有一个`models.py`脚本，我们在 Pytorch、Tensorflow 等中定义显式模型架构。
+> 可能在其他项目中有其他脚本，因为它们是必要的。例如，通常有一个`models.py`脚本，在 Pytorch、Tensorflow 等中定义显式模型架构。
 
-以这种方式组织我们的代码库也使我们更容易理解（或修改）代码库。我们本可以将所有代码放入一个`main.py`脚本中，但随着项目的增长，将很难在一个整体文件中导航。另一方面，我们可以通过分解`data.py`为`split.py`、`preprocess.py`等来假设更细粒度的立场。如果我们有多种拆分、预处理等方式（例如 ML 操作库），这可能更有意义，但是对于我们的任务，在这个更高级别的组织中就足够了。
+以这种方式组织代码库也使更容易理解（或修改）代码库。本可以将所有代码放入一个`main.py`脚本中，但随着项目的增长，将很难在一个整体文件中导航。另一方面，可以通过分解`data.py`为`split.py`、`preprocess.py`等来假设更细粒度的立场。如果有多种拆分、预处理等方式（例如 ML 操作库），这可能更有意义，但是对于任务，在这个更高级别的组织中就足够了。
 
 ## 原则
 
-通过下面的迁移过程，我们将反复使用几个核心软件工程原则。
+通过下面的迁移过程，将反复使用几个核心软件工程原则。
 
 #### 将功能包装到函数中
 
-我们如何决定何时将特定代码行包装为一个单独的函数？函数应该是原子的，因为它们每个都有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，这样我们就可以轻松地[测试](https://madewithml.com/courses/mlops/testing/)它们。如果不是，我们需要将它们拆分成更细粒度的单元。例如，我们可以用这些行替换项目中的标签：
+如何决定何时将特定代码行包装为一个单独的函数？函数应该是原子的，因为它们每个都有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，这样就可以轻松地[测试](https://madewithml.com/courses/mlops/testing/)它们。如果不是，需要将它们拆分成更细粒度的单元。例如，可以用这些行替换项目中的标签：
 
 ```
 oos_tags = [item for item in df.tag.unique() if item not in tags_dict.keys()]
@@ -263,7 +263,7 @@ def replace_oos_tags(df, tags_dict):
 
 ```
 
-最好将它们包装为一个单独的函数，因为我们可能想要：
+最好将它们包装为一个单独的函数，因为可能想要：
 
 - 在项目的其他部分或其他项目中重复此功能。
 - 测试这些标签实际上是否被正确替换。
@@ -298,9 +298,9 @@ def replace_oos_labels(df, labels, label_col, oos_label="other"):
 
 
 
-这样当列的名称发生变化或者我们想用不同的标签替换时，很容易调整我们的代码。这还包括在函数中使用通用名称，例如`label`而不是特定标签列的名称（例如`tag`）。它还允许其他人在他们的用例中重用此功能。
+这样当列的名称发生变化或者想用不同的标签替换时，很容易调整代码。这还包括在函数中使用通用名称，例如`label`而不是特定标签列的名称（例如`tag`）。它还允许其他人在他们的用例中重用此功能。
 
-> 但是，重要的是不要强行泛化，如果它涉及大量的努力。如果我们看到类似的功能再次出现，我们可以稍后再花时间
+> 但是，重要的是不要强行泛化，如果它涉及大量的努力。如果看到类似的功能再次出现，可以稍后再花时间
 
 本文主体源自以下链接：
 

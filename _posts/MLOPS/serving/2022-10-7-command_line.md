@@ -98,7 +98,7 @@ def predict_tag(text: str = "", run_id: str = None) -> None:
 python tagifai/main.py --help
 ```
 
-> Typer 还附带一个名为[typer-cli](https://typer.tiangolo.com/typer-cli/)的实用工具，但与我们的其他库存在一些依赖冲突，因此我们不会使用它。
+> Typer 还附带一个名为[typer-cli](https://typer.tiangolo.com/typer-cli/)的实用工具，但与其他库存在一些依赖冲突，因此不会使用它。
 
 ```
 Usage: main.py [OPTIONS] COMMAND [ARGS]...

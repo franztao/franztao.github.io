@@ -11,7 +11,7 @@ tags:
 
 ---
 
-为我们的应用程序流程组织命令的自动化工具。
+为应用程序流程组织命令的自动化工具。
 
 ## Intuition
 
@@ -26,7 +26,7 @@ SHELL = /bin/bash
 
 ## 成分
 
-在我们的[Makefile](https://github.com/GokuMohandas/mlops-course/tree/main/Makefile)中，我们将创建一个规则列表。这些规则有一个`target`，有时`prerequisites`需要满足（可以是其他目标），在下一行，Tab后面跟着一个`recipe`，指定如何创建目标。
+在[Makefile](https://github.com/GokuMohandas/mlops-course/tree/main/Makefile)中，将创建一个规则列表。这些规则有一个`target`，有时`prerequisites`需要满足（可以是其他目标），在下一行，Tab后面跟着一个`recipe`，指定如何创建目标。
 
 ```
 # Makefile
@@ -34,7 +34,7 @@ target: prerequisites
 <TAB> recipe
 ```
 
-例如，如果我们想创建一个规则来为我们的文件设置样式，我们可以将以下内容添加到我们的`Makefile`：
+例如，如果想创建一个规则来为文件设置样式，可以将以下内容添加到`Makefile`：
 
 ```
 # Styling
@@ -46,7 +46,7 @@ style:
 
 > 制表符与空格
 > 
-> Makefile 要求缩进使用，而不是我们会收到错误的空格：
+> Makefile 要求缩进使用，而不是会收到错误的空格：
 > 
 > 生成文件：: *** 缺少分隔符。停止。
 > 
@@ -54,7 +54,7 @@ style:
 
 ## 目标
 
-`make <target>`我们可以通过在终端中键入来执行任何规则：
+`make <target>`可以通过在终端中键入来执行任何规则：
 
 ```
 # Make a target
@@ -63,7 +63,7 @@ $ make style
 
 `# Make a target $ make style`
 
-同样，我们可以设置我们的`Makefile`用于创建虚拟环境：
+同样，可以设置`Makefile`用于创建虚拟环境：
 
 ```
 # Environment
@@ -74,19 +74,19 @@ venv:
     python3 -m pip install -e .
 ```
 
-> `&&`表示我们希望这些命令在一个 shell 中执行（更多内容[见下文](https://madewithml.com/courses/mlops/makefile/#shells)）。
+> `&&`表示希望这些命令在一个 shell 中执行（更多内容[见下文](https://madewithml.com/courses/mlops/makefile/#shells)）。
 
 ## PHONY
 
-之所以这样称呼 Makefile，是因为传统上`targets`它们应该是我们可以*制作*的文件。但是，Makefile 也常被用作命令快捷方式，当 Makefile 目标和文件共享相同的名称时会导致混淆！例如，如果我们有一个名为`venv`（我们这样做）的文件，并且`target`在您的 Makefile 中有一个名为`venv`，当您运行时，`make venv`我们将收到此消息：
+之所以这样称呼 Makefile，是因为传统上`targets`它们应该是可以*制作*的文件。但是，Makefile 也常被用作命令快捷方式，当 Makefile 目标和文件共享相同的名称时会导致混淆！例如，如果有一个名为`venv`（这样做）的文件，并且`target`在您的 Makefile 中有一个名为`venv`，当您运行时，`make venv`将收到此消息：
 
 `$ make venv`
 
-在这种情况下，这是预期的行为，因为如果虚拟环境已经存在，那么我们不想再次*创建*该目标。然而，有时，我们会命名我们的目标并希望它们执行，无论它是否作为实际文件存在。在这些情况下，我们希望[`PHONY`](https://www.gnu.org/software/make/manual/make.html#Phony-Targets)通过在目标上方添加以下行来在我们的 makefile 中定义一个目标：
+在这种情况下，这是预期的行为，因为如果虚拟环境已经存在，那么不想再次*创建*该目标。然而，有时，会命名目标并希望它们执行，无论它是否作为实际文件存在。在这些情况下，希望[`PHONY`](https://www.gnu.org/software/make/manual/make.html#Phony-Targets)通过在目标上方添加以下行来在 makefile 中定义一个目标：
 
 `.PHONY: <target_name>`
 
-我们的 Makefile 中的大多数规则都需要`PHONY`目标，因为我们希望即使存在共享目标名称的文件，它们也能执行。
+ Makefile 中的大多数规则都需要`PHONY`目标，因为希望即使存在共享目标名称的文件，它们也能执行。
 
 ```
 # Styling
@@ -99,7 +99,7 @@ style:
 
 ## 先决条件
 
-在我们制定目标之前，我们可以为它们附加先决条件。*这些可以是必须存在的文件目标，也可以是在创建*此目标之前需要执行的 PHONY 目标命令。例如，我们将*样式目标设置为**清理*目标的先决条件，以便所有文件在清理之前都适当地格式化。
+在制定目标之前，可以为它们附加先决条件。*这些可以是必须存在的文件目标，也可以是在创建*此目标之前需要执行的 PHONY 目标命令。例如，将*样式目标设置为**清理*目标的先决条件，以便所有文件在清理之前都适当地格式化。
 
 ```
 # Cleaning
@@ -115,9 +115,9 @@ clean: style
 
 ## 变量
 
-我们还可以在 Makefile 中设置和使用[变量来组织我们所有的规则。](https://www.gnu.org/software/make/manual/make.html#Using-Variables)
+还可以在 Makefile 中设置和使用[变量来组织所有的规则。](https://www.gnu.org/software/make/manual/make.html#Using-Variables)
 
-- 我们可以直接在 Makefile 中设置变量。如果该变量未在 Makefile 中定义，则它将默认为具有相同名称的任何环境变量。
+- 可以直接在 Makefile 中设置变量。如果该变量未在 Makefile 中定义，则它将默认为具有相同名称的任何环境变量。
   
   ```
   # Set variable
@@ -129,13 +129,13 @@ clean: style
   
   ```
 
-- 我们也可以像这样在执行规则时使用传入的变量（确保变量没有在 Makefile 中被覆盖）：
+- 也可以像这样在执行规则时使用传入的变量（确保变量没有在 Makefile 中被覆盖）：
   
   `make greeting MESSAGE="hi"`
 
 ## Shells
 
-规则配方中的每一行都将在单独的子 shell 中执行。但是对于某些方法，例如激活虚拟环境和加载包，我们希望在一个 shell 中执行所有步骤。为此，我们可以在[`.ONESHELL`](https://www.gnu.org/software/make/manual/make.html#One-Shell)任何目标之上添加特殊目标。
+规则配方中的每一行都将在单独的子 shell 中执行。但是对于某些方法，例如激活虚拟环境和加载包，希望在一个 shell 中执行所有步骤。为此，可以在[`.ONESHELL`](https://www.gnu.org/software/make/manual/make.html#One-Shell)任何目标之上添加特殊目标。
 
 ```
 # Environment
@@ -150,7 +150,7 @@ venv:
 
 
 
-然而，这仅在 Make 3.82 及更高版本中可用，大多数 Mac 当前使用的是 3.81 版本。您可以更新到当前版本，也可以`&&`像我们之前那样将您的命令链接起来：
+然而，这仅在 Make 3.82 及更高版本中可用，大多数 Mac 当前使用的是 3.81 版本。您可以更新到当前版本，也可以`&&`像之前那样将您的命令链接起来：
 
 ```
 # Environment
@@ -166,7 +166,7 @@ venv:
 
 ## 帮助
 
-我们要添加到我们的`Makefile`（至少现在）的最后一件事是一个`help`目标到最顶层。此规则将为该 Makefile 的功能提供信息性消息：
+要添加到`Makefile`（至少现在）的最后一件事是一个`help`目标到最顶层。此规则将为该 Makefile 的功能提供信息性消息：
 
 ```
 .PHONY: help

@@ -15,15 +15,15 @@ tags:
 
 ## Intuition
 
-我们通常希望通过数据扩充来增加训练数据的规模和多样性。它涉及使用现有样本生成合成但真实的示例。
+通常希望通过数据扩充来增加训练数据的规模和多样性。它涉及使用现有样本生成合成但真实的示例。
 
-1. **拆分数据集**。我们想首先拆分我们的数据集，因为如果我们允许将生成的样本放置在不同的数据拆分中，许多增强技术会导致某种形式的数据泄漏。
+1. **拆分数据集**。想首先拆分数据集，因为如果允许将生成的样本放置在不同的数据拆分中，许多增强技术会导致某种形式的数据泄漏。
    
-   > 例如，一些增强涉及为句子中的某些关键标记生成同义词。如果我们允许来自相同来源句子的生成句子进入不同的拆分，我们可能会在不同的拆分中泄漏具有几乎相同的嵌入表示的样本。
+   > 例如，一些增强涉及为句子中的某些关键标记生成同义词。如果允许来自相同来源句子的生成句子进入不同的拆分，可能会在不同的拆分中泄漏具有几乎相同的嵌入表示的样本。
 
-2. **增加训练拆分**。我们只想在训练集上应用数据增强，因为我们的验证和测试拆分应该用于提供对实际数据点的准确估计。
+2. **增加训练拆分**。只想在训练集上应用数据增强，因为验证和测试拆分应该用于提供对实际数据点的准确估计。
 
-3. **检查和验证**。如果扩充数据样本不是我们的模型在生产中可能遇到的输入，那么仅仅为了增加我们的训练样本大小而扩充是没有用的。
+3. **检查和验证**。如果扩充数据样本不是模型在生产中可能遇到的输入，那么仅仅为了增加训练样本大小而扩充是没有用的。
 
 数据扩充的确切方法在很大程度上取决于数据类型和应用程序。以下是可以增强不同数据模式的几种方法：
 
@@ -37,11 +37,11 @@ tags:
 
 警告
 
-虽然某些数据模式（例如图像）的转换很容易检查和验证，但其他模式可能会引入无提示错误。例如，改变文本中标记的顺序可以显着改变含义（“这真的很酷”→“这真的很酷吗”）。因此，重要的是要衡量我们的增强策略将引入的噪声，并对发生的转换进行精细控制。
+虽然某些数据模式（例如图像）的转换很容易检查和验证，但其他模式可能会引入无提示错误。例如，改变文本中标记的顺序可以显着改变含义（“这真的很酷”→“这真的很酷吗”）。因此，重要的是要衡量增强策略将引入的噪声，并对发生的转换进行精细控制。
 
 ## library
 
-根据特征类型和任务，有许多数据增强库允许我们扩展我们的训练数据。
+根据特征类型和任务，有许多数据增强库允许扩展训练数据。
 
 ### 自然语言处理 (NLP)
 
@@ -66,7 +66,7 @@ tags:
 
 ## 应用
 
-让我们使用[nlpaug](https://github.com/makcedward/nlpaug)库来扩充我们的数据集并评估生成样本的质量。
+让使用[nlpaug](https://github.com/makcedward/nlpaug)库来扩充数据集并评估生成样本的质量。
 
 ```
 pip install nlpaug==1.1.0 transformers==3.0.2 -q
@@ -91,7 +91,7 @@ substitution.augment(text)
 
 
 
-替换对我们来说似乎不是一个好主意，因为某些关键字为我们的标签提供了强烈的信号，所以我们不想改变它们。另外请注意，这些增强不是确定性的，每次我们运行它们时都会有所不同。让我们尝试插入...
+替换对来说似乎不是一个好主意，因为某些关键字为标签提供了强烈的信号，所以不想改变它们。另外请注意，这些增强不是确定性的，每次运行它们时都会有所不同。让尝试插入...
 
 ```
 # Insertions
@@ -103,7 +103,7 @@ insertion.augment(text)
 
 使用多个变分自动编码器和甘斯的自动条件逆图像生成算法。
 
-好一点但仍然很脆弱，现在它可能会插入可能影响误报标签出现的关键词。也许不是替换或插入新标记，而是让我们尝试简单地用它们的别名交换机器学习相关的关键字。我们将使用 Snorkel 的[转换函数](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial)来轻松实现这一点。
+好一点但仍然很脆弱，现在它可能会插入可能影响误报标签出现的关键词。也许不是替换或插入新标记，而是让尝试简单地用它们的别名交换机器学习相关的关键字。将使用 Snorkel 的[转换函数](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial)来轻松实现这一点。
 
 ```
 
@@ -146,7 +146,7 @@ print (flattened_aliases["nlp"])
 ['nlp', 'nlproc']
 ['nlproc', 'natural language processing']
 
-> 现在我们将按原样使用标签和别名，但我们可以使用[inflect](https://github.com/jaraco/inflect)`aliases_by_tag`包来解释多个标签，或者在替换别名之前应用词干提取等。
+> 现在将按原样使用标签和别名，但可以使用[inflect](https://github.com/jaraco/inflect)`aliases_by_tag`包来解释多个标签，或者在替换别名之前应用词干提取等。
 
 ```
 # We want to match with the whole word only
@@ -176,7 +176,7 @@ None
 
 
 
-现在让我们使用 snorkel[`transformation_function`](https://snorkel.readthedocs.io/en/latest/packages/_autosummary/augmentation/snorkel.augmentation.transformation_function.html)系统地将此转换应用于我们的数据。
+现在让使用 snorkel[`transformation_function`](https://snorkel.readthedocs.io/en/latest/packages/_autosummary/augmentation/snorkel.augmentation.transformation_function.html)系统地将此转换应用于数据。
 
 ```
 from snorkel.augmentation import transformation_function
@@ -230,7 +230,7 @@ autogenerate cv apply jobs using nlproc
 使用自然语言处理自动生成简历申请职位
 使用 nlproc 自动生成简历申请工作
 
-现在我们将定义一个[增强策略](https://snorkel.readthedocs.io/en/latest/packages/augmentation.html)来应用我们的转换函数与某些规则（生成多少样本，是否保留原始数据点等）
+现在将定义一个[增强策略](https://snorkel.readthedocs.io/en/latest/packages/augmentation.html)来应用转换函数与某些规则（生成多少样本，是否保留原始数据点等）
 
 ```
 from snorkel.augmentation import ApplyOnePolicy, PandasTFApplier
@@ -254,11 +254,11 @@ len(train_df), len(train_df_augmented)
 
 (668, 913)
 
-现在，我们将跳过数据扩充，因为它变化无常，而且根据经验，它不会显着提高性能。但是，一旦我们可以控制要扩充的词汇类型以及扩充的确切内容，我们就会看到这会非常有效。
+现在，将跳过数据扩充，因为它变化无常，而且根据经验，它不会显着提高性能。但是，一旦可以控制要扩充的词汇类型以及扩充的确切内容，就会看到这会非常有效。
 
 > 警告
 > 
-> 无论我们使用什么方法，重要的是要验证我们不仅仅是为了扩充而扩充。我们可以通过执行任何现有的[数据验证测试](https://madewithml.com/courses/mlops/testing#data)甚至创建特定的测试来应用于增强数据来做到这一点。
+> 无论使用什么方法，重要的是要验证不仅仅是为了扩充而扩充。可以通过执行任何现有的[数据验证测试](https://madewithml.com/courses/mlops/testing#data)甚至创建特定的测试来应用于增强数据来做到这一点。
 
 
 
