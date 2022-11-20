@@ -400,3 +400,13 @@ privacy + security：在应用程序中是否对不同的数据资产进行了�
 该工具是否具有适当的连接器来与数据源和堆栈的其余部分集成？
 该工具是否适合团队的技术能力（SQL、Spark、Python 等）？
 该工具提供什么样的支持（企业、社区等）？
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

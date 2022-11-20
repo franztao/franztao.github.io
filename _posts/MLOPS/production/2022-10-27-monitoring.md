@@ -660,3 +660,13 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
 - [生产中模型的监控和可解释性](https://arxiv.org/abs/2007.06299)
 - [使用黑盒预测器检测和校正标签移位](https://arxiv.org/abs/1802.03916)
 - [数据流上的异常值和异常模式检测](https://link.springer.com/article/10.1007/s11227-018-2674-1)
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

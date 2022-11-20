@@ -279,12 +279,12 @@ venv:
 
 ___
 
-要引用此内容，请使用：
-
-<table><tbody><tr><td></td><td><div><pre id="__code_14"><span></span><code><span>@article</span><span>{</span><span>madewithml</span><span>,</span><span></span>
-<span>    </span><span>author</span><span>       </span><span>=</span><span> </span><span>{Goku Mohandas}</span><span>,</span><span></span>
-<span>    </span><span>title</span><span>        </span><span>=</span><span> </span><span>{ Pre-commit - Made With ML }</span><span>,</span><span></span>
-<span>    </span><span>howpublished</span><span> </span><span>=</span><span> </span><span>{\url{https://madewithml.com/}}</span><span>,</span><span></span>
-<span>    </span><span>year</span><span>         </span><span>=</span><span> </span><span>{2022}</span><span></span>
-<span>}</span><span></span>
-</code></pre></div></td></tr></tbody></table>
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

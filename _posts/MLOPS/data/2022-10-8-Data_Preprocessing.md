@@ -626,3 +626,13 @@ label_encoder.decode(np.array([0, 1, 1]))
 要对输入文本特征进行的许多*转换都是特定于模型的。*例如，对于简单的基线，可以做`label encoding`→`tf-idf`而对于更复杂的架构，可以做`label encoding`→ `one-hot encoding`→ `embeddings`。因此，在实施[基线](https://madewithml.com/courses/mlops/baselines/)时，将在下一组课程中介绍这些内容。
 
 > 在下一节中，将对预处理后的数据集执行探索性数据分析 (EDA)。但是，步骤的顺序可以颠倒，具体取决于问题的定义程度。如果不确定如何准备数据，可以使用 EDA 来弄清楚，反之亦然。
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

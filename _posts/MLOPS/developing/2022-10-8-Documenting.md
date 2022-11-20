@@ -306,12 +306,12 @@ We can easily serve our documentation for free using [GitHub pages](https://www.
 
 ___
 
-To cite this content, please use:
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span>@article</span><span>{</span><span>madewithml</span><span>,</span><span></span>
-<span>    </span><span>author</span><span>       </span><span>=</span><span> </span><span>{Goku Mohandas}</span><span>,</span><span></span>
-<span>    </span><span>title</span><span>        </span><span>=</span><span> </span><span>{ Documentation - Made With ML }</span><span>,</span><span></span>
-<span>    </span><span>howpublished</span><span> </span><span>=</span><span> </span><span>{\url{https://madewithml.com/}}</span><span>,</span><span></span>
-<span>    </span><span>year</span><span>         </span><span>=</span><span> </span><span>{2022}</span><span></span>
-<span>}</span><span></span>
-</code></pre></div></td></tr></tbody></table>
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

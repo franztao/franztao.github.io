@@ -182,3 +182,13 @@ python tagifai/main.py predict-tag --text="Transfer learning with transformers f
 ```
 
 ___
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

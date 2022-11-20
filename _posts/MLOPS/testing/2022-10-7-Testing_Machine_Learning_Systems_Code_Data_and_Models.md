@@ -1237,7 +1237,17 @@ make test
 
 ## 资源
 
--   [远大的期望](https://github.com/great-expectations/great_expectations)
--   [ML 测试分数：ML 生产准备和技术债务减少量规](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf)
--   [超越准确性：使用 CheckList 对 NLP 模型进行行为测试](https://arxiv.org/abs/2005.04118)
--   [健壮性健身房：统一 NLP 评估领域](https://arxiv.org/abs/2101.04840)
+- [远大的期望](https://github.com/great-expectations/great_expectations)
+- [ML 测试分数：ML 生产准备和技术债务减少量规](https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/aad9f93b86b7addfea4c419b9100c6cdd26cacea.pdf)
+- [超越准确性：使用 CheckList 对 NLP 模型进行行为测试](https://arxiv.org/abs/2005.04118)
+- [健壮性健身房：统一 NLP 评估领域](https://arxiv.org/abs/2101.04840)
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

@@ -213,3 +213,13 @@ stores
   - 但最终这也会导致数据存储量大。需要的是一个 *仅追加的*数据源，其中所有更改都保存在日志中，而不是直接更改数据本身。因此，可以使用带有日志的数据系统来生成数据的版本，而不必存储数据本身的单独快照。
 
 ___
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

@@ -260,3 +260,13 @@ def contains_tensorflow(text):
 ## 迭代
 
 标签不仅仅是一次性事件或重复相同的事情。随着新数据的可用，将希望战略性地标记适当的样本并改进缺乏[质量的数据](https://madewithml.com/courses/foundations/data-quality/)[片段](https://madewithml.com/courses/mlops/testing/#evaluation)。一旦标记了新数据，就可以触发工作流来启动（重新）培训过程以部署系统的新版本。
+
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```

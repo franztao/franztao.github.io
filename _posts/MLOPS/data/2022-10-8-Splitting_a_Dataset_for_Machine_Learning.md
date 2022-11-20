@@ -185,13 +185,12 @@ def iterative_train_test_split(X, y, train_size):
 [迭代分层](http://scikit.ml/_modules/skmultilearn/model_selection/iterative_stratification.html#IterativeStratification)本质上会产生分裂，同时“试图保持关于顺序标签组合的平衡表示”。习惯于`order=1`迭代拆分，这意味着关心在拆分中提供每个标签的代表性分布。但是也可以考虑[更高阶的](https://arxiv.org/abs/1704.08756)标签关系，可能关心标签组合的分布。
 
 ___
-
-要引用此内容，请使用：
-
-<table><tbody><tr><td></td><td><div><pre id="__code_14"><span></span><code><span>@article</span><span>{</span><span>madewithml</span><span>,</span><span></span>
-<span>    </span><span>author</span><span>       </span><span>=</span><span> </span><span>{Goku Mohandas}</span><span>,</span><span></span>
-<span>    </span><span>title</span><span>        </span><span>=</span><span> </span><span>{ Splitting - Made With ML }</span><span>,</span><span></span>
-<span>    </span><span>howpublished</span><span> </span><span>=</span><span> </span><span>{\url{https://madewithml.com/}}</span><span>,</span><span></span>
-<span>    </span><span>year</span><span>         </span><span>=</span><span> </span><span>{2022}</span><span></span>
-<span>}</span><span></span>
-</code></pre></div></td></tr></tbody></table>
+本文主体源自以下链接：
+```
+@article{madewithml,
+    author       = {Goku Mohandas},
+    title        = { Made With ML },
+    howpublished = {\url{https://madewithml.com/}},
+    year         = {2022}
+}
+```
