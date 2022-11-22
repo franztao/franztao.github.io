@@ -24,28 +24,37 @@ tags:
 
 \section{SGVI参数规范}
 我们这节的主题就是Stochastic Gradient Variational Inference (SGVI)，参数的更新方法为：
+$$
 \begin{equation}
     \theta^{(t+1)} = \theta^{(t)} + \lambda^{(t)}\nabla \mathcal{L}(q)
 \end{equation}
+$$
 
 其中，$q(z|x)$被我们简化表示为$q(z)$，我们令$q(z)$是一个固定形式的概率分布，$\phi$为这个分布的参数，那么我们将把这个概率写成$q_{\phi}(z)$。
 
 那么，我们需要对原等式中的表达形式进行更新，
+$$
 \begin{equation}
     ELBO = \mathbf{E}_{q_{\phi}(z)}\left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z) \right] = \mathcal{L}(\phi)
 \end{equation}
+$$
 
 而，
+$$
 \begin{equation}
     \log p_{\theta}(x^{(i)}) = ELBO + KL(q||p) \geq \mathcal{L}(\phi)
 \end{equation}
+$$
 
 而求解目标也转换成了：
+$$
 \begin{equation}
     \hat{p} = argmax_{\phi} \mathcal{L}(\phi)
 \end{equation}
+$$
 
 \section{SGVI的梯度推导}
+$$
 \begin{equation}
     \begin{split}
         \nabla_{\phi} \mathcal{L}(\phi)
@@ -55,6 +64,7 @@ tags:
          \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \right]dz \\
     \end{split}
 \end{equation}
+$$
 
 我们把这个等式拆成两个部分，其中：
 
@@ -64,6 +74,7 @@ $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \
 
 \subsection{关于第二部分的求解}
 第二部分比较好求，所以我们才首先求第二部分的，哈哈哈！因为$\log p_{\theta}(x^{(i)},z)$与$\phi$无关。
+$$
 \begin{equation}
     \begin{split}
         2 
@@ -76,9 +87,11 @@ $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \
         = & 0
     \end{split}
 \end{equation}
+$$
 
 \subsection{关于第一部分的求解}
 在这里我们用到了一个小trick，这个trick在公式(6)的推导中，我们使用过的。那就是$\nabla_{\phi} q_{\phi} = q_{\phi}\nabla_{\phi}\log q_{\phi} $。所以，我们代入到第一项中可以得到：
+$$
 \begin{equation}
     \begin{split}
         1 
@@ -87,16 +100,21 @@ $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \
         = & \mathbf{E}_{q_{\phi}} \left[ \nabla_{\phi}\log q_{\phi} \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \right] 
     \end{split}
 \end{equation}
+$$
 
 那么，我们可以得到：
+$$
 \begin{equation}
     \nabla_{\phi} \mathcal{L}(\phi) = \mathbf{E}_{q_{\phi}} \left[ \nabla_{\phi}\log q_{\phi} \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \right] 
 \end{equation}
+$$
 
 那么如何求这个期望呢？我们采用的是蒙特卡罗采样法，假设$z^l \sim q_{\phi} (z)\ l = 1, 2, \cdots, L$，那么有：
+$$
 \begin{equation}
     \nabla_{\phi} \mathcal{L}(\phi) \approx \frac{1}{L} \sum_{l=1}^L \nabla_{\phi}\log q_{\phi}(z^{(l)})\left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z^{(l)})\right]
 \end{equation}
+$$
 
 ~\\
 
@@ -106,19 +124,24 @@ $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \
 这里采用了一种比较常见的方差缩减方法，称为Reparameterization Trick，也就是对$q_{\phi}$做一些简化。
 
 我们怎么可以较好的解决这个问题？如果我们可以得到一个确定的解$p(\epsilon)$，就会变得比较简单。因为$z$来自于$q_{\phi}(z|x)$，我们就想办法将z中的随机变量给解放出来。也就是使用一个转换$z = g_{\phi}(\epsilon, x^{(i)})$，其中$\epsilon \sim p(\epsilon)$。那么这样做，有什么好处呢？原来的$\nabla_{\phi} \mathbf{E}_{q_{\phi}}[\cdot]$将转换为$ \mathbf{E}_{p(\epsilon)}[\nabla_{\phi}(\cdot)]$，那么不在是连续的关于$\phi$的采样，这样可以有效的降低方差。并且，$z$是一个关于$\epsilon$的函数，我们将随机性转移到了$\epsilon$，那么问题就可以简化为：
+$$
 \begin{equation}
     z \sim q_{\phi}(z|x^{(i)}) \longrightarrow \epsilon \sim p(\epsilon)
 \end{equation}
+$$
 
 而且，这里还需要引入一个等式，那就是:
+$$
 \begin{equation}
     |q_{\phi}(z|x^{(i)})dz| = |p(\epsilon)d\epsilon|
 \end{equation}
+$$
 
 为什么呢？我们直观性的理解一下，$\int q_{\phi}(z|x^{(i)})dz = 
 \int p(\epsilon)d\epsilon = 1$，并且$q_{\phi}(z|x^{(i)})$和$p(\epsilon)$之间存在一个变换关系。
 
 那么，我们将改写$\nabla_{\phi} \mathcal{L}(\phi)$：
+$$
 \begin{equation}
     \begin{split}
         \nabla_{\phi} \mathcal{L}(\phi) 
@@ -132,29 +155,38 @@ $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \
          = & \mathbf{E}_{p(\epsilon)}\nabla_{z}\left[( \log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z|x^{(i)}))\nabla_{\phi}g_{\phi}(\epsilon, x^{(i)}) \right]
     \end{split}
 \end{equation}
+$$
 
 那么我们的问题就这样愉快的解决了，$p(\epsilon)$的采样与$\phi$无关，然后对先求关于$z$的梯度，然后再求关于$\phi$的梯度，那么这三者之间就互相隔离开了。最后，我们再对结果进行采样，$\epsilon^{(l)} \sim p(\epsilon), \quad l = 1, 2, \cdots, L$：
+$$
 \begin{equation}
     \nabla_{\phi} \mathcal{L}(\phi) \approx \frac{1}{L} \sum_{i=1}^L
     \nabla_{z} \left[ (\log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z|x^{(i)}))\nabla_{\phi}g_{\phi}(\epsilon, x^{(i)}) \right]
 \end{equation}
+$$
 
 其中$z \longleftarrow g_{\phi}(\epsilon^{(i)},x^{(i)})$。而SGVI为：
+$$
 \begin{equation}
     \phi^{(t+1)} \longrightarrow \phi^{(t)} + \lambda^{(t)}\nabla_{\phi} \mathcal{L}(\phi)
 \end{equation}
+$$
 
 \section{小结}
 那么SGVI，可以简要的表述为：我们定义分布为$q_{\phi}(Z|X)$，$\phi$为参数，参数的更新方法为：
+$$
 \begin{equation}
     \phi^{(t+1)} \longrightarrow \phi^{(t)} + \lambda^{(t)}\nabla_{\phi} \mathcal{L}(\phi)
 \end{equation}
+$$
 
 $\nabla_{\phi} \mathcal{L}(\phi)$为：
+$$
 \begin{equation}
     \nabla_{\phi} \mathcal{L}(\phi) \approx \frac{1}{L} \sum_{i=1}^L
     \nabla_{z} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z|x^{(i)}))\nabla_{\phi}g_{\phi}(\epsilon, x^{(i)}) \right]
 \end{equation}
+$$
 
 
 

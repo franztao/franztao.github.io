@@ -27,6 +27,7 @@ $(X,Z)$：Complete data，$(X,Z) = \{ (x_1,z_1),(x_2,z_2),\cdots,(x_N,z_N) \}$�
 $\theta$：parameter，$\theta=\{ P_1, \cdots, P_k, \mu_1, \cdots, \mu_k,\Sigma_1,\cdots,\Sigma_k \}$。
 
 \section{Maximum Likelihood Estimation求解参数}
+$$
 \begin{equation}
     \begin{split}
         P(x) 
@@ -36,8 +37,10 @@ $\theta$：parameter，$\theta=\{ P_1, \cdots, P_k, \mu_1, \cdots, \mu_k,\Sigma_
         = & \sum_{k=1}^K P_k \cdot \mathcal{N}(X|\mu_k,\Sigma_k)
     \end{split}
 \end{equation}
+$$
 
 其中，$P_k$也就是数据点去第$k$个高斯分布的概率。下面我们开始使用MLE来求解$\theta$：
+$$
 \begin{equation}
     \begin{split}
         \hat{\theta}_{MLE} 
@@ -47,14 +50,17 @@ $\theta$：parameter，$\theta=\{ P_1, \cdots, P_k, \mu_1, \cdots, \mu_k,\Sigma_
         = & \arg\max_{\theta}  \sum_{i=1}^N  \log \sum_{k=1}^K P_k \cdot \mathcal{N}(x_i|\mu_k,\Sigma_k) \\
     \end{split}
 \end{equation}
+$$
 
 我们想要求的$\theta$包括，$\theta=\{ P_1, \cdots, P_k, \mu_1, \cdots, \mu_k,\Sigma_1,\cdots,\Sigma_k \}$。
 
 \section{MLE的问题}
 按照之前的思路，我们就要分布对每个参数进行求偏导来计算最终的结果。但是问题马上就来了，大家有没有看到$\log$函数里面是一个求和的形式，而不是一个求积的形式。这意味着计算非常的困难。甚至可以说，我们根本就求不出解析解。如果是单一的Gaussian Distribution：
+$$
 \begin{equation}
     \log P(x_i) = \log \frac{1}{\sqrt{2 \pi} \sigma} exp\left\{ -\frac{(x_i - \mu)^2}{2\sigma} \right\}
 \end{equation}
+$$
 
 根据log函数优秀的性质，这个问题是可以解的。但是，很不幸后面是一个求和的形式。所以，直接使用MLE求解GMM，无法得到解析解。
 

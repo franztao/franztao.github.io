@@ -40,11 +40,14 @@ Sigmoid Belief Network的概率图模型如下所示：
     \label{fig:my_label_1}
 \end{figure}
 其中，
+$$
 \begin{equation}
     P(S_i=1) = \frac{1}{ 1 + \exp\{ b_i + w_1s_1 + w_2s_2 + w_3s_3 \}}
 \end{equation}
+$$
 \subsection{DBN的联合概率分布}
 在之前的章节我们详细的描述过了，在使用极大似然估计法中基本离不开求联合概率分布。所以，这里需要求DBN的联合概率分布，而求联合概率分布最终的就是因子分解。那么，我们首先要理顺一下各层之间的依赖关系。显然，$v$层只和$h^{(1)}$有关，$h^{(1)}$层只和$h^{(2)}$，那么有：
+$$
 \begin{equation}
     \begin{split}
         P(v,h^{(1)},h^{(2)},h^{(3)}) = & P(v|h^{(1)},h^{(2)},h^{(3)})P(h^{(1)},h^{(2)},h^{(3)}) \\
@@ -53,22 +56,29 @@ Sigmoid Belief Network的概率图模型如下所示：
         = & \prod_i P(v_i|h^{(1)}) \prod_j P(h^{(1)}_j|h^{(2)},h^{(3)})P(h^{(2)},h^{(3)}) \\
     \end{split}
 \end{equation}
+$$
 下一步则是将这三个部分分布表示。根据公式（1）的结论，可以类比的得出：
+$$
 \begin{equation}
     \begin{split}
        &  P(v_i|h^{(1)}) = \text{sigmoid}\left(\left(W^{(1)}_{:,i}\right)^T \cdot h^{(1)} + b^{(0)}_i\right) \\
        &  P(h_j^{(1)}|h^{(2)}) = \text{sigmoid}\left(\left(W^{(2)}_{:,j}\right)^T \cdot h^{(2)} + b^{(1)}_j\right)
     \end{split}
 \end{equation}
+$$
 而$h^{(2)}$和$h^{(3)}$之间是RBM模型，沿用在RBM那一章讲的Boltzmann Distribution可以得到：
+$$
 \begin{equation}
     P(h^{(2)},h^{(3)}) = \frac{1}{Z} \exp\left\{ \left(h^{(3)}\right)^Tw^{(3)}h^{(2)} + \left(h^{(2)}\right)^T b^{(2)} + \left(h^{(3)}\right)^T b^{(3)} \right\}
 \end{equation}
+$$
 
 其中参数为：
+$$
 \begin{equation}
     \theta = \{ W^{(1)},W^{(2)},W^{(3)},b^{(0)},b^{(1)},b^{(2)},b^{(3)} \}
 \end{equation}
+$$
 
 \subsection{小结}
 本小节，我们讲述了DBN的Representation，而很多小伙伴会疑惑为什么是一个hybrid model，为什么要一半用有向图，一般用无向图，这样做有什么好处，作者是如何思考出来的，深层含义是什么？这些问题，将在下一节进行描述。
@@ -84,10 +94,12 @@ Sigmoid Belief Network的概率图模型如下所示：
     \label{fig:my_label_1}
 \end{figure}
 首先，回忆一下当时是如何进行求解的。通过一系列的化简，得到了log likelihood gradient的表达形式：
+$$
 \begin{equation}\begin{aligned}
 \frac{\partial}{\partial w_{i j}} \log P(v) &=\sum_{h} \sum_{v} P(h, v)\left(-h_{i} v_{j}\right)-\sum_{h} P(h | v)\left(-h_{i} v_{j}\right) \\
 &=\sum_{h} P(h | v) h_{i} v_{j}-\sum_{h} \sum_{v} P(h, v) h_{i} v_{j}
 \end{aligned}\end{equation}
+$$
 但是公式（6）的计算过于复杂，基本是intractable。所以提出了用结合梯度上升法的Gibbs采样来求梯度，从而使得$P(v)$的Log Likelihood 达到最大，公式如下所示：
 \begin{gather}
 \Delta w_{i j} \leftarrow-\Delta w_{i j}+\frac{\partial}{\partial w_{i j}} \log P(v) \\
@@ -100,9 +112,11 @@ Sigmoid Belief Network的概率图模型如下所示：
 
 \subsection{RBM的改进}
 根据图3可知，
+$$
 \begin{equation}
     P(v) = \sum_{h^{(1)}} P(v, h^{(1)}) = \sum_{h^{(1)}} P(h^{(1)})P(v| h^{(1)})
 \end{equation}
+$$
 通常$P(h^{(1)})$看成是prior先验，$P(v| h^{(1)})$则看成是一个生成过程。RBM在无向图中并没有箭头，无向图可以看成是一个双向的有向图，如下所示：
 \begin{figure}[H]
     \centering
@@ -134,6 +148,7 @@ Sigmoid Belief Network的概率图模型如下所示：
 
 \subsection{为什么DBM会更好？}
 下面将给出推导来证明，为什么添加DBM会使得模型变得更好。首先计算一些RBM的下界。
+$$
 \begin{equation}
     \begin{split}
         \log P(v) = & \log \sum_{h^{(1)}} P(v,h^{(1)}) \\
@@ -144,10 +159,13 @@ Sigmoid Belief Network的概率图模型如下所示：
         = & \sum_{h^{(1)}} Q(h^{(1)}|v) \left[ \log P(v|h^{(1)}) + \log P(h^{(1)}) - \log Q(h^{(1)}|v) \right] \\
     \end{split}
 \end{equation}
+$$
 那么，$\sum_{h^{(1)}} Q(h^{(1)}|v) \left[ \log P(v|h^{(1)}) + \log P(h^{(1)}) - \log Q(h^{(1)}|v) \right]$就是原来的RBM的下界。在RBM中当整个模型训练完毕之后，$w$已经是确定的，那么$\log P(v|h^{(1)})$和$\log Q(h^{(1)}|v)$都可以看成是一个常数，而$Q(h^{(1)}|v)$是一个后验。所以下界被我们写为：
+$$
 \begin{equation}
     \sum_{h^{(1)}} Q(h^{(1)}|v) \log P(h^{(1)}) + C
 \end{equation}
+$$
 在RBM中$P(h^{(1)})$是固定的，而在DBM中并不是固定的，而将通过优化$P(h^{(1)})$来提升模型的性能。\textbf{而$h^{(2)}$的目的就是令$h^{(1)}$的likelihood达到最大。}那么如果不加层的话，普通的RBM中公式（11）中的所有项都是确定的，而加了层之后，$P(h^{(1)})$不是确定的，而且可以被进一步优化。这样一波操作，\textbf{就相当于变相的提高了$\log P(v)$的ELBO，而下界增大以后，就等价于可以将$P(v)$的值提的更高，所以加层以后，模型的性能会更好。}
  
 加层以后，$w^{(2)}$是需要赋予初始值的，那么令$w^{(2)} = {w^{(1)}}^T$。这样做的意义在于，第二层还没有学习之前性能就已经达到了不加层时的效果了。那么，可以保证加层之后的模型的性能是有下界的，大于等于原始的RBM。随着学习的进行，会提高ELBO从而获得比RBM更好的$P(v)$，模型可以得到更高的$P(v)$就意味着越接近真实分布，性能越好。
@@ -160,6 +178,7 @@ Sigmoid Belief Network的概率图模型如下所示：
 \section{贪心逐层预训练}
 \subsection{近似推断的基本思想}
 本节主要是以一个传统的RBM的角度来看DBN的Learning。在上一小节，已经较为详细的论述了，每加一层就会使得ELBO增加一些。假如，先只引入一个隐藏层$h^{(1)}$，那么有：
+$$
 \begin{equation}
     \begin{split}
         \log P(v) \geq & \text{ELBO} \\
@@ -167,6 +186,7 @@ Sigmoid Belief Network的概率图模型如下所示：
         = & \sum_{h^{(1)}} Q(h^{(1)}|v) \log P(v,h^{(1)}) - H\left( \log Q(h^{(1)}|v)\right) \\
     \end{split}
 \end{equation}
+$$
 而$\log P(v,h^{(1)}) = \log P(v|h^{(1)}) + \log P(h^{(1)})$，通过将当层以下层的参数全部固定，然后新建一个RBM来优化$P(h^{(1)})$，从而达到优化ELBO的目的。
 
 很多同学会好奇，这个$Q(h^{(1)}|v)$是什么？在前面的近似推断和EM算法的部分，都做了详细的描述。$Q(h^{(1)}|v)$是用来近似真实后验$P(h^{(1)}|v)$的简单分布，当且仅当$Q(h^{(1)}|v) = P(h^{(1)}|v)$时等号成立。但是为什么要近似推断呢？
@@ -179,9 +199,11 @@ Sigmoid Belief Network的概率图模型如下所示：
 现在的问题是$Q(h^{(1)}|v)$指的是一个近似分布，但是这个分布怎么求呢？注意，我们采取的逐层训练的方法，你可以理解是前馈神经网络一样，求对某层求解时，假设其他层的参数都是固定的，不予考虑，从下往上一层一层的训练。
 
 求解的思路是这样的，假设$v$和$h^{(1)}$之间是无向图，那么这两层之间可以看成是一个RBM，因为是RBM就不存在不可分解的问题，后验计算比较方便，这时$Q(h^{(1)}|v) = P(h^{(1)}|v)$，可以得到：
+$$
 \begin{equation}
     Q(h^{(1)}|v) = \prod_i Q(h^{(1)}_i|v) = \prod_i \text{sigmoid}\left( w^{(1)}_{i,:} + b^{(1)}_i \right)
 \end{equation}
+$$
 利用这个后验分布，可以采样得出$h^{(1)}$层的样本，然后利用同样的办法求得$h^{(2)}$层，这样一层一层的往上计算。注意到，最上面一层是一个真实的RBM了，因为把无向图变成有向图的目的就是为了在上面加一层，到了最上面一层了，不需要再往上加了，理所应当就保留了无向图结构。
 
 \subsection{模型的优缺点}

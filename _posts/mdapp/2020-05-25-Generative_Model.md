@@ -134,9 +134,11 @@ tags:
 这是显式的估计概率密度函数，也就是Explicit Model。根据其是否可计算大致可以分成两类，tractable和intractable。
 
 其中，Fully observed的算法一定是tractable，这样的模型结构相对很简单，典型算法有Autoregression Model。而另一类则是change of variable（Flow-based model），这里做简要的说明。假如$P(X)$非常复杂，那么我们可以对一个简单的分布$P(Z)$建模，然后寻找一个$X \mapsto Z$的映射$X=g(Z)$。那么，可得$Z = g^{-1}(X)$。此模型的主要目的就是学习这个映射$g(Z)$，可以得到
+$$
 \begin{equation}
     P_X(X) = P_Z(g^{-1}(X))
 \end{equation}
+$$
 参数计算为$\frac{\partial g^{-1}(X)}{\partial X}$。
 
 而关于Approximate Inference，包括两种，1. MCMC，这是一种Energy Based Model，因为其是基于随机采样的。2. 为确定性的变分推断，典型的算法有VAE。
@@ -187,6 +189,7 @@ Bayesian Network更适合解决High Level Reasoning的问题，适合于做原�
 
 \subsection{正常情况下简单举例}
 假设$P(Y)$是目标分布，其中$P(Y)\sim \mathcal{N}(\mu,\sigma^2)$。我们之前是怎么采样的呢？是先从一个简单的高斯分布中进行采样$Z\sim \mathcal{N}(0,1)$，然后令$Y = \mu + \sigma Z$，就相当于一个二元一次变换。这样就可以得到采样方法：
+$$
 \begin{equation}
     \left\{
 \begin{array}{ll}
@@ -195,22 +198,29 @@ Bayesian Network更适合解决High Level Reasoning的问题，适合于做原�
 \end{array}
 \right.
 \end{equation}
+$$
 那么很自然的可以将此函数看成，{$y=f(\mu, \sigma, z)$}。这是一个关于$z$的函数，$\mu, \sigma$假设是确定性变量，也就是当$z$确定时，函数的值是确定的。那么，算法的目标就是找到一个函数映射$z\mapsto y$，函数的参数为$\{ \mu,\sigma \}$。
 
 假设，$J(y)$是目标函数。那么梯度求导方法为：
+$$
 \begin{equation}
     \frac{\nabla J(y)}{\nabla \theta} = \frac{\nabla J(y)}{\nabla y} \frac{\nabla y}{\nabla \theta} 
 \end{equation}
+$$
 
 \subsection{条件概率密度函数}
 假设目标分布为$P(Y|X)=\mathcal{N}(X;\mu,\sigma^2)$，那么，在简单高斯分布$Z \sim \mathcal{N}(0,1)$进行采样，可以得到，
+$$
 \begin{equation}
     Y=\mu(X) + \sigma(X)Z
 \end{equation}
+$$
 实际上可以将$X$看成输入，$Z$看成是噪声，$Y$则是输出。神经网络的参数为$\theta$。那么逻辑关系为：
+$$
 \begin{equation}
     Y = \mu_\theta(X) + \sigma_\theta(X)Z
 \end{equation}
+$$
 网络的模型如下所示：
 \begin{figure}[H]
     \centering
@@ -219,14 +229,18 @@ Bayesian Network更适合解决High Level Reasoning的问题，适合于做原�
     \label{fig:my_label_1}
 \end{figure}
 其中，$\mu(X)=f(X;\theta),\sigma(X)=f(X;\theta)$。损失函数为：
+$$
 \begin{equation}
     L_\theta(Y) = \sum_{i=1}^N \|y-y^{(i)}\|^2
 \end{equation}
+$$
 链式求导法则为：
+$$
 \begin{equation}
     \frac{\nabla J_\theta(Y)}{\nabla \theta} = \frac{\nabla J_\theta(Y)}{\nabla Y}\frac{\nabla Y}{\nabla \mu}\frac{\nabla \mu}{\nabla \theta} +
     \frac{\nabla J_\theta(Y)}{\nabla Y}\frac{\nabla Y}{\nabla \sigma}\frac{\nabla \sigma}{\nabla \theta}
 \end{equation}
+$$
 这样就可以做到用NN来近似概率密度函数，观测这个式子发现$Y$必须要是连续可微的，不然怎么求$\frac{\nabla Y}{\nabla \sigma}$。实际上这个模型可以被写为$P(Y|X;\theta)$，将$X,\theta$合并到一起就是$w$，所以模型也可以被写为$P(Y|w)$。
 
 \subsection{小结}

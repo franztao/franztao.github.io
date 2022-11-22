@@ -45,22 +45,28 @@ Learing问题中$\lambda$是已知的，$\lambda_{MLE} = \arg\max_{\lambda}P(X|\
 
 \subsubsection{Filtering}
 实际上是一个Online-Learning的过程，也就是如果不停的往模型里面喂数据，我们可以得到概率分布为：$P(z_t|x_1,\cdots,x_t)$。所以Filtering非常的适合与on-line update。我们要求的这个就是隐变量的边缘后验分布。为什么叫滤波呢？这是由于我们求的后验是$P(z_t|x_1,\cdots,x_t)$，运用到了大量的历史信息，比$P(z_t|x_t)$的推断更加的精确，可以过滤掉更多的噪声，所以被我们称为“过滤”。求解过程如下所示：
+$$
 \begin{equation}
     P(z_t|x_{1:t}) = \frac{P(z_t,x_1,\cdots,x_t)}{P(x_1,\cdots,x_t)} = \frac{P(z_t,x_1:x_t)}{\sum_{z_t} P(z_t,x_1:x_t)} \propto P(z_t,x_1:x_t)
 \end{equation}
+$$
 
 \subsubsection{Smoothing}
 Smoothing问题和Filtering问题的性质非常的像，不同的是，Smoothing问题需要观测的是一个不变的完整序列。对于Smoothing问题的计算，前面的过程和Filtering一样，都是：
+$$
 \begin{equation}
     P(z_t|x_{1:T}) = \frac{P(z_t,x_1,\cdots,x_T)}{P(x_1,\cdots,x_T)} = \frac{P(z_t,x_1:x_T)}{\sum_{z_t} P(z_t,x_1:x_T)} \propto P(z_t,x_1:x_T)
 \end{equation}
+$$
 同样因为$\sum_{z_t} P(z_t,x_1:x_T)$是一个归一化常数，我们这里不予考虑。下面的主要问题是关于$P(z_t,x_1:x_T)$如何计算，我们来进行推导：
+$$
 \begin{equation}
     \begin{split}
         P(x_{1:T},z_t) = & P(x_{1:t},x_{t+1:T},z_t) \\
         = & P(x_{t+1:T}|x_{1:t},z_t) \cdot \underbrace{P(x_{1:t},z_t)}_{\alpha_t}
     \end{split}
 \end{equation}
+$$
 
 推导到了这里就是要对$P(\underbrace{x_{t+1:T}}_{C}|\underbrace{x_{1:t}}_{A},\underbrace{z_t}_{B})$进行分析，在这个概率图模型中，符合如下结构：
 \begin{figure}[H]
@@ -71,27 +77,34 @@ Smoothing问题和Filtering问题的性质非常的像，不同的是，Smoothin
 \end{figure}
 
 根据概率图模型中提到D-Separation中，我们可以很简单的得出，$A\perp C|B$。所以，$P(x_{t+1:T}|x_{1:t},z_t) = P(x_{t+1:T}|x_{1:t},z_t = \beta_t)$。所以，我们可以得到:
+$$
 \begin{equation}
     P(x_{1:T},z_t) = \alpha_t \cdot \beta_t
 \end{equation}
+$$
 
 那么，最终得到的就是：
 {
+$$
 \begin{equation}
     P(z_t|x_{1:T}) \propto P(x_{1:T},z_t) = \alpha_t\beta_t
 \end{equation}
+$$
 }
 
 所以，我们需要同时用到Forward Algorithm和Backward Algorithm，所以，被我们称为Forward-Backward Algorithm。
 
 \subsubsection{Prediction}
 预测问题，大体上被我们分成两个方面：
+$$
 \begin{equation}
     \begin{split}
         P(z_{t+1}|x_1,\cdots,x_t) = & \sum_{z_t} P(z_{t+1},z_t|x_1,\cdots,x_t) \\ 
         = & \sum_{z_t} \underbrace{P(z_{t+1}|z_t, x_1,\cdots,x_t)}_{P(z_{t+1}|z_t)} \underbrace{P(z_t|z_t, x_1,\cdots,x_t)}_{Filtering} \\
     \end{split}
 \end{equation}
+$$
+$$
 \begin{equation}
     \begin{split}
         P(x_{t+1}|x_1,\cdots,x_t) 
@@ -99,6 +112,7 @@ Smoothing问题和Filtering问题的性质非常的像，不同的是，Smoothin
         = & \underbrace{P(x_{t+1}|z_{t+1},x_1,\cdots,x_t)}_{P(x_{t+1}|z_{t+1})} \cdot \underbrace{P(z_{t+1}|x_1,\cdots,x_t)}_{Formula (6)}
     \end{split}
 \end{equation}
+$$
 
 公式(7)选择从$z_{t+1}$进行积分的原因是因为想利用齐次马尔科夫性质。实际上求解的过程大同小异都是缺什么就补什么。
 

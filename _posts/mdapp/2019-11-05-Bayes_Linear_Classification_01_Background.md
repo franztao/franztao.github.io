@@ -21,6 +21,7 @@ tags:
 
 数据矩阵为：(这样可以保证每一行为一个数据点)
 
+$$
 \begin{equation}
     X=(x_1, x_2, \cdots, x_N)^T=
     \begin{pmatrix}
@@ -36,6 +37,8 @@ tags:
     x_{N1} & x_{N2} & \dots & x_{Np}\\
     \end{pmatrix}_{N\times P}
 \end{equation}
+$$
+$$
 \begin{equation}
     Y=
     \begin{pmatrix}
@@ -45,6 +48,7 @@ tags:
     y_N \\
     \end{pmatrix}_{N\times 1}
 \end{equation}
+$$
 
 拟合函数我们假设为：$f(x) = w^Tx = x^Tw$。
 
@@ -54,19 +58,25 @@ tags:
 
 \section{最小二乘估计(Least Square Estimation)}
 这实际上就是一个利用数据点的极大似然估计(MLE)，并且有一个默认的隐含条件，也就是噪声$\varepsilon$符合Gaussian Distribution。我们的目标是通过估计找到$w$，使得：
+$$
 \begin{equation}
     w_{MLE} = argmax_w p(Data|w)
 \end{equation}
+$$
 
 而如果仅仅只是这样来使用，很容易会出现过拟合的问题。所以，我们引入了Regularized LSE，也就是正则化最小二乘法。同时也有一个默认的隐含条件，也是噪声$\varepsilon$符合Gaussian Distribution。在Liner Regression中我们提到了有两种方法来进行思考，也就是Lasso和Ridge Regression。在这里我们可以使用一个Bayes公式，那么：
+$$
 \begin{equation}
     \begin{split}
         p(w|Data) \propto p(Data|w)p(w) 
     \end{split}
 \end{equation}
+$$
+$$
 \begin{equation}
     w_{MAP} = argmax_w p(w|Data) = argmax_wp(Data|w)p(w) 
 \end{equation}
+$$
 
 那么假设$p(w)$符合一个高斯分布$\mathcal{N}(\mu_0,\Sigma_0)$时，这时是属于Ridge；而如果$p(w)$符合一个Laplace分布，这是就是Lasso。从概率的角度来思考和统计的角度来思想，我们其实获得的结果是一样的，这在Linear Regression中有证明。但是，我们只证明了Ridge的部分。
 

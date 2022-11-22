@@ -23,9 +23,11 @@ tags:
 但是，很不幸的是$P(Z|X)$的计算非常的复杂，我们大致采用两种思路来解决这个问题，也就是精确推断和近似推断。精确推断无法达到我们想要的结果时，就会采用近似推断的方法。而近似推断中我们又可以分成两大类，即为确定性近似(VI)和随机近似(MCMC)。
 
 Monte Carlo Method是一种基于采样的随机近似算法。我们的目标是求解后验概率$P(Z|X)$，其中$Z$为Latent data，$X$为Observed data。知道分布以后，我们通常的目标是求解：
+$$
 \begin{equation}
     \mathbb{E}_{Z|X}[f(Z)] = \int_Z P(Z|X)f(Z)dZ \approx \frac{1}{N}\sum_{i=1}^N f(z_i)
 \end{equation}
+$$
 
 然后，问题马上就来了，我们知道了后验分布$P(Z|X)$，怎么去采样呢？也就是如何通过采样得到$z^{(1)},z^{(2)},\cdots,z^{(N)} \sim P(Z|X)$。那么，我们这一节将要主要介绍三种采样方法，概率分布采样，拒绝采样和重要性采样。
 
@@ -57,6 +59,7 @@ Monte Carlo Method是一种基于采样的随机近似算法。我们的目标�
 
 \section{重要性采样(Importance Sampling)}
 重要性采样在我们的强化学习(PPO)中的应用非常的多。重要性采样并不是直接对概率进行采样，而是对概率分布的期望进行采样。也就是：
+$$
 \begin{equation}
     \begin{split}
         \mathbb{E}_{p(z)}[f(z)] = \int p(z)f(z)dz 
@@ -66,6 +69,7 @@ Monte Carlo Method是一种基于采样的随机近似算法。我们的目标�
         & z_i \sim q(z),\ i = 1,2,\cdots,N
     \end{split}
 \end{equation}
+$$
 
 而这里的$\frac{p(z_i)}{q(z_i)}$也就是Weight，用来平衡不同的概率密度值之间的差距。同样重要性采样也可能会出现一些问题，就是两个分布之间的差距太大了话，总是采样采不到重要的样本，采的可能都是实际分布概率值小的部分。也就是采样效率不均匀的问题。在这个基础上，我们进一步提出了Sampling Importance Resampling。
 

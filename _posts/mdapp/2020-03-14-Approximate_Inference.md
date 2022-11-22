@@ -56,10 +56,13 @@ tags:
 由于精确推断的难度很高，所以近似推断崛起了。比如EM系列和VI系列。
 
 可以将可观测变量的Log Likelihood转为一个优化ELBO下界和KL散度的形式，从而优化ELBO下界就可以了。Log Likelihood公式表达如下所示：
+$$
 \begin{equation}
     \frac{1}{N} \sum_{v} \log P(v)
 \end{equation}
+$$
 而$\log P(v)$，可以表达为：
+$$
 \begin{equation}
     \begin{split}
         \log p(v) = & \log \frac{p(h,v)}{p(h|v)}
@@ -67,13 +70,17 @@ tags:
         = \log\frac{p(h,v)}{q(h|v)} - \log \frac{p(h|v)}{q(h|v)} \\
     \end{split}
 \end{equation}
+$$
 将等式两边都乘上$q(h|v)$，可以得到：
+$$
 \begin{equation}
     q(h|v) \log p(v) = q(h|v) \left( \log\frac{p(h,v)}{q(h|v)} - \log \frac{p(h|v)}{q(h|v)} \right)
 \end{equation}
+$$
 因为$q(h|v)$是一个关于$h$的函数，我们将等式两边对$h$积分。其中，左边的$p(v)$和$h$没有关系，而$\int q(h|v) =1$，所以有
 $$\int q(h|v) \log p(v) dh = \log p(v) \int q(h|v)  dh = \log p(v) $$
 那么有，
+$$
 \begin{equation}
 \begin{split}
     \log p(v) = & \int q(h|v) \left[ \log\frac{p(h,v)}{q(h|v)} - \log \frac{p(h|v)}{q(h|v)} \right]dh \\
@@ -83,7 +90,9 @@ $$\int q(h|v) \log p(v) dh = \log p(v) \int q(h|v)  dh = \log p(v) $$
     \leq & \mathbb{E}_{q(h|v)} \left[ \log\frac{p(h,v)}{q(h|v)}\right]
 \end{split}
 \end{equation}
+$$
 因为KL散度是很大于0的，那么我们只要优化ELBO就可以优化$p(v)$了，这就是优化下界的方法。而ELBO可以继续化简为：
+$$
 \begin{equation}
     \begin{split}
         \mathbb{E}_{q(h|v)} \left[ \log\frac{p(h,v)}{q(h|v)}\right] = & \mathbb{E}_{q(h|v)} \left[ \log p(h,v) - \log q(h|v)\right] \\
@@ -91,6 +100,7 @@ $$\int q(h|v) \log p(v) dh = \log p(v) \int q(h|v)  dh = \log p(v) $$
         = & \mathbb{E}_{q(h|v)} \left[ \log p(h,v) \right] + \mathrm{H}(q(h|v))
     \end{split}
 \end{equation}
+$$
 我们可以将ELBO函数看成$\mathcal{L}(v,h,q)$(q(h|v)是一个函数，函数的函数被称为泛函)。我们的目标就是优化这个函数，从而达到计算$P(v)$。$p(v)$是一个未知的客观真理，所以我们把它当成一个常量来看，而最大化ELBO，实际上也在最小化KL散度。所以，这个算法的目的就是找一个简单的$q(h|v)$去靠近$p(h|v)$，这个$p(h|v)$是不是就是推断。所以说，\textbf{推断即优化}。
 \subsection{小结}
 本小节主要是通过变分推断的例子来揭示了为什么说推断就是优化，在变分推断的例子中，我用最大化ELBO来使一个简单的分布$q(h|v)$来逼近$p(h|v)$。

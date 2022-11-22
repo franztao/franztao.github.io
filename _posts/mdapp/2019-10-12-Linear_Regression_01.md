@@ -12,14 +12,11 @@ tags:
     - 01
 ---
 
-    
-
-
-
 数据集$D=\{(x_1, y_1), (x_2, y_2), \cdots, (x_N, y_N)\}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$，$i=1, \ 2,\cdots,\ N$。
 
 数据矩阵为：(这样可以保证每一行为一个数据点)
 
+$$
 \begin{equation}
     X=(x_1, x_2, \cdots, x_N)^T=
     \begin{pmatrix}
@@ -35,6 +32,8 @@ tags:
     x_{N1} & x_{N2} & \dots & x_{Np}\\
     \end{pmatrix}_{N\times P}
 \end{equation}
+$$
+$$
 \begin{equation}
     Y=
     \begin{pmatrix}
@@ -44,6 +43,7 @@ tags:
     y_N \\
     \end{pmatrix}_{N\times 1}
 \end{equation}
+$$
 
 设拟合的函数为：$f(w)=W^T x$
 
@@ -75,32 +75,43 @@ tags:
 \end{align}
 
 那么我需要求的$w$，可记为$\hat{w}=argmin_{w} \ L(w)$。求得这个函数的方法可以使用对$w$求偏导的方法，那么有：
+$$
 \begin{equation}
     \frac{\partial L(w)}{w}=2X^TXW-2X^TY=0
 \end{equation}
+$$
 解得：
+$$
 \begin{equation}
     W=(X^TX)^{-1}X^TY
 \end{equation}
-    
+$$
 
 \section{最小二乘估计：几何意义}
 将$X$矩阵从列向量的角度来看，可以看成一个$p$维的向量空间$S$，为了简便计算，令$W^TX=X\beta$。可以看成Y向量到$S$的距离最短，那么将有约束条件：
+$$
 \begin{equation}
     X^T(Y-X\beta) = 0
 \end{equation}
+$$
+$$
 \begin{equation}
     X^TY-X^TX\beta=0
 \end{equation}
+$$
+$$
 \begin{equation}
     \beta=(X^TX)^{-1}X^TY
 \end{equation}
+$$
 
 \section{最小二乘估计：概率角度}
 假设一个分布$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么所有的观测值可看为$y = w^Tx + \varepsilon$。因为$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么$p(y|x;w) \sim \mathcal{N}(w^Tx, \sigma^2)$。我们的目的是求$w$使，$y$出现的概率最大，在这里可以使用极大似然估计(MLE)求解。首先写出$p(y|x;w)$的概率密度函数为：
+$$
 \begin{equation}
     p(y|x;w)=\frac{1}{\sqrt{2\pi}\sigma}exp\left(-\frac{(y-w^Tx)^2}{2\sigma^2}\right)
 \end{equation}
+$$
 似然函数为$In\ p(y|x;w)$，使似然函数最大化的过程求解如下：
 \begin{align}
     L(w) = & In\ p(y|x;w) = ln\prod_{i=1}^Np(y_i|x_i;w) \\

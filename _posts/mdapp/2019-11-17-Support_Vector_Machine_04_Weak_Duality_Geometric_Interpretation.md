@@ -20,6 +20,7 @@ tags:
     
 
 上一小节中我们讨论了有关弱对偶性的证明，这一节我们从几何的角度来解释一下有关对偶问题。为了方便描述，我们将对偶问题进行简化为如下形式：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -28,11 +29,14 @@ tags:
     \end{array}
     \right.
 \end{equation}
+$$
 
 $\mathbb{D}:$定义域，$D=dom\ f \cap dom\ m_i$，这是一种常见的定义域的表示方法。其中，$x\in \mathbb{D}$。我们将模型表达为拉格朗日函数的形式，
+$$
 \begin{equation}
     \mathcal{L}(x,\lambda) = f(x) + \lambda m_1(x),\qquad \lambda \leq 0
 \end{equation}
+$$
 
 我们将原问题的最优解记为：$p^\ast = \min\ f(x)$。
 
@@ -40,24 +44,32 @@ $\mathbb{D}:$定义域，$D=dom\ f \cap dom\ m_i$，这是一种常见的定义�
 
 \section{模型表述}
 上述表述中，表达了模型的基本问题，下面我们进一步抽象模型。首先，我们需要描述一个集合：
+$$
 \begin{equation}
     G = \{ (m_1(x),f(x))|x \in \mathbb{D} \}
 \end{equation}
+$$
 
 为了简化运算，我们需要简化符号，令$m_1(x) = \mu,\ f(x)=t$。那么，
+$$
 \begin{equation}
     G = \{ (\mu,t)|x \in \mathbb{D} \}
 \end{equation}
+$$
 
 我们需要想想如何集合话来表示，首先$p^\ast = \min \ f(x) = \min \ t$，其中，$\left\{ t|(\mu,t)\in G \right\}$。那么，我们用$inf$来表示下确界的意思，就有：
+$$
 \begin{equation}
     p^\ast = inf\left\{ t|(\mu,t)\in G,\mu \leq 0 \right\}
 \end{equation}
+$$
 
 那么对偶问题，我们可以写成，
+$$
 \begin{equation}
     d^\ast = \max_{\lambda}\min_{x} \ \mathcal{L}(x,\lambda)=\max_{\lambda}\min_{x} (t+\lambda \mu)
 \end{equation}
+$$
 
 又因为$(t+\lambda \mu)$只和$\lambda$有关，那么可以被记做$g(\lambda)$。而且，$g(\lambda)$可以被写作，$g(\lambda) = inf (t+\lambda \mu)|(\mu,t)\in G$。在对偶条件中不需要那个$\mu \leq 0$，因为已经包含在原等式的隐藏条件里了。但是，在原问题中，我们一定不能忘记这个条件。
 
@@ -89,9 +101,11 @@ $\mathbb{D}:$定义域，$D=dom\ f \cap dom\ m_i$，这是一种常见的定义�
 
 \subsubsection{$d^\ast$的几何表达}
 下一步，我们需要求的是$d^\ast = \max_{\lambda} g(\lambda)$。现在相当于是固定了一个点，然后围着这个点在转。这个点是哪个店呢？就是$(0,t)$。大家仔细想一想比对一下上图就知道是不是转到与集合$G$相切的时候得到的这个解是最优解，但是这个解一定会比$p^\ast$得到的解会更小。为什么？用屁股想都知道，一个是横着切，一个是斜着切，哪个会更小？不言而喻了吧。通过这个我们也可以得到，
+$$
 \begin{equation}
     d^\ast \leq p^\ast
 \end{equation}
+$$
 
 \section{小结}
 上面我们从几何的角度来重新解释了这个问题，其实仔细的想一想也不算很难。但是，强对偶性的证明这个东西有点难，实际上学习机器学习中的SVM，学到这就差不多够了。如果是强对偶性，我们还需要满足两个条件，也就是1. 是一个凸优化问题；2. slate条件。就可以得到$d^\ast = p^\ast$。下一节会进一步解释，但是这只是一个充分必要条件，满足其他的条件也可能是强对偶关系。而SVM是一个二次规划问题，那么它一定是一个强对偶问题。

@@ -29,9 +29,11 @@ tags:
 
 \section{从几何角度来看}
 从几何角度来看比较的简单，也就是多个高斯分布来取加权平均值。也就是一个混合高斯分布就是多个高斯分布叠加而成的。那么，概率密度函数，可以被我们写成：
+$$
 \begin{equation}
     p(x) = \sum_{k=1}^K \alpha_k \mathcal{N}(\mu_k, \Sigma_k), \qquad \sum_{k=1}^K \alpha_k = 1
 \end{equation}
+$$
 
 \section{从混合模型角度来看(生成模型)}
 如果当输入变量的维度高于一维的时候，我们就不能使用简单的加权来看了。因为，这时，我们已经无法简单的用加权平均来计算了，正如下图所示。其中，$X$是Observable Variable，$Z$是Latent Variable。这个$Z$是个什么意思呢？我们先举一个小例子。看到图2中那个打了红圈圈的数据点。它既属于$C_1$的分布，并且也属于$C_2$的分布，我们可以写作：
@@ -42,6 +44,7 @@ tags:
     \label{fig:my_label_1}
 \end{figure}
 
+$$
 \begin{equation}
     \left\{
         \begin{array}{ll}
@@ -50,6 +53,7 @@ tags:
         \end{array}
     \right.
 \end{equation}
+$$
 
 这样写太麻烦了，我们可以直接写成$X \sim Z$，这里的$Z$就是一个离散的随机变量，它包含了$C_1,C_2,\cdots,C_N$的概率分布。$Z$其实就是看对应的样本$X$是属于哪一个高斯分布的概率。可以被我们写成：
 \begin{table}[H]

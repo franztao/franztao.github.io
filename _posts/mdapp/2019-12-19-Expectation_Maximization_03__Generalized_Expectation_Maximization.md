@@ -32,6 +32,7 @@ $\theta$：Model Parameter。
 
 \section{极大似然估计}
 所以，根据极大似然估计法的思路，我们要求的最优化参数$\hat{\theta}$为：
+$$
 \begin{equation}
     \begin{split}
         \hat{\theta} 
@@ -40,24 +41,30 @@ $\theta$：Model Parameter。
         = & \arg\max_{\theta} \sum_{i=1}^N \log P(x_i|\theta)
     \end{split}
 \end{equation}
+$$
 
 好像，我们这样做就可以解决问题了呀。为什么要多此一举的来引入隐变量$Z$呢？这是因为，我们实际观察的输入空间$\mathcal{X}$的分布$P(X)$，是非常复杂的。可能什么规律都找不出来，这时我们就想到了一个很好的解决办法。我们引入了一个隐变量$Z$，这个变量中包含了我们自己的一些归纳总结，引入了内部结构。而$P(X) = \int_Z P(X,Z)dZ$，实际上就是对$X$进行了分解处理。
 
 \section{广义的EM算法}
 
 EM算法是为了解决参数估计问题，也就是learning问题：
+$$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta} P(X|\theta)
 \end{equation}
+$$
 
 但是，$P(X|\theta)$可能会非常的复杂。那么，在生成模型的思路中，可以假设一个隐变量$Z$。有了这个生成模型的假设以后，我们就可以引入一些潜在归纳出的结构进去。通过$P(X) = \frac{P(X,Z)}{P(Z|X)}$，就可以把问题具体化了。
 
 这里说明一下，我们习惯用的表达是$\log P(X|\theta)$，但是也有的文献中使用$P(X;\theta)$或者$P_\theta(X)$。这三种表达方式代表的意义是等价的。
 
 前面我们已经说过了，我们的目标是：
+$$
 \begin{equation}
     \log P(X|\theta) = \underbrace{ELBO}_{L(Q,\theta)} + KL(Q||P) \geq L(Q,\theta)
 \end{equation}
+$$
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -66,20 +73,26 @@ EM算法是为了解决参数估计问题，也就是learning问题：
     \end{array}
     \right.
 \end{equation}
+$$
 
 但是，问题马上就上来了，那就是$P(Z|X,\theta)$非常有可能求不出来。那么我们怎么来求解这个方程呢？也就是使下界变得更大。
 
 首先第一步，我们把$\theta$给固定住。那么，$P(Z|X,\theta)$的结果就是一个定值。那么KL越小，ELBO就会越大。由于，$Q(Z)$是我们引入的一个中间变量，那么我们的第一步就是得到：
+$$
 \begin{equation}
     \hat{Q}(Z) = \arg\min_{Q} KL(Q||P) = \arg\max_Q L(Q,\theta)
 \end{equation}
+$$
 
 当$Q$被我们求出来以后，我们就可以将$Q$固定了，再来求解$\theta$：
+$$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta} L(\hat{q},\theta)
 \end{equation}
+$$
 
 那么，广义的EM算法，就可以被我们定义为：
+$$
 \begin{equation}
     \begin{split}
         & E-step:\quad Q^{(t+1)} = \arg\max_{Q} L(Q(Z),\theta^{(t)}) \\
@@ -88,11 +101,14 @@ EM算法是为了解决参数估计问题，也就是learning问题：
         = \mathbb{E}_Q\left[ \log P(X,Z) \right] - \mathbb{E}_Q\left[\log Q \right]
     \end{split}
 \end{equation}
+$$
 
 看到这里，我估计大家已经可以理解上一小节中，为什么有的$\theta$带$(t)$有的不带。因为，首先第一步中是固定$\theta$求$Q$，这里的$\theta$就是来自于上一次迭代的$\theta^{(t+1)}$。第二次，是将上一步求得的$Q$固定，将$\theta$看成参数，来求最优的表达结果的$\theta^{(t+1)}$。另一个方面，从等式(7)的第三行，我们可以可以看出实际上：
+$$
 \begin{equation}
     ELBO = \mathbb{E}_{Q(Z)}[\log P(X,Z|\theta)] + H(Q(Z))
 \end{equation}
+$$
 
 我们对比一下上一节讲到的EM算法，就会惊奇的发现，ELBO中最后那个$H(Q(Z))$竟然不见了。这是为什么呢？其实也很好理解的。因为在M-step中，我们假定$Q(Z)$已经是固定的了，那么显然$H[Q(Z)]$就是一个定值了，并且与我们的优化目标$\theta$之间并没有任何的关系，所以就被我们给省略掉了。
 
@@ -100,6 +116,7 @@ EM算法是为了解决参数估计问题，也就是learning问题：
 
 \section{坐标上升法}
 EM算法的整体描述如下所示：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -108,6 +125,7 @@ EM算法的整体描述如下所示：
     \end{array}
     \right.
 \end{equation}
+$$
 
 这个坐标上升法(SMO)是个什么东西呢？具体的描述，大家可以去网上找找资料看一看。两者都是迭代的思路，在这里我们将它和梯度下降法的优化思路放在一起，做一个小小的对比。大家就会发现有什么不一样的地方，
 \begin{figure}[H]

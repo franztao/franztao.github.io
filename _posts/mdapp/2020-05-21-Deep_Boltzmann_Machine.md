@@ -35,9 +35,12 @@ tags:
 \section{Boltzmann Machine的发展历史}
 \subsection{Boltzmann Machine}
 最早于1983年诞生的是BM，其概念是来源于Hopfield Network，这个Hopfield Network来源于统计物理学中的Ising Model。看来，机器学习和统计物理还挺有缘的，记得前面见过的吉布斯分布（玻尔兹曼分布）吗，也是来源于统计物理学，包括强化学习中的很多概念也是。BM提出了以后就给出了learning rules。Learning rules就是一个简单的随机梯度上升（Stochastic Gradient Ascend，SGA），SGA的学习规则为：
+$$
 \begin{equation}
     \triangle w_{ij} = \alpha \left[ \underbrace{\mathbb{E}_{P_{\text{data}}}[v_ih_j]}_{\text{Postive phase}} - \underbrace{\mathbb{E}_{P_{\text{model}}}[v_ih_j]}_{\text{Negative phase}} \right]
 \end{equation}
+$$
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -46,6 +49,7 @@ tags:
     \end{array}
     \right.
 \end{equation}
+$$
 其中，$P_{\text{data}}(v)$表示由$N$个样本组成的经验分布，就是我们的数据，而$P_{\text{model}}(h|v)$是由模型得出的后验分布，$P_{\text{model}}(v,h)$是联合概率分布，也就是模型本身。分布的计算都是通过MCMC采样来完成的，其缺点也很明显，就是无法解决过于复杂的问题，很容易遇到收敛时间过长的问题。所以，后来为了简化模型，提出了只有两层的RBM模型。
 
 \subsection{Restricted Boltzmann Machine}
@@ -94,12 +98,14 @@ $$
 首先，哪些是已知的呢？数据的分布$P_{\text{data}(v)}$是知道的。那么在每一步迭代过程中，可以求出Log-Likelihood梯度，利用对比散度采样（CD-K）算法，就可以把$w^{(1)}$学习出来，而且学习到的$w^{(1)}$还不错，当然这个只是近似的，精确的求不出来，主要原因是后验分布是近似采样得到的。有关RBM的参数学习在“直面配分函数”那章，已经做了详细的描述，这里不再多说了。
 
 我们来表达一下这个模型：
+$$
 \begin{equation}
     \begin{split}
         P(v) = & \sum_{h^{(1)}} P(h^{(1)},v) = \sum_{h^{(1)}} P(h^{(1)})P(v|h^{(1)}) \\
         = & \sum_{h^{(1)}} P(h^{(1)};w^{(1)})P(v|h^{(1)},w^{(1)}) \\
     \end{split}
 \end{equation}
+$$
 其中参数是$w^{(1)}$，为什么呢？因为$P(h^{(1)}) = \sum_v P(v,h)$，而$v$和$h$之间显示是靠$w^{(1)}$来连接的，所以$P(h^{(1)})$一定是和$w^{(1)}$相关的。
 
 第一个RBM求出来以后，那么第二个RBM怎么求呢？实际上这里的$h^{(1)}$都是我们假设出来的。那么下一层RBM连样本都没有，怎么办呢？我们可以将$h^{(1)}$当成是下一个RBM的样本，那么采样得到$h^{(1)}$好采吗？当然简单啦！我们要求的分布为：
@@ -107,9 +113,11 @@ $$
 P(h^{(1)}|v;w^{(1)})
 $$
 其中，$v,w^{(1)}$都是已知的，而且由于RBM的良好性质，$h^{(1)}$的节点之间都是相互独立的，那么：
+$$
 \begin{equation}
     P(h^{(1)}|v;w^{(1)}) = \prod_{i=1}^3 P(h^{(1)}_i|v;w^{(1)})
 \end{equation}
+$$
 而$P(h^{(1)}_i=1|v;w^{(1)}) = \sigma(\sum_{j=1}^3 w_{ij}v_j)$，而$P(h^{(1)}_i=0|v;w^{(1)}) = 1 -  \sigma(\sum_{j=1}^3 w_{ij}v_j)$，既然概率值我们都算出来了，从0/1分布中采样实在是太简单了。
 
 ~\\
@@ -153,21 +161,27 @@ $$
 模型中真实存在的只有$v$，而$h^{(1)}$实际上是不存在的，这是我们假设出来的。上一小节讲到了DBN的结合两个RBM的思路中，用$w^{(2)}$来代替$w^{(1)}$，只用到了一层参数。换句话说，只用$P(h^{(1)};w^{(2)})$来近似真实的$P(h^{(1)};w^{(1)},w^{(2)})$，而舍弃了$P(h^{(1)};w^{(1)})$。很自然的可以想到，想要结合$P(h^{(1)};w^{(1)})$和$P(h^{(1)};w^{(2)})$，那么下一个问题就是怎么结合？
 
 实际上，$\sum_v P(v)P( h^{(1)}|v;w^{(1)})$这个分布我们是求不出来的。通常是用采样的方法近似求解，假设观测变量集合为：$v\in V,|V|=N$。那么有：
+$$
 \begin{equation}
     \begin{split}
         \sum_v P(v)P( h^{(1)}|v;w^{(1)}) = & \mathbb{E}_{P(v)}[P( h^{(1)}|v;w^{(1)})] \\
         \approx & \frac{1}{N} \sum_{v\in V} P(h^{(1)}|v;w^{(1)})
     \end{split}
 \end{equation}
+$$
 其中，$\frac{1}{N} \sum_{v\in V} P(h^{(1)}|v;w^{(1)})$也被称为Aggregate Posterior（聚合后验），代表着用$N$个样本来代替分布。同样，关于$\sum_{h^{(2)}} P( h^{(1)}，h^{(2)};w^{(2)})$可以得到：
+$$
 \begin{equation}
     \sum_{h^{(2)}} P( h^{(1)}，h^{(2)};w^{(2)}) \approx
     \frac{1}{N} \sum_{h^{(2)}\in H} P(h^{(2)}|h^{(1)};w^{(2)})
 \end{equation}
+$$
 然后，$N$个$h^{(1)}$再根据$w^{(2)}$采样出$N$个$h^{(2)}$，实际上，在learning结束之后，知道$w^{(1)}$和$w^{(2)}$的情况下，采样是很简单的。这样，从底向上采样，就可以计算出各层的后验，合并很简单：
+$$
 \begin{equation}
 \frac{1}{N} \sum_{v\in V} P(h^{(1)}|v;w^{(1)}) +   \frac{1}{N} \sum_{h^{(2)}\in H} P(h^{(2)}|h^{(1)};w^{(2)})  
 \end{equation}
+$$
 即可。这样采样看着倒还是很合理的，那么到底好不好呢？有什么样的问题呢？
 
 这样会导致，Double Counting的问题，也就是重复计算。

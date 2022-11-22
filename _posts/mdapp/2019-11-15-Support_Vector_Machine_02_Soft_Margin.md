@@ -22,9 +22,11 @@ tags:
 
 \section{Soft Margin SVM}
 最简单的思路就是在优化函数里面引入一个loss function。也就是：
+$$
 \begin{equation}
     \min \ \frac{1}{2}w^Tw + loss \ function
 \end{equation}
+$$
 
 那么，我们如何来定义这个loss function呢？大致可以分这两种引入的模式：
 
@@ -37,14 +39,18 @@ tags:
 2) 如果$y_i(w^Tx_i+b)< 1$，$loss = 1-y_i(w^Tx_i+b)$。
 
 那么，我们就可以将loss function定义为：
+$$
 \begin{equation}
     loss = \max\{ 0, 1-y_i(w^Tx_i+b) \}
 \end{equation}
+$$
 
 进一步，我们令$y_i(w^Tx_i+b)=z$，那么：
+$$
 \begin{equation}
     loss_{max} = \max\{ 0, 1-z \}
 \end{equation}
+$$
 
 我们将loss function的图像画出来就如下图所示：
 \begin{figure}[H]
@@ -55,6 +61,7 @@ tags:
 \end{figure}
 
 这个loss function已经是连续的了，而且看起来是不是很像书的开着的样子。所以，它有一个非常形象的名字也就是“合页函数”(Hinge loss)。那么到这里，我们的Soft Margin SVM可以被定义为：
+$$
 \begin{equation}
     \left\{
         \begin{array}{ll}
@@ -63,8 +70,10 @@ tags:
     \end{array}
     \right.
 \end{equation}
+$$
 
 但是，这样写显然不是我们想要的形式，我们需要得到更简便一些的写法。我们引入$\xi_i = 1-y_i(w^Tx_i+b), \ \xi_i \geq 0 $。我们仔细的想一想$\max\{ 0, 1-y_i(w^Tx_i+b) \}$和$\xi_i$之间的关系。有了$\xi_i \geq 0$，我们可以得到其实$\xi_i \geq 0$和$\max\{ 0, 1-y_i(w^Tx_i+b) \}$实际上是等价的。那么这个优化模型我们可以写成:
+$$
 \begin{equation}
     \left\{
         \begin{array}{ll}
@@ -73,6 +82,7 @@ tags:
     \end{array}
     \right.
 \end{equation}
+$$
 
 在图像上表示即为：
 \begin{figure}[H]

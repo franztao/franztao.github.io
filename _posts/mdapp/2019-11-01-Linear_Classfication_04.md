@@ -20,9 +20,11 @@ tags:
 线性回归的问题，我们可以看成这样一个形式，也就是$W^TX$。而线性分类的问题可以看成是$\{0,1\}$或者$[0,1]$的问题。其实，从从线性回归到线性分类之间通过一个映射，也就是Activate Function来实现的，通过这个映射我们可以实现$W^TX \longmapsto \{0,1\}$。
 
 而在Logistic Regression中，我们将激活函数定义为：
+$$
 \begin{equation}
     \sigma(z)=\frac{1}{1+e^{-z}}
 \end{equation}
+$$
 
 那么很显然会有如下的性质：
 
@@ -33,6 +35,7 @@ tags:
 3.$\lim_{z\longrightarrow-\infty} \sigma(z) = 0$
 
 那么，通过这样一个激活函数$\sigma$，我们就可以将实现$\mathbb{R}\longrightarrow (0,1)$。那么我们会得到以下的表达式：
+$$
 \begin{equation}
     p(y|x) = 
     \left\{
@@ -42,13 +45,17 @@ tags:
     \end{array}
     \right.
 \end{equation}
+$$
 
 而且，我们可以想一个办法来将两个表达式合二为一，那么有：
+$$
 \begin{equation}
     p(y|x) = p_1^y\cdot p_0^{1-y}  
 \end{equation}
+$$
 
 \section{最大后验估计}
+$$
 \begin{equation}
     \begin{split}
         MLE = & \hat{w} = argmax_w \log p(y|x) \\
@@ -57,16 +64,21 @@ tags:
             = & argmax_w \sum_{i=1}^N y\log p_1 + (1-y)\log p_2 \\
     \end{split}
 \end{equation}
+$$
     
 我们令，
+$$
 \begin{equation}
     \frac{1}{1+exp\{-w^tx\}}=\varphi(x,w) \qquad \frac{exp\{-w^tx\}}{1+exp\{-w^tx\}}=1-\varphi(x,w)
 \end{equation}
+$$
 
 那么，
+$$
 \begin{equation}
     MLE =  argmax_w \sum_{i=1}^N y\log \varphi(x,w) + (1-y)\log (1-\varphi(x,w))
 \end{equation}
+$$
 
 实际上$y\log \varphi(x,w) + (1-y)\log (1-\varphi(x,w))$就是一个交叉熵(Cross Entropy)。那么，我们成功的找到了我们的优化目标函数，可以表述为MLE (max) $\longrightarrow$ Loss function (Min Cross Entropy)。所以，这个优化问题就转换成了一个Cross Entropy的优化问题，这样的方法就很多了。Cross Entropy属于信息论的知识，同学们可以自行补充。
 

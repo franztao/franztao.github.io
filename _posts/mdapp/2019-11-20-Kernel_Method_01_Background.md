@@ -42,9 +42,11 @@ tags:
 1. 也就是之前提到的，由Perceptron Layer Analysis (PLA) 引出的多层感知机 (Multilayer Perceptron)也就我们经常听到的神经网络，以及之后发展得到的Deep Learning。
 
 2. 而第二种思路就是通过非线性变换$\phi(x)$，将非线性可分问题转换为线性可分问题。上述的异或问题，可以表述为：
+$$
 \begin{equation}
     \mathcal{X}=(x_1,x_2) \stackrel{\phi(x)}{\longmapsto} \mathcal{Z}=(x_1,x_2,(x_1-x_2)^2)
 \end{equation}
+$$
 
 第二类方法也就是我们讨论的重点，其实在我们机器学习理论的研究中，第二种方法有很大的威力，大部分同学在学习的时候都会忽掉，例子可以看看之前发的再生核希尔伯特空间。
 
@@ -52,6 +54,7 @@ tags:
 核函数，从模型的角度讲可以带来给非线性带来高维的转换，这个我们上面已经分析过了。从优化的角度讲可以为对偶带来内积，这两个角度可以合在一起看看。
 
 以我们之前学习的Hard Margin SVM为例，原问题和对偶问题的表述为：
+$$
 \begin{equation}
     \begin{split}
         &\left\{
@@ -68,15 +71,18 @@ tags:
     \right.
     \end{split}
 \end{equation}
+$$
 
 在我们的对偶问题中，是不是有一个$x_i^Tx_j$。在线性可分问题中，我们直接计算就好了，在线性不可分问题中，就需要将$x$通过一个变换$\phi$转换到高维空间中。那么$x_i^Tx_j$就变成了$\phi(x_i^T)\phi(x_j)$。那么我们就将两个角度的分析联系起来了。那么核函数我们可以定义为：
 
 对于一个$K(x,x')=\phi(x)^T\cdot\phi(x)=<\phi(x),\phi(x')>$，
 
 有$\forall x,x' \in \mathcal{X},\exists\phi:x\mapsto z \ s.t. \ K(x,x') = \phi(x)^T\cdot \phi(x')$。则称$K(x,x')$是一个核函数。比如：
+$$
 \begin{equation}
     K(x,x')=exp(-\frac{(x-x')^2}{2\sigma^2})
 \end{equation}
+$$
 
 \section{Kernel Track}
 下面我们需要引入核技巧了，也就是想想，核函数有什么用？前面我们讲到将$x$通过一个变换$\phi$转换到高维空间。但是，有可能$\phi(x)$的维度非常的高，甚至是无限维的，那么这将变得非常的难求。如果还要继续求$\phi(x_i^T)\phi(x_j)$，这个计算量恐怕会要原地爆炸。

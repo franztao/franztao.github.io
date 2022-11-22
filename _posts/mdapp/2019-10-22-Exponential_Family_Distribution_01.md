@@ -21,9 +21,11 @@ tags:
 
 \section{指数族分布的基本形式}
 指数族分布的基本形式可以表示为：
+$$
 \begin{equation}
     p(x|y)=h(x)exp\left\{ \eta^T\varphi(x)-A(\eta) \right\}
 \end{equation}
+$$
 
 $\eta$：参数向量，$\eta \in \mathbb{R}^p$。
 
@@ -35,6 +37,7 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
 
 \subsection{log partition function (配分函数)}
 什么是配分函数呢？我的理解这是一个归一化的函数因子，用来使概率密度函数的积分值为1。推导过程如下：
+$$
 \begin{equation}
     \begin{split}
         p(x|\theta) =  & \frac{\hat{p}(x|\theta)}{z} \\
@@ -42,9 +45,11 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
         z = & \int \hat{p}(x|\theta)dx
     \end{split}
 \end{equation}
+$$
 
 而在指数族函数中有关于$A(\eta)$的配分函数的推导如下：
 
+$$
 \begin{equation}
     \begin{split}
         p(x|\eta) = & h(x)exp\{ \eta^T\varphi(x)\}exp\{-A(\eta)\} \\
@@ -54,6 +59,7 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
         A(\eta) = & \log \int h(x)exp\{ \eta^T\varphi(x)\} dx
     \end{split}
 \end{equation}
+$$
 
 所以，$A(\eta)$被称为带有的log的Partition Function。 
 
@@ -70,6 +76,7 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
 什么是充分统计量？我自己的理解，充分统计量是一个有关于样本的函数，有了这个统计量就可以完整的表示出数据集整体的特征。从某种意义上说，我们就可以丢弃样本数据集了。下面对Guassian Distribution进行举例，数据集Data set为：$\{x_1,x_2,x_3,\cdots ,x_N\}$
 
 我们只需要一组充分统计量：
+$$
 \begin{equation}
     \varphi(x) = 
     \begin{pmatrix}
@@ -77,22 +84,27 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
         \sum_{i=1}^Nx_i^2
     \end{pmatrix}
 \end{equation}
+$$
 就可以反映出Guassian的所有特征$\theta=(\mu, \Sigma)$。充分统计量在online learning中的使用有很大的作用。这样可以不记录那么多的数据集，只使用少量的数据就可以估计得到数据集整体的特征，可以用来简化计算。
 
 \subsection{共轭}
 为什么要使用共轭的概念呢？首先来看看贝叶斯公式：
+$$
 \begin{equation}
     p(z|x)=\frac{p(x|z)p(z)}{\int_{z}p(x|z)p(z)dz}
 \end{equation}
+$$
 
 在这个公式中，$p(z|x)$为后验概率分布，$p(x|z)$为似然函数，$p(z)$为先验分布。在求解$\int_{z}p(x|z)p(z)dz$时，计算难度是非常大的。或者说很多时候，根本算不出来。而且，换句话说，就算我们求得了$p(z|x)$，也有可能因为$p(z|x)$的形式过于复杂，导致$\mathbb{E}_{p(z|x)}[f(x)]$根本算不出来。所以，为了解决这个问题，科研人员们想了很多的办法。近似推断的方法，比如，变分和采样。
 
 变分的方法，是用简单的分布来拟合一个很难计算的分布，从而计算得出$p(z|x)$的近似分布形式。而采样的方法，比如蒙特卡罗采样，隐马尔可夫蒙特卡罗采样(MCMC)等，是直接来求$\mathbb{E}_{p(z|x)}[f(x)]$，这样直接跳过了中间那一堆的过程，在强化学习中经常使用。
 
 而共轭是一种很取巧的方法，它的效果是使先验和后验有着相同的分布形式。这样可以大大的简化计算，解决上述的问题。举例，
+$$
 \begin{equation}
     p(z|x)\varpropto p(x|z)p(z)
 \end{equation}
+$$
 
 如果，$p(x|z)$为二项分布，$p(z)$为Beta分布，那么后验分布$p(z|x)$也为Beta分布。
 

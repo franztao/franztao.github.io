@@ -33,12 +33,15 @@ tags:
     \label{fig:my_label_1}
 \end{figure}
 每一个节点都是一个一维随机变量，每一个节点$x_i \sim \mathcal{N}(\mu_i,\Sigma_i)$，而所有的节点构成的集合：$\mathcal{X}=(x_1,x_2,\cdots,x_p)^T$。多维变量的高斯分布为：
+$$
 \begin{equation}
     P(X) = \frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left\{ -\frac{1}{2} (X-\mu)^T\Sigma^{-1}(X-\mu) \right\}
 \end{equation}
+$$
 所以，\textbf{一个高斯网络就可以映射为一个高维高斯分布}。而协方差矩阵$\Sigma$实际就反映了变量之间的联系。由于高斯分布的自共轭性，单个变量和整个高斯网络都是符合高斯分布的。
 
 协方差矩阵为：
+$$
 \begin{equation}
     \Sigma = (\sigma_{ij}) = 
     \begin{bmatrix}
@@ -48,9 +51,11 @@ tags:
     \sigma_{p1} & \sigma_{p2} & \cdots &\sigma_{pp} \\
     \end{bmatrix}_{p\times p}
 \end{equation}
+$$
 而协方差矩阵描述的就是两个变量之间关系，当$\sigma_{ij}=0$，就等价于$x_i \perp x_j$。整个是绝对独立或者称之为边缘独立，而在我们概率图模型中往往研究的是条件独立，$x_A \perp x_B | x_C$($x_A,x_B,x_C$都是节点的集合)。我们研究条件独立性实际上是为了简化计算，因为完全图的复杂度实在是太高了。
 
 我们定义信息矩阵(Information Matrix)或者也被称为精度矩阵(Precision Matrix)为：
+$$
 \begin{equation}
     \Lambda = \Sigma^{-1} = \begin{bmatrix}
     \lambda_{11} & \lambda_{12} & \cdots &\lambda_{1p} \\
@@ -59,6 +64,7 @@ tags:
     \lambda_{p1} & \lambda_{p2} & \cdots &\lambda_{pp} \\
     \end{bmatrix}_{p\times p}
 \end{equation}
+$$
 当$\lambda_{ij}=0$就意味着$x_i\perp x_j |-\{x_i,x_j \}$这就可以用来表示条件概率了。这也是信息矩阵的微妙之处，至于为什么我们相信大部分同学都是一脸懵逼，这里会在后面进行描述。
 
 \subsection{小结}
@@ -66,14 +72,17 @@ Gaussian Network是连续型的概率图模型，一个高斯网络实际上可�
 
 \section{Gaussian Bayesian Network}
 在连续型的Probability Graphic Model中，有向图，被我们称之为Gaussian Bayesian Network。假设概率图中一共有$p$个节点，根据我们之前学习的贝叶斯网络的因子分析法，可以得到：
+$$
 \begin{equation}
     P(X) = \prod_{i=1}^p P(x_i|x_{\mathrm{pa}(i)})
 \end{equation}
+$$
 $\mathrm{pa}(i)$是一个集合，代表$x_i$节点的父亲节点集合。
 
 { GBN is based on Linear Gaussian Model}。GBN是一个global的概念，代表的是整个高斯网络，也就是$X$之间的高维高斯分布。而Linear Gaussian Model指的是local的模型，也就是局部父亲节点与孩子节点之间的关系是符合高斯线性模型的。
 
 我们看看标准的线性高斯模型：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -82,6 +91,7 @@ $\mathrm{pa}(i)$是一个集合，代表$x_i$节点的父亲节点集合。
     \end{array}
     \right.
 \end{equation}
+$$
 线性就体现在了$y$与$x$之间的关系。
 
 \subsection{Kalman Filter回顾}
@@ -93,6 +103,7 @@ $\mathrm{pa}(i)$是一个集合，代表$x_i$节点的父亲节点集合。
     \label{fig:my_label_1}
 \end{figure}
 Kalman Filter是用来解决HMM问题中的Filter问题，也被称之为线性高斯系统，线性主要体现在下面两个地方：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -101,7 +112,9 @@ Kalman Filter是用来解决HMM问题中的Filter问题，也被称之为线性�
     \end{array}
     \right.
 \end{equation}
+$$
 变量之间的线性关系即为：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -110,6 +123,7 @@ Kalman Filter是用来解决HMM问题中的Filter问题，也被称之为线性�
     \end{array}
     \right.
 \end{equation}
+$$
 这就是Kalman Filter的Representation Model，也就是一种特殊的Gaussian Bayesian Model。
 
 \subsection{Gaussian Bayesian Model详解}
@@ -121,21 +135,29 @@ Kalman Filter是用来解决HMM问题中的Filter问题，也被称之为线性�
     \label{fig:my_label_1}
 \end{figure}
 很显然$x_{\mathrm{pa}(i)}=\{x_1,x_2\}$。根据因子分解法，我们可以得到：
+$$
 \begin{equation}
     P(X) = \prod_{i=1}^p P(x_i|x_{\mathrm{pa}(i)})
 \end{equation}
+$$
 我们将$x_{\mathrm{pa}(i)}$写成向量形式，所以$x_{\mathrm{pa}(i)} = (x_1,x_2,\cdots,x_k)$。根据父子节点之间的线性关系，我们可以得到：
+$$
 \begin{equation}
     P(x_i|x_{\mathrm{pa}(i)}) = \mathcal{N}(x_i|\mu_i + w^T_ix_{\mathrm{pa}(i)}, \sigma_i^2 )
 \end{equation}
+$$
 其中，$x_i$是一维变量，实际上我们可以看\textbf{成$x_i$就是它的父亲节点的线性组合}，所以说Guassian Network是基于局部模型，局部模式是一个Linear Gaussian Model，为了清楚表示可以写为：
+$$
 \begin{equation}
     x_i = \mu_i + \sum_{j \in x_{\mathrm{pa}(i)}} w_{ij}\cdot(x_j-\mu_j) + \sigma_i \cdot \xi_i
 \end{equation}
+$$
 这里有的小伙伴可能会有点懵逼了，实际上我们将这个$x_j$写成$(x_j-\mu_j)$，是为了使其进行归一化，使均值等于0，以0为中心，便于对learning的运算。而$\xi_i \sim \mathcal{N}(0,1)$，我们知道$\sigma_i \cdot \xi_i$的方差还是为$\sigma^2$，而乘上一个随机变量是使$x_i$变成一个随机变量。而为了统一结构，我们将其写为：
+$$
 \begin{equation}
     x_i - \mu_i = \sum_{j \in x_{\mathrm{pa}(i)}} w_{ij}\cdot(x_j-\mu_j) + \sigma_i \cdot \xi_i
 \end{equation}
+$$
 很显然，这就是一种线性组合。从全局角度看就是Gaussian Network，从局部角度来看就是一个Linear Gaussian Model。
 
 \subsection{Gaussian Bayesian Model的矩阵表达形式}
@@ -165,13 +187,17 @@ S = \mathrm{diag}(\sigma_i)_{p \times p}
 $$
 
 所以，我们就可以得到Gaussian Linear Representation的向量表达形式为：
+$$
 \begin{equation}
     X-\mu = W(X-\mu) + S\cdot \xi
 \end{equation}
+$$
 化简就可以得到：
+$$
 \begin{equation}
     X - \mu = (I-W)^{-1} S\cdot \xi
 \end{equation}
+$$
 当然我们都假设这里都是可逆的。因为$X\sim \mathcal{N}(\mu,\Sigma)$，我们把变量看成$X-\mu$，所以重点要计算的就是$\Sigma$了。
 $$
 \Sigma = \mathrm{cov}(X) = \mathrm{cov}(X-\mu) = \mathrm{cov}((I-W)^{-1} S\cdot \xi) 
@@ -186,9 +212,11 @@ $$
 
 \section{Gaussian Markov Random Field}
 这小节我们要介绍的连续变量的无向图结构，高斯马尔可夫随机场(Gaussian Markov Random Field)。多维高斯分布的概率密度函数如下所示：
+$$
 \begin{equation}
     P(X) = \frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma|^{\frac{1}{2}}} \exp \left\{ -\frac{1}{2} (X-\mu)^T\Sigma^{-1}(X-\mu) \right\}
 \end{equation}
+$$
 
 假设现有一个Gaussian Markov Random Field如下图所示：
 \begin{figure}[H]
@@ -200,10 +228,13 @@ $$
 
 \subsection{Gaussian Markov Random Field的概率计算}
 之前，我们使用了最大团的势函数的乘积来计算随机变量的概率。这里成对Markov性质，我们使用另一种表达方式，更适合对此问题的分析。我们假设模型中有$p$个节点，那么概率表达如下所示：
+$$
 \begin{equation}
     P(X) = \frac{1}{Z} \prod_{i=1}^p \phi(x_i) \cdot \prod_{i,j\in X} \phi_{ij}(x_i,x_j)
 \end{equation}
+$$
 其中$\phi(x_i)$表示的是一个点的势函数，被称为node potential；而$\phi_{ij}(x_i,x_j)$表示的是一条边的势函数，被称为edge potential。令$\Sigma^{-1}=\Lambda$，下面我来计算$P(X)$的表达形式，为了清晰的分析，我们只考虑和$X$相关的部分。
+$$
 \begin{equation}
     \begin{split}
         P(X) & \propto \exp \left\{ -\frac{1}{2}(X-\mu)^T \Sigma^{-1} (X-\mu) \right\} \\
@@ -211,6 +242,7 @@ $$
         & = \exp \left\{ -\frac{1}{2}(X^T\Lambda X - X^T \Lambda \mu - \mu^T\Lambda X + \mu^T \Lambda \mu \right\} \\
     \end{split}
 \end{equation}
+$$
 其中，$X$和$\mu$是$p \times 1$的矩阵，$\Lambda$是$p \times p$的矩阵。所以，$X^T \Lambda \mu$和$\mu^T\Lambda X$都是一维实数，且$X^T \Lambda \mu =\mu^T\Lambda X $(这还无法理解就自己拆开算一下吧)。
 $$
 P(X) \propto \exp \left\{ -\frac{1}{2}(X^T\Lambda X - 2 \mu^T\Lambda X + \mu^T \Lambda \mu ) \right\}
@@ -220,23 +252,29 @@ $$
     P(X) \propto \exp \left\{ -\frac{1}{2}(X^T\Lambda X - 2 \mu^T\Lambda X ) \right\} = \exp \left\{ -\frac{1}{2} X^T\Lambda X + \mu^T\Lambda X  \right\}
 $$
 又因为，$\Lambda$是对称矩阵，所以$(\mu^T\Lambda)^T = (\Lambda \mu) $，所以：
+$$
 \begin{equation}
     P(X) \propto \exp \left\{ -\frac{1}{2} X^T\Lambda X + (\Lambda \mu)^T X \right\}
 \end{equation}
+$$
 
 其中$X^T\Lambda X$为二次项，$(\Lambda \mu)^T X$为一次性，其中$\Lambda$为Precision Matrix，$\Lambda \mu$为Potential Matrix。
 
 \subsection{Gaussian Markov Random Field次项分析}
 我们来从(17)中提取一下和$x_i$相关的项，提取的方法直接寻找相关项就行：
+$$
 \begin{equation}
     x_i:\ -\frac{1}{2} x_i^2 \lambda_{ii} + h_ix_i
 \end{equation}
+$$
 其中，$h_i$为一个$p$维的向量。
 
 接着从(17)提取和$x_i$和$x_j$的相关项：
+$$
 \begin{equation}
     x_i,x_j:\ -\frac{1}{2} (\lambda_{ij}x_ix_j + \lambda_{ji}x_jx_i) = -\lambda_{ij}x_ix_j 
 \end{equation}
+$$
 因为，$\Lambda$是对称矩阵。
 
 当$\lambda_{ij}x_ix_j=0$，就意味着边上的势函数就等于0，就意味着两个点之间是没有边是直接相连的。\textbf{因为没有边直接向量，那么在其他点都观察到的情况下，$x_i$和$x_j$之间是相互独立的。}所以，$\lambda_{ij}x_ix_j=0$就蕴涵着$x_i\perp x_j|-\{x_i,x_j\}$，这实际上非常的巧妙。所以，通过上述的分析，我们就成功的把多维高斯分布和一个无向图结合在了一起。所以，我们对$P(X)$进行研究的目的就是想知道，多维高斯模型和无向图之间的关系。\textbf{通过$\Lambda$矩阵做到了一个结合，这也就是我们在公式(3)下方给出的结论的原因。}

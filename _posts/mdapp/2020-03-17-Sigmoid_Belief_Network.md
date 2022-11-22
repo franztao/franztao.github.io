@@ -32,17 +32,23 @@ $$
 总所周知，有向图的因子分解很简单，因为变量之间的关系非常的清晰。而且采样也非常的简单，先从根节点开始采样，在根节点已知的情况下，子节点之间都是条件独立的(D-Separation中的Tail to Tail原则)。这样我们就可以一层一层的往下采样，而在神经网络中用足够多的隐藏层可以近似任何分布，在这里也一样，只要深度足够可以逼近任何的二值分布。
 
 Neal在1990年结合Boltzmann Model提出了Sigmoid Belief Network。Boltzmann Machine定义了观察变量$V$和未观察变量$V$的联合分布概率：
+$$
 \begin{equation}
     P(v,h) = \frac{\exp{\{-\mathrm{E}(v,h)}\}}{\sum_{v,h}\exp{\{-\mathrm{E}(v,h)}\}}
 \end{equation}
+$$
 而能量函数为：
+$$
 \begin{equation}
     \mathrm{E}(v,h) = -\sum_i\alpha_iv_i - \sum_j\beta_jh_j - \sum_{i,j} v_i w_{ij} h_j
 \end{equation}
+$$
 通过调整权值可改变概率。有了联合分布概率，从而很容易得到观察变量的概率：
+$$
 \begin{equation}
     P(v,h) = \frac{\sum_h\exp{\{-\mathrm{E}(v,h)}\}}{\sum_{v,h}\exp{\exp{\{-\mathrm{E}(v,h)}\}}}
 \end{equation}
+$$
 因为我们观测到的数据只有可观测变量，所以学习调整权值的目的就是极大化观察变量的似然函数$-\log p(V)$。
 
 \textbf{Sigmoid Belief Network将无向图变成有向图的结构则有更好的因果(causal)形式，其中未观察变量被看作观察变量发生的原因。}
@@ -60,18 +66,25 @@ $$
 P(S_i=1) = \sigma(w_{ji}S_j + w_{j+1i}S_{j+1}) = \sigma(\sum_{j<i}w_{ji}S_j )
 $$
 考虑到条件独立性，完整的可以写为：
+$$
 \begin{equation}
     P(S_i=1|S_{j:j<i}) = \sigma\left(w_{ji}S_j + w_{j+1i}S_{j+1}\right) = \sigma\left(\sum_{j<i}w_{ji}S_j \right)
 \end{equation}
+$$
 那么很简单就可以表示$P(S_i=0|S_{j:j<i})$，
+$$
 \begin{equation}
     P(S_i=0|S_{j:j<i}) = 1 - \sigma\left(w_{ji}S_j + w_{j+1i}S_{j+1}\right) = \sigma\left(-w_{ji}S_j + w_{j+1i}S_{j+1}\right)
 \end{equation}
+$$
 这里用到了一个很重要的性质，即为：$1 - \sigma(x)=\sigma(-x)$这个公式很简单，同学们自己推就可以了。下一个问题是，想把公式(4)和(5)合并一下，因为分开不好进行统一的表达。思考到当$S_i=1$时，希望系数为$1$；当$S_i=0$时，希望系数为$-1$。令：
+$$
 \begin{equation}
     S^\ast_i = 2S_i -1
 \end{equation}
+$$
 就可以完美的实现这个结果。所以，就可以合并起来，得到$S_i$的条件概率为：
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -80,6 +93,7 @@ $$
     \end{array}
     \right.
 \end{equation}
+$$
 \subsection{小结}
 本小节讲述了SBN算法的来源，如何从Boltzmann Machine中演变而来，以及比Boltzmann先进的原因。也梳理了一下Boltzmann Machine的求解策略。然后给出了SBN的模型表示方法，这里需要注意一下$<$是一种代表父子节点关系的偏序关系。
 \section{Log Likelihood Gradient}
@@ -92,10 +106,13 @@ Neal在提出这个算法的时候，给出了Learning Rule，但是很不幸的
 
 \section{Log Likelihood Function Gradient}
 假设联合概率分布为：
+$$
 \begin{equation}
     P(S) = \prod_i P(S_i|S_{j:j<i})
 \end{equation}
+$$
 而，
+$$
 \begin{equation}
     \left\{
     \begin{array}{ll}
@@ -104,27 +121,39 @@ Neal在提出这个算法的时候，给出了Learning Rule，但是很不幸的
     \end{array}
     \right.
 \end{equation}
+$$
 实际上，应该是$\sigma\left(S\ast\sum_{j<i}w_{ji}S_i + b_i \right)$，还有一个偏置，了解一点机器学习的同学都知道，这个偏置是可以放到权值里的，因为可以看成是0次项对应的系数。所以，可见变量的Log Likelihood Function为：
+$$
 \begin{equation}
     \mathrm{Log\ Likelihood\ Function} = \frac{1}{N} \sum_v \log P(v)
 \end{equation}
+$$
 实际上这个$\frac{1}{N}$是一个常数，要不要都可以。那么梯度的表达公式为：
+$$
 \begin{equation}
     \frac{\partial \log P(v)}{\partial w_{ji}} = \frac{1}{P(v)} \frac{\partial P(v)}{\partial w_{ji}} = \frac{1}{P(v)} \frac{\partial \sum_h P(v,h)}{\partial w_{ji}} = \frac{1}{P(v)} \frac{\sum_h \partial P(v,h)}{\partial w_{ji}}
 \end{equation}
+$$
 而$P(v)$和$h$变量没什么关系，所以，可以放到求和符号里面：
+$$
 \begin{equation}
     \frac{1}{P(v)} \frac{\sum_h \partial P(v,h)}{\partial w_{ji}} = \sum_h \frac{\partial P(v,h)}{P(v) \partial w_{ji}}
 \end{equation}
+$$
 根据贝叶斯公式可得$P(v,h) = P(v)P(h|v)$。所以，log似然梯度为：
+$$
 \begin{equation}
      \sum_h \frac{P(h|v)}{P(h,v)} \frac{\partial P(v,h)}{\partial w_{ji}} 
 \end{equation}
+$$
 而$P(v,h) = P(S)$，所以梯度表达为：
+$$
 \begin{equation}
     \sum_h P(h|v)\frac{1}{P(S)} \frac{\partial P(S)}{\partial w_{ji}} 
 \end{equation}
+$$
 而$P(S) = \prod_k P(S_k|S_{j:j<k})$。而在，$P(S) = \prod_k P(S_k|S_{j:j<k})$中只有一项是和$w_{ji}$相关的。只有当$k=i$，才会对应$w_{ji}$，所以只有一项和$w_{ji}$相关。那么，梯度进一步推导为：
+$$
 \begin{equation}
 \begin{split}
     \sum_h P(h|v)\frac{1}{P(S)} \frac{\partial P(S)}{\partial w_{ji}} = &  \sum_h P(h|v) \frac{1}{\prod_k P(S_k|S_{j:j<k})}\frac{\partial P(S_i|S_{j:j<i})  \prod_{k\neq i} P(S_k|S_{j:j<k})}{\partial w_{ji}} \\
@@ -132,39 +161,50 @@ Neal在提出这个算法的时候，给出了Learning Rule，但是很不幸的
     = & \sum_h P(h|v) \frac{1}{P(S_i|S_{j:j<i})}\frac{ \partial P(S_i|S_{j:j<i})}{\partial w_{ji}}
 \end{split}
 \end{equation}
+$$
 而$P(S_i|S_{j:j<i}) = \sigma\left(S^\ast_i\sum_{j<i}w_{ji}S_j \right) $。并且Sigmoid函数有一个很好的性质：
+$$
 \begin{equation}
     \sigma'(x) = \frac{e^{-x}}{(1+e^{-x})^2} = \frac{1}{1+e^{-x}} \cdot \frac{e^{-x}}{1+e^{-x}} = \sigma(x)(1-\sigma(x)) = \sigma(x) \sigma(-x)
 \end{equation}
+$$
 \textbf{而为了方便区分，后面在$\sigma$函数中用$k$来表示$j$(这里老师直接在最后说的，我仔细回想时有点晕，我提前就换过来了，希望可以帮助到同学们)。}那么，$\frac{\partial \sigma\left(S^\ast_i\sum_{k<i}w_{ki}S_k\right)}{\partial w_{ji}} = S^\ast_i S_j $，所以：
+$$
 \begin{equation}
     \begin{split}
         \sum_h P(h|v) \frac{1}{P(S_i|S_{k:k<i})}\frac{ \partial P(S_i|S_{k:k<i})}{\partial w_{ji}} = & \sum_h P(h|v) \frac{1}{\sigma\left(S^\ast_i\sum_{k<i}w_{ki}S_k \right)}\sigma\left(S^\ast_i\sum_{k<i}w_{ki}S_k \right)\sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j \\
         = & \sum_h P(h|v) \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j
     \end{split}
 \end{equation}
+$$
 
 
 刚刚求得的结果总结一下为:
+$$
 \begin{equation}
      \frac{\partial \log P(v)}{\partial w_{ji}} = \sum_h P(h|v) \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j
 \end{equation}
+$$
 
 那么最终log Likelihood Function Gradient的结果为：
 {
+$$
 \begin{equation}
     \begin{split}
         \frac{\partial}{\partial w_{ji}} \sum_v \log P(v) = & \sum_v \sum_h P(h|v) \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j \\
     \end{split}
 \end{equation}
+$$
 }
 而$P(h|v)$可以被写作$P(h,v|v) = P(S|v)$。所以，$\sum_v \sum_h P(h|v) = \sum_S P(S|v)$。那么，梯度可以写为：
+$$
 \begin{equation}
     \begin{split}
         \frac{\partial}{\partial w_{ji}} \sum_v \log P(v) = & \sum_S P(S|v) \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j \\
         = & \mathbb{E}_{(v,h)\sim P(S|v),\ v\sim P_{\mathrm{data}}}\left[ \sigma\left(-S^\ast_i\sum_{k<i}w_{ki}S_k \right)S^\ast_i S_j \right]
     \end{split}
 \end{equation}
+$$
 其中，$S_i$代表的是第$i$个节点的随机变量，这就是Neal提出的Sigmoid Belief Network的Learning Rule。在学习的梯度迭代的过程中，是很依赖后验分布的。所以，如何把$\sum_s P(S|v)$求出来是个大问题，后验概率分布非常的重要，但是这是求不出来的。在观测变量已知的情况下，由于D-Separation中的Head to Head问题，导致所有节点之间都是有联系的，没有条件独立性，关系太复杂了。所以，$\sum_s P(S|v)$过于复杂，无法之间求解。Neal提出的这种方法用MCMC来近似计算$P(S|v)$很显然只适合于小规模的图，一旦复杂起来就会出现Mixing time过长的问题，根本就不work。
 
 \subsection{小结}
@@ -232,13 +272,17 @@ Recognization Model：$Q_\phi(h|v)$，$\phi = r$。
 \subsubsection{Wake phase}
 简单的说。第一步，首先通过bottom up生成样本；第二步，再通过这些样本来进行Learning Generative Model，求$\theta$（$w$）。\textbf{Wake phase就是bottom to up生成样本，利用样本从上往下（图1）来学习$P_\theta(v,h)$的参数。}
 样本来自bottom to up的过程，即为$Q_\phi(h|v)$中采样得到的，Learning可以理解为使样本使模型的值最大。也就是在$Q_\phi(h|v)$得到的样本下$P_\theta(v,h)$的值最大。所以目标函数可以被写做：
+$$
 \begin{equation}
     \mathbb{E}_{Q_\phi(h|v)}[\log P_\theta(v,h)] \approx \frac{1}{N} \sum_{i=1}^N \log P_\theta(v,h)
 \end{equation}
+$$
 在求解$\theta$时，假设$\phi$是已知的（因为已经从这个分布中采到了样本）：
+$$
 \begin{equation}
     \hat{\theta} = \arg\max_\theta \mathbb{E}_{Q_\phi(h|v)}[\log P_\theta(v,h)]
 \end{equation}
+$$
 $\phi$初始是一个随机的分布。
 
 \begin{table}[H]
@@ -254,16 +298,21 @@ $\phi$初始是一个随机的分布。
     \label{tab:my_label}
 \end{table}
 实际上$\mathbb{E}_{Q_\phi(h|v)}[\log P_\theta(v,h)]$就是一个ELBO，因为当$Q_\phi$是固定的情况下，$H(Q_\phi(h|v))=0$，那么，$\hat{\theta} = \arg\max_\theta \mathcal{L}(\theta)$。这个优化过程可以等价于优化：
+$$
 \begin{equation}
     \mathrm{KL}(Q_\phi(h|v) || P_\theta(h|v))
 \end{equation}
+$$
 
 \subsubsection{Sleep phase}
 防止大家忘记，在这里给出一个详细的推导。前面过程都是一样的，不再做过多的描述，目标函数为：
+$$
 \begin{equation}
     \hat{\phi} = \arg\max_\phi \mathbb{E}_{\log P_\theta(v,h)}[Q_\phi(h|v)],\quad \mathrm{fixed}\ w 
 \end{equation}
+$$
 在推导过程中遇到常数，添加和减少都是没有关系的。那么：
+$$
 \begin{equation}
     \begin{split}
         \hat{\phi} = & \arg\max_\phi \mathbb{E}_{ P_\theta(v,h)}[Q_\phi(h|v)] \Longleftrightarrow \arg\max_\phi \mathbb{E}_{ P_\theta(v,h)}[\log Q_\phi(h|v)]\\
@@ -271,11 +320,15 @@ $\phi$初始是一个随机的分布。
         = & \arg\max_\phi \int P_\theta(v) P_\theta(h|v) \log Q_\phi(h|v) dh \\
     \end{split}
 \end{equation}
+$$
 这里的$P_\theta(v)$和$\phi$和$h$都没有关系，可以看成是一个常数，所以可以直接忽略掉：
+$$
 \begin{equation}
     \hat{\phi} = \arg\max_\phi \int P_\theta(h|v) \log Q_\phi(h|v) dh
 \end{equation}
+$$
 推导到这怎么接着进行呢？观察到因为$\theta$是已知的，所以$P_\theta(h|v)$和$\phi$没有关系。那么：
+$$
 \begin{equation}
     \begin{split}
         \hat{\phi} = & \arg\max_\phi \int P_\theta(h|v) \log Q_\phi(h|v) dh \\
@@ -284,6 +337,7 @@ $\phi$初始是一个随机的分布。
         = & \arg\min_\phi \mathrm{KL}(P_\theta(h|v) || Q_\phi(h|v)) \\
     \end{split}
 \end{equation}
+$$
 
 通过以上的推导，可以证明，确实可以将目标函数看成是一个ELBO，从而转换为求KL Divergence的最小化。按照同样的方法，得到公式(23)。
 

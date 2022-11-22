@@ -35,21 +35,27 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
 
 \section{非线性转换后的表达}
 数据集被我们描述为：$X = (x_1,x_2,\cdots,x_N)^T$，$Y = (y_1,y_2,\cdots,y_N)^T$。根据之前我们得到的Bayesian Linear Regression结果，我们代入可以得到：
+$$
 \begin{equation}
     p(f(x^\ast)|X,Y,x^\ast) \sim \mathcal{N}({x^\ast}^T(\sigma^{2}A^{-1}X^TY),{x^\ast}^TA^{-1}x^\ast)
 \end{equation}
+$$
 
 而其中，$A = \sigma^{-2}X^TX+\Sigma_p^{-1}$，If $\phi:x\mapsto z$，$x\in \mathbb{R}^p$，$x\in\mathbb{R}^p$，$z\in\mathbb{R}^q$，$z=\phi(x)$(q>p)。这里的$\phi$是一个非线性转换。我们定义：$\Phi=(\phi(x_1),\phi(x_2),\cdots,\phi(x_N))^T_{N\times q}$。
 
 转换之后为：$f(x) = \phi(x)^Tw$。那么，
+$$
 \begin{equation}
     p(f(x^\ast)|X,Y,x^\ast) \sim \mathcal{N}(\sigma^{-2}{\phi(x^\ast)}^T(A^{-1}\Phi(X)^TY),{\phi(x^\ast)}^TA^{-1}\phi(x^\ast))
 \end{equation}
+$$
 
 而其中，$A=\sigma^{-2}\Phi(X)^T\Phi(X) + \Sigma_p^{-1}$。但是，很快我们又将面临一个新的问题，也就是$A^{-1}$应该如何计算呢？这里我们需要使用到一个公式为，{ Woodbury Formula公式：
+$$
 \begin{equation}
     (A+UCV)^{-1} = A^{-1}-A^{-1}U(C^{-1}+VA^{-1}U)^{-1}VA^{-1}
 \end{equation}
+$$
 }
 
 所以，
@@ -61,31 +67,40 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
 \end{gather}
 
 然后，两边同乘一个$\phi(x^\ast)$和$Y$就可以得到：
+$$
 \begin{equation}
     \sigma^{-2}\phi(x^\ast)A^{-1}\Phi(X)^TY = \phi(x^\ast)\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}Y 
 \end{equation}
+$$
 
 而这个$\sigma^{-2}\phi(x^\ast)A^{-1}\Phi(X)^TY$正好就是$p(f(x^\ast)|X,Y,x^\ast)$'s Expectation。而这里的$\Sigma_p=p(w)$是一个先验$\sim \mathcal{N}(0,\Sigma_p)$，而$\sigma^2$为先验分布的噪声，$X^\ast$是一个new input，而{ $K = \Phi\Sigma_p\Phi^T$}。所以，使用类似的方法我们可以得到，$p(f(x^\ast)|X,Y,x^\ast)$'s Covarience为：$\phi(x^\ast)^T\Sigma_p\phi(x^\ast) - \phi(x^\ast)^T\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}\Phi(X)\Sigma_p\phi(x^\ast)$。所以：
+$$
 \begin{equation}
     p(f(x^\ast)|X,Y,x^\ast) \sim \mathcal{N}(\phi(x^\ast)\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}Y , \phi(x^\ast)^T\Sigma_p\phi(x^\ast) - \phi(x^\ast)^T\Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}\Phi(X)\Sigma_p\phi(x^\ast) )
 \end{equation}
+$$
 
 而大家注意观察一下，下面几个等式：
+$$
 \begin{equation}
     \phi(x^\ast)^T\Sigma_p\Phi^T \qquad \phi(x^\ast)^T\Sigma_p\phi(x^\ast) \qquad
     \Phi\Sigma_p\Phi^T \qquad
     \Phi\Sigma_p\phi(x^\ast) 
 \end{equation}
+$$
 
 我们再来谢谢这里的这个$\Phi$是个什么东西？
+$$
 \begin{equation}
     \Phi_{N\times q} = (\phi(x_1),\phi(x_2),\cdots,\phi(x_N))^T_{N\times q}
 \end{equation}
+$$
 
 所以大家想一想就知道了，公式(9)中的四个公式实际上是一个东西，而$\Phi(X)$只不过是将多个向量拼接在了一起而已。而$K(x,x')=\phi(x)^T\Sigma_p\phi(x')$，$x,x'$是两个不一样的样本，矩阵展开以后，形式都是一样的。那么下一个问题就是$K(x,x')$是否可以表达为一个Kernel Function的形式？那么，相关的探究就变得有趣了。
 
 \section{Kernel Trick}
 因为$\Sigma_p$是一个positive define matrix，并且它也是symmetry的。所以，令$\Sigma_p = (\Sigma_p^{\frac{1}{2}})^2$。那么，我们可以做如下的推导：
+$$
 \begin{equation}
     \begin{split}
         K(x,x') 
@@ -94,6 +109,7 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
         = & <\varphi(x),\varphi(x')>
     \end{split}
 \end{equation}
+$$
 
 其中，$\varphi(x) = \Sigma_p^{\frac{1}{2}}\phi(x)$。那么，我们利用Kernel Trick可以有效的避免求$\phi(X)$，而是直接通过$K(x,x')$中包含的高维空间的转化。而{ Bayesian Linear Regression + Kernel Trick中就蕴含了一个Non-Linear Transformation inner product。}我们就可以将这个转换定义到一个核空间中，避免了直接来求这个复杂的转化。这也就是Kernel Trick。
 

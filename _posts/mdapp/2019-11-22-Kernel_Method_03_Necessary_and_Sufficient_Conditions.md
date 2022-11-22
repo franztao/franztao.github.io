@@ -25,14 +25,18 @@ tags:
 已知：$K(x,z) = <\phi(x),\phi(z)>$，证：Gram Matrix是半正定的，且$K(x,z)$是对称矩阵。
 
 对称性：已知：
+$$
 \begin{equation}
     K(x,z)=<\phi(x),\phi(z)> \qquad K(z,x) = <\phi(z),\phi(x)>
 \end{equation}
+$$
 
 又因为，内积运算具有对称性，所以可以得到：
+$$
 \begin{equation}
     \phi(x),\phi(z)> = <\phi(z),\phi(x)>
 \end{equation}
+$$
 
 所以，我们很容易得到：$K(x,z)=K(z,x)$，所以对称性得证。
 

@@ -26,12 +26,14 @@ tags:
 
 \section{Kalman Filtering: Linear Gaussian Model}
 Filtering问题就是求$P(z_t|x_1,x_2,\cdots,x_t)$，实际上就是一个Marginal Posterior问题。对于Linear关系，Linear主要反映在相邻时刻的两个状态之间的转移关系，当前时刻的隐变量状态和观测状态之间的关系。描述如下所示：
+$$
 \begin{equation}
     \begin{split}
         & z_t = A\cdot z_{t-1} + B + \epsilon \\
         & x_t = C\cdot z_{t} + D + \delta
     \end{split}
 \end{equation}
+$$
 
 $z_t,z_{t-1}$和$x_t,z_t$之间体现了线性的关系。而$\epsilon,\delta$是符合Gaussian Distribution的，$\epsilon \sim \mathcal{N}(0,Q),\delta \sim \mathcal{N}(0,R)$。所以，大家都明白了Linear和Gaussian都是从何而来的，所以Kalman Filtering被称为Linear Gaussian Model更合适。
 
@@ -40,12 +42,14 @@ Filtering是一类问题的总称，我们之前在Hidden Markov Model中有详�
 HMM：$\lambda=\{ \pi,\mathcal{A},\mathcal{B} \}$。
 
 状态转移矩阵：
+$$
 \begin{equation}
     \begin{split}
         & A=[a_{ij}] \quad a_{ij} = P(i_{t+1}=q_j|i_t=q_i) \\
         & B=[b_j(k)] \quad b_j{k} = P(o_t=v_t|i_t=q_j)
     \end{split}
 \end{equation}
+$$
 
 那么，对于Kalman Filtering来说，状态转移矩阵，发射概率，初始矩阵，模型参数我们可以做出类似的表达：
 \begin{align}

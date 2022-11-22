@@ -18,13 +18,17 @@ tags:
 
 
 概率图模型中，图是用来表达的，将概率嵌入到了图中之后，使得表达变得非常的清晰明了。在我们的联合概率计算中，出现了一些问题：
+$$
 \begin{equation}
     p(x_1,x_2,\cdots,x_N)=p(x_i)\prod_{i=1}^Np(x_i|x_{1:i-1})
 \end{equation}
+$$
 这样的计算维度太高了，所以我们引入了条件独立性，表达为$X_A\bot X_B | X_C$。那么采用因子分解的方法我们可以将联合概率的计算进行分解为：
+$$
 \begin{equation}
     p(x_1,x_2,\cdots,x_N)=\prod_{i=1}^Np(x_i|x_{pa\{i\}}
 \end{equation}
+$$
 其中，$pa\{i\}$表示为$x_i$的父亲节点。而概率图可以有效的表达条件独立性，直观性非常的强，我们接下来看看概率图中经典的三种结构。
 
 
@@ -48,19 +52,25 @@ Tail to Tail的模型结构图，如下图所示，由于b节点在a节点和c�
 \end{figure}
 
 我们使用因子分析来计算联合概率可以得到：
+$$
 \begin{equation}
     p(a,b,c) = p(b)p(a|b)p(c|b)
 \end{equation}
+$$
 
 使用链式法则，同样我们也可以得到：
+$$
 \begin{equation}
     p(a,b,c) = p(b)p(a|b)p(c|b,a)
 \end{equation}
+$$
 
 对比一下公式(3)和公式(4)，我们可以对比得到：
+$$
 \begin{equation}
     p(c|b)=p(c|b,a)
 \end{equation}
+$$
 
 实际上，这里就已经就可以看出$a\bot c$了，因为$a$的条件增不增加都不会改变$c$的概率，所以$a$和$c$之间是相互独立的。可能有的同学还是觉得不好理解，那么我们做进一步的分析：
 \begin{gather}
@@ -87,12 +97,14 @@ Tail to Tail的模型结构图，如下图所示，由于b节点在a节点和c�
     \label{fig:my_label_1}
 \end{figure}
 在默认情况下$a\bot b$，也就是若$c$被观测，$a$和$b$之间是有关系的。我们可以推导一下默认情况。
+$$
 \begin{equation}
     \begin{split}
         p(a,b,c) = & p(a)p(b)p(c|a,b) \\
         = & p(a)p(b|a)p(c|a,b)
     \end{split}
 \end{equation}
+$$
 我们可以得出$p(b)=p(b|a)$，也就是$a\bot b$。
 
 \section{三种结构对比}
