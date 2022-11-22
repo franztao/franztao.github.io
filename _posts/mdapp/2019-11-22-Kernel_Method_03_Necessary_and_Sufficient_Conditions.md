@@ -43,6 +43,7 @@ $$
 ~\\
 
 正定性：我们想要证的是Gram Matrix$=K[K(x_i,x_j)]_{N\times N}$是半正定的。那么，对一个矩阵$A_{N\times N}$，我们如何判断这是一个半正定矩阵？大概有两种方法，1. 这个矩阵的所有特征值大于等于0；2. 对于$\forall \alpha \in \mathbb{R}^N,\ \alpha^T A \alpha \geq 0$。这个是充分必要条件。那么，这个问题上我们要使用的方法就是，对于$\forall \alpha \in \mathbb{R}^N,\ \alpha^T A \alpha \geq 0$。
+$$
 \begin{align}
     \alpha^TK\alpha = & 
     \begin{bmatrix}
@@ -67,6 +68,7 @@ $$
     = & \left[  \sum_{i=1}^N\phi(x_i) \right]^T \left[  \sum_{j=1}^N\phi(x_j) \right] \\
     = & \left|\left| \sum_{i=1}^N \alpha_i\phi(x_i) \right|\right|^2 \geq 0
 \end{align}
+$$
 
 所以，我们可以得到$K$是半正定的，必要性得证。
 

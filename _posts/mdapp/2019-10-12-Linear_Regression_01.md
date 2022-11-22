@@ -49,6 +49,7 @@ $$
 
 \section{最小二乘估计：矩阵表示}
 很简单可以得到损失函数(Loss function)为：
+$$
 \begin{align}
      L(w) = & \sum_{i=1}^{N}||w^T x_i-y_i||^2 \\
           = & (w^T x_1-y_1, w^T x_2-y_2, \dots, w^T x_N-y_N)
@@ -59,20 +60,25 @@ $$
             w^T x_N-y_N\\
           \end{pmatrix}                      
 \end{align}
+$$
 
 其中:
+$$
 \begin{align}
     (w^T x_1-y_1, w^T x_2-y_2, \dots, w^T x_N-y_N) = & [(w^Tx_1, w^Tx_2, \cdots, w^Tx_N)-(y_1,y_2,\cdots,y_N)] \\
     \nonumber = & W^TX^T-Y^T
 \end{align}
+$$
 
 所以:
+$$
 \begin{align}
     L(w) = & (W^TX^T-Y^T)(W^TX^T-Y^T)^T \\
     \nonumber = & (W^TX^T-Y^T)(XW-Y) \\
     \nonumber = & W^TX^TX - W^TX^TY - Y^TXW + Y^TY\\
     \nonumber = & W^TX^TX - 2W^TX^TY + Y^TY\\
 \end{align}
+$$
 
 那么我需要求的$w$，可记为$\hat{w}=argmin_{w} \ L(w)$。求得这个函数的方法可以使用对$w$求偏导的方法，那么有：
 $$
@@ -113,17 +119,21 @@ $$
 \end{equation}
 $$
 似然函数为$In\ p(y|x;w)$，使似然函数最大化的过程求解如下：
+$$
 \begin{align}
     L(w) = & In\ p(y|x;w) = ln\prod_{i=1}^Np(y_i|x_i;w) \\
          = & \sum_{i=1}^Nln\ p(y_i|x_i;w) \\ 
          = & \sum_{i=1}^N \left( ln\frac{1}{\sqrt{2\pi}\sigma} + ln\ exp\left( -\frac{(y_i - w^Tx)^2}{2\sigma^2} \right) \right)
 \end{align}
+$$
 
 求解目标为$\hat{w} = argmax_w \ L(w)$，因为第一项其中并没有包含$w$，于是可以直接省略，那么有：
+$$
 \begin{align}
     \hat{w} = & argmax_w \ L(w) \\ 
     \nonumber = & argmax_w \ \sum_{i=1}^{N}-\frac{(y_i - w^Tx_i)^2}{2\sigma^2} \\
     \nonumber = & argmin_w \ \sum_{i=1}^{N} (y_i - w^Tx_i)^2 \\
 \end{align}
+$$
 
 然后惊奇的发现后面的求解过程，和最小二乘法的矩阵表示方法的求解过程是一模一样的。那么我可以可以得到一个结论：最小二乘估计$\Longleftrightarrow$极大似然估计(噪声符合高斯分布)。那么我们的最小二乘估计中隐藏了一个假设条件，那就是噪声符合高斯分布。

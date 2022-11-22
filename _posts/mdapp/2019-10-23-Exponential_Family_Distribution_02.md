@@ -44,6 +44,7 @@ $$
 
 \section{将Guassian Distribution改写为指数族分布的形式}
 具体推导过程如下所示：
+$$
 \begin{align}
     p(x|\theta)= & \frac{1}{\sqrt{2\pi}\sigma}exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\} \\
     = & \frac{1}{\sqrt{2\pi}\sigma}exp\left\{ -\frac{1}{2\sigma^2}(x^2-2\mu x + \mu^2) \right\} \\
@@ -79,6 +80,7 @@ $$
         -\left(\frac{\mu^2}{2\sigma^2} -\frac{1}{2}\log 2\pi\sigma\right) 
         \right\}
 \end{align}
+$$
 
 令:
 $$

@@ -142,10 +142,12 @@ $$
 $$
 
 使似然函数最大化，则是对损失函数$\mathcal{L}(\pi,\eta)$求偏导，则为：
+$$
 \begin{align}
     & \frac{\mathcal{L}}{\pi_i} = \frac{1}{\pi_i} P(O,i_1=q_i|\lambda^{(t)}) + \eta = 0 \\
     & P(O,i_1=q_i|\lambda^{(t)}) + \pi_i\eta = 0 
 \end{align}
+$$
 
 又因为$\sum_{i=1}^N \pi_i = 1$，所以，我们将公式(17)进行求和，可以得到：
 $$

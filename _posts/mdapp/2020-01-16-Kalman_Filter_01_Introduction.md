@@ -52,12 +52,14 @@ $$
 $$
 
 那么，对于Kalman Filtering来说，状态转移矩阵，发射概率，初始矩阵，模型参数我们可以做出类似的表达：
+$$
 \begin{align}
     & P(z_t|z_{t-1}) \sim \mathcal{N}(A\cdot z_{t-1} + B, Q) \\
     & P(x_t|z_{t}) \sim \mathcal{N}(C\cdot z_{t} + D, R) \\
     & z_1 \sim \mathcal{N}(\mu_1,\Sigma_1) \\
     & \theta = \{ A, B, C, D, Q, R, \mu_1, \Sigma_1 \}
 \end{align}
+$$
 
 在这一小节中，我们已经了解了基础的相关概念，那下一小节中，我们将描述了Filtering问题的建模和求解。
 

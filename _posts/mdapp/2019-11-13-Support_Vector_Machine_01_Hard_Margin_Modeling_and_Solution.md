@@ -190,11 +190,13 @@ $$
 $$
 
 代入到$\mathcal{L}(w,b,\lambda)$中可得，
+$$
 \begin{align}
     \mathcal{L}(w,b,\lambda) = & \frac{1}{2}w^Tw + \sum_{i=1}^N\lambda_i(1-y_i(w^Tx_i+b)) \\
     = & \frac{1}{2}w^Tw + \sum_{i=1}^N\lambda_i - \sum_{i=1}^N\lambda_iy_iw^Tx_i - \sum_{i=1}^N\lambda_iy_ib \\
     = & \frac{1}{2}w^Tw + \sum_{i=1}^N\lambda_i - \sum_{i=1}^N\lambda_iy_iw^Tx_i
 \end{align}
+$$
 
 下一步，则是对$w$求偏导，
 $$

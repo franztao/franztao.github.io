@@ -94,12 +94,14 @@ $$
 
 \section{Filtering问题求解具体分析}
 首先，我们需要明确一个问题，Gaussian Distribution是一个具有非常好的性质的{自共轭分布}。通俗的讲就是，Gaussian分布的边缘分布，条件分布，联合概率分布等都是符合高斯分布的。首位，我先回忆一下在Math Basis那小节中，总结的线性高斯模型中，已知条件高斯分布，求变量高斯分布的公式：
+$$
 \begin{align}
     & P(X) = \mathcal{N}(X|\mu,\Lambda^{-1}) \\
     & P(Y|X) = \mathcal{N}(X|AX+b,L^{-1}) \\
     & P(Y) = \mathcal{N}(Y|AX+b,L^{-1}+A^{-1}\Lambda A) \\
     & P(X|Y) = \mathcal{N}(\Sigma\{ A^TL(y-b)+\Lambda\mu \}, \Sigma) \quad \Sigma = (\Lambda + A^TLA)^{-1}
 \end{align}
+$$
 
 从上小节中我们分析了Filtering问题的推导过程，我们可以看到Filtering问题可以被大致分成两个部分，也就是Prediction和Update两个部分。上一小节中我描述了大致的求解思路，那么这一小节我们将详细的描述怎么计算。
 

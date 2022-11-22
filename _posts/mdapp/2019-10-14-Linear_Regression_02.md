@@ -70,6 +70,7 @@ $$
 
 \section{岭回归频率派角度}
 Loss function可写为$ L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW$
+$$
 \begin{align}
     J(w) = & \sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW \\
     \nonumber = & (W^TX^T - Y^T)(XW-Y)+\lambda W^TW \\
@@ -77,11 +78,14 @@ Loss function可写为$ L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW$
     \nonumber = & W^TX^TXW - 2W^TX^TY - Y^TY + \lambda W^TW \\
     \nonumber = & W^T(X^TX + \lambda I)W - 2W^TX^TY - Y^TY 
 \end{align}
+$$
 
 我们的求解目标是$\hat{w} = argmin_w J(w)$，求解过程为：
+$$
 \begin{align}
     \frac{\partial J(w)}{\partial w} = 2(X^TX + \lambda I)W - 2X^TY = 0
 \end{align}
+$$
 
 解得：
 $$
@@ -121,18 +125,22 @@ $$
 $$
 
 代入可得：
+$$
 \begin{align}
     argmax_w p(w|y) = & \sum_{i=1}^{N}\log \frac{1}{\sqrt{2\pi}\sigma}exp\left( -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  \right) \frac{1}{\sqrt{2\pi}\sigma_0}exp\left( -\frac{||w||^2}{2\sigma_0^2} \right) \\
     = & \sum_{i=1}^{N}\log \frac{1}{2\pi\sigma\sigma_0}exp\left( -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  -\frac{||w||^2}{2\sigma_0^2} \right) \\
     = & \sum_{i=1}^{N} \log \frac{1}{2\pi\sigma\sigma_0} + \log exp\left( -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  -\frac{||w||^2}{2\sigma_0^2} \right) 
 \end{align}
+$$
 
 由于$\log \frac{1}{2\pi\sigma\sigma_0}$与求解无关，所以
+$$
 \begin{align}
     argmax_w p(w|y) 
     = & \sum_{i=1}^{N}  \log exp\left( -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  -\frac{||w||^2}{2\sigma_0^2} \right) \\
     = & \sum_{i=1}^{N}  -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  -\frac{||w||^2}{2\sigma_0^2} \\
 \end{align}
+$$
 
 公式可以转化为:
 $$

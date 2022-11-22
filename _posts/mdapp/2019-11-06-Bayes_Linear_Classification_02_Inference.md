@@ -106,11 +106,13 @@ $$
 
 \section{模型的求解}
 对于likelihood function的化简如下所示：
+$$
 \begin{align}
     p(Y|X,w) 
     = & \prod_{i=1}^N \frac{1}{(2\pi)^{\frac{1}{2}}\sigma} exp\left\{ -\frac{1}{2\sigma^2}(y_i - w^Tx_i)^2 \right\} \\
     = & \frac{1}{(2\pi)^{\frac{N}{2}}\sigma^N} exp\left\{ -\frac{1}{2\sigma^2}\sum_{i=1}^N(y_i - w^Tx_i)^2 \right\}
 \end{align}
+$$
 
 下一步，我们希望将$\sum_{i=1}^N(y_i - w^Tx_i)^2$改写成矩阵相乘的形式，
 $$
