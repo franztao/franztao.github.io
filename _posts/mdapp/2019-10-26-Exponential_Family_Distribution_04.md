@@ -38,6 +38,8 @@ $$
 $$
 
 假设$x$是离散的，
+
+$$
 \begin{table}[H]
     \centering
     \begin{tabular}{c|cccc}
@@ -48,6 +50,7 @@ $$
     \caption{随机变量x的概率密度分布情况}
     \label{tab:my_label}
 \end{table}
+$$
 
 并且，需要满足约束条件，
 

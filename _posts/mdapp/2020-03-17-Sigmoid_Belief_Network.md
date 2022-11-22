@@ -58,12 +58,15 @@ $$
 
 \subsection{Sigmoid Belief Network的模型表示}
 假设无向图中的节点为，$\{ S_1,S_2,\cdots,S_T \}$。根据可观测变量和不可观测变量，可以划分为$\{V,H\}$。如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200317124813.png}
     \caption{Sigmoid Belief Network的模型概率图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \textbf{注意我们用$j<i$来表示i的父亲节点，在离散数学里这是一种偏序关系，我们可以简单的认为$S_j$节点在$S_i$节点之前进行采样。(这里老师讲的有点模糊，开始听的有点懵逼)}那么$S_i$节点的概率分布，等于它的两个父亲节点的分布和相应的权重的乘积之和对应的一个Sigmoid函数(Sigmoid函数就是用在这儿的)，即为：
 $$
 P(S_i=1) = \sigma(w_{ji}S_j + w_{j+1i}S_{j+1}) = \sigma(\sum_{j<i}w_{ji}S_j )
@@ -235,36 +238,51 @@ $$
 小编在理解这个算法的过程中是有点艰辛的，主要是小编第一次听的时候，没有get到这个算法的点。后来经常长时间的思考，翻阅了不少其他的资料才总算找到一点感觉。
 
 通过第三节的分析，看到了Neal提出的Learning Rule，并不work。因为有向图的explain away导致的，变量之间交织严重，无法分解，所以后验分布$P(S|v)$根本就算不出来。所以，只能用MCMC去近似，而MCMC只能处理小规模的图模型，大规模的图模型会遇到Mixing Time过长的问题。那么，\textbf{我们的目标很明确，就是寻找更好的办法去近似后验分布。}新的近似方法有下列几种思路，这里做简单的介绍：
+
+$$
 \begin{enumerate}
     \item \textbf{平均场理论：}因为后验分布面临的最大困难就是，变量无法分解。那么，平均场理论假设后验可以分解，不就把这个问题解决了。假设：$q(h|v) = \prod_{i=1}^M q_i$，将这个等式代入进去，会得到一个迭代式，也被称为“不动点方程”。在求解的时候，先固定住其他的维度，一次只求解一维，依次把$\{ q_1,q_2,\cdots,q_M \}$给求出来。一直这样去迭代，直到最后把整个值求出来。
     
     这种方式比较耗时，因为前面我们讲到了，求后验很大程度上是为Learning服务的，Learning本身用的是梯度上升或下降算法，所以这里有一个循环。在梯度下降的每一步都要求后验，后验在平均场理论下用一个不动点方程去迭代近似，实际上不动点方程的求解过程就是一个坐标上升。而每一次坐标上升，又有一个迭代，依次求解$\{ q_1,q_2,\cdots,q_M \}$。所以说，这样就有三个迭代嵌套在一起，所有非常的耗时，计算很困难。
     \item \textbf{Wake-Sleep Algorithm:}既然，平均场理论的计算仍然很耗时。所以，Hinton在1995年，提出了用神经网络取近似后验分布的方法。它把后验分布看成是一个函数，而不是一个分布，我们知道神经网络理论上可以拟合任意的一个函数。所以，这属于学习近似推断的思想，后验分布是学习出来的，那么具体是怎么做的呢？请看下文。
 \end{enumerate}
+$$
 
 \subsection{Wake-Sleep Algorithm主要思想}
 在Learning的过程中，就是为了求得$w$。假设每一个weight都有一个反向的weight，如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200321171927.png}
     \caption{Wake-Sleep Algorithm的模型概率图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 正向的箭头为黑色的，代表正向的权重，表示为Generative Connection；反向的箭头为蓝色的，代表反向的权重，表示为Recognization Connect。每一个$w_{ji}$都对应一个$r_{ji}$，$w_ji$是模型中本来就存在的，而$r_{ji}$是本来并不存在的，是我们假设它存在的。
 
 算法可以分为两个流程：
+
+$$
 \begin{enumerate}
     \item \textbf{Wake phase: }这是一个从底向上的过程，根据有向图中D-Separation中的Tail to Tail原则，可以看到，bottom to up这样采样，所有的节点都是条件独立的，计算起来非常简单。
-    \begin{enumerate}
+    
+$$
+\begin{enumerate}
         \item 从Bottom to up的次序来采样激活来得到每一层的样本。同样，还是假设每一个节点$S_i$是二值分布，节点之间的概率关系，仍然和Sigmoid函数相关。
         \item 有了样本之后，那就好办了。我们可以拿这些样本去训练Generative Connection，也就是求$w$。
     \end{enumerate}
+$$
     \item \textbf{Sleep phase:}这是一个从上往下的过程。
-    \begin{enumerate}
+    
+$$
+\begin{enumerate}
         \item 从上往下来采样以得到各个节点的样本，有向图的采样非常简单。那么，\textbf{这样从上往下进行采样，得到$h,v$的样本都是虚拟出来的。因为，没有把$v$当成是可观测节点，所有不存在explain away的问题。}和Wake phase很大的不同点就在于，Wake phase是根据真实的数据$v$衍生出来的。
         \item 获得了样本之后，我们就需要去学习Recognization Connection，也就是求$r$。
     \end{enumerate}
+$$
 \end{enumerate}
+$$
 
 这并不是一个非常严谨的算法，我们叫它启发式算法，说是启发式算法，我们就已经承认了它并没有那么严密。他是通过引入了一个额外的Recognization Connection去近似一个后验分布。用一个简单分布$q(h|v)$去近似后验分布$p(h|v)$。前面，我们提到了可以把\textbf{后验分布看成是函数}，那么$q(h|v)$这个函数的参数就是$r$。如果，我们将模型看成是一神经网络的话，$q(h|v)$就是一个随机的网络。如何我们将后验分布看成是一个函数的话，直接包装成一个黑箱就避免了复杂的分解过程。
 
@@ -307,6 +325,8 @@ $$
 $$
 $\phi$初始是一个随机的分布。
 
+
+$$
 \begin{table}[H]
     \centering
     \begin{tabular}{l}
@@ -319,6 +339,7 @@ $\phi$初始是一个随机的分布。
     \end{tabular}
     \label{tab:my_label}
 \end{table}
+$$
 实际上$\mathbb{E}_{Q_\phi(h|v)}[\log P_\theta(v,h)]$就是一个ELBO，因为当$Q_\phi$是固定的情况下，$H(Q_\phi(h|v))=0$，那么，$\hat{\theta} = \arg\max_\theta \mathcal{L}(\theta)$。这个优化过程可以等价于优化：
 
 $$

@@ -13,9 +13,6 @@ tags:
     - Background
 ---
 
-    
-
-
 这一小节的主要目的是清楚我们为什么要使用Variational Inference，表达一下Inference到底有什么用。机器学习，我们可以从频率角度和贝叶斯角度两个角度来看，其中频率角度可以被解释为优化问题，贝叶斯角度可以被解释为积分问题。
 
 \section{优化问题}
@@ -91,32 +88,3 @@ $$
 其中$p(\theta|X)$为一个后验分布，那么我们关注的重点问题就是求这个积分。
 \section{Inference}
 Inference的方法可以被我们分为精确推断和近似推断，近似推断可以被我们分为确定性推断和随机近似。确定性推断包括Variational Inference (VI)；随机近似包括MCMC，MH，Gibbs Distribution等。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

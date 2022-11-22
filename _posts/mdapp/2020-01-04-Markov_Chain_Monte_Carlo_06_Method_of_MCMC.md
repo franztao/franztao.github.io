@@ -26,14 +26,19 @@ tags:
 2. 状态转移空间$Q=[Q_{ij}]_{k\times k}$。
 
 马尔可夫链的模型可以被我们表达为：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200103121212.png}
     \caption{马尔可夫链模型抽象图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 每一个时间点有一个状态分布，表示当前时间点位于某个状态的概率分布情况，我们表示为$q^{(t)}(x)$。如果，是在$t=1$的时间节点，状态的概率分布为$q^{(1)}(x)$，我们可以用下列表来描述：
+
+$$
 \begin{center}
 \begin{tabular}{c|ccccc}
      $x$ & 1 & 2 & 3 & $\cdots$ & $k$  \\
@@ -41,6 +46,7 @@ tags:
      $q^{(1)}(x)$& $q_1^1$ & $q_1^2$ & $q_1^3$ & $\cdots$ & $q_1^k$ \\
 \end{tabular}    
 \end{center}
+$$
 
 我们假设在$t=m$时刻之后到达了平稳分布状态，那么我们就可以得到：$q^{(m)} = q^{(m+1)} = q^{(m+2)}$。这时的平稳分布就是我们想要的目标分布。相邻时间节点之间的状态转移矩阵为：
 
@@ -189,12 +195,15 @@ $$
 3. 我们希望采到的样本之间的样本相互独立，也就是采到的样本之间的相关性越小越好。
 
 这个有关于样本之间独立性的问题，大家可能不太好理解，这是实际在高维分布中我们采用MCMC来进行采样很有可能造成样本单一，相关性太强的问题。我们我们来举一个Mixture Gaussian Distribution的例子。下图所示是一个Mixture Gaussian Distribution的例子：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200103152759.png}
     \caption{Mixture Gaussian Distribution举例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 会有一个什么问题呢？就是样本都趋向于一个峰值附近，很有可能会过不了低谷，导致样本都聚集在一个峰值附近。这个问题出现的原因我们可以从能量的角度来解释这个问题。在无向图中，我们常用下列公式来进行表示：
 

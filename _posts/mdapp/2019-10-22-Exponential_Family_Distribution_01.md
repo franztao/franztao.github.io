@@ -68,12 +68,15 @@ $$
 
 \section{指数族分布的相关知识}
 和指数族分布的相关知识，可以用下面这张图表来进行概况。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\textwidth]{微信图片_20191022170308.png}
     \caption{指数族分布相关知识表示图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 \subsection{充分统计量}
 什么是充分统计量？我自己的理解，充分统计量是一个有关于样本的函数，有了这个统计量就可以完整的表示出数据集整体的特征。从某种意义上说，我们就可以丢弃样本数据集了。下面对Guassian Distribution进行举例，数据集Data set为：$\{x_1,x_2,x_3,\cdots ,x_N\}$
@@ -116,29 +119,41 @@ $$
 
 \subsection{最大熵原理}
 下面列举几种确定先验(prior distribution)的方法，
+
+$$
 \begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
 \item 共轭，主要是为了计算的简单；
 \item 最大熵方法，主要是为了解决无信息先验问题；
 \item Jerrif。
 \end{enumerate}
+$$
 
 最大熵原理会在后面的小节做详细的描述，主要思想就是“等可能”。也就是尽量使所有的结论等可能的出现，来增加不确定性，保证每一项都是公平的。
 
 \subsection{广义线性模型}
 广义线性模型包括：
+
+$$
 \begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
 \item 线性组合，比如，$w^Tx$；
 \item link function，也就是激活函数的反函数；
 \item 指数族分布，$y|x\sim$指数族分布，包括：
-    \begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
+    
+$$
+\begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
         \item 线性回归，在我们的线性回归模型中，我们曾定义过假设噪声符合Guassian Distribution，那么$y|x\sim\mathcal{N}(\mu, \Sigma)$;
         \item 二分类问题：
-        \begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
+        
+$$
+\begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
             \item $y|x\sim$Bernoulli分布；
             \item $y|x\sim$Possion分布；
         \end{enumerate}
+$$
     \end{enumerate}
+$$
 \end{enumerate}
+$$
 
 \subsection{概率图模型和变分推断}
 包括无向图等，有玻尔兹曼滤波器等。后续的章节会进行详细的描述。变分推断也在后续的章节有详细的描述。

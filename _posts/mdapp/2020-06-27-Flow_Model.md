@@ -28,12 +28,15 @@ $$
 
 \section{Flow based Model}
 什么是flow model呢？首先用一张图来进行表示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200628202302.png}
     \caption{Flow模型基础示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 可以用一个简单的例子来简单的介绍Flow model。$X$可以代表是当前的自己，人是比较复杂的，所以$X \to P_X(X)$计算非常困难。而一般昨天的我$Z_k \to P_{Z_k}(Z_k)$，比今天要简单一点，但是很有可能，昨天的我依然很复杂，无法计算。那么，就不但的往前推，到了刚出生的时候$Z_0$，这时肯定是非常简单的，$Z_0 \to P_{Z_0}(Z_0)$婴儿的世界里是非黑即白的，此时的分布很简单，可以被假设为$\mathcal{N}(0,I)$。而这个过程：
 
 $$
@@ -54,10 +57,13 @@ $$
 \end{equation}
 $$
 根据不定积分的性质可以得到：
+
+$$
 \begin{gather}
     |P_Z(Z) dZ| = |P_X(X) dX| \\
     P_X(X) = \left| \frac{dZ}{dX} P_Z(Z) \right|
 \end{gather}
+$$
 而$X=f(Z)$且$f$是光滑可逆的，所以$Z = f^{-1}(X)$，那么有
 
 $$
@@ -84,12 +90,15 @@ $$
 $$
 
 这个结论是怎么来的呢？我们来看一个简单的例子，如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200629094542.png}
     \caption{实例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 如图所示，$y=f(x)$，$x=f^{-1}(y)$。那么有
 
 $$

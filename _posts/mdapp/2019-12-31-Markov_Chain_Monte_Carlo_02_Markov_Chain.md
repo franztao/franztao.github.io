@@ -42,12 +42,15 @@ $$
 
 \section{平稳分布(Stationary Distribution)}
 一个Markov Chain可以用下图来表示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191231110648.png}
     \caption{Markov Chain Model示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 此图就是一个时间序列，$x_i$就表示在第$i$时刻的状态，而每一个状态都是一个随机变量。而$\pi_i$描述的就是第$i$个随机变量的分布。对于一个马氏链来讲，它在第$t+1$时刻的概率分布，可以被我们表达为：
 

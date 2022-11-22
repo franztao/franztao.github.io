@@ -194,12 +194,15 @@ $$
 所以，我们可以得到$\Sigma_w^{-1}=\sigma^{-2}X^TX+\Sigma_p^{-1}$。并且，我们令$\Sigma_w^{-1}=A$。
 
 从二次项中我们得到了$\Sigma_w^{-1}$，那么，下一步，我们期望可以从一次项中得到$\mu_A$的值。我们将一次项提取出来进行观察，可以得到。
+
+$$
 \begin{gather}
     \mu^TA = \sigma^{-2}Y^TX \\
     (\mu^TA)^T = (\sigma^{-2}Y^TX)^T \\
     A^T\mu = \sigma^{-2}X^TY \\
     \mu = \sigma^{-2}(A^T)^{-1}X^TY 
 \end{gather}
+$$
 
 有因为，$\Sigma_w$是一个方差矩阵，那么他一定是对称的，所以$A^T=A$。于是
 
@@ -211,10 +214,13 @@ $$
 
 \section{小结}
 我们利用贝叶斯推断的方法来确定参数之间的分布，也就是确定$p(W|X,Y)$。我们使用Bayes的方法，确定为$p(W|X,Y)\propto p(Y|W,X)p(W)$。并且确定一个噪声分布$\varepsilon\sim\mathcal{N}(0,\sigma^2)$。那么，
+
+$$
 \begin{gather}
     p(Y|W,X) \sim \mathcal{N}(W^TX,\sigma^2) \\
     P(W) \sim \mathcal{N}(0,\Sigma_p)
 \end{gather}
+$$
 
 通过推导，我们可以得出，
 

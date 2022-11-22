@@ -56,12 +56,15 @@ $$
 $$
 
 我们将loss function的图像画出来就如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20191115131201.png}
     \caption{loss function的展示图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 这个loss function已经是连续的了，而且看起来是不是很像书的开着的样子。所以，它有一个非常形象的名字也就是“合页函数”(Hinge loss)。那么到这里，我们的Soft Margin SVM可以被定义为：
 
@@ -90,12 +93,15 @@ $$
 $$
 
 在图像上表示即为：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20191115134816.png}
     \caption{Soft Margin SVM模型展示图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 在以前的基础上我们增加了一个缓冲区，由于这个缓冲区的存在我们可以允许有点点的误差。而支持向量的区间被放宽到了$1-\xi_i$。
 

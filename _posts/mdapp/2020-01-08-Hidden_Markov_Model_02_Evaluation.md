@@ -80,12 +80,15 @@ $$
 
 \section{Forward Algorithm}
 下面，我们首先展示一下Hidden Markov Model的拓扑结构图。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{微信图片_20200108102954.png}
     \caption{矩阵与列向量的乘法}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 我们记，$\alpha_t(i) = P(o_1,\cdots,o_t,i_t = q_i|\lambda) $，这个公式表示的是在之前所有的观测变量的前提下求出当前时刻的隐变量的概率。那么：
 
@@ -155,23 +158,29 @@ $$
 经过上述的推导，我们就成功的得到了$\alpha_{t+1}(j)$和$\alpha_t(i)$之间的关系。通过这个递推关系，就可以遍历整个Markov Model了。这个公式是什么意思呢？它可以被我们表达为，所有可能出现的隐变量状态乘以转移到状态$j$的概率，乘以根据隐变量$i_{t+1}$观察到$o_{t+1}$的概率，乘上根据上一个隐状态观察到的观察变量的序列的概率。
 
 我们可以用一个图来进行表示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{微信图片_20200108115145.png}
     \caption{Hidden Markov Model前向传播示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 其实读神经网络了解的同学就会发现，这实际上和前向传播神经网络非常的像，实际上就是状态的值乘以权重。也就是对于上一个隐状态的不同取值分别计算概率之后再求和。这样每次计算，有隐状态的状态空间数为$N$，序列的长度为$T$，那么总的时间复杂度为$\mathcal{O}(TN^2)$。
 
 \section{Backward Algorithm}
 后向概率的推导实际上比前向概率的理解要难一些，前向算法实际上是一个联合概率，而后向算法则是一个条件概率，所以后向的概率实际上比前向难求很多。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.5\textwidth]{微信图片_20200108150401.png}
     \caption{Hidden Markov Model后向算法示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 我们设$\beta_t(i)= P(o_{t+1},\cdots,o_T|i_t = q_i,\lambda)$，以此类推，$\beta_t(1)= P(o_{2},\cdots,o_T|i_1 = q_i,\lambda)$。我们的目标是计算$P(O|\lambda)$的概率，我们首先来推导一下这个公式：
 
@@ -190,12 +199,15 @@ $$
 $$
 
 现在我们已经成功的找到了$P(O|\lambda)$和第一个状态之间的关系。其中，$\pi_i$为某个状态的初始状态的概率，$b_i(o_1)$表示为第$i$个隐变量产生第1个观测变量的概率，$\beta_1(i)$表示为第一个观测状态确定以后生成后面观测状态序列的概率。结构图如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.4\textwidth]{微信图片_20200108154910.png}
     \caption{$P(O|\lambda)$与第一个状态之间的关系结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 那么，我们下一步要通过递推，找到最后一个状态与第一个状态之间的关系。下面做如下的推导：
 
@@ -215,11 +227,14 @@ $$
 $$
 
 其中第三行到第四行的推导$P(o_{t+1},\cdots,o_T |i_{t+1} = q_j, i_t = q_i) = P(o_{t+1},\cdots,o_T |i_{t+1} = q_j)$使用的马尔可夫链的性质，每一个状态都是后面状态的充分统计量，与之前的状态无关。通过这样的迭代从后往前推，我们就可以得到$\beta_i(1)$的概率，从而推断出$P(O|\lambda)$。整体的推断流程图如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{微信图片_20200109151358.png}
     \caption{Hidden Markov Model后向算法拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 

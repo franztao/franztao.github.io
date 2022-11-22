@@ -14,9 +14,6 @@ tags:
     - Solution
 ---
 
-    
-
-
 在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明，{ $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。}在上一节中，我们得出：
 
 $$
@@ -86,22 +83,25 @@ $$
 
 \section{迭代算法求解}
 在上一步中，我们已经将所有的符号从数据点和划分维度上进行了规范化的表达。在这一步中，我们将使用迭代算法来进行求解：
+
+$$
 \begin{gather}
     \hat{q}_1(z_1) = \int_{q_2} \cdots \int_{q_{M}} q_2 \cdots q_M \left[ \log p_{\theta}(x^{(i)},z) \right]dq_2 \cdots dq_{M}  \\
     \hat{q}_2(z_2) = \int_{\hat{q}_1(z_1)}\int_{q_3} \cdots \int_{q_{M}} \hat{q}_1q_3 \cdots q_M \left[ \log p_{\theta}(x^{(i)},z) \right]\hat{q}_1dq_2 \cdots dq_{M}  \\
     \nonumber \vdots \\
     \hat{q}_M(z_M) = \int_{\hat{q}_1} \cdots \int_{\hat{q}_{M-1}} \hat{q}_1 \cdots \hat{q}_{M-1} \left[ \log p_{\theta}(x^{(i)},z) \right]d\hat{q}_1 \cdots d\hat{q}_{M-1}
 \end{gather}
+$$
 
 如果，我们将${q}_1,{q}_2,\cdots,{q}_M$看成一个个的坐标点，那么我们知道的坐标点越来越多，这实际上就是一种坐标上升的方法(Coordinate Ascend)。
 
 这是一种迭代算法，那我们怎么考虑迭代的停止条件呢？我们设置当$\mathcal{L}^{(t+1)} \leq \mathcal{L}^{(t)}$时停止迭代。
 
 \section{Mean Field Theory的存在问题}
+
 1. 首先假设上就有问题，这个假设太强了。在假设中，我们提到，假设变分后验分式是一种完全可分解的分布。实际上，这样的适用条件挺少的。大部分时候都并不会适用。
 
 2. Intractable。本来就是因为后验分布$p(Z|X)$的计算非常的复杂，所以我们才使用变分推断来进行计算，但是有个很不幸的消息。这个迭代的方法也非常的难以计算，并且
-
 
 $$
 \begin{equation}
@@ -110,56 +110,3 @@ $$
 $$
 
 \noindent 的计算也非常的复杂。所以，我们需要寻找一种更加优秀的方法，比如Stein Disparency等等。Stein变分是个非常Fashion的东西，机器学习理论中非常强大的算法，我们以后会详细的分析。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

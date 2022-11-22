@@ -20,14 +20,19 @@ tags:
 \section{感知机模型}
 感知机模型是一类错误驱动的模型，它的中心思想也就是"错误驱动"。什么意思呢？也就是哪些数据点分类错误了，那么我们就进行调整权值系数$w$，直到分类正确为止。
 
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20191030090710.png}
     \caption{感知机概念模型图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 感知机可以做如下的描述：
+
+$$
 \begin{gather}
     f(x)=sign\{ w^Tx \} \quad x\in \mathbb{R}^p \ w\in  \mathbb{R}^p \\
     sign(a)=
@@ -38,6 +43,7 @@ tags:
     \end{array}
     \right.
 \end{gather}
+$$
 其中$D:\{$ 被错误分类的样本 $\}$，样本集为：$\{(x_i,y_i)\}_{i=1}^N$。
 
 \subsection{感知机模型的迭代过程}

@@ -72,12 +72,15 @@ $$
 $$
 
 推导到了这里就是要对$P(\underbrace{x_{t+1:T}}_{C}|\underbrace{x_{1:t}}_{A},\underbrace{z_t}_{B})$进行分析，在这个概率图模型中，符合如下结构：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200110123017.png}
     \caption{A，B，$z_{t+1}$，C，概率图结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 根据概率图模型中提到D-Separation中，我们可以很简单的得出，$A\perp C|B$。所以，$P(x_{t+1:T}|x_{1:t},z_t) = P(x_{t+1:T}|x_{1:t},z_t = \beta_t)$。所以，我们可以得到:
 

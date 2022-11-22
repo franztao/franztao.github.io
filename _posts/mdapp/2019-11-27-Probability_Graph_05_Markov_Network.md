@@ -14,8 +14,6 @@ tags:
     - Network
 ---
 
-    
-
 上一小节中，我们分析了有向图Bayesian Network，得到了因子分解法，$p(x) = \prod_{i=1}^N p(x_i|x_{pa(i)})$。虽然，有向图中可以方便直观的表达条件独立性，但是它也有它的局限性。也就是我们提到的对于Head to Head的结构来说，当中间节点被观察到的时候，反而是两端的节点是相关的。这违反了条件独立性的特点，也就是当某些变量被观察到时，其他变量之间是独立的特点，这种情况有点反常，并不太好办。
 
 但是，在无向图中就完全不会出现这样的情况，因为本来就没有方向，而且在无向图中也有类似的D-Separation性质。
@@ -26,12 +24,15 @@ Markov中的条件独立，大致可以被我们分成三种情况，Global Mark
 
 \subsection{Local Markov}
 我们以下图的一个Markov Network为例，
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191126225153.png}
     \caption{Markov Network示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 用文字的语言来描述就为$a\bot\{$全集$-a-$邻居$\}|$邻居。那么在这个图中，我们就可以表示为$a\bot\{e,f\}|\{b,c,d\}$。
 
@@ -99,18 +100,3 @@ $$
 $$
 
 在这里我们把$\exp\{ - A(\eta) \}$，直接记为$Z(\eta)$。大家观察就会发现势函数也就是Gibbs Distribution就是一个指数族分布。Gibbs是来自统计物理学，形式上和指数族分布时一样的。而指数族分布实际上是由最大熵分布得到的，那么我们可以理解Gibbs分布也是有最大熵原理得到的。而马尔可夫随机场(Markov Random Field)实际上等价于Gibbs分布。至于为什么？这实际上全部都在Hammesley-Clifford定理中，有兴趣的同学，请自行查阅。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

@@ -24,12 +24,15 @@ tags:
 
 \section{Introduction}
 本章介绍的是深度玻尔兹曼机(Deep Boltzmann Machines，DBM)，应该算是玻尔兹曼机系列的最后一个模型了。我们前面介绍的三种玻尔兹曼机和今天将要介绍的深度玻尔兹曼机的概率图模型如下图所示，从左往右分别是深度信念网络(Deep Belief Network)，限制玻尔兹曼机(Restricted Boltzmann Machine，RBM)，和DBM，玻尔兹曼机(General Boltzmann Machine，BM)：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\textwidth]{微信图片_20200521215417.png}
     \caption{四种玻尔兹曼机的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 显然，深度玻尔兹曼机和深度信念网络的区别就仅仅在于有向和无向上。其中，RBM，DBM和BM都是玻尔兹曼机，而DBN和玻尔兹曼机就不太一样，实际上是一个混合模型，最上面是RBM，而下面的部分都是有向图。
 
 \section{Boltzmann Machine的发展历史}
@@ -91,12 +94,15 @@ $$
 \section{预训练}
 \subsection{DBN中RBM结合方法的缺陷}
 预训练这一章介绍的是，如何叠加两个RBM，DBN和DBM的不同之处在于如何融合不同的RBM。实际上DBN和DBM的每一层的训练都是一样的，唯一的不同就在于各层训练好之后，如何combine。首先回顾一下RBM，假如现在只有一层，其他层我们都不考虑：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200523155106.png}
     \caption{限制玻尔兹曼机的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 首先，哪些是已知的呢？数据的分布$P_{\text{data}(v)}$是知道的。那么在每一步迭代过程中，可以求出Log-Likelihood梯度，利用对比散度采样（CD-K）算法，就可以把$w^{(1)}$学习出来，而且学习到的$w^{(1)}$还不错，当然这个只是近似的，精确的求不出来，主要原因是后验分布是近似采样得到的。有关RBM的参数学习在“直面配分函数”那章，已经做了详细的描述，这里不再多说了。
 
 我们来表达一下这个模型：
@@ -146,12 +152,15 @@ $$
 
 而目的的直觉是：用$P(h^{(1)};w^{(1)})$和$P(h^{(1)};w^{(2)})$几何平均近似$P(h^{(1)};w^{(1)},w^{(2)})$。
 
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200523155106.png}
     \caption{限制玻尔兹曼机的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 其中，
 $$
@@ -196,32 +205,41 @@ $$
 假设$V:$是样本集合，$v\in V$；$H:$才是样本集合，$h^{2}\in H$。采样是从下往上依次进行采样，所以，$h^{1},h^{2}$都依赖于$v$。所以，在计算$h^{1},h^{2}$的过程中都用到了$v$相当于把样本利用了两次。那么，重复计算会带来怎样的副作用呢？
 
 下面举一个例子：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.3\textwidth]{微信图片_20200523152628.png}
     \caption{double counting问题举例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 假如红色的是真实分布，我们实际采样得到的是黑色的样本。简单的假设为高斯分布，利用极大似然估计得到黑色的分布。然后不同的利用黑色的样本，从中采样，采样结果重合，不停的重复利用，会导致所表达的分布越来越尖。从而使得偏差很大，所以简单的结合并不行。
 
 \subsection{预训练总结}
 上一小节，我们介绍了double counting问题。实际上在玻尔兹曼机这个系列中，我们可以计算的只有RBM，其他版本的玻尔兹曼机我们都搞不定。所以，就想办法可不可以将RBM叠加来得到具有更好的表达能力的RBM模型，于是第一次简单尝试诞生的就是DBN，DBN除了顶层是双向的，其他层都是单向的。中国武学中讲究“任督二脉”，DBN就像只打通了一半，另一半是不通的。很自然，我们想把另外一半也打通，这么模型的表示能力就更强一些。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.8\textwidth]{微信图片_20200523155948.png}
     \caption{利用分层训练RBM得到DBM的参数}
     \label{fig:my_label_1}
 \end{figure}
+$$
 那么，最开始就是将每层RBM的参数$w^{(1)}$，$w^{(2)}$，$w^{(3)}$训练出来之后分别赋予DBM中的$w^{(1)}$，$w^{(2)}$，$w^{(3)}$。但是，这样就会有只用到了一层的参数，所以解决方案是取平均值。比如，在分层的RBM训练中，求的是$2w^{(1)}$，$2w^{(2)}$，$2w^{(3)}$，再将权值$w^{(1)}$，$w^{(2)}$，$w^{(3)}$赋予DBM，相对于每一次只用到了一半的权重。那么，对于中间层$h^{(1)}$来说，就相对于同时用到了$w^{(1)}$，$w^{(2)}$这个在前面，我们已经详细的讲过了。
 
 然而，问题又来了，$v$和$h^{(3)}$只和一层相连。那么，除以2感觉上有一些不对。给出的处理方法是，在RBM的分层学习中，对于$v$从上往下是$w^{(1)}$，从下往上是$2w^{(1)}$，这个问题就解决了。这时不是一个简单的RBM了，我们称之为“RBM”，哈哈哈哈。其近似的概率图模型可以这样认为，来帮助我们理解：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.6\textwidth]{微信图片_20200523162935.png}
     \caption{利用分层训练RBM得到DBM的参数}
     \label{fig:my_label_1}
 \end{figure}
+$$
 那么，进到$h^{(1)}$有两个$w^{(1)}$，也就是$2w^{(1)}$，而进到$v$只有一个$w^{(1)}$。这就等价于从上往下是$w^{(1)}$，从下往上是$2w^{(1)}$。除了，第一层和最后一层，其他层的都是学习的两倍权值，第一层和最后一层则是“RBM”。
 
 从直觉上看，感觉这一系列演变会让模型的性能越来越好。实际上，可以通过数学证明，DBM的ELBO、比DBN要高，而且DBM的层数越多，每叠加一层RBM，ELBO都会更高。

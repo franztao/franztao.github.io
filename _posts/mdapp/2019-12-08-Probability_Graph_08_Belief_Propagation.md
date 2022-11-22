@@ -21,12 +21,15 @@ tags:
 
 \section{Forward and Backward Algorithm}
 假设，我们现在有一个马氏链模型：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191208140942.png}
     \caption{链式马氏链模型结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 联合概率可以被我们表示为：$p(a,b,c,d,e)=p(a)\cdot p(b|a)\cdot p(c|b)\cdot p(d|c) \cdot p(e|d)$。
 
@@ -66,12 +69,15 @@ $$
 
 \section{Belief Propagation的扩展}
 我们的Generalize的后，分析了一个树形的无向图结构。图的网络结构如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20191208145754.png}
     \caption{树形无向图结构拓扑结构}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 下面第一步，我们把上面那个模型的设置写出来。所以，我们需要进行因式分解，我们用$\varphi(i)$来表示和$i$有关的部分。所以，我们可以将联合概率密度写为：
 

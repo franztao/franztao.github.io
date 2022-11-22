@@ -24,10 +24,13 @@ Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。�
 1. 首先对于一个，参数符合的分布，$p(w|Data) = \mathcal{N}(w|\mu_w,\Sigma_w)$。其中，$\mu_w = \sigma^{-2}A^{-1}X^TY$，$\Sigma_w = A^{-1}$，其中，$A=\sigma^{-2}X^TX+\Sigma_p^{-1}$。从这一步我们就成功的得到了在已知Data的情况下，未知参数的分布形式。
 
 2. 在给定一个新的未知数向量$X^\ast$的情况下，我们可以首先利用noise-free形式：$f(x) = w^Tx = x^Tw$，然后再求得noise形式：$y=f(x)+\epsilon$，而$\epsilon \sim \mathcal{N}(0,\sigma^2)$。来获得我们想要的prediction值。这样，我们就可以得到：
+
+$$
 \begin{gather}
     p(f(x^\ast)|Data,x^\ast) \sim \mathcal{N}({x^\ast}^T\mu_w, {x^\ast}^T\Sigma_w{x^\ast}) \\
     p(y^\ast|Data,x^\ast) \sim \mathcal{N}({x^\ast}^T\mu_w, {x^\ast}^T\Sigma_w{x^\ast}+\sigma^2)
 \end{gather}
+$$
 
 但是，问题马上就来了，因为很多时候，我们不能仅仅使用线性分类的方法来解决问题。现实生活中有许多非线性的问题来待我们求解。而一种经常使用的方法，也就是将数据投影到高维空间中来将非线性问题，转换成一个高维空间中的线性可分问题。或者是使用Bayesian Logistics Regression来进行分类。如果，是将数据投影到高维空间中的话，我们很自然的就想到了Kernel Bayesian Linear Regression。
 
@@ -62,12 +65,15 @@ $$
 }
 
 所以，
+
+$$
 \begin{gather}
     \nonumber A=\sigma^{-2}\Phi(X)^T\Phi(X) + \Sigma_p^{-1} \\
     A\Sigma_p=\sigma^{-2}\Phi(X)^T\Phi(X)\Sigma_p + I \\
     \nonumber A\Sigma_p\Phi(X)^T=\sigma^{-2}\Phi(X)^T\Phi(X)\Sigma_p \Phi(X)^T + \Phi(X)^T =  \sigma^{-2}\Phi(X)^T(K+\sigma^2I)\\
     \nonumber \sigma^{-2}A^{-1}\Phi(X)^T = \Sigma_p\Phi(X)^T(K+\sigma^2I)^{-1}
 \end{gather}
+$$
 
 然后，两边同乘一个$\phi(x^\ast)$和$Y$就可以得到：
 

@@ -227,12 +227,15 @@ $$
 \end{equation}
 $$
 网络的模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200601202036.png}
     \caption{网络逻辑关系}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中，$\mu(X)=f(X;\theta),\sigma(X)=f(X;\theta)$。损失函数为：
 
 $$

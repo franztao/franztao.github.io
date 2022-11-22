@@ -29,12 +29,15 @@ tags:
 
 \section{Max Product Algorithm}
 下面展示一个树的拓扑结构图。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20191210100004.png}
     \caption{概率树模型的拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 在这个树中，我们将$m_{b \longrightarrow a}$看成是能使$p(x_b,x_c,x_d|E)$联合概率达到最大的值。每一个节点代表的是到这个节点为止的路径联合概率达到最大的值。我们表达为：
 

@@ -27,6 +27,8 @@ tags:
 实际上机器学习中一类最重要的问题就是分类(classify)的问题。分类的方法可以被我们分为两类，硬分类和软分类。所谓硬分类就是输出值是离散的，比如$y\in \{0,1\}$；而软分类就是输出的是属于某一个类的概率，比如$P(y=1),P(y=0)$的概率。
 \subsection{硬分类(Hard classification)}
 硬分类就是输入特征，输出的离散变量，通俗的讲就是，分类器看到了一堆特征，直接告诉你这个个体属于哪一类。
+
+$$
 \begin{enumerate}
     \item \textbf{支持向量机(Support Vector Machine)}：
 {支持向量机的思路来源是几何间隔}。模型可以被我们写为：
@@ -47,6 +49,7 @@ $$f(w) = \mathrm{sign}(w^Tx)$$
 
 \item \textbf{线性判别分析(Linear Discriminate analysis)：}{主要采用的思想是类间大，类内小。}
 \end{enumerate}
+$$
 \subsection{软分类(Soft classification)}
 软分类就是输入特征，输出的是每一种可能性的概率。通俗的讲就是，给定一组特征，分类器输出的是属于各个类别的概率，最后选择是属于哪一类？你自己就看着办吧，看你怎么选了。所以，软分类模型求得是一个分布就是这个原因。算法可以分为两个方面，概率判别模型和概率生成模型。这两者有什么不一样呢？
 
@@ -127,12 +130,15 @@ $$
 P(X|Y=1/0) = \prod_{i=1}^P P(x_i|Y=1/0)
 $$
 Bayes假设的概率图模型如下所示，根据概率图模型的D-Separation原则，这是一个Tail To Tail的模型在中间值给定的情况下，其他的节点之间都是相互独立的。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191104091918.png}
     \caption{条件独立性假设}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \noindent 我们可以将其定义为$x_i\perp x_j|y\ (i \neq j)$。根据贝叶斯公式可以得：
 
 $$
@@ -148,24 +154,30 @@ $$
 ~\\
 \noindent \textbf{高斯混合模型(Gaussian Mixture Model)：}
 高斯混合模型的概率图可以被我们描述为如下形式：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191223234640.png}
     \caption{GMM的概率图表达形式}
     \label{fig:my_label_1}
 \end{figure}
+$$
 我们根据一个离散的随机变量$Z$来选择是选取那个高斯分布，利用这个高斯分布$\mathcal{N}(\mu,\Sigma)$来采样得到我们想要的样本点。而且，离散随机变量$Z$符合一个离散分布$p = (p_1,p_2,\cdots,p_k)$。也就是$P(X|Z)\sim \mathcal{N}(\mu,\Sigma)$，而在此基础上加上时间的影响就构成了Hidden Markov Model，这是HMM的第二种引出方式。
 
 ~\\
 \textbf{隐马尔可夫模型(Hidden Markov Model)：}这个在我们之间的章节中有非常详细的描述，这里不再做过多的阐述，有兴趣的同学可以去仔细的观看。HMM中有两条非常重要的假设，齐次马尔可夫假设和观测独立假设，我们的计算基本都是基于这两个假设来的。
 
 Hidden Markov Model的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200107213811.png}
     \caption{Hidden Markov Model拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中，$x_1$为observe data，$y_1$为lactent data，模型整体描述为$\lambda = (\pi,\mathcal{A},\mathcal{B})$。而实际上，我们还是感觉两个假设不太合理，限制了对数据集的利用，只是因为需要简化计算，所有没办法。但是，后来研究人员还是想消除假设，从而释放数据中更多的信息。
 
 ~\\
@@ -175,12 +187,15 @@ Hidden Markov Model的概率图模型如下所示：
 MEMM是最大熵模型和HMM的结合体，它是一个判别模型。这里强调一下，它和HMM的主要区别是：\textbf{打破了HMM的观测独立假设。}这里我们后面会详细的描述。MEMM在建模过程中用到了公式(2)中，最大熵模型的求解结果，主体还是用的HMM的结构，所以，被称为最大熵马尔可夫模型。
 
 MEMM的做法就是把输入分成两部分，1. 是所有的的$x_{1:T}$对$y$的输入；2. 单独一个上一个状态$x_{t-1}$，local输入。有的同学可能会觉得有点奇怪，$x_{1:T}$中不就包括了$x_{t-1}$，对的实际上很多时候都只看$x_{1:T}$，这样分开说是为了便于理解在HMM上的改进。MEMM的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200221182717.png}
     \caption{MEMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 这小节的主要目的是引出我们为什么得到了Conditional Random Field。MEMM的细节不做过多解释。MEMM的诞生1. 首先将HMM中的观测独立假设给丢掉了，这样可以更多的使用原始数据中的信息；2. 而且，我们关注的问题从求解联合概率分布$P(X,Y)$转换成了求解$P(Y|X)$。在标注问题中并不需要计算那么多，求解$P(Y|X)$就够了。
 
@@ -201,12 +216,15 @@ $$
 这节主要介绍演变过程。话不多说，首先介绍的是HMM。
 \subsection{Hidden Markov Model}
 HMM可以由Naive Bayes和Gaussian Mixture Model演变而来，是一种典型的生成模型。它的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.6\textwidth]{微信图片_20200221204618.png}
     \caption{HMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \textbf{{这里$x$与$y$之间的箭头画反了方向}}，读者阅读的时候注意一下。模型描述为$\lambda = (\pi,\mathcal{A},\mathcal{B})$。两个假设，齐次马尔可夫假设和观测独立假设。
 \begin{itemize}
     \item \textbf{齐次一阶Markov假设：}一阶：$P(y_t|y_{1:t-1})=P(y_t|y_{t-1})$；齐次：$P(y_t|y_{t-1})$与时间无关。
@@ -227,12 +245,15 @@ $$
 其实观测独立假设，并没有什么道理可讲的。从NB$\rightarrow$HMM是一样的。NB中假设所有的样本之间相互独立，采用的是Tail to Tail的概率图模型，这样都是为了使计算变得简单而已。实际上这两种假设都是非必须的，都是为了计算，有它们反而破坏了原始数据分布的完整性。
 \subsection{Maximum Entropy Markov Model}
 MEMM模型的概率图如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{微信图片_20200221213227.png}
     \caption{MEMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 在MEMM中打破了观测独立假设，它是如何做到了呢？
 
 大家注意观察，在MEMM中的$y$和$x$之间的箭头是相反的。那么，阴影部分就变成了$y_{t-1} \rightarrow y_t \leftarrow x_{t}$。这种结构是典型的Head to Tail结构，根据D-Separation原则，在$y_t$被观察到的情况下，$y_{t-1}$和$x_{t}$之间反而是有关系的。所以，它成功的打破了观测独立假设。
@@ -259,12 +280,15 @@ MEMM比HMM有两个根有优势的地方：
 
 \section{MEMM VS CRF}
 MEMM的概率图模型在之前我们就展示过了，为了方便大家对下面内容的理解。这里再放一下：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{微信图片_20200221213227.png}
     \caption{MEMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 优点(和HMM想比)：1. 判别式模型，有利于标注问题的Decoding；2. 打破了观察独立假设。
 
 模型为：$P(Y|X,\lambda)=\prod_t P(y_t|y_{t-1},x_{1:T},x_t,\lambda)=\prod_t P(y_t|y_{t-1},x_{1:T},\lambda)$。MEMM是有向图，条件概率的条件都是在图中根据因果关系可以得出来的。
@@ -283,12 +307,15 @@ MEMM的概率图模型在之前我们就展示过了，为了方便大家对下�
 
 \subsubsection{John Lafferty论文中例子}
 归一化的不恰当会带来一些问题，但是论文中写的很简单，大多数同学看着会一脸懵逼，在这里我们做出了比较详细的讲解。例子的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200222210750.png}
     \caption{John Lafferty论文中例子}
     \label{fig:my_label_1}
 \end{figure}
+$$
 在此例中，我们将$0-1-2-3-4-5$这些看成是tag标准，将$r,i,b$看成是观测。
 
 1. 假设$t=1$时刻，我们观察到的是0，$0$时刻在观测到$r$的情况下转移到$1$和$4$状态的转移概率都一样。
@@ -328,12 +355,15 @@ MEMM的致命缺陷就是局部归一化，由于这个特性，会导致模型�
 
 \section{CRF概率密度函数的参数形式}
 前面我们花了大量的功夫来将CRF是如何演变来的，讲述了从HMM-MEMM-CRF的演化过程，理性的讲述了CRF图结构的合理性。所谓条件随机场，我们分成两个部分来进行解释：条件指的是，条件概率；随机场指的是，$y$节点连接而成的无向图模型，称之为Markov Field。CRF的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200223000157.png}
     \caption{CRF的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 \subsection{势函数化简}
 我们想要得出\textbf{$P(Y|X)$}的形式，很可惜在无向图中，我们并不能根据因果关系直接写出来。我们之间讲到过无向图的分解方法，这里再重申一下团的概念，\textbf{一个图中所有节点之间都相互相连称之为团}。对于Markov Random Field做因子分解，对于$x\in \mathbb{R}^p$，我们可以令：
@@ -350,12 +380,15 @@ $$
 
 \subsection{CRF概率参数结构}
 如果不加说明，我们认为CRF为线性链。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200223114928.png}
     \caption{线性链模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 我们可以看到在线性链中，每两个相邻的节点之间形成了一个团，而且总有团的机构都是一样的，图10所例的线性链可以被我们分成4个团。每个团都和$y_t$，$y_{t-1}$和$x_{1:T}$有关系，所以，
 
 $$
@@ -424,12 +457,15 @@ $$
 \end{equation}
 $$
 这里的K和L分别是多少呢？加入对于$y_t \in S = \{noun,verb,aux,\cdots\}$一共有$S$个状态。我们看看转移图像：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.25\textwidth]{微信图片_20200223151838.png}
     \caption{$y_{t-1}$和$y-t$状态之间的转移}
     \label{fig:my_label_1}
 \end{figure}
+$$
 所以，我们看到最多有$|S|^2$种可能，所以$\mathrm{K}\leq |S|^2$。对于归一化因子$Z$而言，肯定是和$y$没有关系的，归一化因子是对$y$进行了积分的。
 \subsection{概率密度函数的向量形式化简}
 所以，概率模型被我们写为：
@@ -585,12 +621,15 @@ $$
 
 \subsection{Variables Elimination算法运算过程}
 由于在第$t$时刻，$y_t$的状态是已知的。所以，我们将序列从$y_t$时刻分开，分成两个部分，如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200224144010.png}
     \caption{序列分割图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 $$
 \begin{equation}
@@ -608,12 +647,15 @@ $$
 \end{equation}
 $$
 下一步目标就是想怎么去拆分了，首先来看看每一个势函数究竟和哪些变量有关，示意图如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200224165315.png}
     \caption{势函数变量关系图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 变量消除的过程就是积分的过程，我们需要将累加的变量进行分解，让求和过程只和相关的势函数进行求和，这样分解避免多个势函数混着一起积分，来减少运算过程，因为这样每次积分我们都只要考虑单个变量的依赖变量的关系。根据上图所示的，关系依赖图，我们进行如下划分：
 
 $$

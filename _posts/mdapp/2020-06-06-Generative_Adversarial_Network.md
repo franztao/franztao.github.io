@@ -28,12 +28,15 @@ tags:
 首先，我是一个收藏家，我有很多的宝贝，但是，我最终的目标不仅仅是一个收藏家。我想高仿东西，成为工艺品大师（做仿品）。我要不惜一切代价的成为这方面的大师。但是，我做出来的东西不能只是我自己分辨不出来就够了，那就只能放在家里看，它需要接受大师们的检验，各位专家都看不出来这是仿品，就比较成功了。
 
 我把我做出的东西，放到一个叫“一锤定音”节目现场，这个平台将鉴别出为假的东西就砸了，鉴别出为真的东西就拿去估值，就美了。节目流程如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200606153824.png}
     \caption{“一锤定音”节目流程}
     \label{fig:my_label_1}
 \end{figure}
+$$
 我们的目标是成为高水平的可以做“以假乱真”的高质量仿品的大师，有如下两个要求：
 
 1. 鉴赏专家的水平足够高。
@@ -49,28 +52,37 @@ tags:
 工艺大师和鉴赏专家的水平会不断的提高，最终我们会培养一个高水平的工艺大师和一个高水平的鉴赏家。而最终的目的是培养一个高水平的工艺大师，而不是一个高水平的鉴赏家。鉴赏家只是衍生品，最终将达到两个目的，1. 足够的以假乱真；2. 真正的专家看不出来。
 
 所以，我们需要加一些feedback，令工艺大师收到专家给出的反馈。并且鉴赏大师也要从工艺大师那里知道真实的情况来提升自己的水平。如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.85\textwidth]{微信图片_20200606165431.png}
     \caption{GAN的详细流程}
     \label{fig:my_label_1}
 \end{figure}
+$$
 我们可以将古人，视为$P_{\text{data}}$，$\{x_i\}_{i=1}^N$，实际就是经验分布，通常我们将经验分布视为数据分布。
 
 工艺品，是从一个模型分布$P_g$采样出来的，$P_g(x;\theta_g)$。我们本身不对$P_g$建模，而是用一个神经网络来逼近$P_g$。假设$z$来自一个简单分布，并增加噪声，$z\sim P_z(z)$。其中，$x=G(z;\theta_g)$
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200606171236.png}
     \caption{工艺大师网络结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 鉴赏专家输出的是一个概率分布，同样也是一个神经网络，$D(x,\theta_d)$，其代表的是输入一个物品，判断其为国宝的概率。$D\to 1$是国宝，$D\to 0$是工艺品。模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200606173145.png}
     \caption{模型的数学表示}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 我们的目标有两个：
 
@@ -124,12 +136,15 @@ GAN模型本身思想很简单，难点主要在于学习$\theta_g,\theta_d$。G
 
 \section{全局最优解}
 GAN模型表示汇总如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200606182808.png}
     \caption{GAN的数学表示}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 $P_{data}$：$\{x_i\}_{i=1}^N$
 

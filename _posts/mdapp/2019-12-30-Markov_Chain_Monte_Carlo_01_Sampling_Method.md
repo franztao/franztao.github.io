@@ -41,12 +41,15 @@ $$
 
 \section{拒绝采样(Rejection Sampling)}
 由于对目标分布$p(Z)$的采样非常的困难，所以我们可以对一个比较简单的分布$q(Z)$进行采样来辅助采样。那么我们具体做法怎么办呢？我们可以设定一个proposal distribution：$q(Z)$。对于$\forall z_i$，保证$M\cdot q(z^{i}) \geq p(z^{i})$，那么我们为什么要引入$M$呢？这是因为$\int_Z P(Z) dZ = \int_Z q(Z)dZ = 1$。要使$q(z^{i}) \geq p(z^{i})$是几乎不可能成立的。为了方便描述，我们画图来说明一下：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191230142201.png}
     \caption{Rejection Sampling示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 在这里我们需要定义一个接受率：$\alpha = \frac{P(z^{(i)})}{M\cdot q(z^{(i)})}$，很显然$0 \leq \alpha \leq 1$。这个实际就是上图中绿色的部分。
 
@@ -77,12 +80,15 @@ $$
 
 \subsection{重要性重采样(Sampling Importance Resampling)}
 经过重要性采样后，我们得到了$N$个样本点，以及对应的权重。那么我用权重来作为采样的概率，重新测采样出$N$个样本。也就是如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{微信图片_20191230154011.png}
     \caption{Sampling Importance Resampling示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 通过二次采样可以降低采样不平衡的问题。至于为什么呢？大家想一想，我在这里表达一下自己的看法。$\frac{p(z_i)}{q(z_i)}$是Weight，如果Weight比较大的话，说明$p(z_i)$比较大而$q(z_i)$比较的小，也就是我们通过$q(z_i)$采出来的数量比较少。那么我们按权重再来采一次，就可以增加采到重要性样本的概率，成功的弥补了重要性采样带来的缺陷，有效的弥补采样不均衡的问题。
 

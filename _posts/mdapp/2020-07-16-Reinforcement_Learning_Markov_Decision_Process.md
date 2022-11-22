@@ -36,23 +36,29 @@ State Space Model：包括哪些呢？有HMM，Kalman Filter，Particle Filter�
 Markov Reward Process：此模型为Markov Chain+Reward。在两个状态之间发生转移的时候，会得到一个奖励。
 
 Markov Decision Process：即为Markov Chain+Reward+Action。这里是怎么回事呢？两个相邻状态之间的转移受到action的影响，而且转移完成之后会得到一个reward，如下图所示。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.15\textwidth]{微信图片_20200719002902.png}
     \caption{MDP简要示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 实际上MDP可以由一个四元组来表示$\langle \mathcal{S},\mathcal{A},\mathcal{P},\mathcal{R} \rangle$。其中$\mathcal{S}$表示的是状态集合，$\mathcal{A}$表示的是动作集合，$\forall s\in \mathcal{S}, A(s)\to a_t$；而$\mathcal{P}$是概率转移矩阵，表达两个状态之间转移的概率。$\mathcal{R}$为两个状态发生转移后得到的奖励。
 
 \section{动态特征}
 \subsection{完整的马尔可夫决策过程描述}
 一个完整的MDP可以如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.80\textwidth]{微信图片_20200719161809.png}
     \caption{MDP完整结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 MDP在每个状态下，可以由个体从可能的行动空间$\mathcal{A}$ 中选择一个行动$a_t$，紧接着的状态转移概率随着所选择行动的不同而不同。另外，我们再加入即时奖励，就可以得到MDP的动态特征。
 
 $$
@@ -94,12 +100,15 @@ $$
 \end{equation}
 $$
 其中，$R_{t+1}=R\left(S_{t+1}, S_{t}, A_{t}\right)$，$\gamma \in [0,1]$表示为衰减因子。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.50\textwidth]{微信图片_20200720005916.png}
     \caption{MDP转移示例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 实际上一个转移就是其中一条线，此图例中可以看到一共有9种转移可能，可以记为$G_t^{1},G_t^{2},\cdots,G_t^{9}$。并不是一个单独的$G_t$。所以，我们就可以用这个9个可能的平均值来表示最终的衡量标准。而实际中由于可能性很多，通常通过蒙特卡罗采样来求平均值得到最终的函数值，也就是价值函数：
 
 $$

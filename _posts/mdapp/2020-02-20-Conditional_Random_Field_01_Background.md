@@ -29,6 +29,8 @@ tags:
 实际上机器学习中一类最重要的问题就是分类(classify)的问题。分类的方法可以被我们分为两类，硬分类和软分类。所谓硬分类就是输出值是离散的，比如$y\in \{0,1\}$；而软分类就是输出的是属于某一个类的概率，比如$P(y=1),P(y=0)$的概率。
 \subsection{硬分类(Hard classification)}
 硬分类就是输入特征，输出的离散变量，通俗的讲就是，分类器看到了一堆特征，直接告诉你这个个体属于哪一类。
+
+$$
 \begin{enumerate}
     \item \textbf{支持向量机(Support Vector Machine)}：
 {支持向量机的思路来源是几何间隔}。模型可以被我们写为：
@@ -49,6 +51,7 @@ $$f(w) = \mathrm{sign}(w^Tx)$$
 
 \item \textbf{线性判别分析(Linear Discriminate analysis)：}{主要采用的思想是类间大，类内小。}
 \end{enumerate}
+$$
 \subsection{软分类(Soft classification)}
 软分类就是输入特征，输出的是每一种可能性的概率。通俗的讲就是，给定一组特征，分类器输出的是属于各个类别的概率，最后选择是属于哪一类？你自己就看着办吧，看你怎么选了。所以，软分类模型求得是一个分布就是这个原因。算法可以分为两个方面，概率判别模型和概率生成模型。这两者有什么不一样呢？
 
@@ -129,12 +132,15 @@ $$
 P(X|Y=1/0) = \prod_{i=1}^P P(x_i|Y=1/0)
 $$
 Bayes假设的概率图模型如下所示，根据概率图模型的D-Separation原则，这是一个Tail To Tail的模型在中间值给定的情况下，其他的节点之间都是相互独立的。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191104091918.png}
     \caption{条件独立性假设}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \noindent 我们可以将其定义为$x_i\perp x_j|y\ (i \neq j)$。根据贝叶斯公式可以得：
 
 $$
@@ -150,24 +156,30 @@ $$
 ~\\
 \noindent \textbf{高斯混合模型(Gaussian Mixture Model)：}
 高斯混合模型的概率图可以被我们描述为如下形式：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191223234640.png}
     \caption{GMM的概率图表达形式}
     \label{fig:my_label_1}
 \end{figure}
+$$
 我们根据一个离散的随机变量$Z$来选择是选取那个高斯分布，利用这个高斯分布$\mathcal{N}(\mu,\Sigma)$来采样得到我们想要的样本点。而且，离散随机变量$Z$符合一个离散分布$p = (p_1,p_2,\cdots,p_k)$。也就是$P(X|Z)\sim \mathcal{N}(\mu,\Sigma)$，而在此基础上加上时间的影响就构成了Hidden Markov Model，这是HMM的第二种引出方式。
 
 ~\\
 \textbf{隐马尔可夫模型(Hidden Markov Model)：}这个在我们之间的章节中有非常详细的描述，这里不再做过多的阐述，有兴趣的同学可以去仔细的观看。HMM中有两条非常重要的假设，齐次马尔可夫假设和观测独立假设，我们的计算基本都是基于这两个假设来的。
 
 Hidden Markov Model的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200107213811.png}
     \caption{Hidden Markov Model拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中，$x_1$为observe data，$y_1$为lactent data，模型整体描述为$\lambda = (\pi,\mathcal{A},\mathcal{B})$。而实际上，我们还是感觉两个假设不太合理，限制了对数据集的利用，只是因为需要简化计算，所有没办法。但是，后来研究人员还是想消除假设，从而释放数据中更多的信息。
 
 ~\\
@@ -177,12 +189,15 @@ Hidden Markov Model的概率图模型如下所示：
 MEMM是最大熵模型和HMM的结合体，它是一个判别模型。这里强调一下，它和HMM的主要区别是：\textbf{打破了HMM的观测独立假设。}这里我们后面会详细的描述。MEMM在建模过程中用到了公式(2)中，最大熵模型的求解结果，主体还是用的HMM的结构，所以，被称为最大熵马尔可夫模型。
 
 MEMM的做法就是把输入分成两部分，1. 是所有的的$x_{1:T}$对$y$的输；2. 单独一个上一个状态$x_{t-1}$，local输入。有的同学可能会觉得有点奇怪，$x_{1:T}$中不就包括了$x_{t-1}$，对的实际上很多时候都只看$x_{1:T}$，这样分开说是为了便于理解在HMM上的改进。MEMM的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200221182717.png}
     \caption{MEMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 这小节的主要目的是引出我们为什么得到了Conditional Random Field。MEMM的细节不做过多解释。MEMM的诞生1. 首先将HMM中的观测独立假设给丢掉了，这样可以更多的使用原始数据中的信息；2. 而且，我们关注的问题从求解联合概率分布$P(X,Y)$转换成了求解$P(Y|X)$。在标注问题中并不需要计算那么多，求解$P(Y|X)$就够了。
 

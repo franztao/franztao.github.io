@@ -24,21 +24,27 @@ tags:
 Deep Belief Network是Hinton在2006年提出的方法，应用在分类问题上的效果明显好过SVM。它的诞生有着重要的意义，这意味着打开了Deep Learning的大门，把连接主义推上了历史的舞台，给人类带来了希望。
 \section{Introduction}
 首先，来看看Deep Belief Network这个名字的含义，Belief Network实际上就是Bayes Network（有向图模型），而Deep的含义就很简单了，代表有很多层。所以，从字面上理解，Deep Belief Network可以认为是有很多层的有向图模型。Deep Belief Network的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20200407114236.png}
     \caption{Deep Belief Network的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 从上述图中，可以看出DBN是一个混合模型，上面是Restricted Boltzmann Model（RBM）模型，下面是一个Sigmoid Belief Network（SBN）。而每个节点都服从0/1的伯努利分布，实际上就是一个分层模型。深层的含义，我们将会在下文中描述。注意，这里的$w$是用来描述节点直接连接权重的矩阵。
 \subsection{SBN简要回顾}
 Sigmoid Belief Network的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.3\textwidth]{微信图片_20200407120853.png}
     \caption{Sigmoid Belief Network的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中，
 
 $$
@@ -92,12 +98,15 @@ $$
 上一节弄清楚了DBN的model representation，这一小节主要是直觉性的介绍一个DBN的思路。为什么可以混在一起，为什么Deep Belief Network可以看成Stacking RBM。我们将从RBM引出DBN的模型。
 \subsection{改进RBM的原因}
 首先，我们看看原始的RBM模型的表达方式，RBM的求解在“直面配分函数”那章讲到了，是使用对比散度的方法求解。概率图模型如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200407131510.png}
     \caption{Restricted Boltzmann Distribution的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 首先，回忆一下当时是如何进行求解的。通过一系列的化简，得到了log likelihood gradient的表达形式：
 
 $$
@@ -107,10 +116,13 @@ $$
 \end{aligned}\end{equation}
 $$
 但是公式（6）的计算过于复杂，基本是intractable。所以提出了用结合梯度上升法的Gibbs采样来求梯度，从而使得$P(v)$的Log Likelihood 达到最大，公式如下所示：
+
+$$
 \begin{gather}
 \Delta w_{i j} \leftarrow-\Delta w_{i j}+\frac{\partial}{\partial w_{i j}} \log P(v) \\
 \frac{\partial}{\partial w_{i j}} \log P(v)=P\left(h_{i}=1 | v^{(0)}\right) v_{j}^{(0)}-P\left(h_{i}=1 | v^{(k)}\right) v_{j}^{(k)}
 \end{gather}
+$$
 那么，按DBN的叠加方式一定会取得更好的效果吗？结果是不用废话的。\textbf{需要明确一点，引入RBM是为了探究观测变量的数据结构的关系，其中未
 观察变量被看作观察变量发生的原因。}
 
@@ -125,32 +137,41 @@ $$
 \end{equation}
 $$
 通常$P(h^{(1)})$看成是prior先验，$P(v| h^{(1)})$则看成是一个生成过程。RBM在无向图中并没有箭头，无向图可以看成是一个双向的有向图，如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200407163930.png}
     \caption{Restricted Boltzmann Distribution的有向图概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 这样，将无向图改写成有向图，可以把概率图分成$h\longrightarrow v$和$v\longrightarrow h$两个过程。两个过程的权重都是一样的。那么假定在RBM已经学习出来的情况下（$w^{(1)}$的参数是确定的），$P(v|h^{(1)})$可以看成是$h\longrightarrow v$，显示是不变得，而$P(h^{(1)})$显然也是确定的，和$v\longrightarrow h$过程相关，$w^{(1)}$和$v$都是确定的。
 
 由于$P(v) = \sum_{h^{(1)}} P(h^{(1)})P(v| h^{(1)})$， $P(h^{(1)})$和$P(v| h^{(1)})$都是确定的，那么$P(v)$就是确定的。那么，可以衍生出一种很自然的想法，\textbf{可不可以不用$w$来表示$P(h^{(1)})$，给$P(h^{(1)})$重新赋一组参数，create一个新的模型来对$P(h^{(1)})$重新建模，用另一个RBM来表示$P(h^{(1)})$，从而通过提高$P(h^{(1)})$的办法来提高$P(v)$。}
 
 那么，怎么学习呢？可以添加一层RBM，这样就可以给$P(h^{(1)})$重新赋一组参数，然后通过新的RBM参数进行优化的方式来提高$P(h^{(1)})$。如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200407170000.png}
     \caption{Restricted Boltzmann Machine的改进示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 由此，可以认为这样一个模型，比原来的RBM更好，因为假设$P(v|b^{(1)})$是固定的，实际可以优化$P(h^{(1)})$来进一步提高模型的性能。同样的思路，可以用同样的办法来优化$P(h^{(2)})$，所以就达到了不停的往上加的效果。
 
 我们希望在训练$h^{(1)}$层的时候，希望$v$不会对$h^{(1)}$造成影响，否则计算复杂度就太高了。所以，就假设在训练$h^{(1)}$的过程中和$v$无关，所以概率图模型就变为：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200407171216.png}
     \caption{服从假设后的RBM改进示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 实际上讲解到了这里，DBN的演变模型大概都已经出来了。我觉得这个系列演变的思路在于\textbf{关于$P(h^{(1)})$和$P(v| h^{(1)})$两个部分的计算分开优化，从而发挥最大的效果，尽可能的提高模型的性能}。
 
 \subsection{为什么DBM会更好？}

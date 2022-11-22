@@ -49,12 +49,15 @@ $$
 那么，我们的数据集可以记为$\left\{ (x_i,y_i) \right\}_{i=1}^N$，其中，$x_i \in \mathbb{R}^p$，$y_i\in\{+1,-1\}$，且$\{y=+1\}$为$C_1$类，且$\{y=-1\}$为$C_2$类。那么，$X_{c_1}$被定义为$\left\{ x_i|y_i=+1 \right\}$，$X_{c_2}$被定义为$\left\{ x_i|y_i=-1 \right\}$。所以，很显然可以得到$|X_{c_1}|=N_1$，$|X_{c_2}|=N_2$，并且$N_1+N_2=N$。
 
 \section{Fisher线性判别分析}
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191031095624.png}
     \caption{Fisher线性判别分析模型图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 在左图中，我们设置了两个投影方向，很显然上面那个投影方向可以更好的将两个点之间分开。我们可以在投影方向上找一个点作为两个类别的分界点，也就是阈值(Threshhold)。首先，我们先引入一个有关投影算法的小知识。
 
@@ -69,10 +72,13 @@ $$
 
 \subsection{Fisher判别分析的损失函数表达式}
 在这个部分，主要是要得出Fisher判别分析的损失函数表达式求法。对于，投影的平均值和方差，我们可以分别表述为:
+
+$$
 \begin{gather}
     \Bar{z}=\frac{1}{N}\sum_{i=1}^{N}z_i = \frac{1}{N}\sum_{i=1}^{N}w^Tx_i \\
     S_z=\frac{1}{N}\sum_{i=1}^N(z_i-\Bar{z})(z_i-\Bar{z})^T
 \end{gather}
+$$
 
 那么对于第一类分类点$X_{c_1}$和第二类分类点$X_{c_2}$可以表述为：
 

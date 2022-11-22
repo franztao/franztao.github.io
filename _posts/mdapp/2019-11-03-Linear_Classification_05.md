@@ -98,6 +98,8 @@ $$
 
 \section{Gaussian Discriminate Analysis模型建立}
 在二分类问题中，很显然可以得到，我们的先验概率符合，$p(y)\sim$Bernoulli Distribution。也就是，
+
+$$
 \begin{table}[H]
     \centering
     \begin{tabular}{c|cc}
@@ -108,6 +110,7 @@ $$
     \caption{Bernoulli分布的概率分布表}
     \label{tab:my_label}
 \end{table}
+$$
 
 所以，可以写出：
 
@@ -157,9 +160,12 @@ $$
 $$
 
 为了方便后续的推演过程，所以，我们将Likehood function写成，
+
+$$
 \begin{center}
     $\mathcal{L}(\theta)$ = \ding{172}+\ding{173}+\ding{174}
 \end{center}
+$$
 
 并且，我们令：
 \ding{172} = $\sum_{i=1}^N \log \mathcal{N}(\mu_1, \Sigma)^y_i$，\ding{173} = $\sum_{i=1}^N \log \mathcal{N}(\mu_2, \Sigma)^{1-y_i}$，\ding{174} = $\sum_{i=1}^N \log \varphi^{y_i} + \sum_{i=1}^N \log (1-\varphi)^{1-y_i}$。那么上述函数我们可以表示为：
@@ -172,31 +178,43 @@ $$
 
 \section{Likehood functioon参数的极大似然估计}
 Likehood function的参数为$\theta = (\mu_1,\mu_2,\Sigma,\varphi)$，下面我们分别用极大似然估计对这四个参数进行求解。下面引入几个公式：
+
+$$
 \begin{gather}
     tr(AB) = tr(BA) \\
     \frac{\partial tr(AB)}{\partial A} = B^T \\
     \frac{\partial|A|}{\partial A} = |A|A^{-1} \\
     \frac{\partial In|A|}{\partial A} = A^{-1}
 \end{gather}
+$$
 
 \subsection{求解$\varphi$}
+
+$$
 \begin{center}
     \ding{174} = $\sum_{i=1}^N \log \varphi^{y_i} + \sum_{i=1}^N \log (1-\varphi)^{1-y_i}$ = $\sum_{i=1}^N y_i\log \varphi + \sum_{i=1}^N (1-y_i) \log (1-\varphi)$ 
 \end{center}
+$$
+
+$$
 \begin{gather}
     \frac{\partial   \textcircled{3}}{\partial \varphi} = \sum_{i=1}^Ny_i\frac{1}{\varphi} + \sum_{i=1}^N (1-y_i)\frac{1}{1-\varphi} = 0 \\
     \sum_{i=1}^N y_i(1-\varphi) + (1-y_i)\varphi = 0 \\
     \sum_{i=1}^N (y_i-\varphi) = 0\\
     \hat{\varphi} = \frac{1}{N} \sum_{i=1}^N y_i
 \end{gather}
+$$
 
 又因为$y_i=0$或$y_i=1$，所以$\hat{\varphi} = \frac{1}{N} \sum_{i=1}^N y_i = \frac{N_1}{N}$。
 
 \subsection{求解$\mu_1$}
+
+$$
 \begin{center}
     \ding{172} = $\sum_{i=1}^N\log \mathcal{N}(\mu_1,\Sigma)^{y_i}$ \\
     = $\sum_{i=1}^Ny_i\log \frac{1}{(2\pi)^{\frac{p}{2}}|\Sigma|^{\frac{1}{2}}}exp\left\{ -\frac{1}{2}(x_i-\mu_1)^T\Sigma^{-1}(x_i-\mu_1) \right\}$ \\
 \end{center}
+$$
 
 那么求解过程如下所示：
 由于到对$\mu_1$求偏导，我们只需要关注公式中和$\mu_1$有关的部分。那么我们可以将公式化简为：
@@ -360,6 +378,8 @@ $$
 
 \section{总结}
 下面对Gaussian Discriminate Analysis做一个简单的小结。我们使用模型为：
+
+$$
 \begin{gather}
     \hat{y} = argmax_{y\in \{0,1\}}p(y|x) \propto argmax_{y\in \{0,1\}}p(x|y)p(y) \\ 
     \left\{
@@ -369,6 +389,7 @@ $$
         \end{array}
     \right.
 \end{gather}
+$$
 
 利用极大似然估计得到的结果为：
 

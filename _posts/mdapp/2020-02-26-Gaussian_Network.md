@@ -26,12 +26,15 @@ tags:
 而如果概率图中每个节点都是一维连续随机变量，根据图是有向图还是无向图，可以被分为高斯贝叶斯网络(Gaussian Bayesian Network)和高斯马尔可夫随机场(Gaussian Markov Random Field)。
 \subsection{高斯网络概念}
 假设高斯马尔可夫随机场的概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200226164330.png}
     \caption{高斯马尔可夫随机场的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 每一个节点都是一个一维随机变量，每一个节点$x_i \sim \mathcal{N}(\mu_i,\Sigma_i)$，而所有的节点构成的集合：$\mathcal{X}=(x_1,x_2,\cdots,x_p)^T$。多维变量的高斯分布为：
 
 $$
@@ -101,12 +104,15 @@ $$
 
 \subsection{Kalman Filter回顾}
 我们以HMM为例，概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.38\textwidth]{微信图片_20200226202312.png}
     \caption{Kalman Filter的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 Kalman Filter是用来解决HMM问题中的Filter问题，也被称之为线性高斯系统，线性主要体现在下面两个地方：
 
 $$
@@ -135,12 +141,15 @@ $$
 
 \subsection{Gaussian Bayesian Model详解}
 下面我以如下所示的Gaussian Bayesian Model为例：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.28\textwidth]{微信图片_20200226204441.png}
     \caption{Gaussian Bayesian Model的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 很显然$x_{\mathrm{pa}(i)}=\{x_1,x_2\}$。根据因子分解法，我们可以得到：
 
 $$
@@ -233,12 +242,15 @@ $$
 $$
 
 假设现有一个Gaussian Markov Random Field如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.28\textwidth]{微信图片_20200226224151.png}
     \caption{Gaussian Markov Random Field的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 \subsection{Gaussian Markov Random Field的概率计算}
 之前，我们使用了最大团的势函数的乘积来计算随机变量的概率。这里成对Markov性质，我们使用另一种表达方式，更适合对此问题的分析。我们假设模型中有$p$个节点，那么概率表达如下所示：

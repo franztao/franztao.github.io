@@ -28,12 +28,15 @@ tags:
 
 \section{变量消除法(Variable Elimination Algorithm)}
 假如我们有一个马氏链：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20191207173240.png}
     \caption{一个马氏链的抽象模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 那么我们怎么来求$p(d)$呢？根据公式我们可以得到：
 

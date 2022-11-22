@@ -114,12 +114,15 @@ $$
 $$
 
 而这里的$Q(Z)$的分布我们怎么得到呢？这里我们就要来讲一讲EM算法的一个核心的理解了。首先我们给出这个理解的图示结果，再对这个图来进行讲解：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.40\textwidth]{微信图片_20191218203645.png}
     \caption{EM算法迭代流程图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 由于我们的目标是最大化ELBO。这个下界我们怎么优化？因为我们需要优化的是ELBO的参数$\theta$。那么，对于某一个时刻的$\theta^{(t)}$，我们可以的得到一个关于$\theta$的函数：
 
@@ -158,12 +161,15 @@ $$
 
 \section{从Jensen Inequality的角度进行分析}
 首先，我们介绍一下什么是Jensen Inequality。实际上，进行过一些机器学习理论研究的同学，都应该听说过这个概念。在这里我们做一个简述。首先我们需要保证函数是一个凸函数，下面我们来画一个凸函数：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.40\textwidth]{微信图片_20191218214143.png}
     \caption{凸函数示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 那么对于一个$t\in [0,1]$，$c = ta+(1-t)b$，我们都可以得到：
 
@@ -198,12 +204,15 @@ $$
 根据Jensen Inequality的定义，当$\frac{P(X,Z|\theta)}{Q(Z)} = C$时可以取得等号。不知道，大家有没有发现这里的$\mathbb{E}_{Z\sim Q(Z)}\left[ \log \frac{P(X,Z|\theta)}{Q(Z)} \right]$实际上就是$\int_Z Q(Z) \log \frac{P(X,Z|\theta)}{Q(Z)}dZ$，也就是之前在KL Divergence角度进行分析时得到的ELBO。
 
 毫无疑问，当我们取等时，可以达到最大。所以有，
+
+$$
 \begin{gather}
     \frac{P(X,Z|\theta)}{Q(Z)} = C \\
     Q(Z) = \frac{1}{C} P(X,Z|\theta) \\
     \int_Z Q(Z) dZ = \frac{1}{C} \int_Z P(X,Z|\theta) dZ \\
     1 = \frac{1}{C} P(X|\theta)
 \end{gather}
+$$
 
 所以，我们就可以得到：
 

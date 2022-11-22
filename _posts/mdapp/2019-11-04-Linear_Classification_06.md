@@ -19,12 +19,15 @@ tags:
 
 \section{条件独立性假设}
 条件独立性假设用简单的图来进行表述，可以表示为如下图所示的形式：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191104091918.png}
     \caption{条件独立性假设}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 我们可以将其定义为$x_i\perp x_j|y\ (i \neq j)$。根据贝叶斯公式可以得：
 

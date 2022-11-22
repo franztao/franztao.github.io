@@ -25,12 +25,15 @@ tags:
 概率图模型，如果不考虑时序的关系，我们可以大致的分为：有向图的Bayesian Network和无向图的Markov Random Field (Markov Network)。这样，我们根据分布获得的样本之间都是iid (独立同分布)的。比如Gaussian Mixture Model (GMM)，我们从$P(X|\theta)$的分布中采出N个样本$\{ x_1,x_2,\cdots,x_n \}$。N个样本之间都是独立同分布的。也就是对于隐变量$Z$，观测变量$X$之间，我们可以假设$P(X|Z) = \mathcal{N}(\mu,\Sigma)$，这样就可以引入我们的先验信息，从而简化$X$的复杂分布。
 
 如果引入了时间的信息，也就是$x_i$之间不再是iid的了，我们称之为Dynamic Model。模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200107212223.png}
     \caption{Dynamic Model拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 Dynamic Model可以从两个层面来看，横着看就是time的角度，如果是竖着看就可以表达为$P(X|Z)$的形式，也就是Mixture的形式。概率系统根据状态与状态之间的关系，可以分为两类。
 
@@ -40,12 +43,15 @@ Dynamic Model可以从两个层面来看，横着看就是time的角度，如果
 
 \section{HMM算法简介}
 Hidden Markov Model的拓扑结构图如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200107213811.png}
     \caption{Hidden Markov Model拓扑结构图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 大家看到这个模型就会觉得和上一讲提到的，MCMC模型方法有点类似。HMM可以看做一个三元组$\lambda = (\pi, \mathcal{A}, \mathcal{B})$。其中：
 

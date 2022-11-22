@@ -32,12 +32,15 @@ tags:
 \subsection{为什么要近似推断？}
 为什么要近似近似推断呢？因为大部分情况下，精确推断实在是太复杂了，
 基本上是intractable。为了解决这个大问题，诞生了很多近似推断的方法，为什么会造成这个原因呢？我们看看下面四个模型，为了方便描述，假设每个节点都是离散随机变量，服从伯努利分布(0/1分布)。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.9\textwidth]{微信图片_20200315123116.png}
     \caption{Boltzmann Machine，Restricted Boltzmann Machine，Deep Boltzmann Machine和Sigmoid Belief Network的概率图模型，灰色的节点代表$v$，白色的节点代表$h$。}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \subsubsection{Boltzmann Machine}
 图一中的(1)就是Boltzmann Machine，它的理论依据是很好的，但是并没有很好的办法去解决它。无向图求解概率密度分布，需要转换成最大团势函数的乘积，而Boltzmann Machine中节点之间的关系过于复杂，很难被分解。所以导致计算基本是intractable的。\textbf{无向图的后验不好处理的原因就是连接本身带来相互作用，不容易进行分解，这是无向图模型的硬伤。}
 \subsubsection{Restricted Boltzmann Machine}

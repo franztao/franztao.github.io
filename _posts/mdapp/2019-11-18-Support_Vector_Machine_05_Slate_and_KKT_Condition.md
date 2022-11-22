@@ -17,8 +17,6 @@ tags:
     - Condition
 ---
 
-    
-
 首先，我们整理一下前面得到的有关约束优化的模型。我们可以描述为：
 
 $$
@@ -57,10 +55,13 @@ $$
 $$
 
 那么，我们的优化目标为：
+
+$$
 \begin{gather}
     p^\ast = inf\{ t|(\mu,t)\in G,\mu \leq 0 \} \\ 
     g(\lambda) = inf(t+\lambda\mu|(\mu,t)\in G)
 \end{gather}
+$$
 
 通常来说，凸优化问题，不一定是强对偶问题。往往都是凸优化问题需要加上一些限定条件才可以构成强对偶问题。比如说slate condition，但是这些条件往往都是充分非必要的。这样的条件有很多种，slate condition只是其中一种，类似的还有KKT condition。
 
@@ -146,7 +147,3 @@ $$
 3. 梯度为零：$\frac{\partial \mathcal{L}(x,\lambda^\ast,\eta^\ast)}{\partial x}\mid_{x=x^\ast} = 0$。
 
 我们可以对比之前学习的SVM的KKT条件。
-
-
-
-

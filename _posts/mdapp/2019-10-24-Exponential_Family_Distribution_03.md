@@ -20,10 +20,13 @@ tags:
 本小节主要介绍Exponential Distribution中对数配分函数和充分统计量，还有极大似然估计和充分统计量的关系。
 
 指数族分布的基本形式可以表示为：
+
+$$
 \begin{gather}
     p(x|\eta) = h(x)exp\left\{ \eta^T\varphi(x)-A(\eta) \right\} \\
     p(x|\eta) = \frac{1}{exp \{A(\eta)\}} h(x)exp\left\{ \eta^T\varphi(x)\right\}
 \end{gather}
+$$
     
 
 \section{对数配分函数和充分统计量}
@@ -54,11 +57,14 @@ $$
 $$
 
 将等式的左边的$exp \{A(\eta)\} $移到等式的右边可得，
+
+$$
 \begin{gather}
     A'(\eta) = \int h(x)exp\left\{ \eta^T\varphi(x) - A(\eta)\right\}\varphi(x) dx \\
     A'(\eta) = \int p(x|\eta)\varphi(x)dx \\
     A'(\eta) = \mathbb{E}_{x \sim p(x|\eta)}[\varphi(x)]
 \end{gather}
+$$
 
 其实通过同样的方法可以证明出，
 
@@ -94,11 +100,14 @@ $$
     \end{split}
 \end{equation}
 $$
+
+$$
 \begin{gather}
     \frac{\partial}{\partial \eta} \left\{ \sum_{i=1}^N\log h(x_i) + \sum_{i=1}^N\eta^T\varphi(x_i) - A(\eta) \right\} = 0 \\
     \sum_{i=1}^N\varphi(x_i) = N A'(\eta) \\ 
     A'(\eta) = \frac{1}{N}\sum_{i=1}^N\varphi(x_i)
 \end{gather}
+$$
 
 或者说，我们可以认为是：$A'(\eta_{MLE}) = \frac{1}{N}\sum_{i=1}^N\varphi(x_i)$。并且，$A'(\eta_{MLE})$是一个关于$\eta_{MLE}$的函数。那么反解，我们就可以得到$\eta_{MLE}=(A^{(-1)}(\eta))'$。所以我们要求$\eta_{MLE}$，我们只需要得到$\frac{1}{N}\sum_{i=1}^N\varphi(x_i)$即可。所以，$\varphi(x)$为一个充分统计量。
 

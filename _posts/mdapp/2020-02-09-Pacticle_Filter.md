@@ -298,12 +298,15 @@ Sequential Importance Sampling最大的问题就是\textbf{权值退化}。也�
 
 \subsection{SIR采样方法}
 经过重要性采样后，我们得到了$N$个样本点，以及对应的权重。那么我用权重来作为采样的概率，重新测采样出$N$个样本。也就是如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.5\textwidth]{微信图片_20191230154011.png}
     \caption{Sampling Importance Resampling示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 通过二次采样可以降低采样不平衡的问题。至于为什么呢？大家想一想，我在这里表达一下自己的看法。$\frac{p(z_i)}{q(z_i)}$是Weight，如果Weight比较大的话，说明$p(z_i)$比较大而$q(z_i)$比较的小，也就是我们通过$q(z_i)$采出来的数量比较少。那么我们按权重再来采一次，就可以增加采到重要性样本的概率，成功的弥补了重要性采样带来的缺陷，有效的弥补采样不均衡的问题。
 
@@ -323,9 +326,12 @@ $$
 \end{equation}
 $$
 所以，$w_t^{(i)} = P(x_t|z_t^{(i)})\cdot w^{(i)}_{t-1}$，且$z^{(i)}\sim P(z_t|z_{t-1}^{(i)})$。改写后的算法为SIR Filter，也就是下列三个部分组成的：
+
+$$
 \begin{center}
     Sequential Importance Sampling + Resampling + $Q(z_t|z_{1:t-1},x_{1:t})=P(z_t|z_{t-1}^{(i)})$
 \end{center}
+$$
 那么我们为什么要令$Q(z_t|z_{1:t-1},x_{1:t})=P(z_t|z_{t-1}^{(i)})$呢？因为在$t$时刻采样的时候，不是要去找一个新的分布，而是就从之前就用的一个中进行寻找。我们可以用一个很简单的例子来说明：就像很多人寻找自己的另一半，找了很久都没有合适的，直到最后才发现另一半就在自己身边的朋友中，也就是“兔子就吃窝边草”吧。我们用之前就算好的会方便很多。
 
 我们用，{ generate and test}，来描述这个过程非常的形象。Generate是$z_t\longrightarrow P(z_t|Z_{t-1}^{(i)})$，也就是状态转移矩阵。而Test是$w_{t-1}$，也就是$P(x_t|z_t^{(i)})$这个实际上就是发射矩阵，这个实际上是一举两得的作用。$P(x_t|z_t^{(i)})$越大一方面表示了发射矩阵的概率大；另一方面是表示了采样的权重很大，采出来的样本越重要，采样的效率越高。所以，$Q(z_t|z_{1:t-1},x_{1:t})=P(z_t|z_{t-1}^{(i)})$呢？因为在$t$起到了一语双关的重用，实现了共同目标的优化。

@@ -162,12 +162,15 @@ $$
 可以近似的认为$P_{\mathrm{data}} = P_{\mathrm{model}}$。$P_{\mathrm{data}}$是真实分布，是不知道的，我们只能通过从中采样来得到经验分布。$P_\mathrm{model}$是自定义的假设，希望用这个假设的模型通过对经验分布的学习去逼近真实分布。梯度为零时，这两个分布近似相等，也就达到了我们的目的。
 
 下面我们将对梯度函数进行具体的分析，梯度函数可以分成两部分，第一部分是Postive phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|$；第二部分是Negative phase：$\sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)$。$\theta$的改变会对$P_{\mathrm{model}}$产生影响，\textbf{{记住我们的目标是令$P_{\mathrm{data}} = P_{\mathrm{model}}$。}}假设，对$P_{\mathrm{data}}$和$P_{\mathrm{model}}$的采样结果如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.65\textwidth]{微信图片_20200308152246.png}
     \caption{$P_{\mathrm{data}}$和$P_\mathrm{model}$采样分布图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中红色表示从$P_{\mathrm{data}}$中的采样结果$\{x_i\}_{i=1}^m$；绿色表示从$P_{\mathrm{model}}$中的采样结果$\{\hat{x}_i\}_{i=1}^m$。采样都是会趋向于采出概率函数大的区域，如上图所示。因为改变$\theta$，实际上是对$P_{\mathrm{model}}$带来变化。那么对于$P_{\mathrm{data}}$概率值高的地方，自然也希望$P_{\mathrm{model}}$的概率值也高，所以是Postive phase。而对于$P_{\mathrm{model}}$概率值高的地方，是不准确的，我们希望降低它的概率值，这就是Negative Phase。而从另一个方面想，概率密度函数的积分为1，有地方升高就要有地方降低。这就是我对Negative phase和Postive phase的理解。
 
 刚刚将的是对梯度函数的分析。而对目标函数$\mathcal{L}(\theta)$，另外又给出了一个Intuitive的解释，为什么$Z(\theta)$要变少？$Z(\theta) = \int \hat{P}(X;\theta)dX$，这个积分代表的是$\hat{P}(X;\theta)$函数曲线和坐标轴围起来的面积。而$P_{\mathrm{model}}$中的样本称之为“fantasy particle”，是不信任它的，我们信任的是$P_{\mathrm{data}}$真实分布中的样本，所以要把$P_{\mathrm{model}}$中样本对应的概率往下拉。
@@ -177,26 +180,35 @@ $$
 \section{The Problem of Gradient Ascent in MCMC}
 \subsection{算法简介}
 \noindent When $t+1$:
+
+$$
 \begin{enumerate}
     \item Sampling for Postive phase from $P_{\mathrm{data}}$: $\{x_1,x_2,\cdots,x_m\}\sim P_{\mathrm{data}}$，直接从经验分布中采样得到training data。
     \item Sampling for Negative phase from $P_{\mathrm{model}}=P(X;\theta^{(t)})$ ($\theta^{(t)}$已知): $\{\hat{x}_1,\hat{x}_2,\cdots,\hat{x}_m\}\sim P_{\mathrm{model}}$。需要使用Gibbs采样来实现从$P_{\mathrm{model}}$中采样：
-    \begin{enumerate}
+    
+$$
+\begin{enumerate}
         \item 初始化$\hat{x}_i$，这个样本可以从任意分布中采样，比如均匀分布或者标准高斯分布，初始化分布和最后的结果没有关系，可以随意选取。
         \item 构建一条链，在经过一段时间(Mixing time)后，收敛到平稳随机分布，如下图所示：
-        \begin{figure}[H]
+        
+$$
+\begin{figure}[H]
         \centering
         \includegraphics[width=.55\textwidth]{微信图片_20200309153828.png}
         \caption{Gibbs采样示例}
         \label{fig:my_label_1}
         \end{figure}
+$$
         我们假设在第$k$步收敛到平稳的状态，之后从平稳分布采一个样本即可。从串行和并行的角度来考虑这个问题，串行角度可以单独使用一条链，待到分布收敛之后，从分布中采$m$次样；并行角度可以使用$m$条链，从每条链的平稳分布中采1次样，这样就能得到$m$个样本点。很显然，并行的方法采样效率更高，但是对内存的消耗也就越大。
     \end{enumerate}
+$$
     \item 最后可以得到$t+1$时刻的参数为：
     $$
     \theta^{(t+1)} = \theta^{(t)} + \eta \left[ \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|_{\theta=\theta^{(t)}} \right] - \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)|_{\theta=\theta^{(t)}} \right]
     \right]
     $$
 \end{enumerate}
+$$
 \subsection{算法带来的问题}
 主要问题就是Mixing time时间太长了，有可能$k \longrightarrow \infty$，这个值实在是太大了。如果，无向图比较简单还好，如果无向图模型过于复杂的话，MCMC很难知道什么时候会到达平稳状态。于是，需要想想别的办法。
 
@@ -293,12 +305,15 @@ $$
 
 \subsection{Restricted Boltzmann Machine模型描述}
 这里只做简要的描述，具体请看之前有关RBM的详细描述。这里只做简要概述，RBM概率图模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200311150228.png}
     \caption{Restricted Boltzmann Machine概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 公式化表达如下所示：
 
 $$
@@ -551,12 +566,15 @@ $$
 其中，$\sum_h P(h_i=1|v) v_j$可以计算出来，可以直接用training set表示；而$\sum_v P(v) P(h_i=1,v)v_j$是intractable，那么我们的主要目标就是求解这个intractable的部分，主要思想是用采样法(CD-K)来解决。CD-K直接以training set为初始值。
 
 实际上，$\sum_v P(v) P(h_i=1,v)v_j$，可以看成是期望$\mathbb{E}_{P(v)}[P(h_i=1,v)v_j]$，那么我们的重点是如何从$P(v)$中进行采样，把采样的结果代入到$P(h_i=1,v)v_j]$中即可。由于，$P(v)$非常的复杂，所以采用基于CD-K的Gibbs采样，$v$的初始值是训练数据集，采样模型如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.85\textwidth]{微信图片_20200311212825.png}
     \caption{Gibbs采样示意图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 注意，传统的Gibbs采样时固定是一维一维的采。由于RBM的良好性质，$v$中的节点都是相互独立的，所以可以多个节点一起采，被称之“块Gibbs采样”。这样，$v^{(0)}$是training set，$v^{(k)} \sim P(v)$。这样就可以成功的计算$\sum_v P(v) P(h_i=1,v)v_j$了，那么这个梯度的计算也就搞定了。
 
 ~\\

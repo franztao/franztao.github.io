@@ -13,8 +13,6 @@ tags:
     - Algorithm
 ---
 
-    
-
 我们将$X$：Observed data；$Z$：Latent Variable + Parameters。那么$(X,Z)$为complete data。根据我们的贝叶斯分布公式，我们所要求的后验分布为：
 
 $$
@@ -149,7 +147,6 @@ $$
 
 这里的$\hat{p}(X,z_j)$表示为一个相关的函数形式，假设具体参数未知。那么(7)式将等于(13)式减(11)式：
 
-
 $$
 \begin{equation}
     \int_{z_j} q_j(z_j)\log q_i(z_i) dz_j - \int_{z_j}q_j(z_j) \log \hat{p}(X,z_j) dz_j + C = -KL(q_j || \hat{p}(x,z_j)) \leq 0
@@ -160,7 +157,9 @@ $argmax_{q_j(z_j)}-KL(q_j || \hat{p}(x,z_j))$等价于$argmin_{q_j(z_j)}KL(q_j |
 
 
 
-%  \begin{table}[!htbp]
+
+$$
+\begin{table}[!htbp]
 % \renewcommand\arraystretch{1.5}
 % \footnotesize
 % \centering
@@ -172,7 +171,7 @@ $argmax_{q_j(z_j)}-KL(q_j || \hat{p}(x,z_j))$等价于$argmin_{q_j(z_j)}KL(q_j |
 % 管理性提问（次）&16&10&10&5&5&4&3&4&3&6&66\\
 % 识记性提问（次）&20&30&36&11&10&13&45&12&15&13&205\\
 % 提示性提问（次）&4&2&10&6&3&7&5&4&3&3&47\\
-% 重复性提问（次）	&26&8&1&4&9&7&25&15&6&7&108\\
+% 重复性提问（次）    &26&8&1&4&9&7&25&15&6&7&108\\
 % 创造性提问（次）&1&3&3&1&6&8&3&5&4&2&36\\
 % 评价性提问（次）&8&3&0&1&6&4&2&3&2&0&29\\
 % 学生回答完全正确（次）&69&53&57&27&34&35&80&41&30&29&455\\
@@ -187,12 +186,4 @@ $argmax_{q_j(z_j)}-KL(q_j || \hat{p}(x,z_j))$等价于$argmin_{q_j(z_j)}KL(q_j |
 % \hline
 % \end{tabular}
 % \end{table}
-
-
-
-
-
-
-
-
-
+$$

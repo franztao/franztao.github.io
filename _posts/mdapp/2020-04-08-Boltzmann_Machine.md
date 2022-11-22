@@ -23,12 +23,15 @@ tags:
 玻尔兹曼机（Boltzmann Machine）在“受限玻尔兹曼机”那一章就有了简单的描述。在那一章我们就较为详细的分析过了，由于Boltzmann machine中的依赖关系过于复杂，它的Learning和Inference问题基本是intractable。所以，为了简化而提出了受限玻尔兹曼机（Restricted Boltzmann Machine）。但是，为什么又重新谈谈这个似乎不太好的模型呢？主要原因是Boltzmann Machine是深度信念网络（DBN），前馈神经网络等网络结构的基础，大名鼎鼎的变分推断（Variational Inference）也是Hinton为求解Boltzmann machine而提出的。
 \section{Introduction}
 Boltzmann machine节点之间为任意连接，节点可以分为可观测变量$v$和不可观测变量$h$。每个节点都符合$\{0,1\}$的伯努利分布。Boltzmann machine模型的概率图示意图如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200409150446.png}
     \caption{Boltzmann machine模型的概率图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中，$v_{D\times 1} \in \{0,1\}^D$，$h_{P\times 1} \in \{0,1\}^P$。根据“受限玻尔兹曼”那节的知识，可以得出，概率图的联合概率分布为：
 
 $$
@@ -197,12 +200,15 @@ $$
 解释一下，这两个公式是什么意思。公式表达的是，在已知一个节点以外的所有的点的条件下，这个节点的条件概率是可求的。其中$1\setminus i$表达的意思是$1 \sim D$但不包括$i$的所有节点。
 
 为什么说很幸运呢？因为真实的后验是求不出来的，但是MCMC提供了一种一维一维的采样的方法（Gibbs采样法）。而每一个维的概率分布可以求出来，那么Gibbs采样就可以很愉快的被使用了。而且，这个结论同时也可以在RBM中使用，下面我们来举个例子，假设有一个RBM，如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.35\textwidth]{微信图片_20200414173610.png}
     \caption{RBM概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 由于在已知$v$的情况下，$h$中的节点都是相互独立的，所以:
 
 $$

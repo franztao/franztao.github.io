@@ -63,10 +63,13 @@ $$
 过拟合问题(over-fitting)问题是深度学习中一个很重要的问题，往往是由少量的数据拟合高维的向量所造成的。解决over-fitting的方法有很多，通常是使用这几种思路：1.增加数据量；2.特征选择/特征提取(PCA)；3.增加正则项的方法。
 
 正则项通常可以描述为Loss Function + Penalty，也就是$L(w)+\lambda P(w)$。正则化的方法通常有以下两种：
+
+$$
 \begin{enumerate}[itemindent = 1em, itemsep = 0.4pt, parsep=0.5pt, topsep = 0.5pt]
 \item Lasso，其中$P(w) = ||w||_1 = \sum_{i=1}^Nw_i$
 \item Redge，岭回归，也就是$P(w)=||w||_2^2=\sum_{i=1}^Nw_i^2$
 \end{enumerate}
+$$
 
 \section{岭回归频率派角度}
 Loss function可写为$ L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW$

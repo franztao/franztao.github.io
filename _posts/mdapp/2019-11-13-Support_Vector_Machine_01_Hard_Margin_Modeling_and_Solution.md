@@ -24,12 +24,15 @@ tags:
 众所周知，Support Vector Machine (SVM)有三宝，间隔，对偶，核技巧。所以，SVM可以大致被分为三类：hard-margin SVM；soft-margin SVM；kernel SVM。
 
 \section{SVM基本思想}
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191113104442.png}
     \caption{二分类问题模型图}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 支持向量机模型可以被简要的描述为：$f(w) = w^Tx + b$。很显然这是一个判别模型。实际上，我们想一想就知道，这样的直线其实有很多的。但是紫色的那条虽然可以做到分类的效果，但是效果也太差了，没有什么鲁棒性，泛化能力并不行。显然，绿色的那条直线要更好一些。那么，SVM的基本思想可以被简要的概述为，找到一条最好的直线，离样本点距离足够的大。
 
@@ -277,12 +280,15 @@ $$
 $$
 
 其中$\lambda_i(1-y_i(w^Tx_i+b)) = 0$是互补松弛条件(Complementary Relaxation Condition)。{ 满足KKT条件是原问题的对偶(dual)问题有强对偶关系的充分必要条件。}下面我们用一张图来进行理解KKT条件的作用：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.55\textwidth]{微信图片_20191114112701.png}
     \caption{支持向量的KKT条件}
     \label{fig:my_label_1}
 \end{figure}
+$$
 
 首先，需要明确，离分界面最近的数据点满足这个条件，$y_i(w^Tx_i+b)=1$至于为什么？前面的公式(4)有详细的分析。那么离分界面最近的数据点就被我们称为支持向量了。在支持向量上$1-y_i(w^Tx_i+b)=0$，那么$\lambda_i$可以不为0。而在其他向量上一定会有$1-y_i(w^Tx_i+b)<0$为了满足$\lambda_i(1-y_i(w^Tx_i+b)) = 0$，必然有$\lambda_i=0$，那么我们就可以理解为这个数据点失去了作用。所以，KKT条件使得，支持向量机中只有支持向量在模型的优化中有作用，这实在是太棒了。
 
@@ -295,11 +301,14 @@ $$
 $$
 
 但是，现在怎么求$b^\ast$是一个很尴尬的问题，因为我们在求$\frac{\partial \mathcal{L}}{\partial b}$的时候，并没有看到和$b$相关的等式。但是我们知道只有支持向量会在模型求解中起作用，那么有支持向量$(x_k,y_k)$使得$1-y_k(w^Tx_k+b)=0$。所以：
+
+$$
 \begin{gather}
     y_k(w^Tx_k + b) = 1 \\
     y_k^2(w^Tx_k + b) = y_k \\
     b^\ast = y_k - w^Tx_k = y_k - \sum_{i=1}^N \lambda_iy_ix_i^T x_k
 \end{gather}
+$$
 
 那么做到这里，我们的hard-margin SVM就已经做完了。模型为$f(x)=sign(w^{\ast T}x+b^{\ast})$，超平面为$w^{\ast T}+b^{\ast}$。其中$w^\ast = \sum_{i=1}^N \lambda_iy_ix_i$，$b^\ast = y_k - \sum_{i=1}^N \lambda_iy_ix_i^T x_k$。
 

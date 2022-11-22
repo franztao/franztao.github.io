@@ -25,29 +25,38 @@ tags:
 
 \subsection{聚合型聚类(Compactness)}
 常见的聚类方法有两种思路，一种就是聚合型聚类(Compactness)。典型的算法有K-means和Gaussian Mixture Model这种。GMM我们在前面的章节中有详细的描述，GMM Clustering的思想可以这样来表述。我们首先看到GMM的概率图模型，如下所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.25\textwidth]{微信图片_20200302213857.png}
     \caption{GMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 GMM从几何角度来看，就是也就是多个高斯分布来取加权平均值。我们想将样本分成多少类，那么$Z$就有多少种可能，假设我们需要将其分成$N$类。那么$Z$是一个离散变量，$Z\in \{1,2,3,\cdots,N\}$，当$Z$取每次取不同的值时都对应着一个不同的高斯分布，公式化表达为：$P(x|z)\sim \mathcal{N}(\mu,\sigma^2)$。那么对于一个样本，我们可以计算出它属于每一个类别的不同的概率，从中选取概率最大的即可。GMM举例如下图所示：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.45\textwidth]{微信图片_20200302215950.png}
     \caption{GMM的概率图模型}
     \label{fig:my_label_1}
 \end{figure}
+$$
 GMM相关的具体知识，包括GMM的定义和EM算法进行求解等，请阅读小编之前写的“白板推导 高斯混合模型”。很明显，我们看到GMM的边界轮廓都是圆的，学术的讲就是“凸”(Convex)的。\textbf{这样的考虑忽略了数据之间的结构关系，主要考虑的是特征之间的相似度，而且是一种中心的距离方式。}而这时候我们需要引出另一种聚类算法的思路了，连通性(Connectivity)。
 
 \subsection{连通性聚类(Connectivity)}
 连通性聚类(Connectivity)算法的典型代表就是谱聚类(Spectral Clustering)。比如，下面的数据分布，很显然用Spectral Clustering的方法来聚类成如下的形式更加的合理。如下图所示。\textbf{很显然这是一个non-convex的聚类方式，更加注重的是数据分布之间的连通性，并且利用图结构考虑到了数据内部的结构性特点，目标是使不同的类别数据点分的越开越好，至于为什么？请接着往下看Spectral Clustering的模型描述}。
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.25\textwidth]{微信图片_20200302231505.png}
     \caption{Spectral Clustering示例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 \subsection{小结}
 聚合型聚类(Compactness)和连通性聚类(Connectivity)方法各有千秋。对于“凸”型形状，聚合型聚类(Compactness)更好一些，主要考虑的是特征之间的相似度。在复杂情况下，结合Kernel的做法可以简化计算，这个在“核技巧”那章有详细的说明。而连通性聚类(Connectivity)方法，主要考虑的是数据的结构上的特点，适合随意的形状。
 
@@ -63,12 +72,15 @@ $V=\{1,2,3,\cdots,N\}$：无向图中每一个节点代表一个数据样本，�
 $X=\begin{bmatrix}x_1,x_2,\cdots,x_N\end{bmatrix}^T = \begin{bmatrix}x_1^T \\ x_2^T \\ \vdots \\ x_N^T\end{bmatrix}_{N\times p} $：代表有$N$个样本，每个样本都是$p$维的。而$V$中的$i$就对应着$x_i$，表示第$i$个样本。
 
 $E:[w_{ij}]_{n\times n}$：这个被称为相似度矩阵，也就是用来表示样本与样本之间的权重。只有点与点之间存在边，才有权重，否则为0。比如如下图所示的一个概率图结构：
+
+$$
 \begin{figure}[H]
     \centering
     \includegraphics[width=.4\textwidth]{微信图片_20200303131334.png}
     \caption{Spectral Clustering示例}
     \label{fig:my_label_1}
 \end{figure}
+$$
 其中：
 $$
 w_{ij} = 
