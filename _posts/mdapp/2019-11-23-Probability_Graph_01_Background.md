@@ -30,6 +30,7 @@ Product Rule：$p(x_1,x_2) = p(x_1)p(x_2|x_1) = p(x_2)p(x_1|x_2)$。
 根据这两个基本的法则，我们可以推出Chain Rule和Bayesian Rule。
 
 Chain Rule：
+
 $$
 \begin{equation}
    p(x_1,x_2,\cdots,x_N) = \prod_{i=1}^N p(x_i|x_1,x_2,\cdots,x_{i-1}) 
@@ -38,6 +39,7 @@ $$
 
 
 Bayesian Rule：
+
 $$
 \begin{equation}
     p(x_2|x_1) = \frac{p(x_1,x_2)}{p(x_1)} = \frac{p(x_1,x_2)}{\int p(x_1,x_2)dx_2} = \frac{p(x_2|x_1)p(x_1)}{\int p(x_2|x_1)p(x_1)dx_2}
@@ -53,6 +55,7 @@ $$
 
 
 2. 假设每个维度之间是符合马尔科夫性质(Markov Propert)的。所谓马尔可夫性质就是，对于一个序列$\{ x_1,x_2,\cdots,x_N \}$，第$i$项仅仅只和第$i-1$项之间存在依赖关系。用符号的方法我们可以表示为：
+
 $$
 \begin{equation}
     X_j\bot X_{i+1}| x_i, j<i
@@ -61,6 +64,7 @@ $$
 在HMM里面就是这样的齐次马尔可夫假设，但是还是太强了，我们还是要想办法削弱。自然界中经常会出现，序列之间不同的位置上存在依赖关系，因此我们提出了{ 条件独立性}。
 
 3. 条件独立性：条件独立性假设是概率图的核心概念。它可以大大的简化联合概率分布。而用图我们可以大大的可视化表达条件独立性。我们可以描述为：
+
 $$
 \begin{equation}
     X_A \bot X_B |X_C

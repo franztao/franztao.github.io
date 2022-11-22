@@ -77,6 +77,7 @@ tags:
 \textbf{1. 高专家：}
 高水平的专家可以正确的分辨国宝和赝品。
 
+
 $$
 \begin{equation}
     \left\{
@@ -89,6 +90,7 @@ $$
 $$
 
 其中，我们将用对数似然函数的形式来进行表达。而$1-D(x)$中的$x$是来自$G(z)$的，那么，高专家部分的目标函数为：
+
 $$
 \begin{equation}
     \max_D \underbrace{\mathbb{E}_{x\sim P_{data}}[\log D(x)]}_{\frac{1}{N} \sum_{i=1}^N \log D(x_i)} +  \mathbb{E}_{x\sim P_{z}}[\log (1-D(G(z)))]
@@ -97,18 +99,21 @@ $$
 
 \textbf{2. 高大师：}
 高水平的大师的目的就是要造成高水平的鉴赏专家分辨不出来的工艺品，可以表示为：
+
 $$
 \begin{equation}
     \text{if $x$ is from $P_g$ then $\log(1-D(G(z)))$ $\uparrow$}
 \end{equation}
 $$
 此目标表达为数学语言即为：
+
 $$
 \begin{equation}
     \min_G \mathbb{E}_{z\sim P_g}[\log(1-D(z))]
 \end{equation}
 $$
 根据图2中的feedback流向，我们可以了解到，先优化鉴赏专家，再优化工艺大师。总优化目标是：
+
 $$
 \begin{equation}
     \min_G \max_D \mathbb{E}_{x\sim P_{data}}[\log D(x)] + \mathbb{E}_{x\sim P_{z}}[\log (1-D(G(z)))]
@@ -133,12 +138,14 @@ $P_g(x;\theta_g)$：generator，$G(z;\theta_g)$
 $y|x$：discriminater，$P(y=1|x)=D(x)$，$P(y=0|x)=1-D(x)$
 
 $G(z;\theta_g)$和$D(x;\theta_d)$是两个多层感知机。GAN就是这样采用对抗学习，其最终目的就是$P_g = P_{data}$。目标函数中，记：
+
 $$
 \begin{equation}
     V(D,G) = \mathbb{E}_{x\sim P_{data}}[\log D(x)] + \mathbb{E}_{x\sim P_{z}}[\log (1-D(G(z)))]
 \end{equation}
 $$
 最终的目标是令$P_g = P_{data}$，而$P_g $中的参数为$\theta_g$。在之前的极大似然估计思想中，
+
 $$
 \begin{equation}
     \theta_g = \arg\max_{\theta_g} \sum_{i=1}^N \log P_g(x_i)
@@ -150,6 +157,7 @@ $$\arg\min_{\theta_g} \text{KL}(P_{data}\|P_g)$$
 ~\\
 
 对公式(5)的求解过程可以分成两步，而第一步为求解过程为fixed G，求解$\max_D V(G,D)$
+
 $$
 \begin{equation}
     \begin{split}
@@ -160,6 +168,7 @@ $$
 $$
 
 通过求偏导来计算最优解：
+
 $$
 \begin{equation}
     \begin{split}
@@ -174,12 +183,14 @@ $$
 \int P_{\text{data} }\cdot \frac{1}{D} + P_g \frac{-1}{1-D} dx = 0
 $$
 恒成立，所以有：
+
 $$
 \begin{equation}
     D^\ast = \frac{P_{\text{data}}}{P_{\text{data}} + P_{g}}
 \end{equation}
 $$
 第二步，将求解的是：
+
 $$
 \begin{equation}
     \begin{split}
@@ -189,6 +200,7 @@ $$
 \end{equation}
 $$
 观察$\mathbb{E}_{x\sim P_{\text{data}}} \left[   \log \frac{P_{\text{data}}}{P_{\text{data}} + P_{g}}\right]$会发现这很像一个KL散度，但是$P_{\text{data}} + P_{g}$不是一个概率分布。所以，通过$\frac{P_{\text{data}} + P_{g}}{2}$来将其转换为一个概率分布。那么有，
+
 $$
 \begin{equation}
 \begin{split}

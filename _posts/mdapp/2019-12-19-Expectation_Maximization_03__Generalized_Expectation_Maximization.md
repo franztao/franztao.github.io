@@ -32,6 +32,7 @@ $\theta$：Model Parameter。
 
 \section{极大似然估计}
 所以，根据极大似然估计法的思路，我们要求的最优化参数$\hat{\theta}$为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -48,6 +49,7 @@ $$
 \section{广义的EM算法}
 
 EM算法是为了解决参数估计问题，也就是learning问题：
+
 $$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta} P(X|\theta)
@@ -59,11 +61,13 @@ $$
 这里说明一下，我们习惯用的表达是$\log P(X|\theta)$，但是也有的文献中使用$P(X;\theta)$或者$P_\theta(X)$。这三种表达方式代表的意义是等价的。
 
 前面我们已经说过了，我们的目标是：
+
 $$
 \begin{equation}
     \log P(X|\theta) = \underbrace{ELBO}_{L(Q,\theta)} + KL(Q||P) \geq L(Q,\theta)
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \left\{
@@ -78,6 +82,7 @@ $$
 但是，问题马上就上来了，那就是$P(Z|X,\theta)$非常有可能求不出来。那么我们怎么来求解这个方程呢？也就是使下界变得更大。
 
 首先第一步，我们把$\theta$给固定住。那么，$P(Z|X,\theta)$的结果就是一个定值。那么KL越小，ELBO就会越大。由于，$Q(Z)$是我们引入的一个中间变量，那么我们的第一步就是得到：
+
 $$
 \begin{equation}
     \hat{Q}(Z) = \arg\min_{Q} KL(Q||P) = \arg\max_Q L(Q,\theta)
@@ -85,6 +90,7 @@ $$
 $$
 
 当$Q$被我们求出来以后，我们就可以将$Q$固定了，再来求解$\theta$：
+
 $$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta} L(\hat{q},\theta)
@@ -92,6 +98,7 @@ $$
 $$
 
 那么，广义的EM算法，就可以被我们定义为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -104,6 +111,7 @@ $$
 $$
 
 看到这里，我估计大家已经可以理解上一小节中，为什么有的$\theta$带$(t)$有的不带。因为，首先第一步中是固定$\theta$求$Q$，这里的$\theta$就是来自于上一次迭代的$\theta^{(t+1)}$。第二次，是将上一步求得的$Q$固定，将$\theta$看成参数，来求最优的表达结果的$\theta^{(t+1)}$。另一个方面，从等式(7)的第三行，我们可以可以看出实际上：
+
 $$
 \begin{equation}
     ELBO = \mathbb{E}_{Q(Z)}[\log P(X,Z|\theta)] + H(Q(Z))
@@ -116,6 +124,7 @@ $$
 
 \section{坐标上升法}
 EM算法的整体描述如下所示：
+
 $$
 \begin{equation}
     \left\{

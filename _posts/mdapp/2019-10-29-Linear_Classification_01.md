@@ -41,6 +41,7 @@ tags:
 \section{线性分类}
 
 线性回归和线性分类之间有着很大的联系。从某种意义上说，线性分类就是线性回归函数使用激活函数的结果，同时也可以看成是线性回归降维的结果。对于一个线性回归函数，我们可以通过添加全局函数的形式来将其转换为线性分类函数。也就是
+
 $$
 \begin{equation}
     y=w^Tx+b \longrightarrow y=f(w^Tx+b)
@@ -55,6 +56,7 @@ $$
 
 \subsection{软分类}
 所谓硬分类，也就是$y\in \{0,1\}$，大致上可以分成生成式模型，Gaussian Distribution Analysis和著名的判别式模型，Logistic Regression。
+
 $$
 \begin{equation}
     p(y|x)=\frac{p(x|y)p(y)}{p(x)} \propto p(x|y)p(y)

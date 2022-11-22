@@ -40,6 +40,7 @@ Sigmoid Belief Network的概率图模型如下所示：
     \label{fig:my_label_1}
 \end{figure}
 其中，
+
 $$
 \begin{equation}
     P(S_i=1) = \frac{1}{ 1 + \exp\{ b_i + w_1s_1 + w_2s_2 + w_3s_3 \}}
@@ -47,6 +48,7 @@ $$
 $$
 \subsection{DBN的联合概率分布}
 在之前的章节我们详细的描述过了，在使用极大似然估计法中基本离不开求联合概率分布。所以，这里需要求DBN的联合概率分布，而求联合概率分布最终的就是因子分解。那么，我们首先要理顺一下各层之间的依赖关系。显然，$v$层只和$h^{(1)}$有关，$h^{(1)}$层只和$h^{(2)}$，那么有：
+
 $$
 \begin{equation}
     \begin{split}
@@ -58,6 +60,7 @@ $$
 \end{equation}
 $$
 下一步则是将这三个部分分布表示。根据公式（1）的结论，可以类比的得出：
+
 $$
 \begin{equation}
     \begin{split}
@@ -67,6 +70,7 @@ $$
 \end{equation}
 $$
 而$h^{(2)}$和$h^{(3)}$之间是RBM模型，沿用在RBM那一章讲的Boltzmann Distribution可以得到：
+
 $$
 \begin{equation}
     P(h^{(2)},h^{(3)}) = \frac{1}{Z} \exp\left\{ \left(h^{(3)}\right)^Tw^{(3)}h^{(2)} + \left(h^{(2)}\right)^T b^{(2)} + \left(h^{(3)}\right)^T b^{(3)} \right\}
@@ -74,6 +78,7 @@ $$
 $$
 
 其中参数为：
+
 $$
 \begin{equation}
     \theta = \{ W^{(1)},W^{(2)},W^{(3)},b^{(0)},b^{(1)},b^{(2)},b^{(3)} \}
@@ -94,6 +99,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 首先，回忆一下当时是如何进行求解的。通过一系列的化简，得到了log likelihood gradient的表达形式：
+
 $$
 \begin{equation}\begin{aligned}
 \frac{\partial}{\partial w_{i j}} \log P(v) &=\sum_{h} \sum_{v} P(h, v)\left(-h_{i} v_{j}\right)-\sum_{h} P(h | v)\left(-h_{i} v_{j}\right) \\
@@ -112,6 +118,7 @@ $$
 
 \subsection{RBM的改进}
 根据图3可知，
+
 $$
 \begin{equation}
     P(v) = \sum_{h^{(1)}} P(v, h^{(1)}) = \sum_{h^{(1)}} P(h^{(1)})P(v| h^{(1)})
@@ -148,6 +155,7 @@ $$
 
 \subsection{为什么DBM会更好？}
 下面将给出推导来证明，为什么添加DBM会使得模型变得更好。首先计算一些RBM的下界。
+
 $$
 \begin{equation}
     \begin{split}
@@ -161,6 +169,7 @@ $$
 \end{equation}
 $$
 那么，$\sum_{h^{(1)}} Q(h^{(1)}|v) \left[ \log P(v|h^{(1)}) + \log P(h^{(1)}) - \log Q(h^{(1)}|v) \right]$就是原来的RBM的下界。在RBM中当整个模型训练完毕之后，$w$已经是确定的，那么$\log P(v|h^{(1)})$和$\log Q(h^{(1)}|v)$都可以看成是一个常数，而$Q(h^{(1)}|v)$是一个后验。所以下界被我们写为：
+
 $$
 \begin{equation}
     \sum_{h^{(1)}} Q(h^{(1)}|v) \log P(h^{(1)}) + C
@@ -178,6 +187,7 @@ $$
 \section{贪心逐层预训练}
 \subsection{近似推断的基本思想}
 本节主要是以一个传统的RBM的角度来看DBN的Learning。在上一小节，已经较为详细的论述了，每加一层就会使得ELBO增加一些。假如，先只引入一个隐藏层$h^{(1)}$，那么有：
+
 $$
 \begin{equation}
     \begin{split}
@@ -199,6 +209,7 @@ $$
 现在的问题是$Q(h^{(1)}|v)$指的是一个近似分布，但是这个分布怎么求呢？注意，我们采取的逐层训练的方法，你可以理解是前馈神经网络一样，求对某层求解时，假设其他层的参数都是固定的，不予考虑，从下往上一层一层的训练。
 
 求解的思路是这样的，假设$v$和$h^{(1)}$之间是无向图，那么这两层之间可以看成是一个RBM，因为是RBM就不存在不可分解的问题，后验计算比较方便，这时$Q(h^{(1)}|v) = P(h^{(1)}|v)$，可以得到：
+
 $$
 \begin{equation}
     Q(h^{(1)}|v) = \prod_i Q(h^{(1)}_i|v) = \prod_i \text{sigmoid}\left( w^{(1)}_{i,:} + b^{(1)}_i \right)

@@ -29,6 +29,7 @@ tags:
 
 \section{从几何角度来看}
 从几何角度来看比较的简单，也就是多个高斯分布来取加权平均值。也就是一个混合高斯分布就是多个高斯分布叠加而成的。那么，概率密度函数，可以被我们写成：
+
 $$
 \begin{equation}
     p(x) = \sum_{k=1}^K \alpha_k \mathcal{N}(\mu_k, \Sigma_k), \qquad \sum_{k=1}^K \alpha_k = 1
@@ -43,6 +44,7 @@ $$
     \caption{二维数据分布举例}
     \label{fig:my_label_1}
 \end{figure}
+
 
 $$
 \begin{equation}

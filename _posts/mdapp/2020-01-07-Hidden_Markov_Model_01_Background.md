@@ -75,6 +75,7 @@ $\mathcal{B}$表示为观测变量和隐变量之间的关系。
 1. 齐次Markov假设(无后向性)；2. 观察独立假设。
 
 \textbf{齐次马尔可夫假设：}未来与过去无关，只依赖与当前的状态。也就是：
+
 $$
 \begin{equation}
     P(i_{t+1}|i_{t},i_{t-1},\cdots,i_1,o_t,\cdots,o_1) = P(i_{t+1}|i_t)
@@ -82,6 +83,7 @@ $$
 $$
 
 2. \textbf{观测独立假设：}
+
 $$
 \begin{equation}
     P(o_{t}|i_{t},i_{t-1},\cdots,i_1,o_t,\cdots,o_1) = P(o_{t}|i_t)

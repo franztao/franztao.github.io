@@ -30,6 +30,7 @@ Boltzmann machine节点之间为任意连接，节点可以分为可观测变量
     \label{fig:my_label_1}
 \end{figure}
 其中，$v_{D\times 1} \in \{0,1\}^D$，$h_{P\times 1} \in \{0,1\}^P$。根据“受限玻尔兹曼”那节的知识，可以得出，概率图的联合概率分布为：
+
 $$
 \begin{equation}\left\{\begin{array}{l}
 P(v, h)=\frac{1}{2} \exp \{-\text{E}(v, h)\} \\
@@ -47,12 +48,14 @@ $$\sum_v P(v) = \sum_v \sum_{h}P(v,h)$$
 $$\frac{1}{D}\sum_v \log P(v)$$
 \subsection{似然导数求解}
 那么，下一步就是对对数似然函数求导，即为：
+
 $$
 \begin{equation}
 \frac{\partial}{\partial \theta} \frac{1}{D} \sum_{v} \log p(v)=\frac{1}{D} \sum_{v} \frac{\partial \log p(v)}{\partial \theta}
 \end{equation}
 $$
 在“直面配分函数”那章的公式（27），我们已经详细的推导了Boltzmann Distribution的log似然梯度，
+
 $$
 \begin{equation}\begin{aligned}
 \frac{1}{D} \frac{\partial}{\partial \theta} \log P(v) 
@@ -60,6 +63,7 @@ $$
 \end{aligned}\end{equation}
 $$
 我们主要研究的是对$w$的求导，对其他两个参数矩阵的求导都一样，而且比$w$要更简单一点，这里主要是对$w$求导。小编狠下心来，系统的看了一下矩阵求导，迟早都要学的，建议大家也可以系统的看看，挺有帮助的。那么对$w$参数矩阵的求导如下所示：
+
 $$
 \begin{equation}\begin{aligned}
 \frac{\partial \log p(v)}{\partial W} &=\sum_{v} \sum_{h} p(v, h) \cdot-\left(v h^{\top}\right) - \sum_{h} p(h | v) \cdot - \left(v h^{\top}\right) \\
@@ -67,24 +71,28 @@ $$
 \end{aligned}\end{equation}
 $$
 其中，$\text{E}(v, h)=-\left(v^{\top}Wh+\frac{1}{2} v^{\top} L v+\frac{1}{2} h^{\top} J h\right)$。注意一下，这里的$v$和$h$矩阵的大小分别为，$D\times  1$和$P\times 1$。$v^{\top}Wh$是一个一维的，那么对$W_{D\times  P}$求导，得到的也必然是一个$D\times  P$的矩阵。那么，很简单可以得到：
+
 $$
 \begin{equation}
 \frac{1}{D} \sum_{v} \frac{\partial \log P(v)}{\partial W}=\frac{1}{D} \sum_{v} \sum_{h} p(h | v) \cdot v h^{T}-\frac{1}{D} \sum_{v} \sum_{v} \sum_{h} P(v, h)\cdot v h^{T}
 \end{equation}
 $$
 看到其中的$\frac{1}{D} \sum_{v} \sum_{v} \sum_{h} P(v, h)\cdot v h^{T}$，对$v$和$h$求完和以后，显然$\sum_{v} \sum_{h} P(v, h)\cdot v h^{T}$是一个常数$C$。所以，$frac{1}{D} \sum_{v} \sum_{v} \sum_{h} P(v, h)\cdot v h^{T} = \frac{1}{D} \sum_{v} C = \frac{1}{D} D\cdot C = \sum_{v} \sum_{h} P(v, h)\cdot v h^{T}$。所以，公式（5）可以改写为：
+
 $$
 \begin{equation}
 \frac{1}{D} \sum_{v} \frac{\partial \log P(v)}{\partial W}=\frac{1}{D} \sum_{v} \sum_{h} P(h | v) \cdot v h^{T}- \sum_{v} \sum_{h} P(v, h)\cdot v h^{T}
 \end{equation}
 $$
 而公式（6）可以被简写为：
+
 $$
 \begin{equation}
 \frac{1}{D} \sum_{v} \frac{\partial \log P(v)}{\partial W}=\mathbb{ E}_{P_{\text {data }}}\left[v h^{\top}\right]- \mathbb{E}_{P_{\text {model }}}\left[v h^{\top}\right]
 \end{equation}
 $$
 其中，
+
 $$
 \begin{equation}
     \begin{split}
@@ -99,20 +107,23 @@ $$
     \item Boltzmann Machines中的节点可以分为可观测变量集合$v$和不可观测变量集合$h$。每个节点属于0/1分布，$v_{D\times 1} \in \{0,1\}^D$，$h_{P\times 1} \in \{0,1\}^P$。
     \item 参数集合为：$\theta = \{ W,L,J \}$。参数矩阵的大小为：$L=[L_{ij}]_{D\times D}$，$J=[J_{ij}]_{P\times P}$，$W= [w_{ij}]_{D\times P}$。
     \item Boltzmann Distribution的模型表示为：
-    $$
+    
+$$
 \begin{equation}\left\{\begin{array}{l}
     P(v, h)=\frac{1}{2} \exp \{-\text{E}(v, h)\} \\
     \text{E}(v, h)=-\left(v^{\top} \cdot W \cdot h+\frac{1}{2} v^{\top} \cdot L v+\frac{1}{2} h^{\top} \cdot J \cdot h\right)
     \end{array}\right.\end{equation}
 $$
     \item 求解参数用到极大似然估计，Log-Likelihood Function为：
-    $$
+    
+$$
 \begin{equation}
         \frac{1}{D}\sum_v \log P(v)
     \end{equation}
 $$
     \item 通过计算可以得到每个参数矩阵的似然梯度为：
-    $$
+    
+$$
 \begin{equation}\left\{\begin{array}{l}
     \Delta W=\alpha \left(\mathbb{E}_{p_{data}}\left[v h^{\top}\right]-\mathbb{E}_{p_{\text{model}}}\left[v h^{\top}\right]\right) \\
     \Delta L=\alpha \left(\mathbb{E}_{p_{data}}\left[v v^{\top}\right]-\mathbb{E}_{p_{\text{model}}}\left[v v^{\top}\right]\right) \\
@@ -120,7 +131,8 @@ $$
     \end{array}\right.\end{equation}
 $$
     其中：
-    $$
+    
+$$
 \begin{equation}
         \left\{
         \begin{array}{ll}
@@ -138,12 +150,14 @@ $$
 \section{基于MCMC的似然梯度下降}
 \subsection{MCMC似然梯度求解总述}
 在第二小节中，我们已经讲到了，使用梯度上升法来使log似然函数达到最大，从而求解对应的最优参数。参数更新公式为：
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \theta^{(t)} + \triangle \theta
 \end{equation}
 $$
 其中，$\triangle \theta = \{ \triangle W, \triangle L, \triangle J \}$。以$\triangle W$为例，$\triangle W$是一个矩阵$\triangle W = [\triangle w_{ij}]$。其中，
+
 $$
 \begin{equation}
     \triangle w_{ij} = \alpha \left[ \underbrace{\mathbb{E}_{P_{\text{data}}}[v_ih_j]}_{\text{Postive phase}} - \underbrace{\mathbb{E}_{P_{\text{model}}}[v_ih_j]}_{\text{Negative phase}} \right]
@@ -153,12 +167,14 @@ $$
 这个Postive和Negative phase的说法，我们在“直面配分函数”那章有详细的描述。那么，\textbf{现在的难点就是$v_ih_j$从何而来。}
 
 回忆一下，在RBM中，$P(h | v)$是可以直接求出来的。
+
 $$
 \begin{equation}
 P(h | v)=\prod_{l=1}^{m} P\left(h_{l} | v\right)=\left(\sigma\left(\sum_{j=1}^{n} w_{l j} v_{i}+\beta_{l}\right)\right)^{k}\left(1-\sigma\left(\sum_{j=1}^{n} w_{l j} v_{i}+\beta_{l}\right)\right)^{m-k}
 \end{equation}
 $$
 而$P_{\text{data}}$直接从样本中进行采样就可以了，而$P_{\text{model}}(v,h)$为：
+
 $$
 \begin{equation}\begin{aligned}
 P(h, v) h_{i} v_{j} &=\sum_{h} \sum_{v} P(v) P(h | v) h_{i} v_{j} \\
@@ -171,6 +187,7 @@ $$
 \textbf{这里再明确一下逻辑，在求解$\triangle W$中，主要是解决三个部分，$P_{\text{data}} (v),P_{\text {model }}(h | v),P_{\text {model }}(v, h)$，其中$P_{\text {model }}(v, h) = P_{\text {model }}(h | v)\cdot P_{\text {model }}(v)$。 所以，而$P_{\text{data}} (v)$和$P_{\text {model }}(v)$相对比较简单，所以难点在于$P_{\text {model }}(h | v)$的求解。而在RBM中$P_{\text {model }}(h | v)$比较容易求解，而$P_{\text {model }}(v, h)$过于复杂，所以要采用MCMC来解决。而在Boltzmann Machines中，由于关系过于复杂，没有办法分解，甚至最大团分解都没有用，因为最大团就是自己，那么连$P_{\text {model }}(h | v)$都求不出来，那么Postive phase和Negative phase都是Intractable。}
 
 很幸运的是，通过推导，可以得到：
+
 $$
 \begin{equation}\begin{array}{l}
 P\left(v_{i}=1 | h, v_{-i}\right)=\sigma\left(\sum_{j=1}^{P} w_{i j} h_{j}+\sum_{k=1\setminus i}^{D} L_{i k} v_{k}\right) \\
@@ -187,10 +204,12 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 由于在已知$v$的情况下，$h$中的节点都是相互独立的，所以:
+
 $$
 \begin{equation}P(h | v)=\prod_{j=1}^{3} p\left(h_{j} | v\right)\end{equation}
 $$
 同理可得：
+
 $$
 \begin{equation}P\left(h_{j} = 1| v\right)=P\left(h_{j} =1 | v, h_{-j}\right)=\sigma \left(\sum_{i=1}^{D} w_{ij} v_{i}+0\right)\end{equation}
 $$
@@ -198,6 +217,7 @@ $$
 
 \subsection{条件概率推导}
 在3.1节中，给出了两个条件概率分布:
+
 $$
 \begin{equation}\begin{array}{l}
 P\left(v_{i}=1 | h, v_{-i}\right)=\sigma\left(\sum_{j=1}^{P} w_{i j} h_{j}+\sum_{k=1\setminus i}^{D} L_{i k} v_{k}\right) \\
@@ -205,6 +225,7 @@ P\left(h_{j}=1 | v, h_{-j}\right)=\sigma\left(\sum_{i=1}^{D} w_{i j} v_{i}+\sum_
 \end{array}\end{equation}
 $$
 这一节，就来详细的推导一下：
+
 $$
 \begin{equation}\begin{aligned}
 P\left(v_{i} | h, v_{-i}\right)&=\frac{P(v, h)}{P(h, v_{-i})}=\frac{\frac{1}{Z} \exp \{-\mathbb{E}(v, h)\}}{\sum_{v_i} \frac{1}{Z} \exp (-\mathbb{E}(v, h)\}} = \frac{\exp \left\{v^{\top} W h+\frac{1}{2} v^{\top} L v+\frac{1}{2} h^{\top} J h\right\}}{\sum_{v_{i}} \exp \left\{v^{\top} W h+\frac{1}{2} v^{\top}L v+\frac{1}{2} h^{\top} J h\right\}}\\
@@ -212,6 +233,7 @@ P\left(v_{i} | h, v_{-i}\right)&=\frac{P(v, h)}{P(h, v_{-i})}=\frac{\frac{1}{Z} 
 \end{aligned}\end{equation}
 $$
 由于$\exp \left\{\frac{1}{2} h^{\top} J h\right\}$和$v$没有关系，所以被单独提出来准备约掉。那么有：
+
 $$
 \begin{equation}
     \begin{split}
@@ -221,18 +243,21 @@ $$
 \end{equation}
 $$
 令$v_i=1$和分母部分没有关系，因为$\sum_{v_{i}}$之后，是和$v_{i}$无关的部分了。所以，
+
 $$
 \begin{equation}
     P\left(v_{i}=1 | h, v_{-i}\right) =  \frac{\exp \left\{v^{\top} W h+\frac{1}{2} v^{\top} L v\right\}|_{v_i = 1}}{\exp \left\{v^{\top} W h+\frac{1}{2} v^{\top} L v\right\}|_{v_i = 1} + \exp \left\{v^{\top} W h+\frac{1}{2} v^{\top} L v\right\}|_{v_i = 0}}
 \end{equation}
 $$
 为了简化公式，我们将公式简写为：
+
 $$
 \begin{equation}
     P\left(v_{i}=1 | h, v_{-i}\right) = \frac{\triangle|_{v_i = 1}}{\triangle|_{v_i = 0} + \triangle|_{v_i = 1}}
 \end{equation}
 $$
 \textbf{下一步很自然的想到，将包含$v_i$的项，从公式中分离，然后赋予相应的值。}
+
 $$
 \begin{equation}\begin{aligned}
 \Delta v_{i}=& \exp \left\{v^{\top} w h+\frac{1}{2} v^{\top} L v\right\}=\exp \left\{\sum_{\hat{i}=1}^{D} \sum_{j=1}^{P} v_{\hat{i}} w_{\hat{i} j} h_{j}+\frac{1}{2} \sum_{\hat{i}=1}^{D} \sum_{k=1}^{D} v_{\hat{i}} L_{\hat{i} k} v_{k}\right\} \\
@@ -241,6 +266,7 @@ $$
 \end{aligned}\end{equation}
 $$
 又因为$L_{ii}=0$，且$L$矩阵是对称的，所以$\sum_{\hat{i}=1\setminus i}^{D} v_{\hat{i}} L_{\hat{i} i} v_{i} = \sum_{\hat{k}=1\setminus i}^{D} v_{i} L_{i k} v_{k}$。所以，
+
 $$
 \begin{equation}
     \begin{split}
@@ -250,6 +276,7 @@ $$
 \end{equation}
 $$
 其中，$\frac{1}{2} \sum_{\hat{i}=1}^{D} \sum_{k=1}^{D} v_{\hat{i}} L_{\hat{i} k} v_{k}$是按这样的方式进行分解：
+
 $$
 \begin{equation}
     \left\{
@@ -265,18 +292,21 @@ $$
 而$(D-1)(D-1) + (D-1) + (D-1) + 1 = D^2$。
 
 那么，使用公式（26）的推导结果，可以得到：
+
 $$
 \begin{equation}
     \Delta v_{i = 0} = \exp \left\{\sum_{\hat{i}=1\setminus i}^{D} \sum_{j=1}^{P} v_{\hat{i}} w_{\hat{i} j} h_{j}+ \frac{1}{2}\sum_{\hat{i}=1\setminus i}^{D} \sum_{k=1}^{D} v_{\hat{i}} L_{\hat{i} k} v_{k} \right\} = \exp \left\{ A+B \right\}
 \end{equation}
 $$
 其中，$A = \sum_{\hat{i}=1\setminus i}^{D} \sum_{j=1}^{P} v_{\hat{i}} w_{\hat{i} j} h_{j}, B = \frac{1}{2}\sum_{\hat{i}=1\setminus i}^{D} \sum_{k=1}^{D} v_{\hat{i}} L_{\hat{i} k} v_{k}$。同理可得：
+
 $$
 \begin{equation}
     \Delta v_{i = 1} = \exp \left\{A + B +\sum_{j=1}^{P} w_{i j} h_{j} + \sum_{\hat{k}=1\setminus i}^{D} L_{i k} v_{k} \right\}
 \end{equation}
 $$
 所以，将公式（28）和（29）的结果代入到公式（24）中可得：
+
 $$
 \begin{equation}
 \begin{split}
@@ -296,6 +326,7 @@ $$
 
 \subsection{平均场理论求解}
 这部分的基础思想，在“近似推断”那一章有非常详细的描述。大体上说就是通过优化下界ELBO，来达到求解的效果，有兴趣的同学请回顾“近似推断”。公式近似推断中的公式（5）可得：
+
 $$
 \begin{equation}
     \begin{split}
@@ -305,6 +336,7 @@ $$
 \end{equation}
 $$
 根据平均场理论（假设分布可以分解成几个部分之积），假定$Q_\phi(h|v) = \prod_{j=1}^P Q_\phi(h_j|v)$，令$Q_\phi(h_j=1|v)=\phi_j$，$\phi$就可以认为是$\{  \}$。那么推导过程如下所示：
+
 $$
 \begin{equation}
     \begin{split}
@@ -313,6 +345,7 @@ $$
     \end{split}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \begin{split}
@@ -321,6 +354,7 @@ $$
 \end{equation}
 $$
 其中，$\phi_j$是和$h$相关的参数，$\left[ -\log Z  + \frac{1}{2} v^{\top} L v +\right]$与$\phi$没有关系，那么$\sum_h Q_\phi(h|v) \left[ -\log Z  + \frac{1}{2} v^{\top} L v +\right]$可以写成$ \left[ -\log Z  + \frac{1}{2} v^{\top} L v \right]\sum_h  Q_\phi(h|v)$。很显然，$\sum_h  Q_\phi(h|v) = 1$，所以，$ \arg\max_{\phi_j} \sum_h Q_\phi(h|v) \left[ -\log Z  + \frac{1}{2} v^{\top} L v \right] $和$\phi$没有关系，可以直接约掉。化简之后，
+
 $$
 \begin{equation}
     \begin{split}
@@ -331,6 +365,7 @@ $$
 \end{equation}
 $$
 那么，下一步工作就是将$h_j$分离出来。
+
 $$
 \begin{equation}
     \begin{split}
@@ -340,6 +375,7 @@ $$
 \end{equation}
 $$
 $\sum_{i=1}^{D} \sum_{j=1}^{P} v_{i} w_{i j} h_{j}$中一共有$D\times P$项，这里太复杂了，我们先挑一项来分析一下。
+
 $$
 \begin{equation}
     \begin{split}
@@ -349,6 +385,7 @@ $$
 \end{equation}
 $$
 这里将$\sum_{h \setminus h_2} \prod_{\hat{j}=1\setminus 2}^{P} Q_{\phi}\left(h_{\hat{j}} | v\right)$提出了分析一下，
+
 $$
 \begin{equation}
     \begin{split}
@@ -357,6 +394,7 @@ $$
 \end{equation}
 $$
 显然，$\sum_{h_1} Q_{\phi}\left(h_{1} | v\right) = \sum_{h_3} Q_{\phi}\left(h_{3} | v\right) = \sum_{h_4} Q_{\phi}\left(h_{4} | v\right) =\cdots = 1$。所以，$\sum_{h \setminus h_2} \prod_{\hat{j}=1\setminus 2}^{P} Q_{\phi}\left(h_{\hat{j}} | v\right) = 1$。那么，
+
 $$
 \begin{equation}
 \begin{split}
@@ -367,18 +405,21 @@ $$
 \end{equation}
 $$
 那么，依次类推，可以得出：
+
 $$
 \begin{equation}
     \circled{1} = \sum_{i=1}^D  \sum_{j}^P \phi_{j}v_iw_{ij}
 \end{equation}
 $$
 而$\circled{2}$的做法相对复杂一些，基本思想和$\circled{1}$的分解，基本一致，也是要想办法将$h_j$分解出来。那么，目标为将其中和$h_j$相关的项分解出来：
+
 $$
 \begin{equation}
     \sum_{\hat{j}=1}^{P} \sum_{m=1\setminus j}^{P} h_{\hat{j}} J_{\hat{j}m} h_{m} 
 \end{equation}
 $$
 大体求解思路是可以分成如下四个部分：
+
 $$
 \begin{equation}
     \left\{
@@ -392,12 +433,14 @@ $$
 \end{equation}
 $$
 其中，$\hat{j} = j, m = j$的情况下$J_{jj}=0$，直接省略掉。$\hat{j} = j, m \neq j$和$\hat{j} \neq j, m = j$是对称的，相加起来可以抵掉$\frac{1}{2}$这个系数，而$\hat{j} \neq j, m \neq j$的情况与$h_j$无关。所以：
+
 $$
 \begin{equation}
     \circled{2} = \sum_{j=1}^{P} \sum_{m=1\setminus j}^{P} \phi_{j} \phi_{m} J_{jm}
 \end{equation}
 $$
 最后一项$\circled{3}$的化简为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -408,6 +451,7 @@ $$
 $$
 
 我们想得到使ELBO最大时对应的$\phi_j$，那么就对$\phi_j$求偏导，可以得到：
+
 $$
 \begin{equation}\left\{\begin{aligned}
 &\frac{\partial \circled{1}}{\partial \phi_{j}}=\sum_{i=1}^{D} v_{i} w_{i j}\\
@@ -418,6 +462,7 @@ $$
 合并起来即为：
 $$\frac{\partial[ \circled{1} + \circled{2} + \circled{3} ]}{\partial \phi_{j}} = 0$$
 解得：
+
 $$
 \begin{equation}
     \phi_{j} = \sigma\left( \sum_{i=1}^{D} v_{i} w_{i j} + \sum_{m=1\setminus j}^{P} \phi_{m} J_{j m} \right)
@@ -426,6 +471,7 @@ $$
 观察一下$\phi_{j}$的结果，里面有一个项为$\sum_{m=1\setminus j}^{P} \phi_{m}$。所以，利用公式（45）求解最终结果的方法依然比较坎坷。
 
 首先，$\{ \phi_j \}_{j=1}^P$都赋予一个初始值。然后依次计算$\phi_1,\phi_2,\cdots,\phi_P$，得到的结果为第一次迭代$\{ \phi^{(1)} \}$。不断的重复这个过程，直到最后收敛为止，收敛时得到的结果$\{ \hat{\phi}_j \}_{j=1}^P$就是最终的答案。实际上就是求解不动点方程——公式（45），采用的是坐标上升法求解。利用不动点方程的求解结果，可以得到$Q_\phi$：
+
 $$
 \begin{equation}
     \{ \hat{\phi}_j \}_{j=1}^P \Longrightarrow Q_\phi

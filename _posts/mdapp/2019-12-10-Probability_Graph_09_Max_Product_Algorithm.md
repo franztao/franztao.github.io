@@ -37,6 +37,7 @@ tags:
 \end{figure}
 
 在这个树中，我们将$m_{b \longrightarrow a}$看成是能使$p(x_b,x_c,x_d|E)$联合概率达到最大的值。每一个节点代表的是到这个节点为止的路径联合概率达到最大的值。我们表达为：
+
 $$
 \begin{equation}
     m_{j\longrightarrow i} = \max_{x_j} \varphi_i\varphi_{ij}\prod_{k\in \{NB(j)-i\}}m_{k \longrightarrow j}
@@ -44,6 +45,7 @@ $$
 $$
 
 那么，在图一所示的概率图模型中，$m_{c\longrightarrow b}$可以表示为：
+
 $$
 \begin{equation}
     m_{c\longrightarrow b}=\max_{x_c} \varphi_c\cdot \varphi_{bc}
@@ -51,6 +53,7 @@ $$
 $$
 
 其中，$\varphi_c\cdot \varphi_{bc}$可以表示为和$c$相关的函数。
+
 $$
 \begin{equation}
     m_{d\longrightarrow b}=\max_{x_d} \varphi_c\cdot \varphi_{cd}
@@ -58,6 +61,7 @@ $$
 $$
 
 其中，$\varphi_d\cdot \varphi_{cd}$可以表示为和$d$相关的函数。
+
 $$
 \begin{equation}
     m_{b\longrightarrow a} = \max_{x_b} = \varphi_b \cdot \varphi_{ab}\cdot m_{c\longrightarrow b}\cdot m_{d\longrightarrow b}
@@ -65,6 +69,7 @@ $$
 $$
 
 最终，我们将得到的是：
+
 $$
 \begin{equation}
     \max p(a,b,c,d) = \max_{x_a} \varphi_a m_{b\longrightarrow a}
@@ -75,6 +80,7 @@ $$
 
 \section{Belief Propagation}
 实际上这个算法的提出时因为，多次求边缘概率密度会发现中间有很多的步骤是重复的。我们用$m_{i\longrightarrow j}$记录每一个边缘概率，最后进行组合就行。所以，
+
 $$
 \begin{equation}
     m_{j\longrightarrow i}(x_i) = \sum_{x_j} \varphi_{i,j}(x_i,x_j)\varphi_j(x_j) \prod_{\{k \in NB(j)\}\longrightarrow i } m_{k\longrightarrow j}(x_j)
@@ -82,6 +88,7 @@ $$
 $$
 
 而：
+
 $$
 \begin{equation}
     p(x_i) = \varphi(x_i) \prod_{k \in NB(x_i)} m_{k\longrightarrow i}(x_i)

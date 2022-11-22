@@ -25,6 +25,7 @@ tags:
 假设$t$时刻，我们获得的样本为$z_1^{(t)},z_2^{(t)},z_3^{(t)}$。
 
 那么$t+1$时刻，我们的采样顺序为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -39,6 +40,7 @@ $$
 
 \section{接受率$\alpha$的计算}
 我们首先回顾一下，MH采样的方法。我们的目的是从$Q(Z|Z^{(t)})$中采样获得$Z^\ast$，然后计算接受率
+
 $$
 \begin{equation}
     \alpha = \min \left( 1, \frac{P(Z^\ast)Q(Z|Z^\ast)}{P(Z)Q(Z^\ast|Z)}  \right)
@@ -46,6 +48,7 @@ $$
 $$
 
 首先我们来看$Q(Z|Z^{(t)})$：
+
 $$
 \begin{equation}
     \begin{split}
@@ -57,6 +60,7 @@ $$
 假设我们现在是在对第$i$维进行采样，我们只要关注$P(Z_i^\ast | Z_{-i})$。所以，我们可以得到：$Q(Z|Z^{(t)}) = P(Z_i^\ast | Z_{-i}^{(t)})$。
 
 已经成功的将$Q(Z|Z^{(t)})$做了等价转换以后。那么我们想要求的$\alpha$可以被我们成功的转换成如下的形式：
+
 $$
 \begin{equation}
     \alpha = \min \left( 1, \frac{P(Z^\ast_{i}|Z^\ast_{-i})P(Z^\ast_{-i})P(Z_i|Z^\ast_{-i})}{P(Z_i|Z_{-i})P(Z_{-i})P(Z^\ast_i|Z_{-i})} \right)
@@ -70,6 +74,7 @@ $$
 当$t=2$的时刻，我们假设先对第一维进行采样就可以得到：$Z_1^{(2)},Z_2^{(1)},Z_3^{(1)}$。
 
 很显然$Z_2^{(1)},Z_3^{(1)}$根本没有发生变化。我们可以得到$Z_{-1} = Z_{-1}^\ast$。也就是在Gibbs采样时，采样前后只关注于一个维度，其他的维度我们都没有关注到。所以就可以得到结论：
+
 $$
 \begin{equation}
     Z_{-i} = Z_{-i}^\ast
@@ -77,6 +82,7 @@ $$
 $$
 
 那么，我们把这个结论代入到公式(4)中，就可以得到：
+
 $$
 \begin{equation}
     \alpha = \min \left( 1, \frac{P(Z^\ast_{i}|Z^\ast_{-i})P(Z^\ast_{-i})P(Z_i|Z^\ast_{-i})}{P(Z_i|Z_{-i}^\ast)P(Z_{-i}^\ast)P(Z^\ast_i|Z_{-i}^\ast)} \right) = 1

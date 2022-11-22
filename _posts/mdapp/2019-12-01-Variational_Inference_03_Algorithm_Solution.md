@@ -18,6 +18,7 @@ tags:
 
 
 在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明，{ $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。}在上一节中，我们得出：
+
 $$
 \begin{equation}
     \log q_j(z_j) = \mathbf{E}_{\prod_{i \neq j}q_i(z_i)}\left[ \log p(X,Z|\theta) \right] + C
@@ -25,6 +26,7 @@ $$
 $$
 
 并且，我们令数据集为$X = \{ x^{(i)} \}_{i=1}^N$，$Y = \{ y^{(i)} \}_{i=1}^N$。variation的核心思想是在于用一个分布$q$来近似得到$p(z|x)$。其中优化目标为，$\hat{q} = argmin\ KL(q||p)$。其中：
+
 $$
 \begin{equation}
     \log p(X|\theta) = ELBO (\mathcal{L}(q)) + KL(q||p) \geq  \mathcal{L}(q)
@@ -32,6 +34,7 @@ $$
 $$
 
 在这个求解中，我们主要想求的是$q(x)$，那么我们需要弱化$\theta$的作用。所以，我们计算的目标函数为：
+
 $$
 \begin{equation}
     \hat{q} = argmin_{q} KL(q||p) = argmax_q \mathcal{L}(q)
@@ -42,6 +45,7 @@ $$
 
 \section{数学符号规范化}
 在这里我们弱化了相关参数$\theta$，也就是求解过程中，不太考虑$\theta$起到的作用。我们展示一下似然函数，
+
 $$
 \begin{equation}
     \log p_{\theta}(X) = \log \prod_{i=1}^N p_{\theta}(x^{(i)}) = \sum_{i=1}^N \log p_{\theta}(x^{(i)})
@@ -51,6 +55,7 @@ $$
 我们的目标是使每一个$x^{(i)}$最大，所以将对ELBO和$KL(p||q)$进行规范化表达：
 
 ELBO：
+
 $$
 \begin{equation}
     \begin{split}
@@ -60,6 +65,7 @@ $$
 $$
 
 KL:
+
 $$
 \begin{equation}
     KL(q||p) = \int q(z)\cdot \log \frac{q(z)}{p_{\theta}(z|x^{(i)})} dz
@@ -67,6 +73,7 @@ $$
 $$
 
 而，
+
 $$
 \begin{equation}
     \begin{split}
@@ -94,6 +101,7 @@ $$
 1. 首先假设上就有问题，这个假设太强了。在假设中，我们提到，假设变分后验分式是一种完全可分解的分布。实际上，这样的适用条件挺少的。大部分时候都并不会适用。
 
 2. Intractable。本来就是因为后验分布$p(Z|X)$的计算非常的复杂，所以我们才使用变分推断来进行计算，但是有个很不幸的消息。这个迭代的方法也非常的难以计算，并且
+
 
 $$
 \begin{equation}

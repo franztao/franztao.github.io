@@ -85,6 +85,7 @@ $$
 定义：$A\subset V$，$B\subset V$，$A \cap B=\varnothing$，$W(A,B)=\sum_{i\in A}\sum_{j\in B}w_{ij}$。这个公式描述的是将节点分成两份，每个节点都只能属于其中一类，他们之间的距离定义为，一个集合中的每一个节点，分别到另一个集合中的所有节点的相似度的和。
 
 如果，想将节点分解成$k$类，那么公式化描述如下所示：
+
 $$
 \begin{equation}
     \begin{split}
@@ -100,12 +101,14 @@ $$
 $$
 
 并且令：
+
 $$
 \begin{equation}
     \mathrm{cut}(V) = \sum_{i=1}^k W(A_i,\Bar{A}_i) = \sum_{i=1}^k \sum_{p\in A_i} \sum_{q\notin A_i} w_{pq}
 \end{equation}
 $$
 其中，$\Bar{A}_i$表示出了$A_i$以外的所有子集构成的集合。那么这个公式的意思就是，每个集合中的所有点，分别到其他集合中的所有点的相似度的和。那么我们的目标函数，首先可以定义为最小化这个cut函数。因为\textbf{该值与聚类的目标一致，即每个子图内部的连接很强，而子图之间的连接很弱，换一种语言来表述就是同一个子图内的样本相似，不同子图之间的样本不相似。}即为：
+
 $$
 \begin{equation}
     \min_{\{A_i\}_{i=1}^k}\mathrm{cut}(V)
@@ -117,6 +120,7 @@ $$
 但是，我们观察上述的式子，实际上是有不妥的地方的。比如，图四中，有一类为2个节点，另一类为4个节点。\textbf{但直接通过最小化这个值实现聚类还有问题，它没有考虑子图规模对代价函数的影响，使得这个指标最小的切分方案不一定就是最优切割。}因此需要对代价函数进行归一化。
 
 第一种最简单的思路，既然我们需要考虑子图的规模，就是除以集合中点的个数，即为：
+
 $$
 \begin{equation}
     \mathrm{cut}(V) = \frac{\sum_{i=1}^k W(A_i,\Bar{A}_i)}{|A_k|}
@@ -126,12 +130,14 @@ $$
 但是，这样做仍然不妥，因为这样即使考虑了集合中点的个数。子图的复杂度还需要考虑子图中节点的连接情况，而不是仅仅考虑子图的个数即可。考虑子图中的连接也侧面包含了子图的节点个数所带来的复杂度。为了量化连接情况，这里引入一个概念为“度”：这是离散数学中的定义，有向图中分“出度”和“入度”，其实很简单“出度”就是这个节点指向了几个节点，“入度”就是有几个节点指向这个节点。无向图中我们只用度的概念。
 
 而在带权无向图中，一个节点的度即为与这个节点连接的所有的边的权重和。利用度作为归一化因子就比较全面的考虑了子图的复杂度了。
+
 $$
 \begin{equation}
     \mathrm{degree(A_k)} = \sum_{i\in A_k} d_i,\quad d_i = \sum_{j=1}^N w_{ij}
 \end{equation}
 $$
 那么就得到了，最终的优化目标为：
+
 $$
 \begin{equation}
     \min_{\{A_i\}_{i=1}^k} \mathrm{Ncut}(V) = \frac{\sum_{i=1}^k W(A_i,\Bar{A}_i)}{\sum_{i\in A_k} d_i} ,\quad d_i = \sum_{j=1}^N w_{ij}
@@ -143,6 +149,7 @@ $$
 
 \section{目标函数的矩阵表达形式}
 通过上一小节，我们得到了算法的目标函数为：
+
 $$
 \begin{equation}
     \{ \hat{A}_k \}_{k=1}^K = \arg\min_{\{A_i\}_{i=1}^k} \frac{\sum_{i=1}^k W(A_i,\Bar{A}_i)}{\sum_{i\in A_k} \sum_{j=1}^N w_{ij}}  
@@ -169,6 +176,7 @@ $$
 利用指示函数将$\{ \hat{A}_k \}_{k=1}^K$变成矩阵以后，下一步目标就是将后面那一坨改写成矩阵形式。
 \subsection{对角矩阵}
 在使用只是向量后，我们成功的将目标函数化简成了：
+
 $$
 \begin{equation}
     \begin{split}
@@ -178,6 +186,7 @@ $$
 \end{equation}
 $$
 我们的下一步目标就是想想如何将$\sum_{k=1}^K \frac{ W(A_k,\Bar{A}_k)}{\sum_{i\in A_k} d_i } $表达成矩阵形式。细心的同学发现，这实际上就是一个实数。\textbf{而求和符号可以被我们写做对角矩阵的trace}；所以有：
+
 $$
 \begin{equation}
 \begin{split}
@@ -216,6 +225,7 @@ $$
 $\sum_{i\in A_k} d_i $代表的是，第$k$类集合中，所有的节点的度的和。而无向图中的度就是一个节点与其他所有节点所连接的边的权重之和。而$W=[w_{ij}]_{n\times n}$矩阵中$w_{ij}$代表第$i$个节点与第$j$个节点的权值，所以$W$矩阵\textbf{，第$i$行的所有值的和正好就是第$i$个节点与其他所有节点连接的边的权重之和。}
 
 所以，计算方法就是将$W$矩阵，每一行的所有值都相加。度的对角矩阵可以描述为：
+
 $$
 \begin{equation}
     D = \mathrm{diag}\left[W
@@ -235,6 +245,7 @@ $$
 那么，下一步目标就是将这些度分别按划分的类别进行求和，也就是比如$A_1=\{1,2,5\}$，那么就要把第1,2,5三个节点的度加在一起。那么，应该如何去实现呢？
 
 $Y$矩阵是$N\times K$维的，行代表节点标号，列代表属于的类别。那么，$y_{ij} = 1$表示第$i$个样本属于第$j$个类别。那么，我们从$Y$中取出第$i$行向量($1\times K$)来，那么通过这一行向量，根据第几列的值等于1，我们可以看出这个样本属于第几类。假设这个行向量第$j$列等于0；那么$y_i^Ty_i$结果为：
+
 $$
 \begin{equation}
 y_i^Ty_i=  
@@ -258,6 +269,7 @@ $$
 那么，很显然$y_i^T D y_i$求得的是一个$K\times K$的矩阵，而这个矩阵中只有一个元素不为零，其他的元素都为零。如果$y_i$样本属于第$k$类，那么这个元素的位置为第$k$行，第$k$列，元素的值为$d_i$。通过这样的运算，\textbf{我们成功的实现了，如果第$i$个样本属于第$k$类，就将这个样本的度$d_i$，放在了$K \times K$的矩阵第$k$行，第$k$列的位置。而且这个矩阵一定是对角矩阵。}
 
 有$N$个样本就算有$N$个这样的矩阵，把这$N$个矩阵加起来就实现了将所有的$d_i$按所属的类别求和的工作。也就是：
+
 $$
 \begin{equation}
     \sum_{i=1}^N y_i^T D y_i = Y^TDY
@@ -265,6 +277,7 @@ $$
 $$
 
 所以，我们就得到了用$Y$和$W$对$P$矩阵的进行表达的形式为：
+
 $$
 \begin{equation}
     P = Y^T\mathrm{diag}(W\cdot 1_N)Y
@@ -274,6 +287,7 @@ $$
 
 \subsection{拉普拉斯矩阵(Lapalacian Matrix)}
 成功将$P$表示以后，下一步目标则是想办法表示$O$矩阵。
+
 $$
 \begin{equation}
     \begin{bmatrix}
@@ -285,6 +299,7 @@ $$
 \end{equation}
 $$
 而$\Bar{A}_i$代表的是，整个样本集中去除$A_i$中的样本后的所有样本。那么，可以做下列变换：
+
 $$
 \begin{equation}
     W(A_k,\Bar{A}_k) = W(A_k,V) - W(A_k,A_k)
@@ -292,12 +307,14 @@ $$
 $$
 
 根据$W(\cdot)$函数的定义，$W(A,B)$函数表示的是$A$中所有点分别到$B$中所有点的相似度的和，即为：
+
 $$
 \begin{equation}
     W(A_i,A_j) = \sum_{p\in A_i} \sum_{q\notin A_j} w_{pq}
 \end{equation}
 $$
 所以，$ W(A_k,V) = \sum_{i\in A_k} d_i$，$W(A_k,A_k) = \sum_{i\in A_k} \sum_{j\notin A_k} w_{ij}$。而$W(A_k,V) = \sum_{i\in A_k} d_i = Y^T\mathrm{diag}(W\cdot 1_N)Y$是已知的，下一步只要想办法表达$W(A_k,A_k) = \sum_{i\in A_k} \sum_{j\notin A_k} w_{ij}$即可。我们的目标是求解同一个类别中，任意两个不同的样本之间的相似度。这其实和上一个求$P$的问题非常的类似，那么首先来看看$Y^TWY$会等于什么，因为$Y = (y_1,y_2,\cdots,y_N)^T_{N\times K}$，所以：
+
 $$
 \begin{equation}
     \begin{split}
@@ -326,6 +343,7 @@ $$
 \end{equation}
 $$
 有因为$w_{ij}$是一个一维实数，所以，$Y^TWY = \sum_{j=1}^N \sum_{i=1}^N y_iw_{ij}y_j^T = \sum_{j=1}^N \sum_{i=1}^N y_iy_j^Tw_{ij}$。那么，我们考虑一下$y_iy_j^T$等于什么。$y_i$表示的是一个样本属于第几类，那么$y_i\in A_p$，$y_i\in A_q$，则$y_iy_j^T$得到的矩阵中第$i$行，第$j$列的元素值为1，其余的全部为0。所以：
+
 $$
 \begin{equation}
     Y^TWY = \sum_{j=1}^N \sum_{i=1}^N y_iw_{ij}y_j^T = 
@@ -339,6 +357,7 @@ $$
 $$
 
 而：
+
 $$
 \begin{equation}
 \begin{split}
@@ -371,6 +390,7 @@ $$
 \end{equation}
 $$
 有的同学任然有疑惑，$Y^TWY$好像和我们想要的结果不太一样。但是，我们关注的是trace，所以只要对角线上的元素是一样的就可以了。令$O' = Y^TDY - Y^TWY$，而$\mathrm{tr}(O'P^{-1})=\mathrm{tr}(OP^{-1})$，因为$O'$和$O$对角线上的元素都是一样的。所以，最终我们把Ncut目标函数化简成了矩阵的表达形式为：
+
 $$
 \begin{equation}
     \hat{Y} = \arg\min_Y \mathrm{tr}\left\{ Y^T(D-W)Y\cdot (Y^TDY)^{-1} \right\},\quad D = \mathrm{diag}(W\cdot 1_N)

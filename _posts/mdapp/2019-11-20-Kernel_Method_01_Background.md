@@ -42,6 +42,7 @@ tags:
 1. 也就是之前提到的，由Perceptron Layer Analysis (PLA) 引出的多层感知机 (Multilayer Perceptron)也就我们经常听到的神经网络，以及之后发展得到的Deep Learning。
 
 2. 而第二种思路就是通过非线性变换$\phi(x)$，将非线性可分问题转换为线性可分问题。上述的异或问题，可以表述为：
+
 $$
 \begin{equation}
     \mathcal{X}=(x_1,x_2) \stackrel{\phi(x)}{\longmapsto} \mathcal{Z}=(x_1,x_2,(x_1-x_2)^2)
@@ -54,6 +55,7 @@ $$
 核函数，从模型的角度讲可以带来给非线性带来高维的转换，这个我们上面已经分析过了。从优化的角度讲可以为对偶带来内积，这两个角度可以合在一起看看。
 
 以我们之前学习的Hard Margin SVM为例，原问题和对偶问题的表述为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -78,6 +80,7 @@ $$
 对于一个$K(x,x')=\phi(x)^T\cdot\phi(x)=<\phi(x),\phi(x')>$，
 
 有$\forall x,x' \in \mathcal{X},\exists\phi:x\mapsto z \ s.t. \ K(x,x') = \phi(x)^T\cdot \phi(x')$。则称$K(x,x')$是一个核函数。比如：
+
 $$
 \begin{equation}
     K(x,x')=exp(-\frac{(x-x')^2}{2\sigma^2})

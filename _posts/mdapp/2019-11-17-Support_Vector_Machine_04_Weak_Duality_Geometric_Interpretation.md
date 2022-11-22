@@ -20,6 +20,7 @@ tags:
     
 
 上一小节中我们讨论了有关弱对偶性的证明，这一节我们从几何的角度来解释一下有关对偶问题。为了方便描述，我们将对偶问题进行简化为如下形式：
+
 $$
 \begin{equation}
     \left\{
@@ -32,6 +33,7 @@ $$
 $$
 
 $\mathbb{D}:$定义域，$D=dom\ f \cap dom\ m_i$，这是一种常见的定义域的表示方法。其中，$x\in \mathbb{D}$。我们将模型表达为拉格朗日函数的形式，
+
 $$
 \begin{equation}
     \mathcal{L}(x,\lambda) = f(x) + \lambda m_1(x),\qquad \lambda \leq 0
@@ -44,6 +46,7 @@ $$
 
 \section{模型表述}
 上述表述中，表达了模型的基本问题，下面我们进一步抽象模型。首先，我们需要描述一个集合：
+
 $$
 \begin{equation}
     G = \{ (m_1(x),f(x))|x \in \mathbb{D} \}
@@ -51,6 +54,7 @@ $$
 $$
 
 为了简化运算，我们需要简化符号，令$m_1(x) = \mu,\ f(x)=t$。那么，
+
 $$
 \begin{equation}
     G = \{ (\mu,t)|x \in \mathbb{D} \}
@@ -58,6 +62,7 @@ $$
 $$
 
 我们需要想想如何集合话来表示，首先$p^\ast = \min \ f(x) = \min \ t$，其中，$\left\{ t|(\mu,t)\in G \right\}$。那么，我们用$inf$来表示下确界的意思，就有：
+
 $$
 \begin{equation}
     p^\ast = inf\left\{ t|(\mu,t)\in G,\mu \leq 0 \right\}
@@ -65,6 +70,7 @@ $$
 $$
 
 那么对偶问题，我们可以写成，
+
 $$
 \begin{equation}
     d^\ast = \max_{\lambda}\min_{x} \ \mathcal{L}(x,\lambda)=\max_{\lambda}\min_{x} (t+\lambda \mu)
@@ -101,6 +107,7 @@ $$
 
 \subsubsection{$d^\ast$的几何表达}
 下一步，我们需要求的是$d^\ast = \max_{\lambda} g(\lambda)$。现在相当于是固定了一个点，然后围着这个点在转。这个点是哪个店呢？就是$(0,t)$。大家仔细想一想比对一下上图就知道是不是转到与集合$G$相切的时候得到的这个解是最优解，但是这个解一定会比$p^\ast$得到的解会更小。为什么？用屁股想都知道，一个是横着切，一个是斜着切，哪个会更小？不言而喻了吧。通过这个我们也可以得到，
+
 $$
 \begin{equation}
     d^\ast \leq p^\ast

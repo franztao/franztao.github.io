@@ -31,6 +31,7 @@ tags:
 联合概率可以被我们表示为：$p(a,b,c,d,e)=p(a)\cdot p(b|a)\cdot p(c|b)\cdot p(d|c) \cdot p(e|d)$。
 
 如果，我们想要求的是$p(e)$，那么：
+
 $$
 \begin{equation}
     \begin{split}
@@ -42,6 +43,7 @@ $$
 $$
 
 为了简化表达，这里我们需要定义一个很重要的符号。因为，$\sum_ap(b|a)\cdot p(a)$，是一个关于$b$的表达式，也就是相当于把$a$给约掉了。所以我们可以把$\sum_ap(b|a)\cdot p(a)$记为$m_{a\longrightarrow b}(b)$。同理，我们也可以将$\sum_cp(d|c)\cdot\sum_bp(c|b)\cdot m_{a\longrightarrow b}(b)$记为$m_{b\longrightarrow c}(c)$。那么为了求得$p(e)$，我们依次的求解顺序为$m_{a\longrightarrow b}(b)$，$m_{b\longrightarrow c}(c)$，$m_{c\longrightarrow d}(d)$和$m_{d\longrightarrow e}(e)$。也就相当于沿着这个链这个马氏链一直往前走，也就是前向算法(Forward Algorithm)。我们用公式表达即为：
+
 $$
 \begin{equation}
     a \stackrel{m_{a\longrightarrow b}(b)}{\longrightarrow} b \stackrel{m_{b\longrightarrow c}(c)}{\longrightarrow} c \stackrel{m_{c\longrightarrow d}(d)}{\longrightarrow} d \stackrel{m_{d\longrightarrow e}(e)}{\longrightarrow} e 
@@ -49,6 +51,7 @@ $$
 $$
 
 如果是要求$p(c)$，那么我们的传递过程为$a\longrightarrow b \longrightarrow c \longleftarrow d \longleftarrow e$。这里，我们就不能只用前向算法来解决了，需要用到Forward-Backward算法来解决了。也就是同时使用Forward和Backward的方法，那么我们来看看$p(c)$怎么求？
+
 $$
 \begin{equation}
     \begin{split}
@@ -71,6 +74,7 @@ $$
 \end{figure}
 
 下面第一步，我们把上面那个模型的设置写出来。所以，我们需要进行因式分解，我们用$\varphi(i)$来表示和$i$有关的部分。所以，我们可以将联合概率密度写为：
+
 $$
 \begin{equation}
     p(a,b,c,d) = \frac{1}{Z} \varphi_a(a)\varphi_b(b)\varphi_c(c)\varphi_d(d)\cdot \varphi_{a,b}(a,b)\varphi_{b,c}(b,c)\varphi(b,d)(b,d)
@@ -82,6 +86,7 @@ $$
 1. 首先，我们需要求的是$c\longrightarrow b$和$d \longrightarrow b$两个过程。其中，$c\longrightarrow b$的过程也就是$m_{c\longrightarrow b}(b)$，可以被我们表达为$\sum_c \varphi_c\cdot \varphi_{b,c}$。同理，$m_{d\longrightarrow b}(b)$可以被我们表达为$\sum_d \varphi_b\cdot \varphi_{b,d}$。
 
 2. 第二步，我们需要求$b\longrightarrow a$的过程，也就是$m_{b\longrightarrow a}(a)$。它等于$m_{c\longrightarrow b}(b),m_{d\longrightarrow b}(b)$乘上$b$自己的部分求和得到，我们可以写为：
+
 $$
 \begin{equation}
     m_{b\longrightarrow a}(a) = \sum_b m_{c\longrightarrow b}(b)\cdot \varphi_b\cdot\varphi_{a,b}\cdot m_{d\longrightarrow b}(b)
@@ -91,6 +96,7 @@ $$
 3. 最后，$m_{b\longrightarrow a}(a)$乘上$a$自己的部分就得到了$p(a)$，也就是：$p(a) = \varphi_a \cdot m_{b\longrightarrow a}(a)$。
 
 所以，我们总结一下：
+
 $$
 \begin{equation}
     m_{b\longrightarrow a}(x_a) = \sum_{x_b} \varphi_{a,b}\varphi_bm_{c\longrightarrow b}(x_b)m_{d\longrightarrow b}(x_b)
@@ -98,6 +104,7 @@ $$
 $$
 
 而，
+
 $$
 \begin{equation}
     p(a) = \varphi_a m_{b \longrightarrow a}(x_a)
@@ -105,6 +112,7 @@ $$
 $$
 
 我相信到这里，大家应该是可以理解这个意思的，会有点抽象，但并不是很难。下一步我想做个Generalize为了便于大家进行理解，我这里尽量不跳步：
+
 $$
 \begin{equation}
     m_{b\longrightarrow a}(x_a) = \sum_{x_b} \varphi_{a,b}\varphi_b \prod_{\{k \in NB(b)\}\longrightarrow a } m_{k\longrightarrow b}(x_b)
@@ -112,6 +120,7 @@ $$
 $$
 
 这里的$NB(b)$代表的是所有节点$b$的邻接节点。我们可以进一步表示为：
+
 $$
 \begin{equation}
     m_{j\longrightarrow i}(x_i) = \sum_{x_j} \varphi_{i,j}\varphi_j \prod_{\{k \in NB(j)\}\longrightarrow i } m_{k\longrightarrow j}(x_j)
@@ -119,6 +128,7 @@ $$
 $$
 
 而，
+
 $$
 \begin{equation}
     p(x_i) = \varphi_i \prod_{k\in NB(i)} m_{k\Longrightarrow i}(x_i)
@@ -129,6 +139,7 @@ $$
 
 \section{Belief Propagation}
 我们之前就已经得到了信息传递的表达式：
+
 $$
 \begin{equation}
     m_{b\longrightarrow a}=\sum_{b}\varphi_{a,b}\varphi_b \cdot m_{c\longrightarrow b}\cdot m_{d\longrightarrow b}

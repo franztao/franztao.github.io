@@ -24,6 +24,7 @@ tags:
 首先我们需要知道，为什么要有Moral Graph的存在？Moral Graph存在的意义就是将有向图转化为无向图来研究。因为无向图比有向图更加的Generalize一些。在概率图中，我们可以分为贝叶斯网络(有向图)和马尔可夫网络(无向图)。
 
 无向图可以表示为：
+
 $$
 \begin{equation}
     p(x) = \frac{1}{z}\prod_{i=1}^k \phi_{c_i}(x_{c_i})
@@ -31,6 +32,7 @@ $$
 $$
 
 有向图可以表示为：
+
 $$
 \begin{equation}
     p(x) = \prod_{i=1}^pp(x_i|x_{pa(i)})
@@ -91,6 +93,7 @@ $$
 在上一小节中，我们介绍了道德图(Moral Graph)，它的主要作用是将有向图转换为无向图。我们考虑的都是树结构，但是在Head to Head结构中，会引入环的结构。但是，在我们的Belief Propagation (BP)算法中，只能对树进行分解。所以，这里我们就引入了因子图。因子图主要发挥两个作用：1. 去环，也就是消除无向图中的环结构；2. 使算法变得更加的简洁，简化计算。
 
 如图二表达的那样，他的有向图和无向图的联合概率可以分别表达为：
+
 $$
 \begin{equation}
     p(a,b,c) = p(a)p(b|a)p(c|a) \qquad p(a,b,c) = \frac{1}{Z}\phi(a,b)\phi(a,c)
@@ -98,6 +101,7 @@ $$
 $$
 
 那什么是因子图分解呢？公式表达可以被我们表示为：
+
 $$
 \begin{equation}
     p(x) = \prod_{S}p(x_S)
@@ -124,6 +128,7 @@ $$
 
 
 这个分解的结果可以被我们表示为：
+
 $$
 \begin{equation}
     p(x) = f_1(a,b)f_2(a,c)f_3(b,c)
@@ -139,6 +144,7 @@ $$
 \end{figure}
 
 那么这个分解结果可以被我们表示为：
+
 $$
 \begin{equation}
     p(x) = f_1(a,b)f_2(a,c)f_3(b,c)f_a(a)f_b(b)

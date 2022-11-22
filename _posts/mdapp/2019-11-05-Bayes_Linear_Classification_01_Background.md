@@ -21,6 +21,7 @@ tags:
 
 数据矩阵为：(这样可以保证每一行为一个数据点)
 
+
 $$
 \begin{equation}
     X=(x_1, x_2, \cdots, x_N)^T=
@@ -38,6 +39,7 @@ $$
     \end{pmatrix}_{N\times P}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     Y=
@@ -58,6 +60,7 @@ $$
 
 \section{最小二乘估计(Least Square Estimation)}
 这实际上就是一个利用数据点的极大似然估计(MLE)，并且有一个默认的隐含条件，也就是噪声$\varepsilon$符合Gaussian Distribution。我们的目标是通过估计找到$w$，使得：
+
 $$
 \begin{equation}
     w_{MLE} = argmax_w p(Data|w)
@@ -65,6 +68,7 @@ $$
 $$
 
 而如果仅仅只是这样来使用，很容易会出现过拟合的问题。所以，我们引入了Regularized LSE，也就是正则化最小二乘法。同时也有一个默认的隐含条件，也是噪声$\varepsilon$符合Gaussian Distribution。在Liner Regression中我们提到了有两种方法来进行思考，也就是Lasso和Ridge Regression。在这里我们可以使用一个Bayes公式，那么：
+
 $$
 \begin{equation}
     \begin{split}
@@ -72,6 +76,7 @@ $$
     \end{split}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     w_{MAP} = argmax_w p(w|Data) = argmax_wp(Data|w)p(w) 

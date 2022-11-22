@@ -36,6 +36,7 @@ tags:
 \end{figure}
 
 那么我们怎么来求$p(d)$呢？根据公式我们可以得到：
+
 $$
 \begin{equation}
     p(d) = \sum_{a,b,c}p(a,b,c,d)
@@ -43,6 +44,7 @@ $$
 $$
 
 然后使用因子分解，我们可以得到：
+
 $$
 \begin{equation}
     p(d) = \sum_{a,b,c}p(a)p(b|a)p(c|b)p(d|c)
@@ -52,6 +54,7 @@ $$
 假定，$a,b,c,d$都为均匀离散的二值random variable，所以$a,b,c,d\in \{0,1\}$。
 
 所以，
+
 $$
 \begin{equation}
     \begin{split}
@@ -63,6 +66,7 @@ $$
 \end{equation}
 $$
 实际上，这里有8个因子的积。那么我们来做进一步的分析，我们可以令
+
 $$
 \begin{equation}
     \begin{split}
@@ -74,6 +78,7 @@ $$
 $$
 
 而$p(a)p(b|a) = p(a,b)$，而$\sum_a p(a)p(b|a) = p(b)$。我们可以将$a$看成$\phi(a)$这是一个和$a$相关的函数，同理$p(b|a)$看成$\phi(a,b)$。所以，我们可以将$\sum_a p(a)p(b|a)$看成$\phi_a(b)$，这样就相当于一个关于$b$的函数，并且是从$a$中导出的。所以，我们做如下替换可得：
+
 $$
 \begin{equation}
     \sum_{b,c}p(c|b)p(d|c)\sum_a p(a)p(b|a) = \sum_{b,c}p(c|b)p(d|c)\phi_a(b)=\sum_c p(d|c)\sum_b p(c|b)\phi_a(b)
@@ -81,6 +86,7 @@ $$
 $$
 
 同理，我们将$\sum_b p(c|b)\phi_a(b)$看成$\phi_b(c)$。所以，原始将被改写为：
+
 $$
 \begin{equation}
     \sum_cp(d|c)\phi_b(c) = \phi_c(d)
@@ -88,6 +94,7 @@ $$
 $$
 
 这个算法的核心就是乘法对加法的分配律。那我们怎么类比到乘法的分配律呢？首先先来简单的回顾一下乘法的分配律，也就是$ac+ab=a(b+c)$。那么我们仔细的来看看这个计算$p(d)$的过程。这是不是就是一个不断的提取公因子，进行计算的过程？有没有觉得和分配律很像？先提取$a$的部分，计算$a$的部分，然后再依次的提取$b$的部分，$c$的部分，最后剩下的就是$d$的部分。那么，我们就可以把这么一长串的公式进行逐步化简了，这就是变量消元的思想。同样，在无向图中，我们也可以使用到马尔可夫网络中。
+
 $$
 \begin{equation}
     p(a,b,c,d) = \frac{1}{z}\prod_{i=1}^k \phi_{c_i}(x_{c_i})

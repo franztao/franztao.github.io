@@ -23,6 +23,7 @@ tags:
 但是，很不幸的是$P(Z|X)$的计算非常的复杂，我们大致采用两种思路来解决这个问题，也就是精确推断和近似推断。精确推断无法达到我们想要的结果时，就会采用近似推断的方法。而近似推断中我们又可以分成两大类，即为确定性近似(VI)和随机近似(MCMC)。
 
 Monte Carlo Method是一种基于采样的随机近似算法。我们的目标是求解后验概率$P(Z|X)$，其中$Z$为Latent data，$X$为Observed data。知道分布以后，我们通常的目标是求解：
+
 $$
 \begin{equation}
     \mathbb{E}_{Z|X}[f(Z)] = \int_Z P(Z|X)f(Z)dZ \approx \frac{1}{N}\sum_{i=1}^N f(z_i)
@@ -59,6 +60,7 @@ $$
 
 \section{重要性采样(Importance Sampling)}
 重要性采样在我们的强化学习(PPO)中的应用非常的多。重要性采样并不是直接对概率进行采样，而是对概率分布的期望进行采样。也就是：
+
 $$
 \begin{equation}
     \begin{split}

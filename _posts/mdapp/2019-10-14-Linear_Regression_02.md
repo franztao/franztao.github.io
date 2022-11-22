@@ -12,13 +12,10 @@ tags:
     - 02
 ---
 
-    
-
-
-
 数据集$D=\{(x_1, y_1), (x_2, y_2), \cdots, (x_N, y_N)\}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$，$i=1, \ 2,\cdots,\ N$。
 
 数据矩阵为：(这样可以保证每一行为一个数据点)
+
 
 $$
 \begin{equation}
@@ -37,6 +34,8 @@ $$
     \end{pmatrix}_{N\times P}
 \end{equation}
 $$
+
+
 $$
 \begin{equation}
     Y=
@@ -50,6 +49,8 @@ $$
 $$
 
 设拟合的函数为：$f(w)=W^T x$，根据上一节我们推导出的结果，损失函数定义为：
+
+
 $$
 \begin{equation}
     L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2
@@ -57,7 +58,6 @@ $$
 $$
 
 解出，$\hat{w} = (X^TX)^{-1}X^TY$
-
 
 \section{正则化概述}
 过拟合问题(over-fitting)问题是深度学习中一个很重要的问题，往往是由少量的数据拟合高维的向量所造成的。解决over-fitting的方法有很多，通常是使用这几种思路：1.增加数据量；2.特征选择/特征提取(PCA)；3.增加正则项的方法。
@@ -70,6 +70,7 @@ $$
 
 \section{岭回归频率派角度}
 Loss function可写为$ L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW$
+
 $$
 \begin{align}
     J(w) = & \sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW \\
@@ -81,6 +82,7 @@ $$
 $$
 
 我们的求解目标是$\hat{w} = argmin_w J(w)$，求解过程为：
+
 $$
 \begin{align}
     \frac{\partial J(w)}{\partial w} = 2(X^TX + \lambda I)W - 2X^TY = 0
@@ -88,6 +90,7 @@ $$
 $$
 
 解得：
+
 $$
 \begin{equation}
     W = (X^TX + \lambda I)^{-1}X^TY 
@@ -98,11 +101,13 @@ $$
 
 \section{岭回归贝叶斯派估计角度}
 类似于前文提到的贝叶斯回归的角度，假设一个分布$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么所有的观测值可看为$y = w^Tx + \varepsilon$。因为$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么$p(y|x;w) \sim \mathcal{N}(w^Tx, \sigma^2)$。假设$w$符合一个先验分布$\mathcal{N}(0, \sigma_{0}^{2})$。于是，我们可以得到$p(w)$和$p(y|w)$的解析表达式:
+
 $$
 \begin{equation}
     p(y|w) = \frac{1}{\sqrt{2\pi}\sigma}exp\left( -\frac{(y - w^Tx)^2}{2\sigma^2} \right)
 \end{equation}
 $$
+
 $$
 \begin{equation}
     p(w) = \frac{1}{\sqrt{2\pi}\sigma_0}exp\left( -\frac{||w||^2}{2\sigma_0^2} \right)
@@ -111,6 +116,7 @@ $$
 
 我们的目标是求$w$的最大后验估计(MAP)，也就是定义为求$\hat{w} = argmax_w p(w|y)$。由于
 
+
 $$
 \begin{equation}
     p(w|y) = \frac{p(y|w)p(w)}{p(y)}
@@ -118,6 +124,7 @@ $$
 $$
 
 但是$y$是我们的观察量，所以$p(y)$是一个常量，在求解优化问题的时候可以不考虑进来。而且，可以加入$\log$函数来简化运算，而且与计算结果无关，于是
+
 $$
 \begin{equation}
     argmax_w p(w|y)= \log p(y|w)p(w)
@@ -125,6 +132,7 @@ $$
 $$
 
 代入可得：
+
 $$
 \begin{align}
     argmax_w p(w|y) = & \sum_{i=1}^{N}\log \frac{1}{\sqrt{2\pi}\sigma}exp\left( -\frac{(y_i - w^Tx_i)^2}{2\sigma^2}  \right) \frac{1}{\sqrt{2\pi}\sigma_0}exp\left( -\frac{||w||^2}{2\sigma_0^2} \right) \\
@@ -134,6 +142,7 @@ $$
 $$
 
 由于$\log \frac{1}{2\pi\sigma\sigma_0}$与求解无关，所以
+
 $$
 \begin{align}
     argmax_w p(w|y) 
@@ -143,6 +152,7 @@ $$
 $$
 
 公式可以转化为:
+
 $$
 \begin{equation}
     argmin_x p(w|y) =  \sum_{i=1}^{N} (y_i - w^Tx_i)^2  + \frac{\sigma^2}{\sigma_0^2}||w||^2
@@ -150,4 +160,3 @@ $$
 $$
 
 然后我们惊奇的发现将$\frac{\sigma^2}{\sigma_0^2}$换成$\lambda$就又变成了和之前从频率角度看岭回归一样的结果。所以，对于上节我们得出的结论：最小二乘估计$\Longleftrightarrow$极大似然估计(噪声符合高斯分布)。那么我们的最小二乘估计中隐藏了一个假设条件，那就是噪声符合高斯分布。我们进一步补充可得，Regularized LSE可以等价为最大后验估计(MAP)其中噪声为Guassian Distribution，并且$w$的先验也为Guassian Distribution。
-

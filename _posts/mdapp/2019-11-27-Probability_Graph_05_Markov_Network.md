@@ -42,6 +42,7 @@ Markov中的条件独立，大致可以被我们分成三种情况，Global Mark
 
 \section{因子分解法}
 我们想一想在一个无向图中，如何来体现我们想要的条件独立性。这里的引入和之前的不太一样，我们首先需要引入几个概念。\textbf{团}:这是一个关于节点的集合，集合中的节点是相互连通的。而最大团，就很好理解了吧，也就是最大的连通子集。我们可以将无向图的分离定义到团上，我们假设$c_1,c_2,\cdots,c_k$表示为团。那么，我们可以将联合概率定义为：
+
 $$
 \begin{equation}
     p(x) = \frac{1}{Z}\prod_{i=1}^k \phi (x_{c_i})
@@ -49,6 +50,7 @@ $$
 $$
 
 其中，$z$是归一化因子，因为没有归一化因子的话，这不能被称为一个概率分布，因为概率分布首先就要保证和等于1。那么，$z$被定义为
+
 $$
 \begin{equation}
     z = \sum_x \prod_{i=1}^k\phi(x_{c_i}) = \sum_{x_1}\cdots\sum_{x_N} \prod_{i=1}^k\phi(x_{c_i})
@@ -71,6 +73,7 @@ $$
 \noindent 因子分解：
 
 在我们之前的定义中，
+
 $$
 \begin{equation}
     p(x) = \frac{1}{Z}\prod_{i=1}^k \phi(x_{c_i})
@@ -80,6 +83,7 @@ $$
 $c_i$：最大团；$x_{c_i}$：最大团的随机变量集合；$\phi(x_{c_i})$：势函数，必须为正。这里的概念都是来自于统计物理学和热力学的过程。这里的势函数还有可以做文章的地方。
 
 因为，势函数必定为正，我们可以将势函数表达为$\phi(x_{c_i}) = \exp\{ -E(x_{c_i}) \}$。其中，$E(x_{c_i})$称为Energy function。实际上用这种形式表达的$p(x)$，为Gibbs Distribution，或者又被称之为Boltzman Distribution。有了$\phi(x_{c_i})$的形式，我们可以进一步推导得：
+
 $$
 \begin{equation}
     p(x) = \frac{1}{Z}\prod_{i=1}^K\phi(x_{c_i}) = \frac{1}{Z}\prod_{i=1}^K \exp\{ -E(x_{c_i}) \} = \frac{1}{Z}\exp\{ - \sum_{i=1}^k E(x_{c_i}) \}
@@ -87,6 +91,7 @@ $$
 $$
 
 我们再来回顾一下指数族分布，指数族分布的通用表达形式为：
+
 $$
 \begin{equation}
     p(x) = h(x)\exp\{ \eta^T\phi(x) - A(\eta) \} = h(x)\frac{1}{Z(\eta)}\exp\{ \eta^T\phi(x)\}

@@ -24,6 +24,7 @@ tags:
 
 \section{Weight-Space view to Function-Space view}
 在这里$w$是一个先验分布，$f(x)$是一个随机变量。$f(x) = \phi(x)^Tw,\ y = f(x)+\epsilon,\ \epsilon \sim \mathcal{N}(0,\sigma^2)$。在Bayesian的方法中，对于给定的先验信息(prior)：$w\sim \mathcal{N}(0,\Sigma_p)$。因为，$f(x) = \phi(x)^Tw$，所以可以得到：
+
 $$
 \begin{equation}
     \mathbb{E}_w[f(x)] = \mathbb{E}_w[\phi(x)^Tw] =  \phi(x)^T\mathbb{E}_w[w] = 0
@@ -31,6 +32,7 @@ $$
 $$
 
 那么对于$\forall x,x'\in \mathbb{R}^p$，
+
 $$
 \begin{equation}
     \begin{split}
@@ -48,6 +50,7 @@ $$
 而$\phi(x)^T\Sigma_p\phi(x')$是一个kernel function，前面我们已经证明过了，$\varphi(x) = \Sigma_p^{\frac{1}{2}}$。而$\phi(x)\Sigma_p\phi(x') = <\varphi(x),\varphi(x')> = K(x,x')$。
 
 推导进行到了这里，我们就知道了$f(x)$的期望为0，协方差矩阵为一个核函数$K(x,x')$。那么我们是不是惊奇的发现，这个和我们高斯过程的定义：$\xi_t \sim GP(m(t),K(t,s))$，是多么惊人的相似呀。所以，这里可以启发我们：{ $f(x)$的组成是否可以看成一个GP，而$\{f(x)\}_{x\in\mathbb{R}^p}$。}那么，首先$f(x)$是一个function，而且$f(x)$还是一个服从高斯分布的随机变量，$m(t)$是一个mean function，$K(t,s)$是一个covariance function。为了加深大家的理解，我们做进一步清晰的对比：
+
 $$
 \begin{equation}
     \left\{
@@ -62,6 +65,7 @@ $$
 其实，我这样一对比，就非常的清晰了。在GPR的算法中，
 
 1. Weight-Space view中关注的是$w$，即为：
+
 $$
 \begin{equation}
     x^\ast \longrightarrow y^\ast \quad p(y^\ast|Data,x^\ast) = \int p(y^\ast|Data,x^\ast,w)p(w)dw
@@ -71,6 +75,7 @@ $$
 又因为$w$本身就是从Data中，推导得到的，所以$p(y^\ast|Data,x^\ast,w) = p(y^\ast|x^\ast,w)$。
 
 2. Function-Space view中关注的是$f(x)$，即为：
+
 $$
 \begin{equation}
     p(y^\ast | Data,x^\ast)  = \int p(y^\ast | f(x),x^\ast)p(f(x))df(x)
@@ -81,6 +86,7 @@ $$
 
 \section{Function-Space View}
 上一小节中，我们从Weight-Space View过渡到了Function-Space View，而Weight指的就是参数。
+
 $$
 \begin{equation}
     \begin{split}
@@ -93,6 +99,7 @@ $$
 Regression问题被我们描述为：
 
 Data：$\{ (x_i,y_i) \}_{i=1}^N$，$x=(x_1,x_2,\cdots,x_N)^T_{N\times p}$，$Y=(y_1,y_2,\cdots,y_N)^T_{N\times 1}$。又因为$f(x)$符合一个GP，所以，$f(x) \sim \mathcal{N}(\mu(x),K(x,x'))$。且$Y=f(x)+\epsilon$，所以$Y\sim \mathcal{N}(\mu(x),K(x,x')+\sigma^2I)$。那么，给定new input：$X^\ast = (x_1^\ast,x_2^\ast,\cdots,x_N^\ast)$，我们想要的Prediction output为$Y^\ast = f(x^\ast) + \epsilon$。那么，我们可以得到$Y$和$f(x^\ast)$的联合概率密度分布为：
+
 $$
 \begin{equation}
     \begin{bmatrix}
@@ -117,6 +124,7 @@ $$
 在这里，我必须要首先列举一下，前面我们曾经提到的更加联合概率密度求边缘概率密度的方法。
 
 已知，$X\sim \mathcal{N}(\mu,\Sigma)$，
+
 $$
 \begin{equation}
     \begin{split}
@@ -142,6 +150,7 @@ $$
 $$
 
 而我们可以得到：
+
 $$
 \begin{equation}
     \begin{split}
@@ -158,6 +167,7 @@ $$
 所以，我们的目标也就是求$p(f(x\ast)|Y$，也就是{已知联合概率分布的情况下求条件概率分布。}
 
 我们对比公式(8)和公式(9)就可以发现，$Y\rightarrow x_a,f(x^\ast)\rightarrow x_b,K(X,X)+\sigma^2I \rightarrow \Sigma_{aa},K(X,X^\ast) \rightarrow \Sigma_{ba},K(X\ast,X\ast)\rightarrow \Sigma_{bb}$。那么，我们可以令$p(f(x^\ast)|Y,X,x^\ast)\sim\mathcal{N}(\mu^\ast,\Sigma^\ast)$，代入之前获得的公式的结果我们就可以得到：
+
 $$
 \begin{equation}
     \begin{split}

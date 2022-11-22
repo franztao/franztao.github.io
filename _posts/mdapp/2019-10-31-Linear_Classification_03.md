@@ -15,6 +15,7 @@ tags:
     
 
 本小节为线性分类的第三小节，主要推导了线性判别分析算法，也就是Fisher算法。Fisher算法的主要思想是：{ 类内小，类间大。}这有点类似于，软件过程里的松耦合，高内聚的思想。这个思想转换成数学语言也就是，同一类数据之间的方差要小，不同类数据之间的均值的差距要大。那么，我们对数据的描述如下所示：
+
 $$
 \begin{equation}
     X=(x_1, x_2, \cdots, x_N)^T=
@@ -32,6 +33,7 @@ $$
     \end{pmatrix}_{N\times P}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     Y=
@@ -58,6 +60,7 @@ $$
 
 \subsection{投影算法}
 首先，我们需要设定一个投影向量$w$，为了保险起见，对这个投影向量$w$作出约束，令$||w||=1$。那么，在空间中的一个数据点，也就是一个向量，在投影向量上的投影长度可以表述为：
+
 $$
 \begin{equation}
     x_i\cdot w = |x_i||w|\cos{\theta}=|x_i|\cos{\theta}=\triangle
@@ -72,11 +75,13 @@ $$
 \end{gather}
 
 那么对于第一类分类点$X_{c_1}$和第二类分类点$X_{c_2}$可以表述为：
+
 $$
 \begin{equation}
     C_1:\qquad \Bar{z_1}= \frac{1}{N_1}\sum_{i=1}^{N_1}w^Tx_i \qquad S_1 =\frac{1}{N_1}\sum_{i=1}^N(z_i-\Bar{z_1})(z_i-\Bar{z_1})^T
 \end{equation}
 $$
+
 $$
 \begin{equation}
     C_2:\qquad \Bar{z_2}= \frac{1}{N_2}\sum_{i=1}^{N_2}w^Tx_i \qquad S_2 =\frac{1}{N_2}\sum_{i=1}^N(z_i-\Bar{z_2})(z_i-\Bar{z_2})^T
@@ -85,6 +90,7 @@ $$
 
 那么类间的距离我们可以定义为：$(\Bar{z_1}-\Bar{z_2})^2$,
 类内的距离被我们定义为$S_1+S_2$。那么我们的目标函数Target Function $\mathcal{J}(w)$，可以被定义为:
+
 $$
 \begin{equation}
     \mathcal{J}(w) = \frac{(\Bar{z_1}-\Bar{z_2})^2}{S_1+S_2}
@@ -96,6 +102,7 @@ $$
 \subsection{损失函数表达式的化简}
 \subsubsection{$(\Bar{z_1}-\Bar{z_2})^2$}
 分子的化简过程如下所示：
+
 $$
 \begin{equation}
     \begin{split}
@@ -110,6 +117,7 @@ $$
 
 \subsubsection{$S_1+S_2$}
 分母的化简过程如下所示：
+
 $$
 \begin{equation}
     \begin{split}
@@ -122,6 +130,7 @@ $$
 $$
 
 同理可得，
+
 $$
 \begin{equation}
     S_1 = w^TS_{c_2}w
@@ -130,6 +139,7 @@ $$
 
 
 所以，
+
 $$
 \begin{equation}
     S_1+S_2=w^T(S_{c_1}+S_{c_2})w
@@ -137,6 +147,7 @@ $$
 $$
 
 \subsubsection{$\mathcal{J}(w)$的最简表达形式}
+
 $$
 \begin{equation}
     \mathcal{J}(w)=\frac{w^T(\Bar{X}_{c_1} - \Bar{X}_{c_2})(\Bar{X}_{c_1} - \Bar{X}_{c_2})^Tw}{w^T(S_{c_1}+S_{c_2})w}
@@ -144,6 +155,7 @@ $$
 $$
 
 令$S_b$为between-class类间方差，$S_w$为within-class，也就是类内方差。那么有
+
 $$
 \begin{equation}
     S_b = (\Bar{X}_{c_1} - \Bar{X}_{c_2})(\Bar{X}_{c_1} - \Bar{X}_{c_2})^T \qquad S_w = (S_{c_1}+S_{c_2}) 
@@ -151,6 +163,7 @@ $$
 $$
 
 于是，我们可以得到进一步化简的表达式；
+
 $$
 \begin{equation}
     \mathcal{J}(w)=\frac{w^TS_bw}{w^TS_ww}
@@ -159,6 +172,7 @@ $$
 
 \subsection{损失函数$\mathcal{J}(w)$的梯度}
 为了方便求导，我们令$\mathcal{J}(w)=(w^TS_bw)(w^TS_ww)^{-1}$。
+
 $$
 \begin{equation}
     \begin{split}
@@ -169,6 +183,7 @@ $$
 $$
 
 显然，$w$的维度是$p\times 1$，$w^T$的维度是$1 \times p$，$S_w$的维度是$p\times p$，所以，$w^TS_ww$是一个实数，同理 可得，$w^TS_ww$是一个实数所以，可以得到
+
 $$
 \begin{equation}
     \begin{split}
@@ -179,11 +194,13 @@ $$
 $$
 
 我们主要是求得梯度的方向，大小不是很重要了。所以，我们可得
+
 $$
 \begin{equation}
     w = \frac{(w^TS_bw)}{(w^TS_ww)}S_b^{-1}S_ww \propto S_b^{-1}S_ww
 \end{equation}
 $$
+
 $$
 \begin{equation}
     S_ww =  (\Bar{X}_{c_1} - \Bar{X}_{c_2})(\Bar{X}_{c_1} - \Bar{X}_{c_2})^Tw
@@ -191,6 +208,7 @@ $$
 $$
 
 而$(\Bar{X}_{c_1} - \Bar{X}_{c_2})^Tw$是一个实数，所以汇总可得
+
 $$
 \begin{equation}
     S_b^{-1}S_ww \propto S_w^{-1}(\Bar{X}_{c_1} - \Bar{X}_{c_2})

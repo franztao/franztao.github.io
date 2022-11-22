@@ -21,6 +21,7 @@ tags:
 
 \section{Non-Transformation}
 这实际上就是一种明转换，将向量从input space转换到feature space，可以写做$\phi = \mathcal{X}\longmapsto\mathcal{Z}$。在Conver’s theory中提出，高维空间比低维空间更加容易线性可分。很显然对于一个异或问题(XOR)来说，我们将$x=(x_1,x_2)\stackrel{\phi}{\longrightarrow}z=(x_1,x_2,(x_1-x_2)^2)$
+
 $$
 \begin{equation}
     \begin{matrix}
@@ -49,6 +50,7 @@ $$
 
 \section{Neural Network}
 神经网络算法实际上就是一个Multit-Layer Perceptron (MLP)，有时也会被称为，Feedforward Neural Network (FNN)，所以大家在其他书上见到这几种描述都不要感到意外。我们以XOR (位运算)为例吧。在我们的逻辑运算中，大致有四种运算方法。
+
 $$
 \begin{equation}
     \begin{matrix}

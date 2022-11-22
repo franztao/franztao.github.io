@@ -36,6 +36,7 @@ $$
 
 \subsection{求解符号说明}
 假设随机变量$X$为$p$维的，即为$X\in \mathbb{R}^p$，而假设每一个维度是0/1分布.所以，$X\in \{0,1\}^p$。随机变量的联合概率分布为：
+
 $$
 \begin{equation}
     P(X;\theta) = \frac{1}{Z(\theta)}\hat{P}(X;\theta)
@@ -43,6 +44,7 @@ $$
 $$
 其中，$\hat{P}(X;\theta)$代表势函数的积，$Z(\theta)= \int \hat{P}(X;\theta)dX$，给定的数据集为$\{x_i\}_{i=1}^N$，其中$x_i^{(j)}$代表第$i$个数据的第$j$维。
 \section{极大似然估计法(Maximum Likelihood Estimation)}
+
 $$
 \begin{equation}
     \begin{split}
@@ -55,6 +57,7 @@ $$
 $$
 
 其中，$\log Z(\theta)$和$i$没有关系。所以，$\sum_{i=1}^N \log Z(\theta) = N \log Z(\theta)$。而最大化问题和常数项系数没有太大的关系，所以，将整个等式除以$N$。
+
 $$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta}\underbrace{\frac{1}{N} \sum_{i=1}^N \log \hat{P}(x_i;\theta) - \log Z(\theta)}_{\mathrm{target\ function}}
@@ -66,12 +69,14 @@ $$
 \mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \log \hat{P}(x_i;\theta) - \log Z(\theta)
 $$
 而梯度为：
+
 $$
 \begin{equation}
     \nabla_\theta \mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \log \nabla_\theta \hat{P}(x_i;\theta) -\nabla_\theta \log Z(\theta)
 \end{equation}
 $$
 因为，$\hat{P}(x_i;\theta)$是势函数的乘积，势函数的形式一般假设为Boltzmann分布，导数比较简单。而主要是$\nabla_\theta \log Z(\theta)$比较难求。那么这一项怎么求呢？
+
 $$
 \begin{equation}
     \begin{split}
@@ -80,6 +85,7 @@ $$
 \end{equation}
 $$
 这里，遇到了一个问题$\frac{1}{Z(\theta)}$，求不出来。那么，根据等式(1)，可以得到$Z(\theta) = \frac{\hat{P}(X;\theta)}{P(X;\theta)} = \int \hat{P}(X;\theta) dX$。看到这有很多同学就受不了了，我也是其中一个。你不是要求$P(X;\theta)$吗？怎么又用起来了，这里是这样的，我们采用的是梯度上升的迭代方法，$P(X;\theta^{(t+1)})$的具体形式我们不知道。但是$\theta^{(t)}$是知道的，可以利用$P(X;\theta^{(t)})$这个分布来对$t+1$时刻的梯度方向进行近似求解。然后，下一步的替换有点Initutive，主要的想法\textbf{是$Z(\theta)$求不出来，那么就造一个和$P(X;\theta)$相关的期望，通过在$P(X;\theta)$中采样就可以近似处理这个问题}。那么：
+
 $$
 \begin{equation}
     \begin{split}
@@ -104,6 +110,7 @@ $$
 其实，我觉得这种是对近似梯度的一个较为详细的解读，这一章看课程还是听有点绕的。我希望可以把思路理一理来帮助大家进行理解。
 \subsection{损失函数梯度优化}
 在上一节中，我们定义了求解的目标为：
+
 $$
 \begin{equation}
   \left\{
@@ -115,6 +122,7 @@ $$
 \end{equation}
 $$
 我们将采用梯度上升法来求解最优参数，梯度公式为：
+
 $$
 \begin{equation}
     \nabla_\theta \mathcal{L}(\theta) = \frac{1}{N} \sum_{i=1}^N \nabla_\theta \log \hat{P}(x_i;\theta) - \mathbb{E}_{P(X;\theta)}[\nabla_\theta \log \hat{P}(X;\theta)]
@@ -127,6 +135,7 @@ $$
 实际上，$\{x_i\}_{i=1}^N$是来自一个真实的概率分布$P_{\mathrm{data}}$，这个分布具体是什么我们永远都不知道。\textbf{我们所得到的样本都是从这个真实分布中采样的结果。}而从真实分布中采样的结果，也就是我们拿到的样本可以构成了一个经验分布为$\hat{P}_{\mathrm{data}}$。
 
 所以，$ \frac{1}{N} \sum_{i=1}^N \nabla_\theta \log \hat{P}(x_i;\theta)$可以是从真实分布中($P_{\mathrm{data}}$)采样得到的关于势函数乘积的均值。而我们想要求的联合概率分布$P(X;\theta)$，是我们建立的一个模型，\textbf{我们的目标就是利用这个模型，根据从真实分布中采样得到的数据来拟合真实分布，从而实现对其他未知数据的推断，}这个模型被称为$P_{\mathrm{model}}$。那么公式(8)可以被简化为：
+
 $$
 \begin{equation}
     \nabla_\theta \mathcal{L}(\theta) = \mathbb{E}_{P_{\mathrm{data}}}[ \nabla_\theta \log \hat{P}(x_i;\theta) ] - \mathbb{E}_{P_{\mathrm{model}}}[\nabla_\theta \log \hat{P}(X;\theta)]
@@ -140,6 +149,7 @@ $$
 \theta^{(t+1)} = \theta^{(t)} + \eta \nabla_\theta \mathcal{L}(\theta^{(t)})
 $$
 然后将(8)中的结果代入就可以得到，梯度上升法的完整表达形式为：
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \theta^{(t)} + \eta \left[ \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|_{\theta=\theta^{(t)}} \right] - \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)|_{\theta=\theta^{(t)}} \right]
@@ -208,6 +218,7 @@ $$
 第4节中，我们介绍了Contrastive Divergence，主要目的是为了缩短mixing time，其中$K-CD$代表的是不管到不到平稳分布，只执行$K$步转移，就从分布中进行采样。那么，为什么叫对比散度呢？和之前学习的KL Divergence有什么区别和联系呢？
 
 那么，我们对极大似然估计的过程，做一些变换：
+
 $$
 \begin{equation}
     \begin{split}
@@ -217,6 +228,7 @@ $$
 \end{equation}
 $$
 其中，$P(x_i;\theta)$是$P_{\mathrm{model}}$，所有有：
+
 $$
 \begin{equation}
 \begin{split}
@@ -227,6 +239,7 @@ $$
 \end{equation}
 $$
 而$P_{\mathrm{data}}$和$\theta$之间并没有任何关联，所以添加和$P_{\mathrm{data}}$相关的项，对整体结果没有影响。那么，紧接着公式(12)很显然可以得到：
+
 $$
 \begin{equation}
     \begin{split}
@@ -247,18 +260,21 @@ $$
 看到上面的公式表达，结合之前的分析，用MCMC从$P_{\mathrm{model}}$中采样时一件很困难的事情(到达平稳分布所需时间太长)。而K-CD的想法是，转移$K$次，到不到平稳分布都不管了，之前从第$K$步转移的分布中进行采样。
 
 在K-CD中，使用的是training data为Gibbs采样的初始值，记为$P^{(0)}$；假设模型很复杂，转移到平稳分布$P_{\mathrm{model}}$所需的时间太长为，记为$P^{(\infty)}$；而实际上，是从第K次转移中就进行采样，记为$P^{(k)}$；那么我们将目标函数做了一个改变：
+
 $$
 \begin{equation}
     \mathrm{KL}(P^{(0)}||P^{(\infty)}) \Longrightarrow  \mathrm{KL}(P^{(0)}||P^{(k)})
 \end{equation}
 $$
 而$\mathrm{KL}(P^{(0)}||P^{(k)})$可以等价的写为：
+
 $$
 \begin{equation}
     \mathrm{KL}(P^{(0)}||P^{(k)}) = \mathrm{KL}(P^{(0)}||P^{(\infty)}) - \mathrm{KL}(P^{(k)}||P^{(\infty)})
 \end{equation}
 $$
 这个公式(15)就被定义为“Contrastive Divergence”，这时计算出来的是一个近似的梯度，因为$\hat{x}_i$是来自于$P^{(k)}$，而不是$P^{(\infty)}$，这个算的上是系统误差了。公式完整表达如下所示：
+
 $$
 \begin{equation}
     \hat{\theta} = \underbrace{\mathrm{KL}(P^{(0)}||P^{(\infty)}) - \mathrm{KL}(P^{(k)}||P^{(\infty)})}_{\mathrm{Contrastive\ Divergence}} = \eta \left[ \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(x_i;\theta)|_{\theta=\theta^{(t)}} \right] - \frac{1}{m} \left[ \sum_{i=1}^m \nabla_\theta \log \hat{P}(\hat{x}_i;\theta)|_{\theta=\theta^{(t)}} \right]
@@ -284,6 +300,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 公式化表达如下所示：
+
 $$
 \begin{equation}
     X = \begin{bmatrix}
@@ -330,6 +347,7 @@ $$
     \end{bmatrix},\quad
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \begin{split}
@@ -345,6 +363,7 @@ $$
 
 \subsection{Likelihood Function}
 假定training set为observed data set，$v\in S$，$|S|=N$。那么Likelihood function的形式很简单，可以表示为：
+
 $$
 \begin{equation}
     \frac{1}{N} \sum_{v\in S} \log P(v)
@@ -352,29 +371,34 @@ $$
 $$
 \subsection{Log Likelihood Gradient}
 Likelihood Function的梯度求解为：
+
 $$
 \begin{equation}
    \frac{1}{N}  \frac{\partial}{\partial \theta} \sum_{v\in S} \log P(v)
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \log P(v) = \log \sum_h P(h,v) = \log \sum_h \frac{1}{Z} \exp\{-\mathbb{E}(h,v)\}
 \end{equation}
 $$
 而归一化因子$Z$的表达式即为：$Z = \sum_h \sum_v \exp\{-\mathbb{E}(h,v)\}$，所以：
+
 $$
 \begin{equation}
     \log P(v) = \underbrace{\sum_h \exp\{-\mathbb{E}(h,v)\}}_{\circled{1}} - \underbrace{\sum_h \sum_v \exp\{-\mathbb{E}(h,v)\}}_{\circled{2}}
 \end{equation}
 $$
 而$\theta = \{w,\alpha,\beta\}$，梯度公式为：
+
 $$
 \begin{equation}
     \frac{\partial }{\partial \theta} \log P(v) = \frac{\partial }{\partial \theta} \circled{1} - \frac{\partial }{\partial \theta} \circled{2}
 \end{equation}
 $$
 其中：
+
 $$
 \begin{equation}
     \begin{split}
@@ -384,6 +408,7 @@ $$
 \end{equation}
 $$
 由于$\sum_h \exp\{-\mathbb{E}(h,v)\} = \exp\{-\mathbb{E}(v)\}$是和$h$无关的项。所以，可以写到$\sum_h$里面，即为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -396,6 +421,7 @@ $$
 \end{equation}
 $$
 同样，$\sum_h \sum_v \exp\{-\mathbb{E}(h,v)\}$和$h,v$都没有关系，所以，
+
 $$
 \begin{equation}
     \begin{split}
@@ -408,6 +434,7 @@ $$
 \end{equation}
 $$
 综上所述，$\frac{1}{N} \frac{\partial }{\partial \theta} \log P(v)$可以表达为：
+
 $$
 \begin{equation}
 \begin{split}
@@ -420,6 +447,7 @@ $$
 
 \subsection{针对$w$参数的Log Likelihood Gradient}
 前面已经说了，$\theta=\{w,\alpha,\beta\}$，其中$\alpha$和$\beta$的求解比较简单，我们主要是求解$w$。
+
 $$
 \begin{equation}
     \frac{\partial }{\partial \theta} \log P(v) 
@@ -427,6 +455,7 @@ $$
 \end{equation}
 $$
 令$\theta = w_{ij}$：
+
 $$
 \begin{equation}
     \frac{\partial }{\partial w_{ij}} \log P(v) 
@@ -438,6 +467,7 @@ $$
  \mathrm{E}(v,h) = - \left( \sum_{i=1}^m \sum_{j=1}^n h_iw_{ij}v_i + \triangle \right)
 $$
 所以：
+
 $$
 \begin{equation}
     \begin{split}
@@ -449,6 +479,7 @@ $$
 $$
 那么，下一步的问题就是如何求解$\sum_h P(h|v)h_iv_j$和$\sum_h \sum_v P(h,v)h_iv_j$。为了简化运算，我们令RBM中每个节点都是0/1分布，即为$y_i,h_i\in \{0,1\}$。
 \subsubsection{$P(h|v)$求解}
+
 $$
 \begin{equation}
     \begin{split}
@@ -457,24 +488,28 @@ $$
 \end{equation}
 $$
 因为，后面的$h_iv_j$只和$h_i$相关。所以，把$P(h|v)$中除了$h_i$以外所有的项都求和掉，得到的就是边缘概率分布：
+
 $$
 \begin{equation}
     P(h|v)h_iv_j = \sum_{h_i} P(h_i|v)h_iv_j
 \end{equation}
 $$
 又因为$h_i \in \{0,1\}$，所以：
+
 $$
 \begin{equation}
     \sum_{h_i} P(h_i|v)h_iv_j = P(h_i=0|v)0v_j + P(h_i=1|v)1v_j = P(h_i=1|v)v_j
 \end{equation}
 $$
 而在之前的章节中，我们就已经详细的推导过了：
+
 $$
 \begin{equation}
     P(h_i=1|v) = \sigma( h_i(v)) = \sigma(\sum_{j=1}^n w_{ij}v_i + \beta_i)
 \end{equation}
 $$
 我们使用的是梯度上升的思路，所以这里的$\beta_i$和$w_{ij}$都是上一个时刻计算出的，即为：$\beta_i^{(t)}$和$w_{ij}^{(t)}$。那么:
+
 $$
 \begin{equation}
 \begin{split}
@@ -483,6 +518,7 @@ $$
 \end{equation}
 $$
 \subsubsection{$P(h,v)$求解}
+
 $$
 \begin{equation}
 \begin{split}
@@ -492,6 +528,7 @@ $$
 \end{equation}
 $$
 而$\sum_h P(h|v) h_iv_j$已经计算过了，而下一步则是求解$P(v)$。而根据我们之前求解的结果：
+
 $$
 \begin{equation}
 \begin{split}
@@ -502,6 +539,7 @@ $$
 这个计算太复杂了，精确的计算出来太难了，所以我们需要使用MCMC，Gibbs采样的方法来近似求解。
 
 \subsection{CD-K for Restricted Boltzmann Machine}
+
 $$
 \begin{equation}
     \begin{split}
@@ -544,6 +582,7 @@ $$
 $$
 
 其中，$P(h_i=1|v^{(0)})$和$P(h_i=1|v^{(k)})$都已经计算出来了。$P(h_i=1|v^{(0)}) v_j^{(0)}$是training set，$v_j^{(k)}$是以training set为起点，经过$K$步后采出来的$N$个样本。根据公式(19)，那么最终得到的梯度为：
+
 $$
 \begin{equation}
     \frac{1}{N} \sum_{v\in S} \frac{\partial}{\partial w_{ij}} \log P(v) = \frac{1}{N} \triangle w_{ij}

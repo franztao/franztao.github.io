@@ -32,6 +32,7 @@ tags:
 \begin{enumerate}
     \item \textbf{支持向量机(Support Vector Machine)}：
 {支持向量机的思路来源是几何间隔}。模型可以被我们写为：
+
 $$
 \begin{equation}
     \left\{
@@ -64,6 +65,7 @@ $$f(w) = \mathrm{sign}(w^Tx)$$
 小伙伴们可能在这里有点懵逼，我来简要描述一下：
 
 首先我们介绍一下最大熵原理的求解结果，这里的推导，有兴趣的同学自己去看，我这里只写结。实际上指数族分布那一章就推导过了，这就是结果就是指数族分布。
+
 $$
 \begin{equation}
     P_w(y|x) = \frac{\exp (\sum_{i=1}^n w_if_i(x,y))}{\sum_y \exp \left( \sum_{i=1}^n w_if_i(x,y) \right)}
@@ -73,7 +75,8 @@ $$
 写到了这里不知道大家有没有发现，这个最大熵原理最后的求解结果和Softmax函数是一毛一样的，是不是终于知道Softmax的作用了？Softmax本来就是用来解决多分类问题的，而Logistics Regressio只是一个二分问题，所以说，LR模型本质上是最大熵模型的一个特例，下面给出详细的证明过程：
 \begin{itemize}
     \item 对于给定数据集，$X=\{ x_1,x_2,\cdots,x_n \}^T$，我们构建如下图所示的特征函数：
-    $$
+    
+$$
 \begin{equation}
     f_i(x,y) = 
     \left\{
@@ -85,7 +88,8 @@ $$
     \end{equation}
 $$
     \item 根据最大熵的求解模型为：
-    $$
+    
+$$
 \begin{equation}
     \begin{split}
          \sum_y \exp \left( \sum_{i=1}^n w_if_i(x,y) \right) = & 
@@ -96,13 +100,15 @@ $$
 $$
     而根据公式(2)；我们可以简单的计算出后面的结果。
     \item 当$y=1$时，可得：
-    $$
+    
+$$
 \begin{equation}
         P_w(y=1|x) = \frac{\exp(WX)}{1+\exp(WX)}
     \end{equation}
 $$
     \item 当$y=0$时，可得：
-    $$
+    
+$$
 \begin{equation}
         P_w(y=1|x) = \frac{1}{1+\exp(WX)}
     \end{equation}
@@ -130,6 +136,7 @@ Bayes假设的概率图模型如下所示，根据概率图模型的D-Separation
     \label{fig:my_label_1}
 \end{figure}
 \noindent 我们可以将其定义为$x_i\perp x_j|y\ (i \neq j)$。根据贝叶斯公式可以得：
+
 $$
 \begin{equation}
     p(y|x)=\frac{p(x|y)p(y)}{p(x)}=\frac{p(x,y)}{p(x)}\propto p(x,y)

@@ -46,6 +46,7 @@ VAE是一个Latent Variable Model（LVM）。我们之前介绍的最简单的LV
     \label{fig:my_label_1}
 \end{figure}
 \textbf{那么，怎样才可以增加$Z$的特征信息呢？因为$Z$是离散的一维的隐变量，那么把它扩展成离散的高维的随机变量，不就行了。}那么，变化就来了，大家看好了。GMM中$Z$是离散的一维变量，那么在VAE被扩展为$m$维的高斯分布$Z\sim \mathcal{N}(0,I_{m\times m})$。而在给定$Z$的条件下，$P(X|Z)\sim \mathcal{N}(\mu_{\theta}(Z),\sum_{\theta}(Z))$。这里采用神经网络来逼近均值和方差，而不通过重参数化技巧这些直接去算（太麻烦了）。那么均值和方差是一个以$Z$为自变量，$\theta$为参数的函数。那么，假设条件可以总结为：
+
 $$
 \begin{equation}
     \left\{
@@ -57,12 +58,14 @@ $$
 \end{equation}
 $$
 其中$Z\sim \mathcal{N}(0,I_{m\times m})$是一个先验分布假设，$Z$服从怎样的先验分布都没有关系，只要是高维的连续的就行了，只是在这里假设为Gaussian。我们关心的不是先验，我们实际上关心的是后验$P(Z|X)$，$Z$实际上只是帮助我们建模的。那么，接下来可以做一系列的推导：
+
 $$
 \begin{equation}
     P_\theta(X) = \int_Z P_\theta(X,Z)dZ = \int_Z P(Z)P_\theta(X|Z) dZ
 \end{equation}
 $$
 推导到了这里有个什么问题呢？因为$Z$是一个高维的变量，所以$\int_z P(Z)P_\theta(X|Z) dZ$是intractable，积分根本算不出来。由于，$P_\theta(X)$是intractable，直接导致$P_\theta(Z|X)$也算不出来。因为根据Bayesian公式，
+
 $$
 \begin{equation}
     P_\theta(Z|X) = \frac{P_\theta(Z)P_\theta(X|Z)}{P_\theta(X)}
@@ -88,6 +91,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 前面已经讲过很多遍了，通常方法可以将$\log P(X)$做如下分解：
+
 $$
 \begin{equation}
     \log P(X)=\text{ELBO}+\text{KL}\left(Q_{\phi}(Z \mid X) \| P_{\theta}(Z \mid X)\right)
@@ -98,6 +102,7 @@ $$
 E-step为：当$Q=P_\theta(Z|X)$时，KL=0，此时expectation就是ELBO。
 
 M-step为：
+
 $$
 \begin{equation}
     \theta = \arg\max_\theta \text{ELBO} = \arg\max_\theta \mathbb{E}_{P_\theta(Z
@@ -105,6 +110,7 @@ $$
 \end{equation}
 $$
 但是，肯定EM算法是用不了的，原因很简单$Q=P_\theta(Z|X)$这一步根本就做不到，$P_\theta(Z|X)$求不出来的。我们的求解目标是使$P_\theta(Z|X)$和$Q_\phi(Z|X)$靠的越近越好。那么可以表达为：
+
 $$
 \begin{equation}
     \begin{split}

@@ -20,6 +20,7 @@ tags:
 线性回归的问题，我们可以看成这样一个形式，也就是$W^TX$。而线性分类的问题可以看成是$\{0,1\}$或者$[0,1]$的问题。其实，从从线性回归到线性分类之间通过一个映射，也就是Activate Function来实现的，通过这个映射我们可以实现$W^TX \longmapsto \{0,1\}$。
 
 而在Logistic Regression中，我们将激活函数定义为：
+
 $$
 \begin{equation}
     \sigma(z)=\frac{1}{1+e^{-z}}
@@ -35,6 +36,7 @@ $$
 3.$\lim_{z\longrightarrow-\infty} \sigma(z) = 0$
 
 那么，通过这样一个激活函数$\sigma$，我们就可以将实现$\mathbb{R}\longrightarrow (0,1)$。那么我们会得到以下的表达式：
+
 $$
 \begin{equation}
     p(y|x) = 
@@ -48,6 +50,7 @@ $$
 $$
 
 而且，我们可以想一个办法来将两个表达式合二为一，那么有：
+
 $$
 \begin{equation}
     p(y|x) = p_1^y\cdot p_0^{1-y}  
@@ -55,6 +58,7 @@ $$
 $$
 
 \section{最大后验估计}
+
 $$
 \begin{equation}
     \begin{split}
@@ -67,6 +71,7 @@ $$
 $$
     
 我们令，
+
 $$
 \begin{equation}
     \frac{1}{1+exp\{-w^tx\}}=\varphi(x,w) \qquad \frac{exp\{-w^tx\}}{1+exp\{-w^tx\}}=1-\varphi(x,w)
@@ -74,6 +79,7 @@ $$
 $$
 
 那么，
+
 $$
 \begin{equation}
     MLE =  argmax_w \sum_{i=1}^N y\log \varphi(x,w) + (1-y)\log (1-\varphi(x,w))

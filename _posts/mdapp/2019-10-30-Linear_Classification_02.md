@@ -42,6 +42,7 @@ tags:
 
 \subsection{感知机模型的迭代过程}
 我们将损失函数定义为：
+
 $$
 \begin{equation}
     \mathcal{L}(w)=\sum_{i=1}^NI\left\{ y_iw^Tx_i < 0 \right\}
@@ -49,6 +50,7 @@ $$
 $$
 
 而其中$y_iw^Tx_i < 0$就代表分类错误的类，为什么这么理解呢？因为：
+
 $$
 \begin{equation}
     \left\{
@@ -60,6 +62,7 @@ $$
 \end{equation}
 $$
 那么当分类正确时，必然有$w^Tx_iy_i>0$。只有当错误分类的时候，才会出现$w^Tx_iy_i<0$的情况。而在上述的函数中，$I$干了一个什么事，那就是将函数的值离散化，令$\mathcal{L}$的值等于错误分类的点的个数，也就是这样一个映射$I\mapsto0,1$。加这个函数的目的是得到损失函数的值，和普通的梯度下降法的过程一样。显然这不是一个连续的函数，无法求得其梯度来进行迭代更新。那么，我们需要想的办法是将离散的梯度连续。那么，我们将损失函数改写为：
+
 $$
 \begin{equation}
     \mathcal{L}(w)=\sum_{x_i\in D}-y_iw^Tx_i
@@ -67,6 +70,7 @@ $$
 $$
 
 那么，梯度可以表示为:
+
 $$
 \begin{equation}
     \nabla_{w}\mathcal{L} = -\sum_{x_i\in D}y_ix_i
@@ -74,6 +78,7 @@ $$
 $$
 
 很显然，有关于$w$的迭代公式，可以表示为：
+
 $$
 \begin{equation}
     w^{(t+1)}\longleftrightarrow w^{(t)}-\lambda \nabla_w L
@@ -81,6 +86,7 @@ $$
 $$
 
 代入可得，权值参数$w$的更新过程为：
+
 $$
 \begin{equation}
     w^{(t+1)}\longleftrightarrow w^{(t)}+\lambda \sum_{x_i\in D}y_ix_i

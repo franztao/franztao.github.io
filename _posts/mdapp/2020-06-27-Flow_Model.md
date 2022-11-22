@@ -16,6 +16,7 @@ tags:
 
 \section{Introduction}
 在上一小节中讲到了Latent Variable Model（LAM），VAE。其主要思想就是将隐变量扩充为高维连续的分布，来增强模型的表达能力。而LAM模型中的核心困难是$P(X)$计算不出来，因为$P(X) = \int_Z P(X|Z)P(Z) dZ$，而$Z$的维度过高$P(X)$算不出来。而根据Bayesian公式：
+
 $$
 \begin{equation}
     P(Z|X) = \frac{P(Z)P(X|Z)}{P(X)}
@@ -34,6 +35,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 可以用一个简单的例子来简单的介绍Flow model。$X$可以代表是当前的自己，人是比较复杂的，所以$X \to P_X(X)$计算非常困难。而一般昨天的我$Z_k \to P_{Z_k}(Z_k)$，比今天要简单一点，但是很有可能，昨天的我依然很复杂，无法计算。那么，就不但的往前推，到了刚出生的时候$Z_0$，这时肯定是非常简单的，$Z_0 \to P_{Z_0}(Z_0)$婴儿的世界里是非黑即白的，此时的分布很简单，可以被假设为$\mathcal{N}(0,I)$。而这个过程：
+
 $$
 \begin{equation}
     P_{Z_0}(Z_0) \to P_{Z_1}(Z_1) \to P_{Z_2}(Z_2) \cdots \to P_{Z_k}(Z_k) \to P_{X}(X)
@@ -45,6 +47,7 @@ $$
 假设$X=f(Z)$，$Z,X\in \mathbb{R}^p$。而$Z\sim P_Z(Z)$，$X\sim P_X(X)$；$f$是一个光滑可逆的函数。
 
 那么可以得到：
+
 $$
 \begin{equation}
     \int_Z P_Z(Z) dZ = 1 = \int_X P_X(X) dX
@@ -56,18 +59,21 @@ $$
     P_X(X) = \left| \frac{dZ}{dX} P_Z(Z) \right|
 \end{gather}
 而$X=f(Z)$且$f$是光滑可逆的，所以$Z = f^{-1}(X)$，那么有
+
 $$
 \begin{equation}
     P_X(X) = \left| \frac{\partial f^{-1}(X)}{\partial X}  \right|P_Z(Z)
 \end{equation}
 $$
 但是实际上$Z$和$X$都是高维变量，所以$\frac{\partial f^{-1}(X)}{\partial X}$是一个Jacobian Matrix。\textbf{熟悉矩阵的朋友应该知道，矩阵代表了一个变换，而矩阵行列式的值则代表了变换的尺度。}而在计算中我们关注的是矩阵变换的尺度，所以，
+
 $$
 \begin{equation}
     P_X(X) = \left| \text{det}\left( \frac{\partial f^{-1}(X)}{\partial X} \right)  \right|P_Z(Z)
 \end{equation}
 $$
 而最终的目的是想将$P_X(X)$完全用一个$Z$为自变量的函数来表达，所以要将$\left| \frac{\partial f^{-1}(X)}{\partial X} \right|$用$Z$来表示。下面先写结论
+
 $$
 \begin{equation}
     \begin{split}
@@ -85,18 +91,21 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 如图所示，$y=f(x)$，$x=f^{-1}(y)$。那么有
+
 $$
 \begin{equation}
     \frac{dy}{dx} = \frac{\partial f(x)}{\partial x}, \frac{dx}{dy} = \frac{\partial f^{-1}(y)}{\partial y}
 \end{equation}
 $$
 而，
+
 $$
 \begin{equation}
     \frac{\partial f(x)}{\partial x} \frac{\partial f^{-1}(y)}{\partial y} = 1
 \end{equation}
 $$
 在本文举的例子中，
+
 $$
 \begin{equation}
 \begin{split}
@@ -107,6 +116,7 @@ $$
 $$
 很显然有$(f^{-1})'(a) f'(b) = 1$。这就是change of
 variables theorem。我们可以得到两个变量之间关于映射$f$的转换为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -115,12 +125,14 @@ $$
 \end{equation}
 $$
 \textbf{那么，当训练完成之后，从$P(Z)$中采样比较简单，通过上述公式，就可以得到$P(X)$，所以$P(X)$是可求解的。}如何学习呢？其实并不难，通过极大似然估计可以得到：
+
 $$
 \begin{equation}
     \log P_X(X) = \log \left| \text{det}\left( \frac{\partial f^{-1}(Z)}{\partial Z} \right)  \right|^{-1} + \log P_Z(Z)
 \end{equation}
 $$
 那么：
+
 $$
 \begin{equation}
 \begin{split}

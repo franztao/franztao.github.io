@@ -27,6 +27,7 @@ Filtering问题公式话的表达即为$P(z_t|x_1,x_2,\cdots,x_t)$，是一种On
 \end{figure}
 
 首先我们回顾一下前向算法的求解思路。在这个算法中首先定义了中间变量为：
+
 $$
 \begin{equation}
     \alpha_t(i) = P(x_1,x_2,\cdots,x_t,z_t=q_i)
@@ -36,6 +37,7 @@ $$
 
 \section{Filtering问题思路}
 我们还是采用的前向算法的思路：
+
 $$
 \begin{equation}
     \begin{split}
@@ -50,6 +52,7 @@ $$
 $$
 
 很显然通过如上的推导，我们将Filtering问题回归到了一个Prediction的问题。那么这个Prediction的问题，如何进一步求解呢？下一步，我们对Prediction的部分进行推导。
+
 $$
 \begin{equation}
     \begin{split}
@@ -61,6 +64,7 @@ $$
 $$
 
 通知上述的推导，我们又回到了一个Filtering的问题，那么这样我们形成了 一个递归的表达。那么，我们可以总结为在一个Filtering问题中，我们通过一个Prediction问题，来构建形成了一个回归。那么，下面我将详细的说明一下求解的过程：
+
 $$
 \begin{equation}
     \begin{split}
@@ -94,6 +98,7 @@ $$
 
 \section{Filtering问题求解具体分析}
 首先，我们需要明确一个问题，Gaussian Distribution是一个具有非常好的性质的{自共轭分布}。通俗的讲就是，Gaussian分布的边缘分布，条件分布，联合概率分布等都是符合高斯分布的。首位，我先回忆一下在Math Basis那小节中，总结的线性高斯模型中，已知条件高斯分布，求变量高斯分布的公式：
+
 $$
 \begin{align}
     & P(X) = \mathcal{N}(X|\mu,\Lambda^{-1}) \\
@@ -107,6 +112,7 @@ $$
 
 \subsection{Prediction}
 预测问题被我们描述为，$P(z_t|x_1,x_2,\cdots,x_{t-1})$，那下面我们来进行分析怎么求。
+
 $$
 \begin{equation}
     P(z_t|x_1,x_2,\cdots,x_{t-1}) = \int_{z_{t-1}} P(z_t|z_{t-1}) P(z_{t-1}|x_1,x_2,\cdots,x_{t-1}) dz_{t-1}
@@ -116,6 +122,7 @@ $$
 根据Gaussian Distribution的自共轭性，所以$P(z_t|x_1,x_2,\cdots,x_{t-1})$一定是一个Gaussian Distribution。事实上$x_1,x_2,\cdots,x_{t-1}$中所有的信息都是已知的。为了方便表达$P(z_t|x_1,x_2,\cdots,x_{t-1}) \sim P(z_t)$，$P(z_t|x_1,x_2,\cdots,x_{t-1}) \sim P(z_t)$。
 
 那么，第$t-1$时刻的假设$P(z_{t-1}|x_1,x_2,\cdots,x_{t-1}) \sim \mathcal{N}(\mu_{t-1},\Sigma_{t-1})$。那么，第$t$时刻的分布$P(z_{t}|x_1,x_2,\cdots,x_{t}) \sim \mathcal{N}(\mu_{t}^\ast,\Sigma_{t}^\ast)$。并且，根据Gaussian Distribution的自共轭性，我们可以令$P(z_t|z_{t-1})\sim \mathcal{N}(z_t|Az_{t-1}+B,Q)$。令$x=z_{t-1},y=z_{t}$，代公式(5)-(7)，可以计算出：
+
 $$
 \begin{equation}
     \left\{
@@ -129,6 +136,7 @@ $$
 
 \subsection{Update}
 然而，对于update问题，我们的目标是求解：
+
 $$
 \begin{equation}
     P(z_t|x_1,x_2,\cdots,x_t) \propto P(x_t|z_t)\cdot P(z_t|x_1,x_2,\cdots,x_{t-1})
@@ -136,6 +144,7 @@ $$
 $$
 
 在这个问题中$x_1,x_2,\cdots,x_{t-1}$都是已知的，而$x_t$是未知的。所以，公式(11)可以被改写为：
+
 $$
 \begin{equation}
     \underbrace{P(z_t|x_1,x_2,\cdots,x_t)}_{P(X|Y)} \propto \underbrace{P(x_t|z_t)}_{P(Y|X)}\cdot \underbrace{P(z_t|x_1,x_2,\cdots,x_{t-1})}_{P(X)}
@@ -143,6 +152,7 @@ $$
 $$
 
 同样利用Guassian Distribution的自共轭性，我们可以将公式改写为：
+
 $$
 \begin{equation}
     \mathcal{N}(\mu_t,\Sigma_t) \propto \mathcal{N}(x_t|Cz_t+D,R)\cdot \mathcal{N}(\mu_t^\ast,\Sigma_t^\ast)

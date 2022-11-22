@@ -36,6 +36,7 @@ tags:
 
 \subsection{无向图中的因子分解}
 在无向图中，最重要的就是因子分解，\textbf{因子分解是对联合概率进行建模}。它基于最大团的概念来进行分解的，理论基础是Hammersley Clifford Theorem。因子分解的公式表达为：
+
 $$
 \begin{equation}
     P(X) = \frac{1}{Z} \prod_{i=1}^k \phi_i (x_{c_i})
@@ -52,6 +53,7 @@ $$
 \phi_i (x_{c_i}) = \exp \left\{ -\mathrm{E}(x_{c_i}) \right\}
 $$
 而且这样就正好满足了$\phi_i (x_{c_i})$是严格正定的需求，而E则被称为能量函数(Energy Function)。所以，联合概率分布，被改写为：
+
 $$
 \begin{equation}
     P(X) = \frac{1}{Z} \prod_{i=1}^k \phi_i (x_{c_i}) = \frac{1}{Z} \exp\left\{ -\sum_{i=1}^k \mathrm{E}(x_{c_i}) \right\}
@@ -59,6 +61,7 @@ $$
 $$
 
 而最大团中的所有变量，可以用$X$来表达，最后可以化简为一个和$X$相关的能量函数，表达为：
+
 $$
 \begin{equation}
     P(X) = \frac{1}{Z} \exp (-\mathrm{E}(X))
@@ -72,6 +75,7 @@ $$
 Boltzmann Distribution最早来自于统计物理学，这是一个物理学的概率，这里我们采用感性的理解方式。
 
 一个物理系统由各种各样的粒子组成。而一个系统的状态(State)，由其中各种各样的粒子的状态联合而成。系统状态的概率满足：
+
 $$
 \begin{equation}
     P(\mathrm{State}) \propto \exp \left\{ -\frac{\mathrm{E}}{\mathrm{kT}} \right\}
@@ -99,6 +103,7 @@ $$
 
 \section{Restricted Boltzmann Machine模型表示}
 Boltzmann Machine就是内部的所有节点分为可观测和不可观测的马尔可夫随机场。假设一共有$p$个节点，$m$个不可观测的节点组成集合$h$，$n$个可观测的节点组成集合$v$。即为：
+
 $$
 \begin{equation}
     X = \begin{bmatrix}
@@ -142,6 +147,7 @@ $$
 \end{figure}
 
 我们接下来来定义能量函数的结构：
+
 $$
 \begin{equation}
     \begin{split}
@@ -156,6 +162,7 @@ $$
 接下来的问题就是如何定义$\mathrm{E}(v,h)$。考虑到，能量函数和系统内部的每一个节点之间有关系。由于不考虑节点内部之间的关系，所以能量函数可以被分解为：$h$节点中每个节点自身的影响，$v$节点中每个节点自身的影响，和$h$和$v$节点之间的影响。前两者考虑的是点自身的影响，后者是考虑两个集合中的点连接的边的影响。
 
 下一步则假设，两个集合中的点连接的边的关系用矩阵$x=[w_{ij}]_{m\times n}$表示；$v$集合中的点的关系参数矩阵$\alpha=[\alpha_i]_{1\times m}$；$h$集合中的点的关系参数矩阵$\alpha=[\alpha_i]_{n\times 1}$；$v$集合中的点的关系参数矩阵$\beta=[\beta_i]_{m\times 1}$。然后采用线性的方法来表达$\mathrm{E}$：
+
 $$
 \begin{equation}
     \mathrm{E}(v,h) = - (h^T w v + \alpha^T v + \beta^T h)
@@ -163,6 +170,7 @@ $$
 $$
 
 求得的能量函数$\mathrm{E}(v,h)$是一个一维实数。所以，联合概率为：
+
 $$
 \begin{equation}
 \begin{split}
@@ -184,6 +192,7 @@ $$
 
 \subsection{Restricted Boltzmann Machine概率密度函数}
 所以Restricted Boltzmann Machine概率密度函数的表现形式如下所示：
+
 $$
 \begin{equation}
     \begin{split}
@@ -194,6 +203,7 @@ $$
 $$
 
 而其中：
+
 $$
 \begin{equation}
     \begin{split}
@@ -203,6 +213,7 @@ $$
 $$
 
 用类似的方法进行转换，我们可以得到：
+
 $$
 \begin{equation}
     P(X) 
@@ -321,6 +332,7 @@ Boltzmann Machine的算法复杂度太高了，假设观测节点集合内部所
     \label{fig:my_label_1}
 \end{figure}
 公式化表达如下所示，即为：
+
 $$
 \begin{equation}
     X = \begin{bmatrix}
@@ -353,6 +365,7 @@ $$
 \end{equation}
 $$
 其中，$m+n=p$。节点的联合概率密度函数为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -364,6 +377,7 @@ $$
 \end{equation}
 $$
 而其中，
+
 $$
 \begin{equation}
 \begin{split}
@@ -412,6 +426,7 @@ $$
 P(h_i|-h_i,v) =P(h_i|v)
 $$
 我们就可以得到$h_i\perp h_j|v,\ i\neq j$。所以，根据条件独立性，联合概率可以被简化为：
+
 $$
 \begin{equation}
     P(h|v) = \prod_{l=1}^m P(h_l|v)
@@ -432,6 +447,7 @@ $$
 那么，怎么求解呢？首先看分子怎么求。$P(h_l=1,h_{-l},v)$非常的特殊，和联合概率分布不一样的地方在于其中某一个变量的状态是已知的。那么我们把这个变量从联合概率中分解出来，赋予具体的值就可以了。
 
 于是，我们的下一步操作就是对能量函数进行改写，将$h_l$相关的项解析出来。实际上就是和$h_l$自己和相关的边有关。
+
 $$
 \begin{equation}
 \begin{split}
@@ -450,24 +466,28 @@ $$
     \end{split}
 \end{equation*}
 我们将$\sum_{j=1}^n w_{lj}v_i + \beta_l$定义为$ h_l(v)$，所以：
+
 $$
 \begin{equation}
     \mathrm{E}(v,h) = h_lh_l(v) + \Bar{H}_l(h,v)
 \end{equation}
 $$
 那么，分子为：
+
 $$
 \begin{equation}
     P(h_l=1,h_{-l},v) = \frac{1}{Z}\exp\left\{ h_l(v) + \Bar{H}_l(h,v) \right\}
 \end{equation}
 $$
 那么，分母为：
+
 $$
 \begin{equation}
     P(h_l=1,h_{-l},v) + P(h_l=0,h_{-l},v) = \frac{1}{Z}\exp\left\{ h_l(v) + \Bar{H}_l(h,v) \right\} + \frac{1}{Z}\exp\left\{ \Bar{H}_l(h,v) \right\}
 \end{equation}
 $$
 所以，
+
 $$
 \begin{equation}
 \begin{split}
@@ -479,6 +499,7 @@ $$
 \end{equation}
 $$
 而$\frac{1}{1+\exp\left\{ \Bar{H}_l(h,v) - h_l(v) - \Bar{H}_l(h,v) \right\}}$实际就是Sigmoid函数，Sigmoid函数的表达形式为：$\sigma(x) = \frac{1}{1+e^{-x}}$。
+
 $$
 \begin{equation}
     P(h_l=1|v) = \sigma( h_l(v)) = \sigma(\sum_{j=1}^n w_{lj}v_i + \beta_l)
@@ -486,6 +507,7 @@ $$
 $$
 
 既然已经求得了$P(h_l|v)$，根据公式(15)就可以得到$P(h|v)$的结果了：
+
 $$
 \begin{equation}
     P(h|v) = \prod_{l=1}^m P(h_l|v) = \left( \sigma\left(\sum_{j=1}^n w_{lj}v_i + \beta_l\right) \right)^k\left(1-\sigma\left(\sum_{j=1}^n w_{lj}v_i + \beta_l\right)\right)^{m-k}
@@ -496,6 +518,7 @@ $$
 ~\\
 
 已经成功求得了$P(h|v)$，那么求解$P(v|h)$的过程是一模一样的，基本上可以做一个转换，直接得到结果：
+
 $$
 \begin{equation}
     P(v|h) = \prod_{l=1}^m P(h_l|v) = \left( \sigma\left(\sum_{j=1}^m w_{jl}h_j + \alpha_l\right) \right)^k\left(1-\sigma\left(\sum_{j=1}^m w_{jl}h_j + \alpha_l\right)\right)^{n-k}
@@ -507,6 +530,7 @@ $$
 
 \subsection{求解$P(v)$}
 这一小节，我们的目标是通过Inference来求解Marginal Distribution $P(v)$。思路很简单，既然我们知道联合概率分布$P(v,h)$，那么把$h$节点的变量积分掉不就可以了，所以：
+
 $$
 \begin{equation}
 \begin{split}
@@ -518,6 +542,7 @@ $$
 $$
 
 我们下一步的目标就是将等式(24)中的所有和$h$相关的项提取出来，分别进行计算。为了方便计算，我们令：
+
 $$
 \begin{equation}
     h = 
@@ -552,6 +577,7 @@ $$
 \beta^Th = \sum_{i=1}^m \beta_i h_i
 $$
 所以，
+
 $$
 \begin{equation}
     \begin{split}
@@ -564,6 +590,7 @@ $$
 \end{equation}
 $$
 由于$h_l \in\{0,1\}$，所以，
+
 $$
 \begin{equation}
 \begin{split}
@@ -583,6 +610,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 我们可以看到此函数在正半轴越来越接近Relu函数，所以，接着公式(27)继续向下推导得：
+
 $$
 \begin{equation}
 \begin{split}
@@ -592,6 +620,7 @@ $$
 \end{equation}
 $$
 那么，就可以求得关于$v$的边缘概率分布了。$v$可能有$k$种状态，将每种状态的具体值代入即可。最后在总结一下：
+
 $$
 \begin{equation}
     P(v)
@@ -601,6 +630,7 @@ $$
 其中，$w_i$为$w$矩阵的行向量。
 \subsection{小结}
 在本小节中，我们主要计算了三个推断问题，$P(v|h)$，$P(h|v)$，$P(v)$。计算结果如下所示：
+
 $$
 \begin{equation}
     \begin{split}

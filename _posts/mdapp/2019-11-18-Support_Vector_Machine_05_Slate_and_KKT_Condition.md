@@ -20,6 +20,7 @@ tags:
     
 
 首先，我们整理一下前面得到的有关约束优化的模型。我们可以描述为：
+
 $$
 \begin{equation}
     \left\{
@@ -33,6 +34,7 @@ $$
 $$
 
 其中，
+
 $$
 \begin{equation}
     D = \left\{ dom\ f \bigcap_{i=1}^M dom\ m_i \bigcap_{j=1}^N dom\ n_j \right\}
@@ -40,6 +42,7 @@ $$
 $$
 
 我们将模型进行简化可得：
+
 $$
 \begin{equation}
     \left\{
@@ -70,6 +73,7 @@ $$
 在上文中我们知道了Convex和Slate Condition可以得到强对偶关系，也就是$d^\ast = p^\ast$。但是这只是一个充分非必要条件。同样的在满足KKT Condition的情况下，我们也可以得出是一个强对偶问题，并且这是一个充分必要的条件。
 
 我们在来回顾一下模型的原问题：
+
 $$
 \begin{equation}
     \left\{
@@ -83,6 +87,7 @@ $$
 $$
 
 而拉格朗日形式的表达为：
+
 $$
 \begin{equation}
     \mathcal{L}(x,\lambda) = f(x) + \sum_i \lambda_i m_i(x) + \sum_j \eta_j n_j(x) 
@@ -90,6 +95,7 @@ $$
 $$
 
 对于对偶问题，我们可以描述对应的$g(\lambda,\eta) = \min_x \mathcal{L}(x,\eta,\lambda)$；$d\ast \longleftarrow \lambda^\ast,\eta^\ast$。所以对偶问题(Dual Prob)也就是：
+
 $$
 \begin{equation}
     \left\{
@@ -104,6 +110,7 @@ $$
 下面进行KKT条件的推导：
 
 首先一定需要满足的是，在可行域以内。所以，一定会有：$m_i(x^\ast)\leq 0,n_i(x^\ast)=0,\lambda^\ast\geq 0$。并且还需要满足：
+
 $$
 \begin{equation}
     \begin{split}
@@ -123,6 +130,7 @@ $$
 第一，对于$\forall i = 0,1,2,\cdots,M$，都有$\sum_{i}\lambda_im_i = 0$。
 
 第二，$ \min \mathcal{L}(x,\lambda^\ast,\eta^\ast),\quad \forall x\in D = \mathcal{L}(x^\ast,\lambda^\ast,\eta^\ast)$。也就是：
+
 $$
 \begin{equation}
     \frac{\partial \mathcal{L}(x,\lambda^\ast,\eta^\ast)}{\partial x}\mid_{x=x^\ast} = 0

@@ -17,6 +17,7 @@ tags:
     
 
 Decoding问题可被我们描述为：
+
 $$
 \begin{equation}
     \hat{I} = \arg\max_{I} P(I|O,\lambda)
@@ -43,6 +44,7 @@ $$
 \end{figure}
 
 我们假设：
+
 $$
 \begin{equation}
     \delta_t(i) = \max_{i_1,\cdots,i_{t-1}} P(o_1,\cdots,o_t,i_1,\cdots,i_{t-1},i_t=q_i)
@@ -58,6 +60,7 @@ $$
 \end{figure}
 
 所以，
+
 $$
 \begin{equation}
 \begin{split}
@@ -69,6 +72,7 @@ $$
 $$
 
 这就是Viterbi算法，但是这个算法最后求得的是一个值，没有办法求得路径，如果要想求得路径，我们需要引入一个变量：
+
 $$
 \begin{equation}
     \varphi_{t+1}(j) = \arg\max_{1\leq i \leq N}\delta_t(i)\cdot a_{ij}\cdot b_j(o_{t+1})

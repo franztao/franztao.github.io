@@ -45,6 +45,7 @@ Learing问题中$\lambda$是已知的，$\lambda_{MLE} = \arg\max_{\lambda}P(X|\
 
 \subsubsection{Filtering}
 实际上是一个Online-Learning的过程，也就是如果不停的往模型里面喂数据，我们可以得到概率分布为：$P(z_t|x_1,\cdots,x_t)$。所以Filtering非常的适合与on-line update。我们要求的这个就是隐变量的边缘后验分布。为什么叫滤波呢？这是由于我们求的后验是$P(z_t|x_1,\cdots,x_t)$，运用到了大量的历史信息，比$P(z_t|x_t)$的推断更加的精确，可以过滤掉更多的噪声，所以被我们称为“过滤”。求解过程如下所示：
+
 $$
 \begin{equation}
     P(z_t|x_{1:t}) = \frac{P(z_t,x_1,\cdots,x_t)}{P(x_1,\cdots,x_t)} = \frac{P(z_t,x_1:x_t)}{\sum_{z_t} P(z_t,x_1:x_t)} \propto P(z_t,x_1:x_t)
@@ -53,12 +54,14 @@ $$
 
 \subsubsection{Smoothing}
 Smoothing问题和Filtering问题的性质非常的像，不同的是，Smoothing问题需要观测的是一个不变的完整序列。对于Smoothing问题的计算，前面的过程和Filtering一样，都是：
+
 $$
 \begin{equation}
     P(z_t|x_{1:T}) = \frac{P(z_t,x_1,\cdots,x_T)}{P(x_1,\cdots,x_T)} = \frac{P(z_t,x_1:x_T)}{\sum_{z_t} P(z_t,x_1:x_T)} \propto P(z_t,x_1:x_T)
 \end{equation}
 $$
 同样因为$\sum_{z_t} P(z_t,x_1:x_T)$是一个归一化常数，我们这里不予考虑。下面的主要问题是关于$P(z_t,x_1:x_T)$如何计算，我们来进行推导：
+
 $$
 \begin{equation}
     \begin{split}
@@ -77,6 +80,7 @@ $$
 \end{figure}
 
 根据概率图模型中提到D-Separation中，我们可以很简单的得出，$A\perp C|B$。所以，$P(x_{t+1:T}|x_{1:t},z_t) = P(x_{t+1:T}|x_{1:t},z_t = \beta_t)$。所以，我们可以得到:
+
 $$
 \begin{equation}
     P(x_{1:T},z_t) = \alpha_t \cdot \beta_t
@@ -85,6 +89,7 @@ $$
 
 那么，最终得到的就是：
 {
+
 $$
 \begin{equation}
     P(z_t|x_{1:T}) \propto P(x_{1:T},z_t) = \alpha_t\beta_t
@@ -96,6 +101,7 @@ $$
 
 \subsubsection{Prediction}
 预测问题，大体上被我们分成两个方面：
+
 $$
 \begin{equation}
     \begin{split}
@@ -104,6 +110,7 @@ $$
     \end{split}
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \begin{split}

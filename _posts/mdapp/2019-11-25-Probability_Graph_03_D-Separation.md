@@ -38,6 +38,7 @@ tags:
 Markov Blanket听着像是一个很神奇的东西呀，我看着似乎也很神奇，这到底是个什么玩意呢？大家看我的分析。
 
 我们首先定义$x_{-i}$为$\{x_1,x_2,\cdots,x_{i-1},x_{i+1},\cdots,x_N\}$，这个序列中唯独不包括$x_i$。那么，我们假设除了$x_i$节点，其他节点都是可观测的，那么我们需要计算概率：
+
 $$
 \begin{equation}
     p(x_i|x_{-i}) = \frac{p(x_i, x_{-i})}{p(x_{-i})} = \frac{p(x)}{\int_{x_i}p(x)dx_i} = \frac{\prod_{j=1}^N p(x_j|x_{pa(j)})}{\int_{x_i}\prod_{j=1}^N p(x_j|x_{pa(j)})dx_i}
@@ -45,6 +46,7 @@ $$
 $$
 
 我们分析一下上述等式，我们可以分成两部分，将和$x_i$相关的部分记为$\bar{\Delta}$，和$x_i$不相关的部分记为$\Delta$。那么公式(1)可以被我们改写为：
+
 $$
 \begin{equation}
      p(x_i|x_{-i})= \frac{\Delta\cdot \bar{\Delta}}{\int_{x_i}\Delta\cdot \bar{\Delta}dx_i} = \frac{\Delta\cdot \bar{\Delta}}{\Delta\cdot \int_{x_i} \bar{\Delta}dx_i} = = \frac{ \bar{\Delta}}{ \int_{x_i} \bar{\Delta}dx_i}

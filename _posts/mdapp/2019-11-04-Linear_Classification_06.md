@@ -27,6 +27,7 @@ tags:
 \end{figure}
 
 我们可以将其定义为$x_i\perp x_j|y\ (i \neq j)$。根据贝叶斯公式可以得：
+
 $$
 \begin{equation}
     p(y|x)=\frac{p(x|y)p(y)}{p(x)}=\frac{p(x,y)}{p(x)}\propto p(x,y)
@@ -37,6 +38,7 @@ $$
 
 \section{Naive Bayes Classification}
 朴素贝叶斯算法的优化目的即为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -47,6 +49,7 @@ $$
 $$
 
 其中,
+
 $$
 \begin{equation}
     p(x|y) = \prod_{i=1}^Np(x_i|y)

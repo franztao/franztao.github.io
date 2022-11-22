@@ -21,6 +21,7 @@ tags:
 
 \section{指数族分布的基本形式}
 指数族分布的基本形式可以表示为：
+
 $$
 \begin{equation}
     p(x|y)=h(x)exp\left\{ \eta^T\varphi(x)-A(\eta) \right\}
@@ -37,6 +38,7 @@ $\eta$和$h(x)$的理解比较简单，但是log partition function的理解难�
 
 \subsection{log partition function (配分函数)}
 什么是配分函数呢？我的理解这是一个归一化的函数因子，用来使概率密度函数的积分值为1。推导过程如下：
+
 $$
 \begin{equation}
     \begin{split}
@@ -48,6 +50,7 @@ $$
 $$
 
 而在指数族函数中有关于$A(\eta)$的配分函数的推导如下：
+
 
 $$
 \begin{equation}
@@ -76,6 +79,7 @@ $$
 什么是充分统计量？我自己的理解，充分统计量是一个有关于样本的函数，有了这个统计量就可以完整的表示出数据集整体的特征。从某种意义上说，我们就可以丢弃样本数据集了。下面对Guassian Distribution进行举例，数据集Data set为：$\{x_1,x_2,x_3,\cdots ,x_N\}$
 
 我们只需要一组充分统计量：
+
 $$
 \begin{equation}
     \varphi(x) = 
@@ -89,6 +93,7 @@ $$
 
 \subsection{共轭}
 为什么要使用共轭的概念呢？首先来看看贝叶斯公式：
+
 $$
 \begin{equation}
     p(z|x)=\frac{p(x|z)p(z)}{\int_{z}p(x|z)p(z)dz}
@@ -100,6 +105,7 @@ $$
 变分的方法，是用简单的分布来拟合一个很难计算的分布，从而计算得出$p(z|x)$的近似分布形式。而采样的方法，比如蒙特卡罗采样，隐马尔可夫蒙特卡罗采样(MCMC)等，是直接来求$\mathbb{E}_{p(z|x)}[f(x)]$，这样直接跳过了中间那一堆的过程，在强化学习中经常使用。
 
 而共轭是一种很取巧的方法，它的效果是使先验和后验有着相同的分布形式。这样可以大大的简化计算，解决上述的问题。举例，
+
 $$
 \begin{equation}
     p(z|x)\varpropto p(x|z)p(z)

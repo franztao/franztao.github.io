@@ -20,6 +20,7 @@ tags:
     
 
 上一节中我们讲解了Detailed Balance，这是平稳分布的充分必要条件。Detailed Balance为：
+
 $$
 \begin{equation}
     \pi(x)P(x\mapsto x^\ast) = \pi(x^\ast)P(x^\ast \mapsto x)
@@ -29,6 +30,7 @@ $$
 这里的$P(x\mapsto x^\ast)$实际上就是条件概率$P(z^\ast|x^\ast)$，这样写只是便于理解。
 
 首先，我们需要明确一点，我们想要求的是后验概率分布$P(Z)$，也就是我们推断问题的核心目标。我们求$P(Z)$主要是为了求在$P(Z)$概率分布下的一个相关函数的期望，也就是：
+
 $$
 \begin{equation}
     \mathbb{E}_{P(Z)}[f(Z)] \approx \frac{1}{N} \sum_{i=1}^N f(z^{(i)})
@@ -41,6 +43,7 @@ $$
 那我们怎么来找这个状态转移矩阵$P_{ij}$呢？首先我们可以随机一个状态转移矩阵$Q_{ij}$，也就是Proposal Matrix。
 
 那么肯定是：
+
 $$
 \begin{equation}
     P(Z)Q(Z^\ast|Z)  \neq P(Z^\ast)Q(Z|Z^\ast)
@@ -48,6 +51,7 @@ $$
 $$
 
 那么我们就要想办法找到$Q_{ij}$使得：
+
 $$
 \begin{equation}
     P(Z)Q(Z^\ast|Z)  = P(Z^\ast)Q(Z|Z^\ast)
@@ -55,6 +59,7 @@ $$
 $$
 
 那么，我们怎么来解决这个问题呢？我们可以在左右两边乘上一个因子来解决这个问题。也就是，
+
 $$
 \begin{equation}
     P(Z)\underbrace{Q(Z^\ast|Z)\alpha(Z^\ast,Z)}_{P(Z\mapsto Z^\ast)}  = P(Z^\ast)\underbrace{Q(Z|Z^\ast)\alpha(Z,Z^\ast)}_{P(Z^\ast\mapsto Z)}
@@ -62,6 +67,7 @@ $$
 $$
 
 而$\alpha(z,z^\ast)$定义为接收率，大小为：
+
 $$
 \begin{equation}
     \alpha(z,z^\ast) 
@@ -70,6 +76,7 @@ $$
 $$
 
 这样定义就行了？就可以满足Detailed Balance吗？我们可以证明一下，
+
 $$
 \begin{equation}
     \begin{split}
@@ -83,6 +90,7 @@ $$
 $$
 
 那么我们就成功的证明了：
+
 $$
 \begin{equation}
     P(Z)\underbrace{Q(Z^\ast|Z)\alpha(Z^\ast,Z)}_{P(Z\mapsto Z^\ast)}  = P(Z^\ast)\underbrace{Q(Z|Z^\ast)\alpha(Z,Z^\ast)}_{P(Z^\ast\mapsto Z)}

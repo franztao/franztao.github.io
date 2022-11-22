@@ -17,6 +17,7 @@ tags:
     
 
 机器学习中，所谓的模型实际上就可以看成是一堆的参数。根据极大似然估计的思想，我们要求解的对象的是：
+
 $$
 \begin{equation}
     \theta_{MLE} = \log P(X|\theta)
@@ -26,6 +27,7 @@ $$
 其中，$X$为observed data；$Z$为latent data；$(X,Z)$为complete data；$\theta$为parameter。
 
 那么，EM公式就被我们描述为：
+
 $$
 \begin{equation}
 \theta^{(t+1)} = \arg\max_{\theta} \int_Z \log P(X,Z|\theta)P(Z|X,\theta^{(t)}) dZ    
@@ -35,6 +37,7 @@ $$
 EM算法可以被我们分解成E-step和M-step两个部分。
 
 E-step:
+
 $$
 \begin{equation}
     P(Z|X,\theta^{(t)}) \longrightarrow \mathbb{E}_{Z\sim P(Z|X,\theta^{(t)})}\left[ \log P(X,Z|\theta) \right]
@@ -42,6 +45,7 @@ $$
 $$
 
 M-step:
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \arg\max_{\theta} \mathbb{E}_{Z\sim P(Z|X,\theta^{(t)})}\left[ \log P(X,Z|\theta) \right]
@@ -49,6 +53,7 @@ $$
 $$
 
 前面我们已经证明了EM算法的收敛性了，也就是：
+
 $$
 \begin{equation}
     \log P(X,Z|\theta^{(t+1)}) \geq \log P(X|\theta^{(t)})
@@ -59,6 +64,7 @@ $$
 
 \section{从KL Divergence进行分析}
 这是个什么东西呢？中文名字叫做“证据下界”。这个名字读起来似乎有一点点奇怪。我们首先看看它是怎么来的。首先，我们定义一个有关于表示层$Z$的表示层变量$q(Z)$，$q(Z)$可以表示任何一个变量。
+
 $$
 \begin{equation}
     \begin{split}
@@ -72,6 +78,7 @@ $$
 两边同时对于$Q(Z)$求期望，我们可以得到：
 
 左边：
+
 $$
 \begin{equation}
     \begin{split}
@@ -84,6 +91,7 @@ $$
 $$
 
 右边：
+
 $$
 \begin{equation}
     \begin{split}
@@ -98,6 +106,7 @@ $$
 { EM算法的一个想法就是想让ELBO不断的增加，从而使$\log P(X|\theta)$不断的变大的一种攀爬的迭代方法。}
 
 那么，我们对下界进行优化，使下界尽可能的变大，就可以使目标函数不断的上升，那么我们可以得到：
+
 $$
 \begin{equation}
     \hat{\theta} = \arg\max_{\theta} ELBO = \arg\max_{\theta} \int Q(Z)\log \frac{P(X,Z|\theta)}{Q(Z)}dZ
@@ -113,6 +122,7 @@ $$
 \end{figure}
 
 由于我们的目标是最大化ELBO。这个下界我们怎么优化？因为我们需要优化的是ELBO的参数$\theta$。那么，对于某一个时刻的$\theta^{(t)}$，我们可以的得到一个关于$\theta$的函数：
+
 $$
 \begin{equation}
     \log P(X|\theta^{(t)}) = \int_Z Q(Z) \log \frac{P(X,Z|\theta)}{Q(Z)}dZ - \int_Z Q(Z) \log \frac{P(Z|X,\theta^{(t)})}{Q(Z)}dZ
@@ -120,6 +130,7 @@ $$
 $$
 
 由于想让$\int_Z Q(Z) \log \frac{P(X,Z|\theta)}{Q(Z)}dZ$更大。由于$\log P(X|\theta^{(t)})$是一个定值，那么也就是想让KL散度的值越小。所以，我们想让KL散度的值为零，也就是让$Q(Z) = P(X,Z|\theta^{(t)})$。这样我们在固定了$\theta^{(t)}$之后就得到了一个ELBO关于$\theta$的函数。然后我们找到这个函数令值最大的$\theta^{(t+1)}$后开始进行下一步迭代。实际上我们的目的就是在不断的优化ELBO，使ELBO不断的变大，那么我们想要的结果自然也就变大了，这是一个间接优化的方法。所以，我们紧接着公式(9)进行推导：
+
 $$
 \begin{equation}
     \begin{split}
@@ -132,6 +143,7 @@ $$
 $$
 
 由于，$P(X,Z|\theta^{(t)})P(X,Z|\theta^{(t)})$与$\theta$的求解无关。所以我们可以直接省略掉。那么下一步的$\theta^{(t+1)}$的表达自然也就是：
+
 $$
 \begin{equation}
     \begin{split}
@@ -154,6 +166,7 @@ $$
 \end{figure}
 
 那么对于一个$t\in [0,1]$，$c = ta+(1-t)b$，我们都可以得到：
+
 $$
 \begin{equation}
     f(c) = f[ta+(1-t)b] \geq tf(a)+(1-t)f(b)
@@ -161,6 +174,7 @@ $$
 $$
 
 当$t = \frac{1}{2}$时，我们可以得到：
+
 $$
 \begin{equation}
     f(\frac{(a+b)}{2}) \geq \frac{1}{2}[f(a)+f(b)] \qquad f[E] \geq E[f]
@@ -168,6 +182,7 @@ $$
 $$
 
 所以，我们可以利用Jensen Inequality进行推导：
+
 $$
 \begin{equation}
     \begin{split}
@@ -191,6 +206,7 @@ $$
 \end{gather}
 
 所以，我们就可以得到：
+
 $$
 \begin{equation}
     Q(Z) = \frac{P(X,Z|\theta)}{P(X|\theta)} = P(Z|X,\theta)
@@ -198,6 +214,7 @@ $$
 $$
 
 所以，大家有没有惊奇的发现，这个$Q(Z)$实际上就是Posterior。当时我们随便引入的一个分布$Q(Z)$，没想到当它取等的时候就是后验分布。那么像不断去优化这个ELBO，从而使得$\log P(X|\theta)$的值不断的增加。由于，我们是迭代式的上升，这里的$Q(Z) = P(Z|X,\theta^{(t)})$，而$\theta^{(t)}$是上一次迭代得到的，我们可以认为是一个常数。所以，
+
 $$
 \begin{equation}
     \mathbb{E}_{Z\sim Q(Z)}\left[ \log \frac{P(X,Z|\theta)}{Q(Z)} \right] = \mathbb{E}_{Z\sim Q(Z)}\left[ \log \frac{P(X,Z|\theta)}{P(Z|X,\theta^{(t)})} \right]
@@ -205,6 +222,7 @@ $$
 $$
 
 所以，
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \arg\max_{\theta} \mathbb{E}_{Z\sim Q(Z)}\left[ \log \frac{P(X,Z|\theta)}{P(Z|X,\theta^{(t)})} \right]

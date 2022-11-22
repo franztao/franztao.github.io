@@ -20,6 +20,7 @@ tags:
 本节的主要内容是演示Guassian Distribution的指数族表达形式，将高斯函数的形式转换为指数族分布的通用表达形式。
 
 指数族分布的基本形式可以表示为：
+
 $$
 \begin{equation}
     p(x|y)=h(x)exp\left\{ \eta^T\varphi(x)-A(\eta) \right\}
@@ -34,6 +35,7 @@ $\varphi(x)$：充分统计量sufficient statistics magnitude。
 
 \section{思路分析}
 高斯分布的概率密度函数可表示为：
+
 $$
 \begin{equation}
     p(x|\mu,\sigma^2) = \frac{1}{\sqrt{2\pi}\sigma}exp\left\{ -\frac{(x-\mu)^2}{\sigma^2} \right\}
@@ -44,6 +46,7 @@ $$
 
 \section{将Guassian Distribution改写为指数族分布的形式}
 具体推导过程如下所示：
+
 $$
 \begin{align}
     p(x|\theta)= & \frac{1}{\sqrt{2\pi}\sigma}exp\left\{ -\frac{(x-\mu)^2}{2\sigma^2} \right\} \\
@@ -83,6 +86,7 @@ $$
 $$
 
 令:
+
 $$
 \begin{equation}
     \eta=
@@ -113,6 +117,7 @@ $$
 $$
 
 到了现在，我们离最终的胜利只差一步了，
+
 $$
 \begin{equation}
    \eta=
@@ -128,6 +133,7 @@ $$
     \end{pmatrix}   
 \end{equation}
 $$
+
 $$
 \begin{equation}
     A(\eta)=-\frac{\eta_1^2}{4\eta_2}+\frac{1}{2}\log (2\pi\cdot-\frac{1}{2\eta_2})=-\frac{\eta_1^2}{4\eta_2}+\frac{1}{2}\log(-\frac{\pi}{\eta_2})

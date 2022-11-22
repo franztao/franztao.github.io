@@ -20,6 +20,7 @@ tags:
 上一小节中，我们看到了使用极大似然估计的方法，我们根本就求不出最优参数$\theta$的解析解。所以，我们使用迭代的方法来求近似解。
 
 EM算法的表达式，可以被我们写为：
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \arg\max_\theta \underbrace{\mathbb{E}_{P(Z|X,\theta^{(t)})} \left[ \log P(X,Z|\theta) \right]}_{Q(\theta,\theta^{(t)})}
@@ -29,6 +30,7 @@ $$
 经过一系列的迭代，我们可以得到$\theta^{0},\theta^{1},\cdots,\theta^{(t)}$，迭代到一定次数以后我们得到的$\theta^{(N)}$就是我们想要得到的结果。EM算法大体上可以分成两个部分，E-step和M-step，
 
 \section{E-Step}
+
 $$
 \begin{equation}
     \begin{split}
@@ -42,6 +44,7 @@ $$
 $$
 
 为了简化推导，我们首先只取第一项来化简一下，
+
 $$
 \begin{equation}
     \begin{split}
@@ -53,6 +56,7 @@ $$
 $$
 
 而：
+
 $$
 \begin{equation}
     \begin{split}
@@ -66,6 +70,7 @@ $$
 $$
 
 所以，式(3)也就等于：
+
 $$
 \begin{equation}
     \begin{split}
@@ -75,6 +80,7 @@ $$
 $$
 
 将式(5)中得到的结果，代入到式(2)中，我们就可以得到：
+
 $$
 \begin{equation}
     \begin{split}
@@ -86,11 +92,13 @@ $$
 $$
 
 那么，下一步我们就是要找到，$P(x_i,z_i|\theta)$和$P(z_i|x_i,\theta^{(t)})$的表达方式了。其中：
+
 $$
 \begin{equation}
     P(X,Z) = P(Z)P(X|Z) = P_Z\cdot \mathcal{N}(X|\mu_Z,\Sigma_Z)
 \end{equation}
 $$
+
 $$
 \begin{equation}
     P(Z|X) = \frac{P(X,Z)}{P(X)} = \frac{P_Z\cdot \mathcal{N}(X|\mu_Z,\Sigma_Z)}{\sum_{i=1}^K P_{Zi}\cdot \mathcal{N}(X|\mu_{Zi},\Sigma_{Zi})}
@@ -98,6 +106,7 @@ $$
 $$
 
 所以，我们将式(8)代入到式(6)中，就可以得到：
+
 $$
 \begin{equation}
      Q(\theta,\theta^{(t)})  =    \sum_{i=1}^N \sum_{Z_i} \log P_{Z_i}\cdot \mathcal{N}(X|\mu_{Z_i},\Sigma_{Z_i}) \cdot \frac{P_{Z_i}^{\theta(t)}\cdot \mathcal{N}(x_i|\mu_{Z_i}^{\theta(t)},\Sigma_{Z_i}^{\theta(t)})}{\sum_{k=1}^K P_k^{\theta(t)}\cdot \mathcal{N}(x_i|\mu_k^{\theta(t)},\Sigma_k^{\theta(t)})}
@@ -106,6 +115,7 @@ $$
 
 \section{M-Step}
 根据我们在E-Step中的推导，我们可以得到：
+
 $$
 \begin{equation}
     \begin{split}
@@ -119,6 +129,7 @@ $$
 $$
 
 我们的目的也就是进行不断迭代，从而得出最终的解，用公式表达也就是：
+
 $$
 \begin{equation}
     \theta^{(t+1)} = \arg\max_{\theta} Q(\theta,\theta^{(t)})
@@ -130,6 +141,7 @@ $$
 首先，我们来展示一下怎么求解$P_K^{(t+1)}$：
 
 由于在等式(10)，$\sum_{k=1}^K \sum_{i=1}^N \left( \log P_{k} + \log  \mathcal{N}(X|\mu_{k},\Sigma_{k}) \right) \cdot P(Z_i = C_k|X_i,,\theta^{(t)})$中的$\log  \mathcal{N}(X|\mu_{k},\Sigma_{k})$部分和$P_k$并没有什么关系。所以，可以被我们直接忽略掉。所以，求解问题，可以被我们描述为：
+
 $$
 \begin{equation}
     \left\{
@@ -142,11 +154,13 @@ $$
 $$
 
 使用拉格朗日算子法，我们可以写成：
+
 $$
 \begin{equation}
     \mathcal{L}(P,\lambda) = \sum_{k=1}^K \sum_{i=1}^N  \log P_{k} \cdot P(Z_i = C_k|X_i,\theta^{(t)}) + \lambda(\sum_{k=1}^K P_k - 1)
 \end{equation}
 $$
+
 
 $$
 \begin{equation}
@@ -160,6 +174,7 @@ $$
 $$
 
 所以，我们可以轻易的得到$\lambda = -N$，所以有
+
 $$
 \begin{equation}
     P_K^{(t+1)} = \frac{1}{N} \sum_{i=1}^N P(Z_i = C_k | X_i,\theta^{(t)})
@@ -171,11 +186,13 @@ $$
 求解$P_k^{(t+1)}$是一个有约束的求最大值问题，由于带约束所以我们要使用拉格朗日乘子法。而且这里使用到了一个track，也就是将从1到k，所有的数据集做一个整合，非常的精彩，这样就直接消掉了$P_k$无法计算的问题。而至于$\theta$的其他部分，也就是关于$\{ \mu_1^{(t+1)}, \cdots, \mu_k^{(t+1)},\Sigma_1^{(t+1)},\cdots,\Sigma_k^{(t+1)} \}$的计算，使用的方法也是一样的，这个问题就留给各位了。
 
 为什么极大似然估计搞不定的问题，放在EM算法里面我们就可以搞定了呢？我们来对比一下两个方法中，需要计算极值的公式。
+
 $$
 \begin{equation}
     \sum_{k=1}^K \sum_{i=1}^N \left( \log P_{k} + \log  \mathcal{N}(X_i|\mu_{k},\Sigma_{k}) \right) \cdot P(Z_i = C_k|X_i,\theta^{(t)})
 \end{equation}
 $$
+
 $$
 \begin{equation}
     \arg\max_{\theta}  \sum_{i=1}^N  \log \sum_{k=1}^K P_k \cdot \mathcal{N}(x_i|\mu_k,\Sigma_k)

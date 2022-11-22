@@ -19,6 +19,7 @@ tags:
 
 \section{单一}
 单一最典型的代表就是Naive Bayesian，这是一种classification的模型。对于$p(x|y)$的问题来说，假设各维度之间相互独立，于是就有：
+
 $$
 \begin{equation}
     p(x|y) = \prod_{i=1}^N p(x_i|y=1)

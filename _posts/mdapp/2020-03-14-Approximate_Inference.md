@@ -56,12 +56,14 @@ tags:
 由于精确推断的难度很高，所以近似推断崛起了。比如EM系列和VI系列。
 
 可以将可观测变量的Log Likelihood转为一个优化ELBO下界和KL散度的形式，从而优化ELBO下界就可以了。Log Likelihood公式表达如下所示：
+
 $$
 \begin{equation}
     \frac{1}{N} \sum_{v} \log P(v)
 \end{equation}
 $$
 而$\log P(v)$，可以表达为：
+
 $$
 \begin{equation}
     \begin{split}
@@ -72,6 +74,7 @@ $$
 \end{equation}
 $$
 将等式两边都乘上$q(h|v)$，可以得到：
+
 $$
 \begin{equation}
     q(h|v) \log p(v) = q(h|v) \left( \log\frac{p(h,v)}{q(h|v)} - \log \frac{p(h|v)}{q(h|v)} \right)
@@ -80,6 +83,7 @@ $$
 因为$q(h|v)$是一个关于$h$的函数，我们将等式两边对$h$积分。其中，左边的$p(v)$和$h$没有关系，而$\int q(h|v) =1$，所以有
 $$\int q(h|v) \log p(v) dh = \log p(v) \int q(h|v)  dh = \log p(v) $$
 那么有，
+
 $$
 \begin{equation}
 \begin{split}
@@ -92,6 +96,7 @@ $$
 \end{equation}
 $$
 因为KL散度是很大于0的，那么我们只要优化ELBO就可以优化$p(v)$了，这就是优化下界的方法。而ELBO可以继续化简为：
+
 $$
 \begin{equation}
     \begin{split}

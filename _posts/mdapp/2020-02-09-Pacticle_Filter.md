@@ -29,6 +29,7 @@ Dynamic Model是在概率图模型中加入了时序的因素，所以样本之�
 这是有关Dynamic Model的两个假设，也是我们研究这个模型的前提条件。这两个假设可以大大的帮助我们简化模型：
 
 1.\textbf{ 齐次Markov假设(无后向性)：}未来与过去无关，只依赖与当前的状态。数学公式描述也就是。
+
 $$
 \begin{equation}
     P(i_{t+1}|i_{t},i_{t-1},\cdots,i_1,o_t,\cdots,o_1) = P(i_{t+1}|i_t)
@@ -36,6 +37,7 @@ $$
 $$
 
 2. \textbf{观测独立假设：}当前时刻的观测变量只依赖于当前时刻的隐变量。
+
 $$
 \begin{equation}
     P(o_{t}|i_{t},i_{t-1},\cdots,i_1,o_t,\cdots,o_1) = P(o_{t}|i_t)
@@ -44,6 +46,7 @@ $$
 
 \subsection{两个方程}
 这两个方程分别描述的是，隐变量状态与状态之间的转移概率，由当前时刻隐变量推出当前时刻观测变量的概率，符合化描述如下所示：
+
 $$
 \begin{equation}
     \left\{
@@ -63,6 +66,7 @@ $$
 
 \subsubsection{线性动态系统(Linear Dynamic System)}
 线性动态系通常也被我们称为线性高斯系统，而线性高斯系统这个名字更加形象，而线性和高斯的来源主要如下所示：
+
 $$
 \begin{equation}
     \left\{
@@ -79,6 +83,7 @@ $$
 我们的求解目标是$P(z_t|x_1,x_2,\cdots,x_t)$。
 
 Step 1. Prediction：这个过程我们可以理解成给$z_t$一个先验，
+
 $$
 \begin{equation}
     P(z_t|x_1,x_2,\cdots,x_{t-1}) = \int_{z_{t-1}} P(z_t|z_{t-1}) P(z_{t-1}|x_1,x_2,\cdots,x_{t-1}) dz_{t-1}
@@ -86,6 +91,7 @@ $$
 $$
 
 Step 2. Update：这个过程我们可以理解成给$z_t$在已知$x_t$之后的后验，
+
 $$
 \begin{equation}
     P(z_t|x_1,x_2,\cdots,x_t) \propto P(x_t|z_t)\cdot P(z_t|x_1,x_2,\cdots,x_{t-1})
@@ -93,6 +99,7 @@ $$
 $$
 
 \subsubsection{Preiction的证明}
+
 $$
 \begin{equation}
     \begin{split}
@@ -107,6 +114,7 @@ $$
 
 \subsubsection{Update的证明}
 首先，我们提一下，$P(x_1,x_2,\cdots,x_t)$这种，只和观察数据有关的概率分布都是可以计算出来的，我们都用不同的常数来表示。：
+
 $$
 \begin{equation}
     \begin{split}
@@ -130,6 +138,7 @@ Non-Linear没有那么好的特征，求不出，只能采样。在贝叶斯框�
 
 \section{重要性采样(Importance Sampling)}
 重要性采样并不是直接对概率分布进行采样，而是对提议(Proposal)分布进行采样。也就是：
+
 $$
 \begin{equation}
     \begin{split}
@@ -146,12 +155,14 @@ $$
 { 之后为了方便描述，我们用$x_{1:t} = x_1,x_2,\cdots,x_t$。}
 
 如果是在Filtering的问题中，目标是求解$P(z_t|x_{1:t})$，权值为：
+
 $$
 \begin{equation}
     w^{(i)}_t = \frac{P(z_t^{(i)}|x_{1:t})}{Q(z_t^{(i)}|x_{1:t})}
 \end{equation}
 $$
 而在每一个时刻，都有$N$个样本点：
+
 $$
 \begin{equation}
     \begin{split}
@@ -168,6 +179,7 @@ $$
 这个算法中的主要思想就是，找到$w^{(i)}_T$和$w^{(i)}_{T-1}$之间的一个递推关系式来简化计算。
 
 在这个算法的开始，做出了一个我觉得有点神奇的铺垫。那就是将求解的重点做了一个转变：
+
 $$
 \begin{equation}
     P(z_t|x_{1:t}) \longrightarrow P(z_{1:t}|x_{1:t}) 
@@ -176,6 +188,7 @@ $$
 实际上$P(z_t|x_{1:t})$是$P(z_{1:t}|x_{1:t})$的一个边缘概率分布，而老师讲了一个很自然我们可以直接丢弃$z_{1:t-1}$，从而使得$P(z_t|x_{1:t})$和$P(z_{1:t}|x_{1:t})$等价处理。本人水平有限，所以实在没有想清楚这到底是怎样一个自然法。所以，我理解的是，在$x_{1:t}$都知道的情况下，$P(z_{1:t}|x_{1:t})$的边缘概率求起来比较方便。大家有什么好的想法，欢迎留言讨论。
 
 而$P(z_{1:t}|x_{1:t})$对应的权重$w_t^{(i)}$为：
+
 $$
 \begin{equation}
     w_t^{(i)} \propto \frac{P(z_{1:t}^{(i)}|x_{1:t})}{Q(z_{1:t}^{(i)}|x_{1:t})}
@@ -183,6 +196,7 @@ $$
 $$
 我们要将这个公式中的分子和分母拆开进行化简.
 \subsection{分子$P(z_{1:t}^{(i)}|x_{1:t})$解析}
+
 $$
 \begin{equation}
     \begin{split}
@@ -200,6 +214,7 @@ $$
 
 \subsection{分母$Q(z_{1:t}^{(i)}|x_{1:t})$解析}
 分母中，我们假设：
+
 $$
 \begin{equation}
     Q(z_{1:t}^{(i)}|x_{1:t}) = Q(z_t^{(i)}|z_{1:t-1}^{(i)},x_{1:t})Q(z_{1:t-1}^{(i)}|x_{1:t-1})
@@ -210,6 +225,7 @@ $$
 ~\\
 
 所以，我们将分子和分母的解析结果汇总可以得到：
+
 $$
 \begin{equation}
 \begin{split}
@@ -225,6 +241,7 @@ $P(x_t|z_t^{(i)})$是已知的发射矩阵，$P(z_t^{(i)}|z_{t-1})$也是已知�
 我们反复强调过，求解后验概率分布$P(Z|X)$大多数时候都是为了求解期望$\mathbb{E}_{Z|X}[f(Z)]$，而实际上期望的问题就是一个积分问题。为什么求期望这么的重要呢，我们仔细想想。求方差的过程本质上就是一个求期望的过程：$Var[X]=\mathbb{E}[X^2]-[\mathbb{E}[X]]^2$。而求边缘概率也可以转换成一个求期望的问题，本质上还是一个积分的问题。
 
 前面在公式(16)中得到了，
+
 $$
 \begin{equation}
      w_t^{(i)}  \propto \frac{P(z_{1:t}^{(i)}|x_{1:t})}{Q(z_{1:t}^{(i)}|x_{1:t})} \propto \frac{P(x_t|z_t^{(i)})P(z_t^{(i)}|z_{t-1})}{Q(z_t^{(i)}|z_{1:t-1}^{(i)},x_{1:t})} \cdot w^{(i)}_{t-1}
@@ -237,11 +254,13 @@ $$
 \qquad 前提：$t-1$时刻的采样都已经完成；
 
 \qquad $t$时刻对于$N$个采样值，for i=1, 2,$\cdots$, N:
+
 $$
 \begin{equation}
     z_t^{(i)}\sim Q(z_t|z_{t-1},x_{1:t}) 
 \end{equation}
 $$
+
 $$
 \begin{equation}
     w_t^{(i)}  \propto  \frac{P(x_t|z_t^{(i)})P(z_t^{(i)}|z_{t-1})}{Q(z_t^{(i)}|z_{1:t-1}^{(i)},x_{1:t})} \cdot w^{(i)}_{t-1}
@@ -253,6 +272,7 @@ $$
 \qquad $w^{(i)}_t$归一化，令$\sum_{i=1}^N w^{(i)}_t=1$。
 
 实际上就这么简单，归一化是为了方便计算和避免程序计算时出现精度问题，而且可以对值的范围进行约束。所以，公式(9)中，我们可以将最后的结果进行改写，可得：
+
 $$
 \begin{equation}
     \frac{1}{N}\sum_{i=1}^N f(z^{(i)})w^{(i)} = \sum_{i=1}^N f(z^{(i)})\hat{w}^{(i)}
@@ -296,6 +316,7 @@ Sequential Importance Sampling最大的问题就是\textbf{权值退化}。也�
 
 \subsection{找一个更好的$Q(Z)$}
 选择$Q(z_t|z_{1:t-1},x_{1:t})=P(z_t|z_{t-1}^{(i)})$，用状态转移矩阵来进行定义，那么我们就可以将权值改写成：
+
 $$
 \begin{equation}
     w_t^{(i)}  \propto  \frac{P(x_t|z_t^{(i)})P(z_t^{(i)}|z_{t-1})}{P(z_t|z_{t-1}^{(i)})} \cdot w^{(i)}_{t-1} = P(x_t|z_t^{(i)})\cdot w^{(i)}_{t-1}
@@ -317,11 +338,13 @@ $$
 1.Sampling:
 
 $t$时刻对于$N$个采样值，for i=1, 2,$\cdots$, N:
+
 $$
 \begin{equation}
     z_t^{(i)}\sim P(z_t|z_{t-1}^{(i)})
 \end{equation}
 $$
+
 $$
 \begin{equation}
     w_t^{(i)}  \propto  \frac{P(x_t|z_t^{(i)})P(z_t^{(i)}|z_{t-1})}{P(z_t|z_{t-1}^{(i)})} \cdot w^{(i)}_{t-1} =P(x_t|z_t^{(i)})\cdot w^{(i)}_{t-1}
@@ -331,6 +354,7 @@ $$
 end
 
 2. Normalized:
+
 $$
 \begin{equation}
     w_t^{(i)}\longrightarrow \hat{w}_t^{(i)},\quad \sum_{i=1}^N \hat{w}_t^{(i)} =1
@@ -339,6 +363,7 @@ $$
 
 
 3. Resampling：
+
 $$
 \begin{equation}
     \hat{\hat{w}}_t^{(i)} = \frac{1}{N}
