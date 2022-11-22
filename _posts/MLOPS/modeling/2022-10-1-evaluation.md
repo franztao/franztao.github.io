@@ -646,7 +646,7 @@ Canary 测试涉及将大部分生产流量发送到当前部署的系统，但�
 
 ## 模型 CI
 
-评估系统的一种有效方法是将它们封装为一个集合（套件）并将它们用于[持续集成](https://madewithml.com/courses/mlops/cicd/)。将继续添加到评估套件中，并且在尝试对系统进行更改（新模型、数据等）时执行它们。[通常，在监控](https://madewithml.com/courses/mlops/monitoring/)期间识别出的有问题的数据切片通常会添加到评估测试套件中，以避免将来重复相同的回归。
+评估系统的一种有效方法是将它们封装为一个集合（suite）并将它们用于[持续集成](https://madewithml.com/courses/mlops/cicd/)。将继续添加到评估suite中，并且在尝试对系统进行更改（新模型、数据等）时执行它们。[通常，在监控](https://madewithml.com/courses/mlops/monitoring/)期间识别出的有问题的数据切片通常会添加到评估测试suite中，以避免将来重复相同的回归。
 
 ## Resources
 

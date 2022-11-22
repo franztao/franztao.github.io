@@ -96,7 +96,7 @@ tags:
 > 
 > note
 > 
-> 使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在继续学习本note本之后的其他课程时，请随意选择任何型号。
+> 使用的特定模型与本 MLOps 课程无关，因为主要关注将模型投入生产和维护所需的所有组件。因此，在继续学习本note本之后的其他课程时，请随意选择任何model。
 
 将首先设置一些将在不同基线实验中使用的函数。
 
@@ -622,7 +622,7 @@ print (json.dumps(performance, indent=2))
 > 
 > ```
 
-> 这门 MLOps 课程实际上与模型无关（只要它产生概率分布），因此可以随意使用更复杂的表示（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）和更复杂的架构（[CNN](https://madewithml.com/courses/foundations/convolutional-neural-networks/)、[变压器](https://madewithml.com/courses/foundations/transformers/)等）。将在其余课程中使用这个基本的逻辑回归模型，因为它简单、快速并且实际上具有相当的性能（与最先进的预训练transformer相比，f1 差异<10%）。
+> 这门 MLOps 课程实际上与模型无关（只要它产生概率分布），因此可以随意使用更复杂的表示（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）和更复杂的架构（[CNN](https://madewithml.com/courses/foundations/convolutional-neural-networks/)、[transformers](https://madewithml.com/courses/foundations/transformers/)等）。将在其余课程中使用这个基本的逻辑回归模型，因为它简单、快速并且实际上具有相当的性能（与最先进的预训练transformer相比，f1 差异<10%）。
 
 ___
 

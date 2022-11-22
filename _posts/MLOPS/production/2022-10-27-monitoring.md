@@ -417,13 +417,7 @@ reducer = nn.Sequential(
     nn.ReLU(),
     nn.Linear(256, encoder_dim)
 ).to(device).eval()
-
-
-
-
 ```
-
-
 
 可以将上述所有操作包装到一个预处理函数中，该函数将使用输入文本并生成简化表示。
 
@@ -435,12 +429,7 @@ max_len = 100
 batch_size = 32
 preprocess_fn = partial(preprocess_drift, model=reducer, tokenizer=tokenizer,
                         max_len=max_len, batch_size=batch_size, device=device)
-
-
-
 ```
-
-
 
 #### 最大平均差异 (MMD)
 
@@ -452,8 +441,6 @@ from alibi_detect.cd import MMDDrift
 mmd_drift_detector = MMDDrift(ref, backend="pytorch", p_val=.01, preprocess_fn=preprocess_fn)# No drift
 no_drift = df.text[200:400].to_list()
 mmd_drift_detector.predict(no_drift)
-
-
 ```
 
 > {'data': {'distance': 0.0021169185638427734,
@@ -471,10 +458,7 @@ mmd_drift_detector.predict(no_drift)
 # Drift
 drift = ["UNK " + text for text in no_drift]
 mmd_drift_detector.predict(drift)
-
 ```
-
-
 
 ## 在线的
 
@@ -490,14 +474,11 @@ from alibi_detect.cd import MMDDriftOnline
 ref = df.text[0:800].to_list()
 online_mmd_drift_detector = MMDDriftOnline(
     ref, ert=400, window_size=200, backend="pytorch", preprocess_fn=preprocess_fn)
-
 ```
 
 > Generating permutations of kernel matrix..
 > 100%|██████████| 1000/1000 [00:00<00:00, 13784.22it/s]
 > Computing thresholds: 100%|██████████| 200/200 [00:32<00:00,  6.11it/s]
-
-
 
 随着数据开始流入，可以使用检测器来预测每个点的漂移。检测器应该比正常数据更快地检测到漂移数据集中的漂移。
 
@@ -513,14 +494,12 @@ def simulate_production(test_window):
         else:
             i += 1
     print (f"{i} steps")
-
 ```
 
 ```
 # Normal
 test_window = df.text[800:]
 simulate_production(test_window)
-
 ```
 
 > 27 steps
@@ -529,7 +508,6 @@ simulate_production(test_window)
 # Drift
 test_window = "UNK" * len(df.text[800:])
 simulate_production(test_window)
-
 ```
 
 > 11 steps
@@ -558,10 +536,7 @@ outlier_detector = OutlierVAE(
 outlier_detector.fit(X_train, epochs=50)
 outlier_detector.infer_threshold(X, threshold_perc=95)  # infer from % outliers
 preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
-
 ```
-
-
 
 > 当识别异常值时，可能想让最终用户知道模型的响应可能不可靠。此外，可能希望从下一个训练集中删除异常值，或者进一步检查它们并对其进行上采样，以防它们是传入特征未来分布情况的早期迹象。
 
@@ -578,7 +553,6 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
   ```
   if percentage_unk_tokens > 5%:
       trigger_alert()
-  
   ```
 
 - [预测](https://www.datadoghq.com/blog/forecasts-datadog/)阈值取决于先前的输入、时间等。
@@ -586,20 +560,14 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
   ```
   if current_f1 < forecast_f1(current_time):
       trigger_alert()
-  
   ```
-  
-  
 
 - 不同漂移检测器的适当 p 值（↓ p 值 = ↑ 确信分布不同）。
   
   ```
   from alibi_detect.cd import KSDrift
   length_drift_detector = KSDrift(reference, p_val=0.01)
-  
   ```
-  
-  
 
 一旦精心设计了警报工作流程，就可以在出现问题时通过电子邮件、[Slack](https://slack.com/)、[PageDuty](https://www.pagerduty.com/)等通知利益相关者。利益相关者可以是不同级别的（核心工程师、经理等），他们可以订阅警报与他们相关的。
 
@@ -626,10 +594,7 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
     "target": [],
     "logs": ...
 }
-
 ```
-
-
 
 有了这些信息，可以从警报开始向后工作，以确定问题的根本原因。**根本原因分析 (RCA)**在监控方面是重要的第一步，因为希望防止同样的问题再次影响系统。通常会触发许多警报，但它们实际上可能都是由相同的潜在问题引起的。在这种情况下，只想智能地触发一个指出核心问题的警报。例如，假设收到一条警报，表明整体用户满意度评分正在下降，但还收到另一条警报，指出北美用户的满意度评分也很低。这是系统将自动评估跨许多不同切片和聚合的用户满意度评分的漂移，以发现只有特定区域的用户遇到问题，但由于它是一个受欢迎的用户群，它最终也会触发所有聚合下游警报！
 
@@ -662,6 +627,7 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
 - [数据流上的异常值和异常模式检测](https://link.springer.com/article/10.1007/s11227-018-2674-1)
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},

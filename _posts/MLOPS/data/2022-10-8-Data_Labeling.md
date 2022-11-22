@@ -88,11 +88,11 @@ tags:
 - [projects.csv](https://github.com/GokuMohandas/Made-With-ML/tree/main/datasets/projects.csv)：带有 ID、创建时间、标题和描述的项目。
 - [tags.csv](https://github.com/GokuMohandas/Made-With-ML/tree/main/datasets/tags.csv)：项目的标签（标签类别）按 id。
 
-回想一下，[目标](https://madewithml.com/courses/mlops/design#objectives)是对传入的内容进行分类，以便社区可以轻松发现它们。这些数据资产将作为第一个模型的训练数据。
+回想一下，[目标](https://madewithml.com/courses/mlops/design#objectives)是对传入的内容进行分类，以便社区可以轻松发现它们。这些数据assert将作为第一个模型的训练数据。
 
 ### 提炼
 
-将从来源（外部 CSV 文件）中提取数据开始。传统上，数据资产将在数据库、仓库等中存储、版本化和更新。稍后将详细了解这些不同的[数据系统](https://madewithml.com/courses/mlops/data-stack/)，但现在，将以独立的 CSV 文件形式加载数据。
+将从来源（外部 CSV 文件）中提取数据开始。传统上，数据assert将在数据库、仓库等中存储、版本化和更新。稍后将详细了解这些不同的[数据系统](https://madewithml.com/courses/mlops/data-stack/)，但现在，将以独立的 CSV 文件形式加载数据。
 
 ```
 import pandas as pd

@@ -155,61 +155,40 @@ default_args = {
 
 - 使用[with 语句](https://docs.python.org/3/reference/compound_stmts.html#the-with-statement)
   
-  <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-  <span><span><span>2 </span></span></span>
-  <span><span><span>3 </span></span></span>
-  <span><span><span>4 </span></span></span>
-  <span><span><span>5 </span></span></span>
-  <span><span><span>6 </span></span></span>
-  <span><span><span>7 </span></span></span>
-  <span><span><span>8 </span></span></span>
-  <span><span><span>9 </span></span></span>
-  <span><span><span>10 </span></span></span>
-  <span><span><span>11 </span></span></span>
-  <span><span><span>12</span></span></span></pre></div></td><td><div><pre id="__code_10"><span></span><code><span>from</span> <span>airflow</span> <span>import</span> <span>DAG</span><span></span>
-  <span></span>
-  <span>with</span> <span>DAG</span><span>(</span>
-      <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-      <span>description</span><span>=</span><span>"Example DAG"</span><span>,</span>
-      <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-      <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-      <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-      <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-  <span>)</span> <span>as</span> <span>example</span><span>:</span>
-      <span># Define tasks</span>
-      <span>pass</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  from airflow import DAG
+  
+  with DAG(
+      dag_id="example",
+      description="Example DAG",
+      default_args=default_args,
+      schedule_interval=None,
+      start_date=days_ago(2),
+      tags=["example"],
+  ) as example:
+      # Define tasks
+      pass
+  ```
 
 - 使用[dag 装饰器](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#dag-decorator)
   
-  <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-  <span><span><span>2 </span></span></span>
-  <span><span><span>3 </span></span></span>
-  <span><span><span>4 </span></span></span>
-  <span><span><span>5 </span></span></span>
-  <span><span><span>6 </span></span></span>
-  <span><span><span>7 </span></span></span>
-  <span><span><span>8 </span></span></span>
-  <span><span><span>9 </span></span></span>
-  <span><span><span>10 </span></span></span>
-  <span><span><span>11 </span></span></span>
-  <span><span><span>12 </span></span></span>
-  <span><span><span>13</span></span></span></pre></div></td><td><div><pre id="__code_11"><span></span><code><span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span><span></span>
-  <span></span>
-  <span>@dag</span><span>(</span>
-      <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-      <span>description</span><span>=</span><span>"Example DAG"</span><span>,</span>
-      <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-      <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-      <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-      <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-  <span>)</span>
-  <span>def</span> <span>example</span><span>():</span>
-      <span># Define tasks</span>
-      <span>pass</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  from airflow.decorators import dag
+  
+  @dag(
+      dag_id="example",
+      description="Example DAG",
+      default_args=default_args,
+      schedule_interval=None,
+      start_date=days_ago(2),
+      tags=["example"],
+  )
+  def example():
+      # Define tasks
+      pass
+  ```
 
-> 可以使用许多[参数](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG)来初始化 DAG，包括 a`start_date`和 a `schedule_interval`。虽然可以让工作流按时间节奏执行，但许多 ML 工作流是由事件启动的，可以使用[传感器](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/sensors/index.html)和[挂钩](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/hooks/index.html)将其映射到外部数据库、文件系统等。
+> 可以使用许多[参数](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/models/dag/index.html#airflow.models.dag.DAG)来初始化 DAG，包括 a`start_date`和 a `schedule_interval`。虽然可以让工作流按时间节奏执行，但许多 ML 工作流是由事件启动的，可以使用[传感器](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/sensors/index.html)和[hook](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/hooks/index.html)将其映射到外部数据库、文件系统等。
 
 ## 任务
 
@@ -217,77 +196,47 @@ default_args = {
 
 - 使用[任务装饰器](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#concepts-task-decorator)
   
-  <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-  <span><span><span>2 </span></span></span>
-  <span><span><span>3 </span></span></span>
-  <span><span><span>4 </span></span></span>
-  <span><span><span>5 </span></span></span>
-  <span><span><span>6 </span></span></span>
-  <span><span><span>7 </span></span></span>
-  <span><span><span>8 </span></span></span>
-  <span><span><span>9 </span></span></span>
-  <span><span><span>10 </span></span></span>
-  <span><span><span>11 </span></span></span>
-  <span><span><span>12 </span></span></span>
-  <span><span><span>13 </span></span></span>
-  <span><span><span>14 </span></span></span>
-  <span><span><span>15 </span></span></span>
-  <span><span><span>16 </span></span></span>
-  <span><span><span>17 </span></span></span>
-  <span><span><span>18</span></span></span></pre></div></td><td><div><pre id="__code_12"><span></span><code><span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span><span>,</span> <span>task</span>
-  <span>from</span> <span>airflow.utils.dates</span> <span>import</span> <span>days_ago</span><span></span>
-  <span></span>
-  <span>@dag</span><span>(</span>
-      <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-      <span>description</span><span>=</span><span>"Example DAG with task decorators"</span><span>,</span>
-      <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-      <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-      <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-      <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-  <span>)</span>
-  <span>def</span> <span>example</span><span>():</span>
-      <span>@task</span>
-      <span>def</span> <span>task_1</span><span>():</span>
-          <span>return</span> <span>1</span>
-      <span>@task</span>
-      <span>def</span> <span>task_2</span><span>(</span><span>x</span><span>):</span>
-          <span>return</span> <span>x</span><span>+</span><span>1</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  from airflow.decorators import dag, task
+  from airflow.utils.dates import days_ago
+  
+  @dag(
+      dag_id="example",
+      description="Example DAG with task decorators",
+      default_args=default_args,
+      schedule_interval=None,
+      start_date=days_ago(2),
+      tags=["example"],
+  )
+  def example():
+      @task
+      def task_1():
+          return 1
+      @task
+      def task_2(x):
+          return x+1
+  ```
 
 - 使用[运算符](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/index.html)
   
-  <table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-  <span><span><span>2 </span></span></span>
-  <span><span><span>3 </span></span></span>
-  <span><span><span>4 </span></span></span>
-  <span><span><span>5 </span></span></span>
-  <span><span><span>6 </span></span></span>
-  <span><span><span>7 </span></span></span>
-  <span><span><span>8 </span></span></span>
-  <span><span><span>9 </span></span></span>
-  <span><span><span>10 </span></span></span>
-  <span><span><span>11 </span></span></span>
-  <span><span><span>12 </span></span></span>
-  <span><span><span>13 </span></span></span>
-  <span><span><span>14 </span></span></span>
-  <span><span><span>15 </span></span></span>
-  <span><span><span>16</span></span></span></pre></div></td><td><div><pre id="__code_13"><span></span><code><span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span>
-  <span>from</span> <span>airflow.operators.bash_operator</span> <span>import</span> <span>BashOperator</span>
-  <span>from</span> <span>airflow.utils.dates</span> <span>import</span> <span>days_ago</span><span></span>
-  <span></span>
-  <span>@dag</span><span>(</span>
-      <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-      <span>description</span><span>=</span><span>"Example DAG with Operators"</span><span>,</span>
-      <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-      <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-      <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-      <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-  <span>)</span>
-  <span>def</span> <span>example</span><span>():</span>
-      <span># Define tasks</span>
-      <span>task_1</span> <span>=</span> <span>BashOperator</span><span>(</span><span>task_id</span><span>=</span><span>"task_1"</span><span>,</span> <span>bash_command</span><span>=</span><span>"echo 1"</span><span>)</span>
-      <span>task_2</span> <span>=</span> <span>BashOperator</span><span>(</span><span>task_id</span><span>=</span><span>"task_2"</span><span>,</span> <span>bash_command</span><span>=</span><span>"echo 2"</span><span>)</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  from airflow.decorators import dag
+  from airflow.operators.bash_operator import BashOperator
+  from airflow.utils.dates import days_ago
+  
+  @dag(
+      dag_id="example",
+      description="Example DAG with Operators",
+      default_args=default_args,
+      schedule_interval=None,
+      start_date=days_ago(2),
+      tags=["example"],
+  )
+  def example():
+      # Define tasks
+      task_1 = BashOperator(task_id="task_1", bash_command="echo 1")
+      task_2 = BashOperator(task_id="task_2", bash_command="echo 2")
+  ```
 
 > 虽然图是有向的，但可以为每个任务建立一定的[触发规则](https://airflow.apache.org/docs/apache-airflow/stable/concepts.html#trigger-rules)，以在父任务的条件成功或失败时执行。
 
@@ -295,17 +244,18 @@ default_args = {
 
 第一种创建任务的方法涉及使用操作符，它定义了任务将要做什么。Airflow 有很多内置的 Operator，例如[BashOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/bash/index.html#airflow.operators.bash.BashOperator)或[PythonOperator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/python/index.html#airflow.operators.python.PythonOperator)，它们可以让分别执行 bash 和 Python 命令。
 
-<table><tbody><tr><td></td><td><div><pre id="__code_14"><span></span><code><span># BashOperator</span>
-<span>from</span> <span>airflow.operators.bash_operator</span> <span>import</span> <span>BashOperator</span>
-<span>task_1</span> <span>=</span> <span>BashOperator</span><span>(</span><span>task_id</span><span>=</span><span>"task_1"</span><span>,</span> <span>bash_command</span><span>=</span><span>"echo 1"</span><span>)</span><span></span>
-<span></span>
-<span># PythonOperator</span>
-<span>from</span> <span>airflow.operators.python</span> <span>import</span> <span>PythonOperator</span>
-<span>task_2</span> <span>=</span> <span>PythonOperator</span><span>(</span>
-    <span>task_id</span><span>=</span><span>"task_2"</span><span>,</span>
-    <span>python_callable</span><span>=</span><span>foo</span><span>,</span>
-    <span>op_kwargs</span><span>=</span><span>{</span><span>"arg1"</span><span>:</span> <span>...</span><span>})</span>
-</code></pre></div></td></tr></tbody></table>
+```
+# BashOperator
+from airflow.operators.bash_operator import BashOperator
+task_1 = BashOperator(task_id="task_1", bash_command="echo 1")
+
+# PythonOperator
+from airflow.operators.python import PythonOperator
+task_2 = PythonOperator(
+    task_id="task_2",
+    python_callable=foo,
+    op_kwargs={"arg1": ...})
+```
 
 还有许多其他 Airflow 原生[Operator](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/index.html)（电子邮件、S3、MySQL、Hive 等），以及[社区维护的提供程序包](https://airflow.apache.org/docs/apache-airflow-providers/packages-ref.html)（Kubernetes、Snowflake、Azure、AWS、Salesforce、Tableau 等），用于执行特定于某些平台或工具。
 
@@ -317,28 +267,31 @@ default_args = {
 
 - 使用装饰函数
   
-  <table><tbody><tr><td></td><td><div><pre id="__code_15"><span></span><code><span># Task relationships</span>
-  <span>x</span> <span>=</span> <span>task_1</span><span>()</span>
-  <span>y</span> <span>=</span> <span>task_2</span><span>(</span><span>x</span><span>=</span><span>x</span><span>)</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  # Task relationships
+  x = task_1()
+  y = task_2(x=x)
+  ```
 
 - 使用运算符
   
-  <table><tbody><tr><td></td><td><div><pre id="__code_16"><span></span><code><span># Task relationships</span>
-  <span>task_1</span> <span>>></span> <span>task_2</span>  <span># same as task_1.set_downstream(task_2) or</span>
-                    <span># task_2.set_upstream(task_1)</span>
-  </code></pre></div></td></tr></tbody></table>
+  ```
+  # Task relationships
+  task_1 >> task_2  # same as task_1.set_downstream(task_2) or
+                    # task_2.set_upstream(task_1)
+  ```
 
 在这两种情况下，都将`task_2`下游任务设置为`task_1`.
 
-note
-
-甚至可以通过使用这些符号来定义关系来创建复杂的 DAG。
-
-<table><tbody><tr><td></td><td><div><pre id="__code_17"><span></span><code><span>task_1</span> <span>>></span> <span>[</span><span>task_2_1</span><span>,</span> <span>task_2_2</span><span>]</span> <span>>></span> <span>task_3</span>
-<span>task_2_2</span> <span>>></span> <span>task_4</span>
-<span>[</span><span>task_3</span><span>,</span> <span>task_4</span><span>]</span> <span>>></span> <span>task_5</span>
-</code></pre></div></td></tr></tbody></table>
+> note
+> 
+> 甚至可以通过使用这些符号来定义关系来创建复杂的 DAG。
+> 
+> ```
+> task_1 >> [task_2_1, task_2_2] >> task_3
+> task_2_2 >> task_4
+> [task_3, task_4] >> task_5
+> ```
 
 ![有向无环图](https://madewithml.com/static/images/mlops/orchestration/dag.png)
 
@@ -346,67 +299,48 @@ note
 
 当使用任务装饰器时，可以看到值是如何在任务之间传递的。但是，如何在使用运算符时传递值？Airflow 使用 XComs（交叉通信）对象，通过键、值、时间戳和 task\_id 定义，在任务之间推送和拉取值。当使用修饰函数时，XComs 是在底层使用的，但它被抽象掉了，允许在 Python 函数之间无缝地传递值。但是在使用运算符时，需要根据需要显式地推送和拉取值。
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22</span></span></span></pre></div></td><td><div><pre id="__code_18"><span></span><code><span>def</span> <span>_task_1</span><span>(</span><span>ti</span><span>):</span>
-    <span>x</span> <span>=</span> <span>2</span>
-<span>    <span>ti</span><span>.</span><span>xcom_push</span><span>(</span><span>key</span><span>=</span><span>"x"</span><span>,</span> <span>value</span><span>=</span><span>x</span><span>)</span>
-</span>
-<span>def</span> <span>_task_2</span><span>(</span><span>ti</span><span>):</span>
-<span>    <span>x</span> <span>=</span> <span>ti</span><span>.</span><span>xcom_pull</span><span>(</span><span>key</span><span>=</span><span>"x"</span><span>,</span> <span>task_ids</span><span>=</span><span>[</span><span>"task_1"</span><span>])[</span><span>0</span><span>]</span>
-</span>    <span>y</span> <span>=</span> <span>x</span> <span>+</span> <span>3</span>
-<span>    <span>ti</span><span>.</span><span>xcom_push</span><span>(</span><span>key</span><span>=</span><span>"y"</span><span>,</span> <span>value</span><span>=</span><span>y</span><span>)</span>
-</span>
-<span>@dag</span><span>(</span>
-    <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-    <span>description</span><span>=</span><span>"Example DAG"</span><span>,</span>
-    <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-    <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-    <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-    <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-<span>)</span>
-<span>def</span> <span>example2</span><span>():</span>
-    <span># Tasks</span>
-    <span>task_1</span> <span>=</span> <span>PythonOperator</span><span>(</span><span>task_id</span><span>=</span><span>"task_1"</span><span>,</span> <span>python_callable</span><span>=</span><span>_task_1</span><span>)</span>
-    <span>task_2</span> <span>=</span> <span>PythonOperator</span><span>(</span><span>task_id</span><span>=</span><span>"task_2"</span><span>,</span> <span>python_callable</span><span>=</span><span>_task_2</span><span>)</span>
-    <span>task_1</span> <span>>></span> <span>task_2</span>
-</code></pre></div></td></tr></tbody></table>
+```
+def _task_1(ti):
+    x = 2
+    ti.xcom_push(key="x", value=x)
+
+def _task_2(ti):
+    x = ti.xcom_pull(key="x", task_ids=["task_1"])[0]
+    y = x + 3
+    ti.xcom_push(key="y", value=y)
+
+@dag(
+    dag_id="example",
+    description="Example DAG",
+    default_args=default_args,
+    schedule_interval=None,
+    start_date=days_ago(2),
+    tags=["example"],
+)
+def example2():
+    # Tasks
+    task_1 = PythonOperator(task_id="task_1", python_callable=_task_1)
+    task_2 = PythonOperator(task_id="task_2", python_callable=_task_2)
+    task_1 >> task_2
+```
 
 还可以通过转到**Admin** >> **XComs 在网络服务器上查看 XCom**：
 
 ![xcoms](https://madewithml.com/static/images/mlops/orchestration/xcoms.png)
 
-warning
-
-在任务之间传递的数据应该很小（元数据、指标等），因为 Airflow 的元数据数据库无法容纳大型工件。但是，如果确实需要存储和使用任务的大量结果，最好使用外部数据存储（博客存储、模型注册表等）并使用 Spark 或内部数据系统（如数据仓库）执行繁重的处理。
+> warning
+> 
+> 在任务之间传递的数据应该很小（元数据、指标等），因为 Airflow 的元数据数据库无法容纳大型工件。但是，如果确实需要存储和使用任务的大量结果，最好使用外部数据存储（博客存储、模型注册表等）并使用 Spark 或内部数据系统（如数据仓库）执行繁重的处理。
 
 ## DAG 运行
 
 一旦定义了任务及其关系，就可以运行 DAG。将开始像这样定义 DAG：
 
-<table><tbody><tr><td></td><td><div><pre id="__code_19"><span></span><code><span># Run DAGs</span>
-<span>example1_dag</span> <span>=</span> <span>example_1</span><span>()</span>
-<span>example2_dag</span> <span>=</span> <span>example_2</span><span>()</span>
-</code></pre></div></td></tr></tbody></table>
+```
+# Run DAGs
+example1_dag = example_1()
+example2_dag = example_2()
+```
 
 当刷新[Airflow 网络服务器](http://localhost:8080/)时，新的 DAG 就会出现。
 
@@ -416,46 +350,46 @@ warning
 
 ![触发 DAG](https://madewithml.com/static/images/mlops/orchestration/trigger.png)
 
+> note
+> 
+> 还可以使用 Airflow 的[REST API](https://airflow.apache.org/docs/apache-airflow/stable/stable-rest-api-ref.html)（将[配置授权](https://airflow.apache.org/docs/apache-airflow/stable/security/api.html)）或[命令行界面 (CLI)](https://airflow.apache.org/docs/apache-airflow/stable/cli-and-env-variables-ref.html)来检查和触发工作流（以及更多）。或者甚至可以使用[`trigger_dagrun`](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/operators/trigger_dagrun/index.html)Operator 从另一个工作流程中触发 DAG。
+> 
+> ```
+> # CLI to run dags
+> airflow dags trigger <DAG_ID>
+> ```
+
 ### 间隔
 
 如果在定义 DAG 时指定了一个`start_date`and `schedule_interval`，它将在适当的时间自动执行。例如，下面的 DAG 将在两天前开始，并将在每天开始时触发。
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12</span></span></span></pre></div></td><td><div><pre id="__code_21"><span></span><code><span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span>
-<span>from</span> <span>airflow.utils.dates</span> <span>import</span> <span>days_ago</span>
-<span>from</span> <span>datetime</span> <span>import</span> <span>timedelta</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span>
-    <span>dag_id</span><span>=</span><span>"example"</span><span>,</span>
-    <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-    <span>schedule_interval</span><span>=</span><span>timedelta</span><span>(</span><span>days</span><span>=</span><span>1</span><span>),</span>
-    <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-    <span>tags</span><span>=</span><span>[</span><span>"example"</span><span>],</span>
-    <span>catch_up</span><span>=</span><span>False</span><span>,</span>
-<span>)</span>
-</code></pre></div></td></tr></tbody></table>
+```
+from airflow.decorators import dag
+from airflow.utils.dates import days_ago
+from datetime import timedelta
 
-warning
+@dag(
+    dag_id="example",
+    default_args=default_args,
+    schedule_interval=timedelta(days=1),
+    start_date=days_ago(2),
+    tags=["example"],
+    catch_up=False,
+)
+```
 
-根据`start_date`and `schedule_interval`，工作流程应该已经被触发了几次，Airflow 将尝试[赶上](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#catchup)当前时间。`catchup=False`可以通过在定义 DAG 时进行设置来避免这种情况。还可以将此配置设置为默认参数的一部分：
-
-<table><tbody><tr><td></td><td><div><pre id="__code_22"><span></span><code><span>default_args</span> <span>=</span> <span>{</span>
-    <span>"owner"</span><span>:</span> <span>"airflow"</span><span>,</span>
-<span>    <span>"catch_up"</span><span>:</span> <span>False</span><span>,</span>
-</span><span>}</span>
-</code></pre></div></td></tr></tbody></table>
-
-但是，如果确实想在过去运行特定的运行，可以手动[回填](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#backfill)需要的内容。
+> warning
+> 
+> 根据`start_date`and `schedule_interval`，工作流程应该已经被触发了几次，Airflow 将尝试[赶上](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#catchup)当前时间。`catchup=False`可以通过在定义 DAG 时进行设置来避免这种情况。还可以将此配置设置为默认参数的一部分：
+> 
+> ```
+> default_args = {
+>     "owner": "airflow",
+>     "catch_up": False,
+> }
+> ```
+> 
+> 但是，如果确实想在过去运行特定的运行，可以手动[回填](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#backfill)需要的内容。
 
 还可以为参数指定一个[cron](https://crontab.guru/)表达式，`schedule_interval`甚至可以使用[cron 预设](https://airflow.apache.org/docs/apache-airflow/stable/dag-run.html#cron-presets)。
 
@@ -479,56 +413,33 @@ warning
 touch airflow/dags/workflows.py
 ```
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24 </span></span></span>
-<span><span><span>25</span></span></span></pre></div></td><td><div><pre id="__code_24"><span></span><code><span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
-<span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span>
-<span>from</span> <span>airflow.utils.dates</span> <span>import</span> <span>days_ago</span><span></span>
-<span></span>
-<span># Default DAG args</span>
-<span>default_args</span> <span>=</span> <span>{</span>
-    <span>"owner"</span><span>:</span> <span>"airflow"</span><span>,</span>
-    <span>"catch_up"</span><span>:</span> <span>False</span><span>,</span>
-<span>}</span>
-<span>BASE_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>__file__</span><span>)</span><span>.</span><span>parent</span><span>.</span><span>parent</span><span>.</span><span>parent</span><span>.</span><span>absolute</span><span>()</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span>
-    <span>dag_id</span><span>=</span><span>"dataops"</span><span>,</span>
-    <span>description</span><span>=</span><span>"DataOps workflows."</span><span>,</span>
-    <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-    <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-    <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-    <span>tags</span><span>=</span><span>[</span><span>"dataops"</span><span>],</span>
-<span>)</span>
-<span>def</span> <span>dataops</span><span>():</span>
-    <span>"""DataOps workflows."""</span>
-    <span>pass</span><span></span>
-<span></span>
-<span># Run DAG</span>
-<span>do</span> <span>=</span> <span>dataops</span><span>()</span>
-</code></pre></div></td></tr></tbody></table>
+```
+from pathlib import Path
+from airflow.decorators import dag
+from airflow.utils.dates import days_ago
+
+# Default DAG args
+default_args = {
+    "owner": "airflow",
+    "catch_up": False,
+}
+BASE_DIR = Path(__file__).parent.parent.parent.absolute()
+
+@dag(
+    dag_id="dataops",
+    description="DataOps workflows.",
+    default_args=default_args,
+    schedule_interval=None,
+    start_date=days_ago(2),
+    tags=["dataops"],
+)
+def dataops():
+    """DataOps workflows."""
+    pass
+
+# Run DAG
+do = dataops()
+```
 
 在两个单独的终端中，激活虚拟环境并启动 Airflow 网络服务器和调度程序：
 
@@ -569,7 +480,7 @@ docker-compose up
 pip install apache-airflow-providers-airbyte==3.1.0
 ```
 
-1. 转到[Airflow 网络服务器](http://localhost:8080/)，然后单击`Admin`\> `Connections`\> ➕
+1. 转到[Airflow 网络服务器](http://localhost:8080/)并单击`Admin`> `Connections`> ➕
 
 2. 添加具有以下详细信息的连接：
    
@@ -580,88 +491,65 @@ pip install apache-airflow-providers-airbyte==3.1.0
    Port: 8000
    ```
 
+> 也可以通过[编程](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#connection-cli)方式建立连接，但最好使用 UI 来了解引擎盖下发生的事情。
+
+为了执行transformers提取和加载数据同步，可以使用[`AirbyteTriggerSyncOperator`](https://airflow.apache.org/docs/apache-airflow-providers-airbyte/stable/operators/airbyte.html)：
+
 ```
-> 也可以以[编程](https://airflow.apache.org/docs/apache-airflow/stable/howto/connection.html#connection-cli)方式建立连接，但最好使用 UI 来了解幕后发生的事情。
+@dag(...)
+def dataops():
+    """Production DataOps workflows."""
+    # Extract + Load
+    extract_and_load_projects = AirbyteTriggerSyncOperator(
+        task_id="extract_and_load_projects",
+        airbyte_conn_id="airbyte",
+        connection_id="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",  # REPLACE
+        asynchronous=False,
+        timeout=3600,
+        wait_seconds=3,
+    )
+    extract_and_load_tags = AirbyteTriggerSyncOperator(
+        task_id="extract_and_load_tags",
+        airbyte_conn_id="airbyte",
+        connection_id="XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",  # REPLACE
+        asynchronous=False,
+        timeout=3600,
+        wait_seconds=3,
+    )
 
-为了执行提取和加载数据同步，可以使用[`AirbyteTriggerSyncOperator`](https://airflow.apache.org/docs/apache-airflow-providers-airbyte/stable/operators/airbyte.html)：
-
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24</span></span></span></pre></div></td><td><div><pre id="__code_30"><span></span><code><span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>dataops</span><span>():</span>
- <span>"""Production DataOps workflows."""</span>
- <span># Extract + Load</span>
- <span>extract_and_load_projects</span> <span>=</span> <span>AirbyteTriggerSyncOperator</span><span>(</span>
-     <span>task_id</span><span>=</span><span>"extract_and_load_projects"</span><span>,</span>
-     <span>airbyte_conn_id</span><span>=</span><span>"airbyte"</span><span>,</span>
-     <span>connection_id</span><span>=</span><span>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</span><span>,</span>  <span># REPLACE</span>
-     <span>asynchronous</span><span>=</span><span>False</span><span>,</span>
-     <span>timeout</span><span>=</span><span>3600</span><span>,</span>
-     <span>wait_seconds</span><span>=</span><span>3</span><span>,</span>
- <span>)</span>
- <span>extract_and_load_tags</span> <span>=</span> <span>AirbyteTriggerSyncOperator</span><span>(</span>
-     <span>task_id</span><span>=</span><span>"extract_and_load_tags"</span><span>,</span>
-     <span>airbyte_conn_id</span><span>=</span><span>"airbyte"</span><span>,</span>
-     <span>connection_id</span><span>=</span><span>"XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"</span><span>,</span>  <span># REPLACE</span>
-     <span>asynchronous</span><span>=</span><span>False</span><span>,</span>
-     <span>timeout</span><span>=</span><span>3600</span><span>,</span>
-     <span>wait_seconds</span><span>=</span><span>3</span><span>,</span>
- <span>)</span><span></span>
-<span></span>
- <span># Define DAG</span>
- <span>extract_and_load_projects</span>
- <span>extract_and_load_tags</span>
-</code></pre></div></td></tr></tbody></table>
+    # Define DAG
+    extract_and_load_projects
+    extract_and_load_tags
+```
 
 可以通过以下方式找到`connection_id`每个 Airbyte 连接：
 
-1. 转到[Airbyte 网络服务器](http://localhost:8000/)，然后单击`Connections`左侧菜单。
+1. 转到transformers[Airbyte 网络服务器](http://localhost:8000/)并单击`Connections`左侧菜单。
 
-2. 单击要使用的特定连接，URL 应该是这样的：
-```
-
+2. 单击要使用的特定连接，URL 应如下所示：
+   
+   ```
    https://demo.airbyte.io/workspaces/<WORKSPACE_ID>/connections/<CONNECTION_ID>/status
+   ```
 
-```
 3. 位置中的字符串`CONNECTION_ID`是连接的 ID。
 
-可以立即触发 DAG 并查看已提取的数据是否已加载到 BigQuery 数据仓库中，但一旦定义了整个 DataOps 工作流程，将继续开发和执行 DAG。
+现在可以触发transformers DAG 并查看提取的数据加载到transformers BigQuery 数据仓库中，但是一旦定义了整个 DataOps 工作流，将继续开发和执行transformers DAG。
 
 ### 证实
 
-可以定制提取数据的位置和方式的具体过程，但重要的是在每一步都有验证。将再次使用[Great Expectations](https://greatexpectations.io/)，就像在[测试课](https://madewithml.com/courses/mlops/testing/#data)中所做的那样，在转换之前[验证提取和加载的数据。](https://madewithml.com/courses/mlops/testing/#expectations)
+可以定制提取数据的位置和方式的具体过程，但重要的是在每个步骤中都进行了验证。正如在[测试课程](https://madewithml.com/courses/mlops/testing/#data)中所做的那样，将再次使用[Great Expectations](https://greatexpectations.io/)在转换数据之前验证提取和加载的数据。
 
-到目前为止，已经了解了 Airflow 概念，有很多方法可以使用数据验证库来验证数据。无论使用什么数据验证工具（例如[Great Expectations](https://greatexpectations.io/)、[TFX](https://www.tensorflow.org/tfx/data_validation/get_started)、[AWS Deequ](https://github.com/awslabs/deequ)等），都可以使用 BashOperator、PythonOperator 等来运行测试。但是，Great Expectations 有一个[Airflow Provider 包](https://github.com/great-expectations/airflow-provider-great-expectations)，可以更轻松地验证数据。这个包包含一个[`GreatExpectationsOperator`](https://registry.astronomer.io/providers/great-expectations/modules/greatexpectationsoperator)可以用来执行特定检查点的任务。
+通过目前学习的 Airflow 概念，可以通过多种方式使用transformers数据验证库来验证transformers数据。无论使用什么数据验证工具（例如[Great Expectations](https://greatexpectations.io/)、[TFX](https://www.tensorflow.org/tfx/data_validation/get_started)、[AWS Deequ](https://github.com/awslabs/deequ)等），都可以使用 BashOperator、PythonOperator 等来运行transformers测试。但是，Great Expectations 有一个[Airflow Provider 包](https://github.com/great-expectations/airflow-provider-great-expectations)，可以更轻松地验证transformers数据。这个包包含一个[`GreatExpectationsOperator`](https://registry.astronomer.io/providers/great-expectations/modules/greatexpectationsoperator)可以用来将特定检查点作为任务执行的。
+
 ```
-
 pip install airflow-provider-great-expectations==0.1.1 great-expectations==0.15.19
 great_expectations init
-
-```
-这将在数据工程存储库中创建以下目录：
 ```
 
+这将在transformers数据工程存储库中创建以下目录：
+
+```
 tests/great_expectations/
 ├── checkpoints/
 ├── expectations/
@@ -669,62 +557,47 @@ tests/great_expectations/
 ├── uncommitted/
 ├── .gitignore
 └── great_expectations.yml
-
 ```
+
 #### 数据源
 
-但首先，在创建测试之前，需要`datasource`在 Great Expectations 中为 Google BigQuery 数据仓库定义一个新的。这将需要几个包和导出：
-```
+但首先，在创建测试之前，需要`datasource`在 Great Expectations 中为transformers Google BigQuery 数据仓库定义一个新的。这将需要几个包和出口：
 
+```
 pip install pybigquery==0.10.2 sqlalchemy_bigquery==1.4.4
 export GOOGLE_APPLICATION_CREDENTIALS=/Users/goku/Downloads/made-with-ml-XXXXXX-XXXXXXXXXXXX.json  # REPLACE
-
 ```
 
 ```
-
 great_expectations datasource new
-
 ```
 
 ```
-
 What data would you like Great Expectations to connect to?
     1. Files on a filesystem (for processing with Pandas or Spark)
     2. Relational database (SQL) 👈
-
 ```
 
 ```
-
 What are you processing your files with?
-
 1. MySQL
-
 2. Postgres
-
 3. Redshift
-
 4. Snowflake
-
 5. BigQuery 👈
-
 6. other - Do you have a working SQLAlchemy connection string?
-   
-   ```
-   
-   ```
+```
 
-这将打开一个交互式note本，可以在其中填写以下详细信息：
+这将打开一个交互式note，可以在其中填写以下详细信息：
 
 ```
 datasource_name = “dwh"
 connection_string = “bigquery://made-with-ml-359923/mlops_course”
 ```
 
-#### 套房
+#### Suite
 
-接下来，可以为数据资产创建[一套期望：](https://madewithml.com/courses/mlops/testing/#suites)
+接下来，可以为transformers数据assert创建[一套期望：](https://madewithml.com/courses/mlops/testing/#suites)
 
 ```
 great_expectations suite new
@@ -752,65 +625,55 @@ Which data asset (accessible by data connector "default_inferred_data_connector_
 Name the new Expectation Suite [mlops.projects.warning]: projects
 ```
 
-这将打开一个交互式note本，可以在其中定义期望。同样为标签数据资产创建一个套件。
+这将打开一个交互式note，可以在其中定义transformers期望。为transformers标签数据assert创建suite也重复相同的操作。
 
-期望`mlops_course.projects`
+> Expectations for `mlops_course.projects`
+> 
+> Table expectations
+> 
+> ```
+> # data leak
+> validator.expect_compound_columns_to_be_unique(column_list=["title", "description"])
+> ```
 
-餐桌期望
+> Column expectations:
+> 
+> ```
+> # id
+> validator.expect_column_values_to_be_unique(column="id")
+> 
+> # create_on
+> validator.expect_column_values_to_not_be_null(column="created_on")
+> 
+> # title
+> validator.expect_column_values_to_not_be_null(column="title")
+> validator.expect_column_values_to_be_of_type(column="title", type_="STRING")
+> 
+> # description
+> validator.expect_column_values_to_not_be_null(column="description")
+> validator.expect_column_values_to_be_of_type(column="description", type_="STRING")
+> ```
 
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># data leak</span>
-<span>validator</span><span>.</span><span>expect_compound_columns_to_be_unique</span><span>(</span><span>column_list</span><span>=</span><span>[</span><span>"title"</span><span>,</span> <span>"description"</span><span>])</span>
-</code></pre></div></td></tr></tbody></table>
+> Expectations for `mlops_course.tags`
+> 
+> Column expectations:
+> 
+> ```
+> # id
+> validator.expect_column_values_to_be_unique(column="id")
+> 
+> # tag
+> validator.expect_column_values_to_not_be_null(column="tag")
+> validator.expect_column_values_to_be_of_type(column="tag", type_="STRING")
+> ```
 
-列期望：
-
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13</span></span></span></pre></div></td><td><div><pre><span></span><code><span># id</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_unique</span><span>(</span><span>column</span><span>=</span><span>"id"</span><span>)</span><span></span>
-<span></span>
-<span># create_on</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"created_on"</span><span>)</span><span></span>
-<span></span>
-<span># title</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"title"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"title"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span><span></span>
-<span></span>
-<span># description</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"description"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"description"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-期望`mlops_course.tags`
-
-列期望：
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># id</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_unique</span><span>(</span><span>column</span><span>=</span><span>"id"</span><span>)</span><span></span>
-<span></span>
-<span># tag</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"tag"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"tag"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
-
-#### 检查站
+#### 检查点
 
 一旦有了一套期望，就可以检查[检查点](https://madewithml.com/courses/mlops/testing/#checkpoints)来执行这些期望：
 
-```
-great_expectations checkpoint new projects
-```
+`great_expectations checkpoint new projects`
 
-当然，这将打开一个交互式note本。只需确保以下信息正确（默认值可能不正确）：
+当然，这将打开一个交互式note。只需确保以下信息正确（默认值可能不正确）：
 
 ```
 datasource_name: dwh
@@ -818,60 +681,45 @@ data_asset_name: mlops_course.projects
 expectation_suite_name: projects
 ```
 
-并重复相同的步骤为标签套件创建检查点。
+并重复相同的操作为transformers标签suite创建检查点。
 
 #### 任务
 
-定义好检查点后，就可以将它们应用到仓库中的数据资产了。
+定义检查点后，就可以将它们应用于仓库中的数据assert。
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21</span></span></span></pre></div></td><td><div><pre id="__code_46"><span></span><code><span>GE_ROOT_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>BASE_DIR</span><span>,</span> <span>"great_expectations"</span><span>)</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>dataops</span><span>():</span>
-    <span>...</span>
-    <span>validate_projects</span> <span>=</span> <span>GreatExpectationsOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"validate_projects"</span><span>,</span>
-        <span>checkpoint_name</span><span>=</span><span>"projects"</span><span>,</span>
-        <span>data_context_root_dir</span><span>=</span><span>GE_ROOT_DIR</span><span>,</span>
-        <span>fail_task_on_validation_failure</span><span>=</span><span>True</span><span>,</span>
-    <span>)</span>
-    <span>validate_tags</span> <span>=</span> <span>GreatExpectationsOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"validate_tags"</span><span>,</span>
-        <span>checkpoint_name</span><span>=</span><span>"tags"</span><span>,</span>
-        <span>data_context_root_dir</span><span>=</span><span>GE_ROOT_DIR</span><span>,</span>
-        <span>fail_task_on_validation_failure</span><span>=</span><span>True</span><span>,</span>
-    <span>)</span><span></span>
-<span></span>
-    <span># Define DAG</span>
-    <span>extract_and_load_projects</span> <span>>></span> <span>validate_projects</span>
-    <span>extract_and_load_tags</span> <span>>></span> <span>validate_tags</span>
-</code></pre></div></td></tr></tbody></table>
+```
+GE_ROOT_DIR = Path(BASE_DIR, "great_expectations")
+
+@dag(...)
+def dataops():
+    ...
+    validate_projects = GreatExpectationsOperator(
+        task_id="validate_projects",
+        checkpoint_name="projects",
+        data_context_root_dir=GE_ROOT_DIR,
+        fail_task_on_validation_failure=True,
+    )
+    validate_tags = GreatExpectationsOperator(
+        task_id="validate_tags",
+        checkpoint_name="tags",
+        data_context_root_dir=GE_ROOT_DIR,
+        fail_task_on_validation_failure=True,
+    )
+
+    # Define DAG
+    extract_and_load_projects >> validate_projects
+    extract_and_load_tags >> validate_tags
+```
 
 ### 转换
 
-一旦验证了提取和加载的数据，就可以[转换](https://madewithml.com/courses/mlops/data-stack/#transform)它了。 DataOps 工作流并不特定于任何特定的下游应用程序，因此转换必须是全局相关的（例如清理丢失的数据、聚合等）。就像在[数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中一样，将使用[dbt](https://www.getdbt.com/)来转换数据。但是，这一次，将使用开源[dbt-core](https://github.com/dbt-labs/dbt-core)包以编程方式完成所有工作。
+一旦验证了提取和加载的数据，就准备好[转换](https://madewithml.com/courses/mlops/data-stack/#transform)它了。transformers DataOps 工作流程并不特定于任何特定的下游应用程序，因此转换必须具有全局相关性（例如清理缺失数据、聚合等）。就像在transformers[数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中一样，将使用[dbt](https://www.getdbt.com/)来转换transformers数据。然而，这一次，将使用开源[dbt-core](https://github.com/dbt-labs/dbt-core)包以编程方式完成所有工作。
 
-在数据工程存储库的根目录中，使用以下命令初始化 dbt 目录：
+在transformers数据工程存储库的根目录中，使用以下命令初始化transformers dbt 目录：
+
+```
+dbt init dbf_transforms
+```
 
 ```
 Which database would you like to use?
@@ -898,9 +746,9 @@ Desired location option:
 [2] EU
 ```
 
-#### 楷模
+#### Models
 
-将像在上一课中使用[dbt Cloud IDE](https://madewithml.com/courses/mlops/data-stack/#dbt-cloud)一样准备 dbt 模型。
+将像在上一课中使用[dbt Cloud IDE](https://madewithml.com/courses/mlops/data-stack/#dbt-cloud)一样准备transformers dbt 模型。
 
 ```
 cd dbt_transforms
@@ -910,233 +758,179 @@ touch models/labeled_projects/labeled_projects.sql
 touch models/labeled_projects/schema.yml
 ```
 
-并将以下代码添加到模型文件中：
-
-<table><tbody><tr><td></td><td><div><pre id="__code_53"><span></span><code><span>-- models/labeled_projects/labeled_projects.sql</span>
-<span>SELECT</span><span> </span><span>p</span><span>.</span><span>id</span><span>,</span><span> </span><span>created_on</span><span>,</span><span> </span><span>title</span><span>,</span><span> </span><span>description</span><span>,</span><span> </span><span>tag</span><span></span>
-<span>FROM</span><span> </span><span>`</span><span>made</span><span>-</span><span>with</span><span>-</span><span>ml</span><span>-</span><span>XXXXXX</span><span>.</span><span>mlops_course</span><span>.</span><span>projects</span><span>`</span><span> </span><span>p</span><span>  </span><span>-- REPLACE</span>
-<span>LEFT</span><span> </span><span>JOIN</span><span> </span><span>`</span><span>made</span><span>-</span><span>with</span><span>-</span><span>ml</span><span>-</span><span>XXXXXX</span><span>.</span><span>mlops_course</span><span>.</span><span>tags</span><span>`</span><span> </span><span>t</span><span>  </span><span>-- REPLACE</span>
-<span>ON</span><span> </span><span>p</span><span>.</span><span>id</span><span> </span><span>=</span><span> </span><span>t</span><span>.</span><span>id</span><span></span>
-</code></pre></div></td></tr></tbody></table>
-
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24 </span></span></span>
-<span><span><span>25</span></span></span></pre></div></td><td><div><pre id="__code_54"><span></span><code><span># models/labeled_projects/schema.yml</span><span></span><span></span>
-<span></span>
-<span>version</span><span>:</span><span> </span><span>2</span><span></span><span></span>
-<span></span>
-<span>models</span><span>:</span><span></span>
-<span>    </span><span>-</span><span> </span><span>name</span><span>:</span><span> </span><span>labeled_projects</span><span></span>
-<span>      </span><span>description</span><span>:</span><span> </span><span>"Tags</span><span> </span><span>for</span><span> </span><span>all</span><span> </span><span>projects"</span><span></span>
-<span>      </span><span>columns</span><span>:</span><span></span>
-<span>          </span><span>-</span><span> </span><span>name</span><span>:</span><span> </span><span>id</span><span></span>
-<span>            </span><span>description</span><span>:</span><span> </span><span>"Unique</span><span> </span><span>ID</span><span> </span><span>of</span><span> </span><span>the</span><span> </span><span>project."</span><span></span>
-<span>            </span><span>tests</span><span>:</span><span></span>
-<span>                </span><span>-</span><span> </span><span>unique</span><span></span>
-<span>                </span><span>-</span><span> </span><span>not_null</span><span></span>
-<span>          </span><span>-</span><span> </span><span>name</span><span>:</span><span> </span><span>title</span><span></span>
-<span>            </span><span>description</span><span>:</span><span> </span><span>"Title</span><span> </span><span>of</span><span> </span><span>the</span><span> </span><span>project."</span><span></span>
-<span>            </span><span>tests</span><span>:</span><span></span>
-<span>                </span><span>-</span><span> </span><span>not_null</span><span></span>
-<span>          </span><span>-</span><span> </span><span>name</span><span>:</span><span> </span><span>description</span><span></span>
-<span>            </span><span>description</span><span>:</span><span> </span><span>"Description</span><span> </span><span>of</span><span> </span><span>the</span><span> </span><span>project."</span><span></span>
-<span>            </span><span>tests</span><span>:</span><span></span>
-<span>                </span><span>-</span><span> </span><span>not_null</span><span></span>
-<span>          </span><span>-</span><span> </span><span>name</span><span>:</span><span> </span><span>tag</span><span></span>
-<span>            </span><span>description</span><span>:</span><span> </span><span>"Labeled</span><span> </span><span>tag</span><span> </span><span>for</span><span> </span><span>the</span><span> </span><span>project."</span><span></span>
-<span>            </span><span>tests</span><span>:</span><span></span>
-<span>                </span><span>-</span><span> </span><span>not_null</span><span></span>
-</code></pre></div></td></tr></tbody></table>
-
-可以使用 BashOperator 来执行 dbt 命令，如下所示：
-
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12</span></span></span></pre></div></td><td><div><pre id="__code_55"><span></span><code tabindex="0"><span>DBT_ROOT_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>BASE_DIR</span><span>,</span> <span>"dbt_transforms"</span><span>)</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>dataops</span><span>():</span>
-    <span>...</span>
-    <span># Transform</span>
-    <span>transform</span> <span>=</span> <span>BashOperator</span><span>(</span><span>task_id</span><span>=</span><span>"transform"</span><span>,</span> <span>bash_command</span><span>=</span><span>f</span><span>"cd </span><span>{</span><span>DBT_ROOT_DIR</span><span>}</span><span> && dbt run && dbt test"</span><span>)</span><span></span>
-<span></span>
-    <span># Define DAG</span>
-    <span>extract_and_load_projects</span> <span>>></span> <span>validate_projects</span>
-    <span>extract_and_load_tags</span> <span>>></span> <span>validate_tags</span>
-    <span>[</span><span>validate_projects</span><span>,</span> <span>validate_tags</span><span>]</span> <span>>></span> <span>transform</span>
-</code></pre></div></td></tr></tbody></table>
-
-以编程方式使用 dbt Cloud
-
-当在本地开发时，可以很容易地使用 Airflow 的[dbt 云提供商](https://airflow.apache.org/docs/apache-airflow-providers-dbt-cloud/)连接到 dbt 云并使用不同的运营商来安排作业。这被推荐用于生产，因为可以设计具有适当环境、身份验证、模式等的作业。
-
-- 将 Airflow 与 dbt Cloud 连接：
-
-转到管理 > 连接 > +
+并将以下代码添加到transformers模型文件中：
 
 ```
-Connection ID: dbt_cloud_default
-Connection Type: dbt Cloud
-Account ID: View in URL of https://cloud.getdbt.com/
-API Token: View in https://cloud.getdbt.com/#/profile/api/
+-- models/labeled_projects/labeled_projects.sql
+SELECT p.id, created_on, title, description, tag
+FROM `made-with-ml-XXXXXX.mlops_course.projects` p  -- REPLACE
+LEFT JOIN `made-with-ml-XXXXXX.mlops_course.tags` t  -- REPLACE
+ON p.id = t.id
 ```
 
-- 转换
+```
+# models/labeled_projects/schema.yml
+
+version: 2
+
+models:
+    - name: labeled_projects
+      description: "Tags for all projects"
+      columns:
+          - name: id
+            description: "Unique ID of the project."
+            tests:
+                - unique
+                - not_null
+          - name: title
+            description: "Title of the project."
+            tests:
+                - not_null
+          - name: description
+            description: "Description of the project."
+            tests:
+                - not_null
+          - name: tag
+            description: "Labeled tag for the project."
+            tests:
+                - not_null
+```
+
+可以使用 BashOperator 来执行transformers dbt 命令，如下所示：
 
 ```
-pip install apache-airflow-providers-dbt-cloud==2.1.0
+DBT_ROOT_DIR = Path(BASE_DIR, "dbt_transforms")
+
+@dag(...)
+def dataops():
+    ...
+    # Transform
+    transform = BashOperator(task_id="transform", bash_command=f"cd {DBT_ROOT_DIR} && dbt run && dbt test")
+
+    # Define DAG
+    extract_and_load_projects >> validate_projects
+    extract_and_load_tags >> validate_tags
+    [validate_projects, validate_tags] >> transform
 ```
 
-<table><tbody><tr><td></td><td><div><pre id="__code_58"><span></span><code><span>from</span> <span>airflow.providers.dbt.cloud.operators.dbt</span> <span>import</span> <span>DbtCloudRunJobOperator</span>
-<span>transform</span> <span>=</span> <span>DbtCloudRunJobOperator</span><span>(</span>
-    <span>task_id</span><span>=</span><span>"transform"</span><span>,</span>
-    <span>job_id</span><span>=</span><span>118680</span><span>,</span>  <span># Go to dbt UI > click left menu > Jobs > Transform > job_id in URL</span>
-    <span>wait_for_termination</span><span>=</span><span>True</span><span>,</span>  <span># wait for job to finish running</span>
-    <span>check_interval</span><span>=</span><span>10</span><span>,</span>  <span># check job status</span>
-    <span>timeout</span><span>=</span><span>300</span><span>,</span>  <span># max time for job to execute</span>
-<span>)</span>
-</code></pre></div></td></tr></tbody></table>
+> 以编程方式使用 dbt Cloud
+> 
+> 当在本地开发时，可以轻松地使用 Airflow 的[dbt 云提供商](https://airflow.apache.org/docs/apache-airflow-providers-dbt-cloud/)连接到transformers dbt 云并使用不同的操作员来安排作业。推荐用于生产，因为可以设计具有适当环境、身份验证、模式等的作业。
+> 
+> - 将 Airflow 与 dbt Cloud 连接：
+
+> 转到管理 > 连接 > +
+> 
+> ```
+> Connection ID: dbt_cloud_default
+> Connection Type: dbt Cloud
+> Account ID: View in URL of https://cloud.getdbt.com/
+> API Token: View in https://cloud.getdbt.com/#/profile/api/
+> ```
+> 
+> - 转换
+
+> `pip install apache-airflow-providers-dbt-cloud==2.1.0`
+
+> ```
+> from airflow.providers.dbt.cloud.operators.dbt import DbtCloudRunJobOperator
+> transform = DbtCloudRunJobOperator(
+>     task_id="transform",
+>     job_id=118680,  # Go to dbt UI > click left menu > Jobs > Transform > job_id in URL
+>     wait_for_termination=True,  # wait for job to finish running
+>     check_interval=10,  # check job status
+>     timeout=300,  # max time for job to execute
+> )
+> ```
 
 #### 证实
 
-当然，希望验证转换超出了 dbt 的内置方法，并使用了很大的期望。将像上面为项目和标签数据资产所做的那样创建一个套件和检查点。
+当然，会希望使用远大的期望来验证超出 dbt 内置方法的转换。将像上面为transformers项目和标签数据assert所做的那样创建一个suite和检查点。
 
 ```
 great_expectations suite new  # for mlops_course.labeled_projects
-```
-
-期望`mlops_course.labeled_projects`
-
-餐桌期望
-
-<table><tbody><tr><td></td><td><div><pre><span></span><code><span># data leak</span>
-<span>validator</span><span>.</span><span>expect_compound_columns_to_be_unique</span><span>(</span><span>column_list</span><span>=</span><span>[</span><span>"title"</span><span>,</span> <span>"description"</span><span>])</span>
-</code></pre></div></td></tr></tbody></table>
-
-列期望：
-
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17</span></span></span></pre></div></td><td><div><pre><span></span><code><span># id</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_unique</span><span>(</span><span>column</span><span>=</span><span>"id"</span><span>)</span><span></span>
-<span></span>
-<span># create_on</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"created_on"</span><span>)</span><span></span>
-<span></span>
-<span># title</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"title"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"title"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span><span></span>
-<span></span>
-<span># description</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"description"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"description"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span><span></span>
-<span></span>
-<span># tag</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_not_be_null</span><span>(</span><span>column</span><span>=</span><span>"tag"</span><span>)</span>
-<span>validator</span><span>.</span><span>expect_column_values_to_be_of_type</span><span>(</span><span>column</span><span>=</span><span>"tag"</span><span>,</span> <span>type_</span><span>=</span><span>"STRING"</span><span>)</span>
-</code></pre></div></td></tr></tbody></table>
 
 ```
-great_expectations checkpoint new labeled_projects
-```
+
+> Expectations for `mlops_course.labeled_projects`
+> 
+> Table expectations
+> 
+> ```
+> # data leak
+> validator.expect_compound_columns_to_be_unique(column_list=["title", "description"])
+> 
+> ```
+
+> Column expectations:
+> 
+> ```
+> # id
+> validator.expect_column_values_to_be_unique(column="id")
+> 
+> # create_on
+> validator.expect_column_values_to_not_be_null(column="created_on")
+> 
+> # title
+> validator.expect_column_values_to_not_be_null(column="title")
+> validator.expect_column_values_to_be_of_type(column="title", type_="STRING")
+> 
+> # description
+> validator.expect_column_values_to_not_be_null(column="description")
+> validator.expect_column_values_to_be_of_type(column="description", type_="STRING")
+> 
+> # tag
+> validator.expect_column_values_to_not_be_null(column="tag")
+> validator.expect_column_values_to_be_of_type(column="tag", type_="STRING")
+> 
+> ```
+
+
+
+`great_expectations checkpoint new labeled_projects`
 
 ```
 datasource_name: dwh
 data_asset_name: mlops_course.labeled_projects
 expectation_suite_name: labeled_projects
+
 ```
 
-就像为提取和加载的数据添加验证任务一样，可以对 Airflow 中的转换数据执行相同的操作：
+就像为提取和加载的数据添加验证任务一样，可以在 Airflow 中对转换后的数据执行相同的操作：
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16</span></span></span></pre></div></td><td><div><pre id="__code_62"><span></span><code tabindex="0"><span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>dataops</span><span>():</span>
-    <span>...</span>
-    <span># Transform</span>
-    <span>transform</span> <span>=</span> <span>BashOperator</span><span>(</span><span>task_id</span><span>=</span><span>"transform"</span><span>,</span> <span>bash_command</span><span>=</span><span>f</span><span>"cd </span><span>{</span><span>DBT_ROOT_DIR</span><span>}</span><span> && dbt run && dbt test"</span><span>)</span>
-    <span>validate_transforms</span> <span>=</span> <span>GreatExpectationsOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"validate_transforms"</span><span>,</span>
-        <span>checkpoint_name</span><span>=</span><span>"labeled_projects"</span><span>,</span>
-        <span>data_context_root_dir</span><span>=</span><span>GE_ROOT_DIR</span><span>,</span>
-        <span>fail_task_on_validation_failure</span><span>=</span><span>True</span><span>,</span>
-    <span>)</span><span></span>
-<span></span>
-    <span># Define DAG</span>
-    <span>extract_and_load_projects</span> <span>>></span> <span>validate_projects</span>
-    <span>extract_and_load_tags</span> <span>>></span> <span>validate_tags</span>
-    <span>[</span><span>validate_projects</span><span>,</span> <span>validate_tags</span><span>]</span> <span>>></span> <span>transform</span> <span>>></span> <span>validate_transforms</span>
-</code></pre></div></td></tr></tbody></table>
+```
+@dag(...)
+def dataops():
+    ...
+    # Transform
+    transform = BashOperator(task_id="transform", bash_command=f"cd {DBT_ROOT_DIR} && dbt run && dbt test")
+    validate_transforms = GreatExpectationsOperator(
+        task_id="validate_transforms",
+        checkpoint_name="labeled_projects",
+        data_context_root_dir=GE_ROOT_DIR,
+        fail_task_on_validation_failure=True,
+    )
 
-___
+    # Define DAG
+    extract_and_load_projects >> validate_projects
+    extract_and_load_tags >> validate_tags
+    [validate_projects, validate_tags] >> transform >> validate_transforms
 
-现在已经定义并执行了整个 DataOps DAG，它将为[下游应用程序](https://madewithml.com/courses/mlops/data-stack/#applications)准备从提取到加载到转换（并在每个步骤中进行验证）的数据。
+```
+
+
+
+---
+
+现在已经定义并执行了整个 DataOps DAG，它将为[下游应用程序](https://madewithml.com/courses/mlops/data-stack/#applications)准备从提取到加载再到转换（并在每个步骤中进行验证）的数据。
 
 ![数据操作](https://madewithml.com/static/images/mlops/orchestration/dataops.png)
 
-> 通常，将使用[传感器](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/sensors/)在满足条件时触发工作流，或者通过 API 调用等直接从外部源触发它们。对于 ML 用例，这可能是定期进行，或者当标记或监控工作流触发再训练等时.
+> 通常，会使用[传感器](https://airflow.apache.org/docs/apache-airflow/stable/_api/airflow/sensors/)在满足条件时触发工作流，或者通过 API 调用等直接从外部源触发它们。对于transformers ML 用例，这可能是定期的，或者在标记或监控工作流时触发重新训练等.
 
 ## MLOps
 
-一旦准备好数据，就可以创建依赖它的众多潜在下游应用程序之一。让回到`mlops-course`项目并按照相同的 Airflow[设置说明](https://madewithml.com/courses/mlops/orchestration/#set-up)进行操作（您可以从数据工程项目中停止 Airflow 网络服务器和调度程序，因为将重用 PORT 8000）。
+准备好数据后，就可以创建许多依赖它的潜在下游应用程序之一。让回到transformers`mlops-course`项目并按照相同的 Airflow[设置说明](https://madewithml.com/courses/mlops/orchestration/#set-up)进行操作（您可以从transformers数据工程项目中停止 Airflow 网络服务器和调度程序，因为将重用端口 8000）。
 
 ```
 # Airflow webserver
@@ -1145,6 +939,7 @@ export AIRFLOW_HOME=${PWD}/airflow
 export GOOGLE_APPLICATION_CREDENTIALS=/Users/goku/Downloads/made-with-ml-XXXXXX-XXXXXXXXXXXX.json # REPLACE
 airflow webserver --port 8080
 # Go to http://localhost:8080
+
 ```
 
 ```
@@ -1154,295 +949,192 @@ export AIRFLOW_HOME=${PWD}/airflow
 export OBJC_DISABLE_INITIALIZE_FORK_SAFETY=YES
 export GOOGLE_APPLICATION_CREDENTIALS=~/Downloads/made-with-ml-XXXXXX-XXXXXXXXXXXX.json # REPLACE
 airflow scheduler
-```
 
 ```
-touch airflow/dags/workflows.py
-```
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24 </span></span></span>
-<span><span><span>25</span></span></span></pre></div></td><td><div><pre id="__code_66"><span></span><code><span># airflow/dags/workflows.py</span>
-<span>from</span> <span>pathlib</span> <span>import</span> <span>Path</span>
-<span>from</span> <span>airflow.decorators</span> <span>import</span> <span>dag</span>
-<span>from</span> <span>airflow.utils.dates</span> <span>import</span> <span>days_ago</span><span></span>
-<span></span>
-<span># Default DAG args</span>
-<span>default_args</span> <span>=</span> <span>{</span>
-    <span>"owner"</span><span>:</span> <span>"airflow"</span><span>,</span>
-    <span>"catch_up"</span><span>:</span> <span>False</span><span>,</span>
-<span>}</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span>
-    <span>dag_id</span><span>=</span><span>"mlops"</span><span>,</span>
-    <span>description</span><span>=</span><span>"MLOps tasks."</span><span>,</span>
-    <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-    <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-    <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-    <span>tags</span><span>=</span><span>[</span><span>"mlops"</span><span>],</span>
-<span>)</span>
-<span>def</span> <span>mlops</span><span>():</span>
-    <span>"""MLOps workflows."""</span>
-    <span>pass</span><span></span>
-<span></span>
-<span># Run DAG</span>
-<span>ml</span> <span>=</span> <span>mlops</span><span>()</span>
-</code></pre></div></td></tr></tbody></table>
+`touch airflow/dags/workflows.py`
+
+```
+# airflow/dags/workflows.py
+from pathlib import Path
+from airflow.decorators import dag
+from airflow.utils.dates import days_ago
+
+# Default DAG args
+default_args = {
+    "owner": "airflow",
+    "catch_up": False,
+}
+
+@dag(
+    dag_id="mlops",
+    description="MLOps tasks.",
+    default_args=default_args,
+    schedule_interval=None,
+    start_date=days_ago(2),
+    tags=["mlops"],
+)
+def mlops():
+    """MLOps workflows."""
+    pass
+
+# Run DAG
+ml = mlops()
+
+```
 
 ### 数据集
 
-已经`tagifai.elt_data`定义了一个函数来准备数据，但是如果想利用数据仓库中的数据，需要连接到它。
+已经`tagifai.elt_data`定义了一个函数来准备transformers数据，但如果想利用数据仓库中的数据，需要连接到它。
+
+`pip install google-cloud-bigquery==1.21.0`
 
 ```
-pip install google-cloud-bigquery==1.21.0
-```
+# airflow/dags/workflows.py
+from google.cloud import bigquery
+from google.oauth2 import service_account
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24 </span></span></span>
-<span><span><span>25 </span></span></span>
-<span><span><span>26 </span></span></span>
-<span><span><span>27 </span></span></span>
-<span><span><span>28 </span></span></span>
-<span><span><span>29 </span></span></span>
-<span><span><span>30 </span></span></span>
-<span><span><span>31 </span></span></span>
-<span><span><span>32 </span></span></span>
-<span><span><span>33 </span></span></span>
-<span><span><span>34 </span></span></span>
-<span><span><span>35 </span></span></span>
-<span><span><span>36 </span></span></span>
-<span><span><span>37 </span></span></span>
-<span><span><span>38 </span></span></span>
-<span><span><span>39</span></span></span></pre></div></td><td><div><pre id="__code_68"><span></span><code tabindex="0"><span># airflow/dags/workflows.py</span>
-<span>from</span> <span>google.cloud</span> <span>import</span> <span>bigquery</span>
-<span>from</span> <span>google.oauth2</span> <span>import</span> <span>service_account</span><span></span>
-<span></span>
-<span>PROJECT_ID</span> <span>=</span> <span>"made-with-ml-XXXXX"</span> <span># REPLACE</span>
-<span>SERVICE_ACCOUNT_KEY_JSON</span> <span>=</span> <span>"/Users/goku/Downloads/made-with-ml-XXXXXX-XXXXXXXXXXXX.json"</span>  <span># REPLACE</span><span></span>
-<span></span>
-<span>def</span> <span>_extract_from_dwh</span><span>():</span>
-    <span>"""Extract labeled data from</span>
-<span>    our BigQuery data warehouse and</span>
-<span>    save it locally."""</span>
-    <span># Establish connection to DWH</span>
-    <span>credentials</span> <span>=</span> <span>service_account</span><span>.</span><span>Credentials</span><span>.</span><span>from_service_account_file</span><span>(</span><span>SERVICE_ACCOUNT_KEY_JSON</span><span>)</span>
-    <span>client</span> <span>=</span> <span>bigquery</span><span>.</span><span>Client</span><span>(</span><span>credentials</span><span>=</span><span>credentials</span><span>,</span> <span>project</span><span>=</span><span>PROJECT_ID</span><span>)</span><span></span>
-<span></span>
-    <span># Query data</span>
-    <span>query_job</span> <span>=</span> <span>client</span><span>.</span><span>query</span><span>(</span><span>"""</span>
-<span>        SELECT *</span>
-<span>        FROM mlops_course.labeled_projects"""</span><span>)</span>
-    <span>results</span> <span>=</span> <span>query_job</span><span>.</span><span>result</span><span>()</span>
-    <span>results</span><span>.</span><span>to_dataframe</span><span>()</span><span>.</span><span>to_csv</span><span>(</span><span>Path</span><span>(</span><span>config</span><span>.</span><span>DATA_DIR</span><span>,</span> <span>"labeled_projects.csv"</span><span>),</span> <span>index</span><span>=</span><span>False</span><span>)</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span>
-    <span>dag_id</span><span>=</span><span>"mlops"</span><span>,</span>
-    <span>description</span><span>=</span><span>"MLOps tasks."</span><span>,</span>
-    <span>default_args</span><span>=</span><span>default_args</span><span>,</span>
-    <span>schedule_interval</span><span>=</span><span>None</span><span>,</span>
-    <span>start_date</span><span>=</span><span>days_ago</span><span>(</span><span>2</span><span>),</span>
-    <span>tags</span><span>=</span><span>[</span><span>"mlops"</span><span>],</span>
-<span>)</span>
-<span>def</span> <span>mlops</span><span>():</span>
-    <span>"""MLOps workflows."""</span>
-    <span>extract_from_dwh</span> <span>=</span> <span>PythonOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"extract_data"</span><span>,</span>
-        <span>python_callable</span><span>=</span><span>_extract_from_dwh</span><span>,</span>
-    <span>)</span><span></span>
-<span></span>
-    <span># Define DAG</span>
-    <span>extract_from_dwh</span>
-</code></pre></div></td></tr></tbody></table>
+PROJECT_ID = "made-with-ml-XXXXX" # REPLACE
+SERVICE_ACCOUNT_KEY_JSON = "/Users/goku/Downloads/made-with-ml-XXXXXX-XXXXXXXXXXXX.json"  # REPLACE
+
+def _extract_from_dwh():
+    """Extract labeled data from
+    our BigQuery data warehouse and
+    save it locally."""
+    # Establish connection to DWH
+    credentials = service_account.Credentials.from_service_account_file(SERVICE_ACCOUNT_KEY_JSON)
+    client = bigquery.Client(credentials=credentials, project=PROJECT_ID)
+
+    # Query data
+    query_job = client.query("""
+        SELECT *
+        FROM mlops_course.labeled_projects""")
+    results = query_job.result()
+    results.to_dataframe().to_csv(Path(config.DATA_DIR, "labeled_projects.csv"), index=False)
+
+@dag(
+    dag_id="mlops",
+    description="MLOps tasks.",
+    default_args=default_args,
+    schedule_interval=None,
+    start_date=days_ago(2),
+    tags=["mlops"],
+)
+def mlops():
+    """MLOps workflows."""
+    extract_from_dwh = PythonOperator(
+        task_id="extract_data",
+        python_callable=_extract_from_dwh,
+    )
+
+    # Define DAG
+    extract_from_dwh
+
+```
 
 ### 证实
 
-接下来，将使用 Great Expectations 来验证数据。尽管已经验证了数据，但最好的做法是在数据从一个地方转移到另一个地方时测试数据质量。已经`labeled_projects`在[测试课程](https://madewithml.com/courses/mlops/testing/#checkpoints)中创建了一个检查点，因此将在 MLOps DAG 中利用它。
+接下来，将使用 Great Expectations 来验证transformers数据。尽管已经验证了transformers数据，但最好的做法是在数据从一个地方移交到另一个地方时测试数据质量。已经`labeled_projects`在[测试课程](https://madewithml.com/courses/mlops/testing/#checkpoints)中为创建了一个检查点，因此将在 MLOps DAG 中利用它。
+
+`pip install airflow-provider-great-expectations==0.1.1 great-expectations==0.15.19`
 
 ```
-pip install airflow-provider-great-expectations==0.1.1 great-expectations==0.15.19
+from great_expectations_provider.operators.great_expectations import GreatExpectationsOperator
+from config import config
+
+GE_ROOT_DIR = Path(config.BASE_DIR, "tests", "great_expectations")
+
+@dag(...)
+def mlops():
+    """MLOps workflows."""
+    extract_from_dwh = PythonOperator(
+        task_id="extract_data",
+        python_callable=_extract_from_dwh,
+    )
+    validate = GreatExpectationsOperator(
+        task_id="validate",
+        checkpoint_name="labeled_projects",
+        data_context_root_dir=GE_ROOT_DIR,
+        fail_task_on_validation_failure=True,
+    )
+
+    # Define DAG
+    extract_from_dwh >> validate
+
 ```
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21</span></span></span></pre></div></td><td><div><pre id="__code_70"><span></span><code tabindex="0"><span>from</span> <span>great_expectations_provider.operators.great_expectations</span> <span>import</span> <span>GreatExpectationsOperator</span>
-<span>from</span> <span>config</span> <span>import</span> <span>config</span><span></span>
-<span></span>
-<span>GE_ROOT_DIR</span> <span>=</span> <span>Path</span><span>(</span><span>config</span><span>.</span><span>BASE_DIR</span><span>,</span> <span>"tests"</span><span>,</span> <span>"great_expectations"</span><span>)</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>mlops</span><span>():</span>
-    <span>"""MLOps workflows."""</span>
-    <span>extract_from_dwh</span> <span>=</span> <span>PythonOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"extract_data"</span><span>,</span>
-        <span>python_callable</span><span>=</span><span>_extract_from_dwh</span><span>,</span>
-    <span>)</span>
-    <span>validate</span> <span>=</span> <span>GreatExpectationsOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"validate"</span><span>,</span>
-        <span>checkpoint_name</span><span>=</span><span>"labeled_projects"</span><span>,</span>
-        <span>data_context_root_dir</span><span>=</span><span>GE_ROOT_DIR</span><span>,</span>
-        <span>fail_task_on_validation_failure</span><span>=</span><span>True</span><span>,</span>
-    <span>)</span><span></span>
-<span></span>
-    <span># Define DAG</span>
-    <span>extract_from_dwh</span> <span>>></span> <span>validate</span>
-</code></pre></div></td></tr></tbody></table>
-
-### 火车
+### train
 
 最后，将使用经过验证的数据优化和训练模型。
 
-<table><tbody><tr><td><div><pre><span></span><span><span><span>1 </span></span></span>
-<span><span><span>2 </span></span></span>
-<span><span><span>3 </span></span></span>
-<span><span><span>4 </span></span></span>
-<span><span><span>5 </span></span></span>
-<span><span><span>6 </span></span></span>
-<span><span><span>7 </span></span></span>
-<span><span><span>8 </span></span></span>
-<span><span><span>9 </span></span></span>
-<span><span><span>10 </span></span></span>
-<span><span><span>11 </span></span></span>
-<span><span><span>12 </span></span></span>
-<span><span><span>13 </span></span></span>
-<span><span><span>14 </span></span></span>
-<span><span><span>15 </span></span></span>
-<span><span><span>16 </span></span></span>
-<span><span><span>17 </span></span></span>
-<span><span><span>18 </span></span></span>
-<span><span><span>19 </span></span></span>
-<span><span><span>20 </span></span></span>
-<span><span><span>21 </span></span></span>
-<span><span><span>22 </span></span></span>
-<span><span><span>23 </span></span></span>
-<span><span><span>24 </span></span></span>
-<span><span><span>25 </span></span></span>
-<span><span><span>26</span></span></span></pre></div></td><td><div><pre id="__code_71"><span></span><code><span>from</span> <span>airflow.operators.python_operator</span> <span>import</span> <span>PythonOperator</span>
-<span>from</span> <span>config</span> <span>import</span> <span>config</span>
-<span>from</span> <span>tagifai</span> <span>import</span> <span>main</span><span></span>
-<span></span>
-<span>@dag</span><span>(</span><span>...</span><span>)</span>
-<span>def</span> <span>mlops</span><span>():</span>
-    <span>"""MLOps workflows."""</span>
-    <span>...</span>
-    <span>optimize</span> <span>=</span> <span>PythonOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"optimize"</span><span>,</span>
-        <span>python_callable</span><span>=</span><span>main</span><span>.</span><span>optimize</span><span>,</span>
-        <span>op_kwargs</span><span>=</span><span>{</span>
-            <span>"args_fp"</span><span>:</span> <span>Path</span><span>(</span><span>config</span><span>.</span><span>CONFIG_DIR</span><span>,</span> <span>"args.json"</span><span>),</span>
-            <span>"study_name"</span><span>:</span> <span>"optimization"</span><span>,</span>
-            <span>"num_trials"</span><span>:</span> <span>1</span><span>,</span>
-        <span>},</span>
-    <span>)</span>
-    <span>train</span> <span>=</span> <span>PythonOperator</span><span>(</span>
-        <span>task_id</span><span>=</span><span>"train"</span><span>,</span>
-        <span>python_callable</span><span>=</span><span>main</span><span>.</span><span>train_model</span><span>,</span>
-        <span>op_kwargs</span><span>=</span><span>{</span>
-            <span>"args_fp"</span><span>:</span> <span>Path</span><span>(</span><span>config</span><span>.</span><span>CONFIG_DIR</span><span>,</span> <span>"args.json"</span><span>),</span>
-            <span>"experiment_name"</span><span>:</span> <span>"baselines"</span><span>,</span>
-            <span>"run_name"</span><span>:</span> <span>"sgd"</span><span>,</span>
-        <span>},</span>
-    <span>)</span>
-</code></pre></div></td></tr></tbody></table>
+```
+from airflow.operators.python_operator import PythonOperator
+from config import config
+from tagifai import main
 
-___
+@dag(...)
+def mlops():
+    """MLOps workflows."""
+    ...
+    optimize = PythonOperator(
+        task_id="optimize",
+        python_callable=main.optimize,
+        op_kwargs={
+            "args_fp": Path(config.CONFIG_DIR, "args.json"),
+            "study_name": "optimization",
+            "num_trials": 1,
+        },
+    )
+    train = PythonOperator(
+        task_id="train",
+        python_callable=main.train_model,
+        op_kwargs={
+            "args_fp": Path(config.CONFIG_DIR, "args.json"),
+            "experiment_name": "baselines",
+            "run_name": "sgd",
+        },
+    )
 
-有了这个，定义了 MLOps 工作流，它使用了 DataOps 工作流中准备好的数据。此时，可以添加额外的任务进行离线/在线评估、部署等，过程与上述相同。
+```
 
-![毛毛虫](https://madewithml.com/static/images/mlops/orchestration/mlops.png)
+---
+
+这样就定义了 MLOps 工作流，它使用从transformers DataOps 工作流中准备好的数据。此时，可以添加额外的离线/在线评估、部署等任务，流程同上。
+
+![mloops](https://madewithml.com/static/images/mlops/orchestration/mlops.png)
 
 ## 持续学习
 
-DataOps 和 MLOps 工作流连接起来创建一个能够持续学习的 ML 系统。这样的系统将指导何时更新、确切更新什么以及如何（轻松地）更新它。
+DataOps 和 MLOps 工作流连接起来创建一个能够持续学习的 ML 系统。这样的系统将指导何时更新、确切更新什么以及如何（轻松）更新。
 
-> 使用连续（中断重复）这个词而不是连续（不中断/干预地重复），因为不是试图创建一个无需人工干预就可以自动更新新传入数据的系统。
+> 使用连续（有中断的重复）这个词而不是连续的（没有中断/干预的重复），因为不是要创建一个系统，它会在没有人为干预的情况下自动更新新的传入数据。
 
 ### 监控
 
-生产系统是实时[监控](https://madewithml.com/courses/mlops/monitoring/)的。当感兴趣的事件发生时（例如[漂移](https://madewithml.com/courses/mlops/monitoring/#drift)），需要触发几个事件之一：
+transformers生产系统是实时的并[受到监控](https://madewithml.com/courses/mlops/monitoring/)。当感兴趣的事件发生时（例如[drift](https://madewithml.com/courses/mlops/monitoring/#drift)），需要触发几个事件之一：
 
 - `continue`：使用当前部署的模型，没有任何更新。但是，已发出警报，因此应稍后对其进行分析以减少误报警报。
-- `improve`：通过重新训练模型来避免由有意义的漂移（数据、目标、概念等）导致的性能下降。
+- `improve`：通过重新训练模型来避免有意义的漂移（数据、目标、概念等）导致的性能下降。
 - `inspect`： 做一个决定。通常会重新评估期望，重新评估模式以进行更改，重新评估切片等。
-- `rollback`：由于当前部署存在问题，因此转换为模型的先前版本。通常可以使用强大的部署策略（例如暗金丝雀）来避免这些问题。
+- `rollback`：由于当前部署存在问题而导致模型的先前版本。通常可以使用稳健的部署策略（例如暗金丝雀）来避免这些问题。
 
 ### 再培训
 
-如果需要改进模型的现有版本，这不仅仅是在新数据集上重新运行模型创建工作流的问题。需要仔细组合训练数据以避免灾难性遗忘等问题（在呈现新数据时忘记先前学习的模式）。
+如果需要改进模型的现有版本，这不仅仅是在新数据集上重新运行模型创建工作流程这一事实。需要仔细组合训练数据，以避免灾难性遗忘（在呈现新数据时忘记以前学习的模式）等问题。
 
-- `labeling`：新的传入数据在使用之前可能需要正确标记（不能仅仅依赖代理标签）。
-- `active learning`：可能无法明确标记每个新数据点，因此必须利用[主动学习](https://madewithml.com/courses/mlops/labeling/#active-learning)工作流程来完成标记过程。
-- `QA`：质量保证工作流程，以确保标记准确，特别是对于已知的误报/负例和历史上表现不佳的数据切片。
-- `augmentation`：使用代表原始数据集的[增强数据](https://madewithml.com/courses/mlops/augmentation/)增加训练集。
+- `labeling`：新传入的数据在使用前可能需要正确标记（不能只依赖代理标签）。
+- `active learning`：可能无法明确标记每个新数据点，因此必须利用[主动学习](https://madewithml.com/courses/mlops/labeling/#active-learning)工作流程来完成标记过程。
+- `QA`：质量保证工作流程，以确保标签准确，尤其是对于已知的误报/漏报和历史上表现不佳的数据片段。
+- `augmentation`：使用代表原始数据集的[增强数据](https://madewithml.com/courses/mlops/augmentation/)增加transformers训练集。
 - `sampling`：上采样和下采样以解决不平衡的数据切片。
-- `evaluation`：创建一个评估数据集，该数据集代表模型部署后将遇到的情况。
+- `evaluation`：创建一个评估数据集，该数据集代表模型在部署后将遇到的情况。
 
-一旦有了合适的数据集进行再训练，就可以启动工作流程来更新系统！
+一旦有了合适的数据集进行再训练，就可以启动工作流来更新transformers系统！
 
 ___
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},

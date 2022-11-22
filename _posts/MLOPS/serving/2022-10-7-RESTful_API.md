@@ -551,7 +551,7 @@ curl -X "GET" \
 
 还可以创建一个端点来生成所有使用的参数：
 
-> 看法`GET /args`
+> 查看`GET /args`
 
 ```
 @app.get("/args", tags=["Arguments"])

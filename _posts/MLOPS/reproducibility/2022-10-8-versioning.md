@@ -67,7 +67,7 @@ stores/
 └── model
 ```
 
-需要通知 DVC 这个存储位置，以便它知道将数据资产保存在哪里：
+需要通知 DVC 这个存储位置，以便它知道将数据assert保存在哪里：
 
 ```
 dvc remote add -d storage stores/blob
@@ -91,7 +91,7 @@ dvc remote add -d storage s3://<BUCKET_NAME>
 
 ## 添加数据
 
-现在已准备好将数据添加到远程存储中。这将自动将相应的数据资产添加到`.gitignore`文件中（将在目录中创建一个新文件`data`）并创建指向数据资产实际存储位置的指针文件（远程存储）。但首先，需要`data`从文件中删除目录`.gitignore`（否则 DVC 会抛出_git-ignored_错误）。
+现在已准备好将数据添加到远程存储中。这将自动将相应的数据assert添加到`.gitignore`文件中（将在目录中创建一个新文件`data`）并创建指向数据assert实际存储位置的指针文件（远程存储）。但首先，需要`data`从文件中删除目录`.gitignore`（否则 DVC 会抛出_git-ignored_错误）。
 
 ```
 # Inside our .gitignore
@@ -100,7 +100,7 @@ stores/
 # data/  # remove or comment this line
 ```
 
-现在准备添加数据资产：
+现在准备添加数据assert：
 
 ```
 # Add artifacts
@@ -167,7 +167,7 @@ stores
 
 >  note
 > 
-> 如果忘记添加或推送组件，可以将其添加为预提交挂钩，以便在尝试提交时自动发生。如果版本化文件没有更改，则不会发生任何事情。
+> 如果忘记添加或推送组件，可以将其添加为预提交hook，以便在尝试提交时自动发生。如果版本化文件没有更改，则不会发生任何事情。
 > 
 > ```
 > # Makefile
@@ -187,17 +187,11 @@ stores
 >       args: ["dvc"]
 >       language: system
 >       pass_filenames: falsepush
-> 
-> 
 > ```
-
-
-
-
 
 ## pull
 
-当其他人想要拉取数据资产时，可以使用该`pull`命令从远程存储中获取到本地目录。需要的只是首先确保拥有最新的指针文件（通过`git pull`），然后从远程存储中提取。
+当其他人想要拉取数据assert时，可以使用该`pull`命令从远程存储中获取到本地目录。需要的只是首先确保拥有最新的指针文件（通过`git pull`），然后从远程存储中提取。
 
 > 可以通过删除数据文件（`.json`不是`.dvc`指针的文件）来快速测试这一点，然后运行`dvc pull`以从 blob 存储中加载文件。
 
@@ -215,6 +209,7 @@ stores
 ___
 
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},
