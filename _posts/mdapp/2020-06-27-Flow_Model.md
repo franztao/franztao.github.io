@@ -14,7 +14,7 @@ tags:
     
 
 
-\section{Introduction}
+#  {Introduction}
 在上一小节中讲到了Latent Variable Model（LAM），VAE。其主要思想就是将隐变量扩充为高维连续的分布，来增强模型的表达能力。而LAM模型中的核心困难是$P(X)$计算不出来，因为$P(X) = \int_Z P(X|Z)P(Z) dZ$，而$Z$的维度过高$P(X)$算不出来。而根据Bayesian公式：
 
 $$
@@ -26,7 +26,7 @@ $$
 
 而在VAE中通过优化变分下界ELBO来达到最终优化的目的，而不是直接对Log似然函数进行优化。所以当然会有误差了。那么这将启发我们，可不可以绕过这个intractable的$P(Z)$，使模型变得tractable。
 
-\section{Flow based Model}
+#  {Flow based Model}
 什么是flow model呢？首先用一张图来进行表示：
 
 $$
@@ -46,7 +46,7 @@ $$
 $$
 就被称为“流”。因为流模型中初始分布是很简单的。极大似然估计中求的是：$\arg\max P(X)$。那么下一个问题就是如何建立$X$和$Z_0$之间的关系，将$\arg\max P(X)$转换成求关于$P(Z_0)$的函数。
 
-\section{Change of Variables}
+#  {Change of Variables}
 假设$X=f(Z)$，$Z,X\in \mathbb{R}^p$。而$Z\sim P_Z(Z)$，$X\sim P_X(X)$；$f$是一个光滑可逆的函数。
 
 那么可以得到：
@@ -158,7 +158,7 @@ $$
 
 [3] 2018 Glow: Generative Flow with Invertible 1×1 Convolutions
 
-\section{小结}
+#  {小结}
 本章主要介绍的是流模型的主要思想，在Latent Variable Model经常会遇到后验过于复杂无法求解的问题。流模型绕开了这个部分，对更简单的分布建模，然后建立原分布与简单分布之间的映射关系。个人觉得Stein变分梯度下降就有点流模型的影子在里面。在建立映射关系是用到了重要的change of variables theorem，并之后介绍了变化后的目标函数和梯度求解方法。
 
 

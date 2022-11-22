@@ -58,7 +58,7 @@ $$
 
 并且，$x,y,\varepsilon$都是Random variable。
 
-\section{最小二乘估计(Least Square Estimation)}
+#  {最小二乘估计(Least Square Estimation)}
 这实际上就是一个利用数据点的极大似然估计(MLE)，并且有一个默认的隐含条件，也就是噪声$\varepsilon$符合Gaussian Distribution。我们的目标是通过估计找到$w$，使得：
 
 $$
@@ -85,7 +85,7 @@ $$
 
 那么假设$p(w)$符合一个高斯分布$\mathcal{N}(\mu_0,\Sigma_0)$时，这时是属于Ridge；而如果$p(w)$符合一个Laplace分布，这是就是Lasso。从概率的角度来思考和统计的角度来思想，我们其实获得的结果是一样的，这在Linear Regression中有证明。但是，我们只证明了Ridge的部分。
 
-\section{贝叶斯估计与频率派估计}
+#  {贝叶斯估计与频率派估计}
 其实在第一部分，我们讲的都是点估计，频率派估计的部分。因为在这些思路中，我们把参数$w$当成a unknown random variable。这实际上就是一个优化问题。而在Beyesian method中，认为$w$是一个随机变量，也就是一个分布，那么我们求的$w$不再是一个数了，而是一个分布。下面我们将要进行Bayes Linear Regression的部分。
 
 

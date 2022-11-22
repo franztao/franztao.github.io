@@ -18,7 +18,7 @@ tags:
 
 Gaussian Process在这里我们主要讲解的是Gaussian Process Regression。我们从Bayesian Linear Regression的角度来引出的Gaussian Progress Regression。
 
-\section{Recall Bayesian Linear Regression}
+#  {Recall Bayesian Linear Regression}
 首先，我们需要回顾一下Bayesian Linear Regression。
 
 1. 首先对于一个，参数符合的分布，$p(w|Data) = \mathcal{N}(w|\mu_w,\Sigma_w)$。其中，$\mu_w = \sigma^{-2}A^{-1}X^TY$，$\Sigma_w = A^{-1}$，其中，$A=\sigma^{-2}X^TX+\Sigma_p^{-1}$。从这一步我们就成功的得到了在已知Data的情况下，未知参数的分布形式。
@@ -36,7 +36,7 @@ $$
 
 那么这个非线性转换可以被我们写成：If $\phi:x\mapsto z$，$x\in \mathbb{R}^p$，$x\in\mathbb{R}^p$，$z\in\mathbb{R}^q$，$z=\phi(x)$。
 
-\section{非线性转换后的表达}
+#  {非线性转换后的表达}
 数据集被我们描述为：$X = (x_1,x_2,\cdots,x_N)^T$，$Y = (y_1,y_2,\cdots,y_N)^T$。根据之前我们得到的Bayesian Linear Regression结果，我们代入可以得到：
 
 $$
@@ -111,7 +111,7 @@ $$
 
 所以大家想一想就知道了，公式(9)中的四个公式实际上是一个东西，而$\Phi(X)$只不过是将多个向量拼接在了一起而已。而$K(x,x')=\phi(x)^T\Sigma_p\phi(x')$，$x,x'$是两个不一样的样本，矩阵展开以后，形式都是一样的。那么下一个问题就是$K(x,x')$是否可以表达为一个Kernel Function的形式？那么，相关的探究就变得有趣了。
 
-\section{Kernel Trick}
+#  {Kernel Trick}
 因为$\Sigma_p$是一个positive define matrix，并且它也是symmetry的。所以，令$\Sigma_p = (\Sigma_p^{\frac{1}{2}})^2$。那么，我们可以做如下的推导：
 
 $$

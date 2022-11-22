@@ -20,11 +20,11 @@ tags:
 \setcounter{page}{1} %new page
 \clearpage
 这小节，我们主要讲解的是高斯网络的结构背景，模型的基本概念。根据有向图和无向图，我们可以将高斯网络分成高斯贝叶斯网络和高斯马尔可夫网络。
-\section{Background}
+#  {Background}
 概率图模型(Probability Graphic Model)，我们之前学习的是贝叶斯网络和马尔可夫随机场，之前学习的概率图中每个节点都是离散随机变量。所以根据图是有向图还是无向图，我们可以将概率图模型分成贝叶斯网络(Bayesian Network)和马尔可夫随机场(Markov Random Field)。
 
 而如果概率图中每个节点都是一维连续随机变量，根据图是有向图还是无向图，可以被分为高斯贝叶斯网络(Gaussian Bayesian Network)和高斯马尔可夫随机场(Gaussian Markov Random Field)。
-\subsection{高斯网络概念}
+##    {高斯网络概念}
 假设高斯马尔可夫随机场的概率图模型如下所示：
 
 $$
@@ -73,10 +73,10 @@ $$
 $$
 当$\lambda_{ij}=0$就意味着$x_i\perp x_j |-\{x_i,x_j \}$这就可以用来表示条件概率了。这也是信息矩阵的微妙之处，至于为什么我们相信大部分同学都是一脸懵逼，这里会在后面进行描述。
 
-\subsection{小结}
+##    {小结}
 Gaussian Network是连续型的概率图模型，一个高斯网络实际上可以看成是一个高维高斯分布。协方差矩阵中可以反映完全独立性，而精度矩阵中可以反映条件独立性，也就是在其他所有节点已知的情况下，两个节点之间的独立性。下面我们要分别介绍Gaussian Bayesian Network和Gaussian Markov Random Field。
 
-\section{Gaussian Bayesian Network}
+#  {Gaussian Bayesian Network}
 在连续型的Probability Graphic Model中，有向图，被我们称之为Gaussian Bayesian Network。假设概率图中一共有$p$个节点，根据我们之前学习的贝叶斯网络的因子分析法，可以得到：
 
 $$
@@ -102,7 +102,7 @@ $$
 $$
 线性就体现在了$y$与$x$之间的关系。
 
-\subsection{Kalman Filter回顾}
+##    {Kalman Filter回顾}
 我们以HMM为例，概率图模型如下所示：
 
 $$
@@ -139,7 +139,7 @@ $$
 $$
 这就是Kalman Filter的Representation Model，也就是一种特殊的Gaussian Bayesian Model。
 
-\subsection{Gaussian Bayesian Model详解}
+##    {Gaussian Bayesian Model详解}
 下面我以如下所示的Gaussian Bayesian Model为例：
 
 $$
@@ -180,7 +180,7 @@ $$
 $$
 很显然，这就是一种线性组合。从全局角度看就是Gaussian Network，从局部角度来看就是一个Linear Gaussian Model。
 
-\subsection{Gaussian Bayesian Model的矩阵表达形式}
+##    {Gaussian Bayesian Model的矩阵表达形式}
 假如，高斯网络中有p个节点，各个节点变量组成的集合为：
 $$
 X=(x_1,x_2,\cdots,x_p)^T
@@ -229,10 +229,10 @@ $$
 $$
 因为这里的$(I-W)^{-1} S$是一个确定的常数。
 
-\subsection{小结}
+##    {小结}
 在这一小节中，我们主要研究了连续随机变量的有向图，为Gaussian Bayesian Model，我们主要研究的是模型的表达形式，包括向量表达形式。最后，老师在求协方差矩阵的时候，没有求完，我觉得比较简单就顺手写了。\textbf{高斯贝叶斯模型，全局是多维高斯分布，局部是线性高斯模型。}
 
-\section{Gaussian Markov Random Field}
+#  {Gaussian Markov Random Field}
 这小节我们要介绍的连续变量的无向图结构，高斯马尔可夫随机场(Gaussian Markov Random Field)。多维高斯分布的概率密度函数如下所示：
 
 $$
@@ -252,7 +252,7 @@ $$
 \end{figure}
 $$
 
-\subsection{Gaussian Markov Random Field的概率计算}
+##    {Gaussian Markov Random Field的概率计算}
 之前，我们使用了最大团的势函数的乘积来计算随机变量的概率。这里成对Markov性质，我们使用另一种表达方式，更适合对此问题的分析。我们假设模型中有$p$个节点，那么概率表达如下所示：
 
 $$
@@ -289,7 +289,7 @@ $$
 
 其中$X^T\Lambda X$为二次项，$(\Lambda \mu)^T X$为一次性，其中$\Lambda$为Precision Matrix，$\Lambda \mu$为Potential Matrix。
 
-\subsection{Gaussian Markov Random Field次项分析}
+##    {Gaussian Markov Random Field次项分析}
 我们来从(17)中提取一下和$x_i$相关的项，提取的方法直接寻找相关项就行：
 
 $$
@@ -312,7 +312,7 @@ $$
 
 我们可以看到，\textbf{在对Gaussian Distribution的参数进行学习的过程中，我们不仅可以学习到了参数，也同时根据$\Lambda$的也就可以学习到结构($\lambda_{ij}x_ix_j=0 \Longleftrightarrow x_i\perp x_j|-\{x_i,x_j\}$ )。}因为高斯分布和高斯马尔可夫场的巧妙联系，在学习的过程中参数和结构都有考虑，这样的做法是非常棒的。
 
-\subsection{小结}
+##    {小结}
 本小节，最重要的就是三点，这里总结一下：
 \begin{itemize}
     \item $x_i \perp x_j$中，$\Sigma = [\sigma_{ij}]$，$x_i \perp x_j \Longleftrightarrow \sigma_{ij} = 0$，也就是边缘独立，或者说是完全独立。
@@ -322,7 +322,7 @@ $$
     而如果在知道高斯分布联合概率分布的情况下，求解条件概率分布是有系统的推导方法的。这里就不推了，有兴趣的同学自己请查阅之前讲到的“[机器学习基础 02]白板推导 数学基础”，\textbf{并且参考up主的思路，或者PRML的第二章P85，条件高斯分布。有详细的推导。}
 \end{itemize}
 
-\section{总结(Conclusion)}
+#  {总结(Conclusion)}
 本小节主要介绍了连续变量的概率图模型，高斯网络，根据有向图和无向图，可以分为高斯贝叶斯网络和高斯马尔可夫网络。我觉得高斯贝叶斯的主要思路是考虑整体高斯网络和局部线性高斯模型之间的联系，高斯马尔可夫的主要思路是考虑网络和联合概率密度函数之间的关系。他们都是将复杂的模型进行简化，迁移到简单的模型中去解决。但是，我们只学习了模型的建立和结构特点，并没有学习根据这个结构使用数据来求得参数的过程，相关研究领域的同学可以自行研究，如果不是要用到这个，基本就可以到此为止了。小编的主要研究方向是强化学习，此处就不再做更多的解释。
 
 

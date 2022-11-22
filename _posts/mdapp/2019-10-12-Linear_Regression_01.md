@@ -50,7 +50,7 @@ $$
 
 设拟合的函数为：$f(w)=W^T x$
 
-\section{最小二乘估计：矩阵表示}
+#  {最小二乘估计：矩阵表示}
 很简单可以得到损失函数(Loss function)为：
 
 
@@ -102,7 +102,7 @@ $$
 \end{equation}
 $$
 
-\section{最小二乘估计：几何意义}
+#  {最小二乘估计：几何意义}
 将$X$矩阵从列向量的角度来看，可以看成一个$p$维的向量空间$S$，为了简便计算，令$W^TX=X\beta$。可以看成Y向量到$S$的距离最短，那么将有约束条件：
 
 $$
@@ -123,7 +123,7 @@ $$
 \end{equation}
 $$
 
-\section{最小二乘估计：概率角度}
+#  {最小二乘估计：概率角度}
 假设一个分布$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么所有的观测值可看为$y = w^Tx + \varepsilon$。因为$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么$p(y|x;w) \sim \mathcal{N}(w^Tx, \sigma^2)$。我们的目的是求$w$使，$y$出现的概率最大，在这里可以使用极大似然估计(MLE)求解。首先写出$p(y|x;w)$的概率密度函数为：
 
 $$

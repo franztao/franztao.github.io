@@ -59,7 +59,7 @@ $$
 
 解出，$\hat{w} = (X^TX)^{-1}X^TY$
 
-\section{正则化概述}
+#  {正则化概述}
 过拟合问题(over-fitting)问题是深度学习中一个很重要的问题，往往是由少量的数据拟合高维的向量所造成的。解决over-fitting的方法有很多，通常是使用这几种思路：1.增加数据量；2.特征选择/特征提取(PCA)；3.增加正则项的方法。
 
 正则项通常可以描述为Loss Function + Penalty，也就是$L(w)+\lambda P(w)$。正则化的方法通常有以下两种：
@@ -71,7 +71,7 @@ $$
 \end{enumerate}
 $$
 
-\section{岭回归频率派角度}
+#  {岭回归频率派角度}
 Loss function可写为$ L(w)=\sum_{i=1}^N||w^Tx_i-y_i||^2 + \lambda W^TW$
 
 $$
@@ -102,7 +102,7 @@ $$
 
 根据以上的推导我们可以得出，首先$(X^TX + \lambda I)$一定是可逆的。因为，半正定矩阵+单位矩阵=正定矩阵。这里不需要再求伪逆了。
 
-\section{岭回归贝叶斯派估计角度}
+#  {岭回归贝叶斯派估计角度}
 类似于前文提到的贝叶斯回归的角度，假设一个分布$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么所有的观测值可看为$y = w^Tx + \varepsilon$。因为$\varepsilon \sim \mathcal{N}(0,\sigma^2)$，那么$p(y|x;w) \sim \mathcal{N}(w^Tx, \sigma^2)$。假设$w$符合一个先验分布$\mathcal{N}(0, \sigma_{0}^{2})$。于是，我们可以得到$p(w)$和$p(y|w)$的解析表达式:
 
 $$

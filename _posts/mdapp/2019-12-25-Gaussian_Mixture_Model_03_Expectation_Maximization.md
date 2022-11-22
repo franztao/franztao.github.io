@@ -29,7 +29,7 @@ $$
 
 经过一系列的迭代，我们可以得到$\theta^{0},\theta^{1},\cdots,\theta^{(t)}$，迭代到一定次数以后我们得到的$\theta^{(N)}$就是我们想要得到的结果。EM算法大体上可以分成两个部分，E-step和M-step，
 
-\section{E-Step}
+#  {E-Step}
 
 $$
 \begin{equation}
@@ -113,7 +113,7 @@ $$
 \end{equation}
 $$
 
-\section{M-Step}
+#  {M-Step}
 根据我们在E-Step中的推导，我们可以得到：
 
 $$

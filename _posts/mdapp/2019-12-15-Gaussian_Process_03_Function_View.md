@@ -17,12 +17,12 @@ tags:
     
 
 在上一小节中，我们从Weight-Space View来看Gaussian Process Regression，好像和Gaussian Process并没有什么关系。但是这一小节，我们从函数的角度来看就可以看到了。
-\section{Recall Gaussian Process}
+#  {Recall Gaussian Process}
 对于一组随机变量$\{ \xi_t \}_{t\in T}$，$T:$ continuous space or time。If：$\forall n \in N^+ \ (n\geq 1)$，Index：$\{t_1,t_2,\cdots,t_n \}$
 
 \noindent $\longrightarrow$ random variable：$\{\xi_{t_1},\xi_{t_2},\cdots,\xi_{t_n}\}$。令$\xi_{1:n} = \{\xi_{t_1},\xi_{t_2},\cdots,\xi_{t_n}\}^T$。If $\xi_{1:n} \sim \mathcal{N}(\mu_{1:n},\Sigma_{1:n})$，那么我们称$\{ \xi_t \}_{t\in T}$ is a Gaussian Distribution。并且，$\xi_t \sim GP(m(t),k(t,s))$，$m(t)$为mean function，$k(t,s)$为covariance function。下面我们回到Weight-Space View中。
 
-\section{Weight-Space view to Function-Space view}
+#  {Weight-Space view to Function-Space view}
 在这里$w$是一个先验分布，$f(x)$是一个随机变量。$f(x) = \phi(x)^Tw,\ y = f(x)+\epsilon,\ \epsilon \sim \mathcal{N}(0,\sigma^2)$。在Bayesian的方法中，对于给定的先验信息(prior)：$w\sim \mathcal{N}(0,\Sigma_p)$。因为，$f(x) = \phi(x)^Tw$，所以可以得到：
 
 $$
@@ -84,7 +84,7 @@ $$
 
 写到了这里，不知道大家有没有一定感觉了，这里就是把$f(x)$当成了一个随机变量来看的。这里也就是通过$f(x)$来直接推导出$y^\ast$。在Weight-Space View中，我们没有明确的提到GP，但是在Weight-Space view中，$f(x)$是符合GP的，只不过是没有显性的表示出来而已。我们可以用一个不是很恰当的例子来表述一个，Weight-Space view就是两个情侣之间，什么都有了，孩子都有了，但是就是没有领结婚证，那么他们两个之间的关系就会比较复杂。而Function-Space view就是两个情侣之间先领结婚证，在有了孩子，按部就班的来进行，所以他们之间的关系就会比较简单。
 
-\section{Function-Space View}
+#  {Function-Space View}
 上一小节中，我们从Weight-Space View过渡到了Function-Space View，而Weight指的就是参数。
 
 $$

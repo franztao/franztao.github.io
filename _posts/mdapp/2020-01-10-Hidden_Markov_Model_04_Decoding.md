@@ -26,7 +26,7 @@ $$
 
 也就是在给定观察序列的情况下，寻找最大概率可能出现的隐概率状态序列。也有人说Decoding问题是预测问题，但是实际上这样说是并不合适的。预测问题应该是，$P(o_{t+1}|o_1,\cdots,o_t)$和$P(i_{t+1}|o_1,\cdots,o_t)$，这里的$P(i_{1},\cdots,i_t|o_1,\cdots,o_t)$看成是预测问题显然是不合适的。
 
-\section{Decoding Problem}
+#  {Decoding Problem}
 下面我们展示一下Hidden Markov Model的拓扑模型：
 
 $$

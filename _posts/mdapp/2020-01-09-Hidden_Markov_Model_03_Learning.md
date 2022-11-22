@@ -45,7 +45,7 @@ $$
 \end{equation}
 $$
 
-\section{Learning}
+#  {Learning}
 我们需要计算的目标是：
 
 $$
@@ -123,7 +123,7 @@ $$
 \end{equation}
 $$
 
-\section{以$\pi^{(t+1)}$为例}
+#  {以$\pi^{(t+1)}$为例}
 这小节中我们以$\pi^{(t+1)}$为例，在公式$Q(\lambda,\lambda^{(t)})$中，$\sum_{t=2}^T \log a_{i_{t-1},i_t}$与$\sum_{t=1}^T \log b_{i_t}(o_t)$与$\pi$无关，所以，
 
 $$
@@ -147,7 +147,7 @@ $$
 \end{equation}
 $$
 
-\subsection{拉格朗日乘子法求解}
+##    {拉格朗日乘子法求解}
 根据拉格朗日乘子法，我们可以将损失函数写完：
 
 $$

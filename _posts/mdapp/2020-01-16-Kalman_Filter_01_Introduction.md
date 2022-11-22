@@ -19,12 +19,12 @@ tags:
 
 \textbf{如果状态是离散的}，就是我们上一节提到了Hidden Markov Model (HMM)；\textbf{如果状态是连续的}，如果状态之间的关系是线性的，就是Linear Dynamic System (Kalman Filter)，或者说是Linear Gaussian Model；如果状态之间的关系是Non-Linear的或者Non-Gaussian的，那么也就是Particle Filter。我们这一章主要描述的就是Kalman Filter。
 
-\section{Dynamic Model Introduction}
+#  {Dynamic Model Introduction}
 第一类问题，Learning问题，即为在已知观测序列$O$的情况下求解$P(\pi|O)$。其中，模型可以描述为$\pi\{ \lambda,\mathcal{A},\mathcal{B} \}$。代表性的就是Hidden Markov Model。
 
 第二类问题就是Inference问题，大致可以分为Decoding，Probability of Evidence，Filtering，Smoothing和Prediction五类问题。这里中Hidden Markov Model 05 Conclusion我们有非常详细的描述。详情可以关注Hidden Markov Model。
 
-\section{Kalman Filtering: Linear Gaussian Model}
+#  {Kalman Filtering: Linear Gaussian Model}
 Filtering问题就是求$P(z_t|x_1,x_2,\cdots,x_t)$，实际上就是一个Marginal Posterior问题。对于Linear关系，Linear主要反映在相邻时刻的两个状态之间的转移关系，当前时刻的隐变量状态和观测状态之间的关系。描述如下所示：
 
 $$

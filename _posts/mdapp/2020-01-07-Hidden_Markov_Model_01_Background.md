@@ -21,7 +21,7 @@ tags:
 频率派的思想就衍生出了统计学习方法，说白了统计学习方法的重点在于优化，找loss function。频率派的方法可以分成三步，1. 定义Model，比如$f(w) = w^Tx+b$；2. 寻找策略strategy，也就是定义Loss function；3. 求解，也就是优化的方法，比如梯度下降(GD)，随机梯度下降(SGD)，牛顿法，拟牛顿法等等。
 
 贝叶斯派的思想也就衍生出了概率图模型。概率图模型重点研究的是一个Inference的问题，我们要求的是一个后验概率分布$P(Z|X)$，其中$X$为观测变量，$Z$为隐变量。实际上就是一个积分问题，为什么呢？因为贝叶斯框架中的归一化因子需要对整个状态空间进行积分，非常的复杂。代表性的有前面讲到的MCMC，MCMC的提出才是彻底的把贝叶斯理论代入到实际的运用中。
-\section{概率图模型回顾}
+#  {概率图模型回顾}
 概率图模型，如果不考虑时序的关系，我们可以大致的分为：有向图的Bayesian Network和无向图的Markov Random Field (Markov Network)。这样，我们根据分布获得的样本之间都是iid (独立同分布)的。比如Gaussian Mixture Model (GMM)，我们从$P(X|\theta)$的分布中采出N个样本$\{ x_1,x_2,\cdots,x_n \}$。N个样本之间都是独立同分布的。也就是对于隐变量$Z$，观测变量$X$之间，我们可以假设$P(X|Z) = \mathcal{N}(\mu,\Sigma)$，这样就可以引入我们的先验信息，从而简化$X$的复杂分布。
 
 如果引入了时间的信息，也就是$x_i$之间不再是iid的了，我们称之为Dynamic Model。模型如下所示：
@@ -41,7 +41,7 @@ Dynamic Model可以从两个层面来看，横着看就是time的角度，如果
 
 如果是连续的，按照线性和非线性可以分为Kalman Filter和Paricle Filter。
 
-\section{HMM算法简介}
+#  {HMM算法简介}
 Hidden Markov Model的拓扑结构图如下所示：
 
 $$
@@ -75,7 +75,7 @@ $\mathcal{A}$表示为各个状态转移之间的概率。
 
 $\mathcal{B}$表示为观测变量和隐变量之间的关系。
 
-\subsection{两个假设}
+##    {两个假设}
 这是有关Hidden Markov Model的两个假设：
 
 1. 齐次Markov假设(无后向性)；2. 观察独立假设。
@@ -96,7 +96,7 @@ $$
 \end{equation}
 $$
 
-\subsection{三个问题}
+##    {三个问题}
 1. Evaluation的问题，我们要求的问题就是$P(O|\lambda)$。也就是前向后向算法，给定一个模型$\lambda$，求出观测变量的概率分布。
 
 2. Learning的问题，$\lambda$如何求的问题。也就是$\lambda_{MLE} = \arg\max_{\lambda}P(O|\lambda)$。求解的方法是EM算法和Baum Welch算法。

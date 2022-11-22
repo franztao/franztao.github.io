@@ -22,7 +22,7 @@ tags:
 
 对于隐变量参数$z$和数据集$x$。$z \longrightarrow x$是Generative Model，也就是$p(x|z)$和$p(x,z)$，这个过程也被我们称为Decoder。$x \longrightarrow z$是Inference Model，这个过程被我们称为Encoder，表达关系也就是$p(z|x)$。
 
-\section{SGVI参数规范}
+#  {SGVI参数规范}
 我们这节的主题就是Stochastic Gradient Variational Inference (SGVI)，参数的更新方法为：
 
 $$
@@ -57,7 +57,7 @@ $$
 \end{equation}
 $$
 
-\section{SGVI的梯度推导}
+#  {SGVI的梯度推导}
 
 $$
 \begin{equation}
@@ -77,7 +77,7 @@ $\int \nabla_{\phi} q_{\phi}\left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \r
 
 $ \int q_{\phi}\nabla_{\phi} \left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi} \right]dz$为第二个部分。
 
-\subsection{关于第二部分的求解}
+##    {关于第二部分的求解}
 第二部分比较好求，所以我们才首先求第二部分的，哈哈哈！因为$\log p_{\theta}(x^{(i)},z)$与$\phi$无关。
 
 $$
@@ -95,7 +95,7 @@ $$
 \end{equation}
 $$
 
-\subsection{关于第一部分的求解}
+##    {关于第一部分的求解}
 在这里我们用到了一个小trick，这个trick在公式(6)的推导中，我们使用过的。那就是$\nabla_{\phi} q_{\phi} = q_{\phi}\nabla_{\phi}\log q_{\phi} $。所以，我们代入到第一项中可以得到：
 
 $$
@@ -129,7 +129,7 @@ $$
 
 由于第二部分的结果为0，所以第一部分的解就是最终的解。但是，这样的求法有什么样的问题呢？因为我们在采样的过程中，很有可能采到$q_{\phi}(z) \longrightarrow 0$的点，对于log函数来说，$\lim_{x\longrightarrow 0}log x = \infty$，那么梯度的变化会非常的剧烈，非常的不稳定。对于这样的High Variance的问题，根本没有办法求解。实际上，我们可以通过计算得到这个方差的解析解，它确实是一个很大的值。事实上，这里的梯度的方差这么的大，而$\hat{\phi} \longrightarrow q(z)$也有误差，误差叠加，直接爆炸，根本没有办法用。也就是不会work，那么我们如何解决这个问题？
 
-\section{Variance Reduction}
+#  {Variance Reduction}
 这里采用了一种比较常见的方差缩减方法，称为Reparameterization Trick，也就是对$q_{\phi}$做一些简化。
 
 我们怎么可以较好的解决这个问题？如果我们可以得到一个确定的解$p(\epsilon)$，就会变得比较简单。因为$z$来自于$q_{\phi}(z|x)$，我们就想办法将z中的随机变量给解放出来。也就是使用一个转换$z = g_{\phi}(\epsilon, x^{(i)})$，其中$\epsilon \sim p(\epsilon)$。那么这样做，有什么好处呢？原来的$\nabla_{\phi} \mathbf{E}_{q_{\phi}}[\cdot]$将转换为$ \mathbf{E}_{p(\epsilon)}[\nabla_{\phi}(\cdot)]$，那么不在是连续的关于$\phi$的采样，这样可以有效的降低方差。并且，$z$是一个关于$\epsilon$的函数，我们将随机性转移到了$\epsilon$，那么问题就可以简化为：
@@ -186,7 +186,7 @@ $$
 \end{equation}
 $$
 
-\section{小结}
+#  {小结}
 那么SGVI，可以简要的表述为：我们定义分布为$q_{\phi}(Z|X)$，$\phi$为参数，参数的更新方法为：
 
 $$

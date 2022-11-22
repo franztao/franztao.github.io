@@ -24,18 +24,18 @@ tags:
 
 这既是我们上一节中将的核函数的定义，实际上这个核函数的精准定义，应该是正定核函数。在本小节中，我们将会介绍核函数的精准定义，什么是正定核函数？并介绍内积和希尔伯特空间(Hilbert Space)的定义。这一小节虽然看着会有些枯燥，实际上非常的重要。
 
-\section{核函数的定义}
+#  {核函数的定义}
 核函数的定义，也就是对于一个映射$K$，存在一个映射$\mathcal{X}\times\mathcal{X}\mapsto \mathbb{R}$，对于$x,z\in \mathcal{X}$都成立，则称$K(x,z)$为核函数。
 
 对比一下，我们就会发现，这个定义实际上比我们之前学的定义要简单很多。好像是个阉割版，下面我们来介绍两个正定核的定义方法。
 
-\section{正定核的定义}
+#  {正定核的定义}
 正定核函数的定义有两个，我首先分别进行描述一下：
 
-\subsection{第一个定义}
+##    {第一个定义}
 现在存在一个映射$K:\mathcal{X}\times\mathcal{X}\mapsto\mathbb{R}$。对于$\forall x,z \in \mathcal{X}$。如果存在一个$\phi:\mathcal{X}\mapsto \mathbb{R}^p$，并且$\phi(x)\in\mathcal{H}$，使得$K(x,z) = <\phi(x),\phi(z)>$，那么称$K(x,z)$为正定核函数。
 
-\subsection{第二个定义}
+##    {第二个定义}
 对于一个映射$K:\mathcal{X}\times\mathcal{X}\mapsto\mathbb{R}$，对于$\forall x,z\in \mathcal{X}$，都有$K(x,z)$。如果$K(x,z)$满足，1. 对称性；2. 正定性；那么称$K(x,z)$为一个正定核函数。
 
 我们来分析一个，首先什么是对称性？这个非常的好理解，也就是$K(x,z)=K(z,x)$。那么什么又是正定性呢？那就是任取$N$个元素，$x_1,x_2,\cdots,x_N\in \mathcal{X}$，对应的Gram Matrix是半正定的，其中Gram Matrix用$K$来表示为$K=[K(x_i,x_j)]$。
@@ -52,7 +52,7 @@ $$
 
 这个等式的证明我们留到下一节再来进行，这里我们首先需要学习一个很重要的概念叫做，希尔伯特空间($\mathcal{H}$:Hilbert Space)。小编之前被这个概念搞得头晕，特别还有一个叫再生核希尔伯特空间的玩意，太恶心了。
 
-\section{Hilbert Space ($\mathcal{H}$)}
+#  {Hilbert Space ($\mathcal{H}$)}
 { Hilbert Space是一个完备的，可能是无限维的，被赋予内积运算的线性空间。}下面我们对这个概念进行逐字逐句的分析。
 
 \textbf{线性空间}：也就是向量空间，这个空间的元素就是向量，向量之间满足加法和乘法的封闭性，实际上也就是线性表示。空间中的任意两个向量都可以由基向量线性表示。
