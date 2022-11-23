@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Expectation
     - Maximization
-    - 03
+    
     - 
     - Generalized
     - Expectation

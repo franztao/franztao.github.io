@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Probability
     - Graph
-    - 03
+    
     - D-Separation
 ---
 

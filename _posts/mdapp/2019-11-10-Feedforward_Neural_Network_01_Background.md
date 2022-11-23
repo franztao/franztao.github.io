@@ -10,7 +10,7 @@ tags:
     - Feedforward
     - Neural
     - Network
-    - 01
+    
     - Background
 ---
 

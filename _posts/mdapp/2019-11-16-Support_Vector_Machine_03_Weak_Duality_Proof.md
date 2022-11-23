@@ -10,7 +10,7 @@ tags:
     - Support
     - Vector
     - Machine
-    - 03
+    
     - Weak
     - Duality
     - Proof

@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Kalman
     - Filter
-    - 02
+    
     - Model
     - Construction
     - and

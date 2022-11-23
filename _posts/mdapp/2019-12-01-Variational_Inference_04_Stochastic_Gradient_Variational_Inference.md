@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Variational
     - Inference
-    - 04
+    
     - Stochastic
     - Gradient
     - Variational

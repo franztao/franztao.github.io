@@ -10,7 +10,7 @@ tags:
     - Exponential
     - Family
     - Distribution
-    - 04
+    
 ---
 
     

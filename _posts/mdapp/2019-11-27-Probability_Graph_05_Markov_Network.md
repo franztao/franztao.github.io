@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Probability
     - Graph
-    - 05
+    
     - Markov
     - Network
 ---

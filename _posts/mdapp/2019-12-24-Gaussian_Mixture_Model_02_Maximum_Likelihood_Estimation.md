@@ -10,7 +10,7 @@ tags:
     - Gaussian
     - Mixture
     - Model
-    - 02
+    
     - Maximum
     - Likelihood
     - Estimation

@@ -10,7 +10,7 @@ tags:
     - Gaussian
     - Mixture
     - Model
-    - 01
+    
     - Model
     - Introduction
 ---

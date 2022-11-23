@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Probability
     - Graph
-    - 04
+    
     - Example
 ---
 

@@ -4,7 +4,7 @@ title:      设计机器学习产品
 subtitle:   2022年11月
 date:       2022-11-12
 author:     franztao
-header-img: post-bg-re-vs-ng2.jpg
+header-img: https://madewithml.com/static/images/logos.png
 catalog: true
 tags:
     - design

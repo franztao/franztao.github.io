@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Kernel
     - Method
-    - 02
+    
     - The
     - Definition
     - of

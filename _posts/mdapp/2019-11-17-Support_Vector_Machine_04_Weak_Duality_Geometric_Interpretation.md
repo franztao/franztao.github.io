@@ -10,7 +10,7 @@ tags:
     - Support
     - Vector
     - Machine
-    - 04
+    
     - Weak
     - Duality
     - Geometric

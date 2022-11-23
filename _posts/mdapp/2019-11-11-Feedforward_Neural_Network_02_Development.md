@@ -10,7 +10,7 @@ tags:
     - Feedforward
     - Neural
     - Network
-    - 02
+    
     - Development
 ---
 

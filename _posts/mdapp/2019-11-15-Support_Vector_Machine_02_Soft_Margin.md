@@ -10,7 +10,7 @@ tags:
     - Support
     - Vector
     - Machine
-    - 02
+    
     - Soft
     - Margin
 ---

@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Gaussian
     - Process
-    - 02
+    
     - Weight
     - Space
 ---

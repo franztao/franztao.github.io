@@ -11,7 +11,7 @@ tags:
     - Chain
     - Monte
     - Carlo
-    - 01
+    
     - Sampling
     - Method
 ---

@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Guassian
     - Process
-    - 01
+    
     - Introduction
 ---
 

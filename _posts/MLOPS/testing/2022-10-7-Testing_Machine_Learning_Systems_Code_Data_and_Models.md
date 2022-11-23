@@ -7,7 +7,7 @@ author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - Testing Machine Learning Systems: Code, Data and Models
+    - Testing Machine Learning Systems
 
 ---
 

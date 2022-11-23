@@ -10,7 +10,7 @@ tags:
     - Bayes
     - Linear
     - Classification
-    - 02
+    
     - Inference
 ---
 

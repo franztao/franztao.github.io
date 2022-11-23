@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Expectation
     - Maximization
-    - 02
+    
     - Derived
     - Formula
 ---

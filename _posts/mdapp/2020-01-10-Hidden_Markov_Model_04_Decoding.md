@@ -10,7 +10,7 @@ tags:
     - Hidden
     - Markov
     - Model
-    - 04
+    
     - Decoding
 ---
 

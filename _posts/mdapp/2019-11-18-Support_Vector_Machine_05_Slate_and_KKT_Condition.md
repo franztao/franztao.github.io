@@ -10,7 +10,7 @@ tags:
     - Support
     - Vector
     - Machine
-    - 05
+    
     - Slate
     - and
     - KKT

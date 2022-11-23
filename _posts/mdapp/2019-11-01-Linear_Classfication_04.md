@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Linear
     - Classfication
-    - 04
+    
 ---
 
     

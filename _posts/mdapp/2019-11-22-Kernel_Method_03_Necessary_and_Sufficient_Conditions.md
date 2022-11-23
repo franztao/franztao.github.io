@@ -9,7 +9,7 @@ catalog: true
 tags:
     - Kernel
     - Method
-    - 03
+    
     - Necessary
     - and
     - Sufficient

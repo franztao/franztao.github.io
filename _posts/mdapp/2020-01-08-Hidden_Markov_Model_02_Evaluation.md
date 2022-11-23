@@ -10,7 +10,7 @@ tags:
     - Hidden
     - Markov
     - Model
-    - 02
+    
     - Evaluation
 ---
 
