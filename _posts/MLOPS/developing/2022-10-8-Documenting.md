@@ -139,7 +139,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
        "mkdocstrings==0.18.1"
    ]
    ```
-
+   
    然后将其添加到`setup()`脚本中的对象：
 
 ```
@@ -247,15 +247,11 @@ setup(
 
 > 请务必查看为[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使文档保持最新。
 
-
-
 ## 信息架构构建
 
 信息架构的逻辑呈现的 5 个过程
 
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/crx0uzS8lVsxg18kRhfiaudabvzhfiazq4nGkbjjKzIMlcMRia8xTWMg3plZ8eOlRBAhnJcf4CoqAlR5vIxKmEvzA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
-
-
 
 ___
 
