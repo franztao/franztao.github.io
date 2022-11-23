@@ -39,10 +39,7 @@ tags:
 ```
 def some_function(a, b):
     return c
-
 ```
-
-
 
 但是可以使用打字来合并更多信息：
 
@@ -50,7 +47,6 @@ def some_function(a, b):
 from typing import List
 def some_function(a: List, b: int = 0) -> np.ndarray:
     return c
-
 ```
 
 在这里定义了：
@@ -93,12 +89,7 @@ def some_function(a: List, b: int = 0) -> np.ndarray:
 
     """
     return c
-
 ```
-
-
-
-
 
 让解压这个函数文档字符串的不同部分：
 
@@ -121,10 +112,7 @@ from typing import List
 
 def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label: str = "other"):
     ...
-
 ```
-
-
 
 > 理想情况下，会在开发函数和类时将文档字符串添加到它们中，而不是在最后一次完成。
 
@@ -150,36 +138,30 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
        "mkdocs==1.3.0",
        "mkdocstrings==0.18.1"
    ]
-   
    ```
-   
-   
-   
+
    然后将其添加到`setup()`脚本中的对象：
-   
-   ```
-   # Define our package
-   setup(
-       ...
-       install_requires=[required_packages],
-       extras_require={
-           "dev": docs_packages,
-           "docs": docs_packages,
-       },
-   )
-   
-   ```
-   
-   
-   
+
+```
+# Define our package
+setup(
+    ...
+    install_requires=[required_packages],
+    extras_require={
+        "dev": docs_packages,
+        "docs": docs_packages,
+    },
+)
+```
+
    现在可以安装这个包：
-   
+
    `python3 -m pip install -e ".[docs]"`
-   
+
    还定义了一个`dev`选项，将在课程中更新该选项，以便开发人员可以在一次调用中安装所有必需的和额外的包，而不是一次调用每个额外的必需包。
-   
+
    `python3 -m pip install -e ".[dev]"`
-   
+
    创建了一个显式`doc`选项，因为用户只想下载文档包来生成文档（不需要其他包）。[当使用CI/CD 工作流](https://madewithml.com/courses/mlops/cicd/)通过 GitHub Actions 自动生成文档时，将看到这一点。
 
 2. 初始化 mkdocs
@@ -193,10 +175,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    ├─ docs/
    │  └─ index.md
    └─ mkdocs.yml
-   
    ```
-   
-   
 
 3. 将首先用项目的特定信息 覆盖`index.md`目录中的默认文件：`docs`
    
@@ -212,10 +191,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    
    - Lessons: [https://madewithml.com/](https://madewithml.com/#mlops)
    - Code: [GokuMohandas/mlops-course](https://github.com/GokuMohandas/mlops-course)
-   
    ```
-   
-   
 
 4. 接下来将为目录中的每个脚本创建文档文件`tagifai`：
    
@@ -224,12 +200,9 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    cd docs/tagifai
    touch main.md utils.md data.md train.md evaluate.md predict.md
    cd ../../
-   
    ```
-   
-   
-   
-   > 让`docs`目录结构尽可能模仿项目的结构是有帮助的。随着在以后的课程中记录更多目录，这一点变得更加重要。
+
+> 让`docs`目录结构尽可能模仿项目的结构是有帮助的。随着在以后的课程中记录更多目录，这一点变得更加重要。
 
 5. 接下来将添加`tagifai.<SCRIPT_NAME>`到`docs/tagifai`. `tagifai/<SCRIPT_NAME>.py`这将使用有关`mkdocstrings`插件的函数和类（使用它们的文档字符串）的信息填充文件。
    
@@ -238,7 +211,6 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
    > ```
    > # docs/tagifai/data.md
    > ::: tagifai.data
-   > 
    > ```
 
 6. 最后，将在`mkdocs.yml`mkdocs 自动创建的文件中添加一些配置：
@@ -263,10 +235,7 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
      - mkdocstrings
    watch:
      - .  # reload docs for any file changes
-   
    ```
-   
-   
 
 7. 在本地提供文档：
    
@@ -277,6 +246,16 @@ def replace_oos_labels(df: pd.DataFrame, labels: List, label_col: str, oos_label
 可以使用公共存储库的[GitHub 页面以及私有存储库的](https://www.mkdocs.org/user-guide/deploying-your-docs/)[私有文档](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)轻松地免费提供文档。甚至可以将其托管在[自定义域](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)（例如公司的子域）上。
 
 > 请务必查看为[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使文档保持最新。
+
+
+
+## 信息架构构建
+
+信息架构的逻辑呈现的 5 个过程
+
+![图片](https://mmbiz.qpic.cn/mmbiz_png/crx0uzS8lVsxg18kRhfiaudabvzhfiazq4nGkbjjKzIMlcMRia8xTWMg3plZ8eOlRBAhnJcf4CoqAlR5vIxKmEvzA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
+
+
 
 ___
 
