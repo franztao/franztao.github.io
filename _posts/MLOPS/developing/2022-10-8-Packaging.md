@@ -29,7 +29,7 @@ tags:
 
 ## 项目
 
-虽然将在[下一课](https://madewithml.com/courses/mlops/organization/)中将代码从note本组织到脚本，但现在将创建主项目目录，以便可以将打包组件保存在那里。将调用主项目目录`mlops`，但您可以随意命名它。
+虽然将在[下一课](https://franztao.github.io/2022/10/10/Organization/)中将代码从note本组织到脚本，但现在将创建主项目目录，以便可以将打包组件保存在那里。将调用主项目目录`mlops`，但您可以随意命名它。
 
 ```
 # Create and change into the directory

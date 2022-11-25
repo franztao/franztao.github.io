@@ -23,7 +23,7 @@ tags:
 
 > warning
 > 
-> 注意不要在数据集中包含预测期间不可用的特征，从而导致[数据泄漏](https://madewithml.com/courses/mlops/feature-store/#intuition)。
+> 注意不要在数据集中包含预测期间不可用的特征，从而导致[数据泄漏](https://franztao.github.io/2022/11/10/Feature_Store/#intuition)。
 
 > 还能学到什么？
 > 
@@ -65,7 +65,7 @@ tags:
 
 - 建立数据管道：
   - `[IMPORT]` 用于注释的*新数据*
-  - `[EXPORT]` 用于 QA、[测试](https://madewithml.com/courses/mlops/testing/#data)、建模等的*注释数据。*
+  - `[EXPORT]` 用于 QA、[测试](https://franztao.github.io/2022/10/01/Testing/#data)、建模等的*注释数据。*
 - 创建质量保证 (QA) 工作流程：
   - 与标签工作流程分开（无偏见）
   - 与标签工作流程沟通以升级错误
@@ -75,24 +75,24 @@ tags:
 ### 迭代设置
 
 - 实施减少标签工作的策略
-  - [使用主动学习](https://madewithml.com/courses/mlops/labeling/#active-learning)识别要标记的数据子集
-  - [使用弱监督](https://madewithml.com/courses/mlops/labeling/#weak-supervision)自动标记整个或部分数据集
+  - [使用主动学习](https://franztao.github.io/2022/10/10/labeling/#active-learning)识别要标记的数据子集
+  - [使用弱监督](https://franztao.github.io/2022/10/10/labeling/#weak-supervision)自动标记整个或部分数据集
   - 随着时间的推移，将标签工作集中在边缘案例的长尾上
 
 ## 标记数据
 
 出于本课程的目的，数据已经被标记，因此将执行基本版本的 ELT（提取、加载、转换）来构建标记数据集。
 
-> 在[数据堆栈](https://madewithml.com/courses/mlops/data-stack/)和[编排](https://madewithml.com/courses/mlops/orchestration/)课程中，将构建现代数据堆栈并通过 DataOps 工作流以编程方式交付高质量数据。
+> 在[数据堆栈](https://franztao.github.io/2022/11/10/Data_stack/)和[编排](https://franztao.github.io/2022/11/10/Orchestration/)课程中，将构建现代数据堆栈并通过 DataOps 工作流以编程方式交付高质量数据。
 
 - [projects.csv](https://github.com/GokuMohandas/Made-With-ML/tree/main/datasets/projects.csv)：带有 ID、创建时间、标题和描述的项目。
 - [tags.csv](https://github.com/GokuMohandas/Made-With-ML/tree/main/datasets/tags.csv)：项目的标签（标签类别）按 id。
 
-回想一下，[目标](https://madewithml.com/courses/mlops/design#objectives)是对传入的内容进行分类，以便社区可以轻松发现它们。这些数据assert将作为第一个模型的训练数据。
+回想一下，[目标](https://franztao.github.io/2022/11/12/design/#objectives)是对传入的内容进行分类，以便社区可以轻松发现它们。这些数据assert将作为第一个模型的训练数据。
 
 ### 提炼
 
-将从来源（外部 CSV 文件）中提取数据开始。传统上，数据assert将在数据库、仓库等中存储、版本化和更新。稍后将详细了解这些不同的[数据系统](https://madewithml.com/courses/mlops/data-stack/)，但现在，将以独立的 CSV 文件形式加载数据。
+将从来源（外部 CSV 文件）中提取数据开始。传统上，数据assert将在数据库、仓库等中存储、版本化和更新。稍后将详细了解这些不同的[数据系统](https://franztao.github.io/2022/11/10/Data_stack/)，但现在，将以独立的 CSV 文件形式加载数据。
 
 ```
 import pandas as pd
@@ -241,7 +241,7 @@ df.to_csv("labeled_projects.csv", index=False)
 
 ## Weak supervision
 
-如果有需要标记的样本，或者如果只是想验证现有标签，可以使用弱监督来生成标签，而不是手动标记所有标签。[可以通过标签功能](https://www.snorkel.org/use-cases/01-spam-tutorial)利用弱监督来标记现有的和新的数据，可以在其中创建基于关键字、模式表达式、知识库等的结构。可以随着时间的推移添加标签功能，甚至可以减轻不同数据之间的冲突标签功能。将在[评估课程](https://madewithml.com/courses/mlops/evaluation/#slices)中使用这些标记函数来创建和评估数据切片。
+如果有需要标记的样本，或者如果只是想验证现有标签，可以使用弱监督来生成标签，而不是手动标记所有标签。[可以通过标签功能](https://www.snorkel.org/use-cases/01-spam-tutorial)利用弱监督来标记现有的和新的数据，可以在其中创建基于关键字、模式表达式、知识库等的结构。可以随着时间的推移添加标签功能，甚至可以减轻不同数据之间的冲突标签功能。将在[评估课程](https://franztao.github.io/2022/10/01/evaluation/#slices)中使用这些标记函数来创建和评估数据切片。
 
 ```
 from snorkel.labeling import labeling_function
@@ -255,11 +255,11 @@ def contains_tensorflow(text):
 
 
 
-> 验证标签（在建模之前）的一种简单方法是使用辅助数据集中的别名为不同的类创建标签函数。然后可以寻找假阳性和假阴性来识别可能被错误标记的样本。在[仪表板课程](https://madewithml.com/courses/mlops/dashboard/#inspection)中，实际上将实施一种类似的检查方法，但使用经过训练的模型作为启发式方法。
+> 验证标签（在建模之前）的一种简单方法是使用辅助数据集中的别名为不同的类创建标签函数。然后可以寻找假阳性和假阴性来识别可能被错误标记的样本。在[仪表板课程](https://franztao.github.io/2022/10/27/dashboard/#inspection)中，实际上将实施一种类似的检查方法，但使用经过训练的模型作为启发式方法。
 
 ## 迭代
 
-标签不仅仅是一次性事件或重复相同的事情。随着新数据的可用，将希望战略性地标记适当的样本并改进缺乏[质量的数据](https://madewithml.com/courses/foundations/data-quality/)[片段](https://madewithml.com/courses/mlops/testing/#evaluation)。一旦标记了新数据，就可以触发工作流来启动（重新）培训过程以部署系统的新版本。
+标签不仅仅是一次性事件或重复相同的事情。随着新数据的可用，将希望战略性地标记适当的样本并改进缺乏[质量的数据](https://madewithml.com/courses/foundations/data-quality/)[片段](https://franztao.github.io/2022/10/01/Testing/#evaluation)。一旦标记了新数据，就可以触发工作流来启动（重新）培训过程以部署系统的新版本。
 
 本文主体源自以下链接：
 ```

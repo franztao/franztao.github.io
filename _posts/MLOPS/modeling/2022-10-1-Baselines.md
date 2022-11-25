@@ -86,9 +86,9 @@ tags:
 
 每个应用程序的基线轨迹因任务而异。对于应用程序，将遵循以下路径：
 
-1. [随机的](https://madewithml.com/courses/mlops/baselines/#random)
-2. [基于规则](https://madewithml.com/courses/mlops/baselines/#rule-based)
-3. [简单机器学习](https://madewithml.com/courses/mlops/baselines/#simple-ml)
+1. [随机的](https://franztao.github.io/2022/10/01/Baselines/#random)
+2. [基于规则](https://franztao.github.io/2022/10/01/Baselines/#rule-based)
+3. [简单机器学习](https://franztao.github.io/2022/10/01/Baselines/#simple-ml)
 
 将激发对缓慢增加**表示**（例如文本向量化）和**架构**（例如逻辑回归）的复杂性的需求，并解决每个步骤的限制。
 
@@ -552,7 +552,7 @@ y_prob = model.predict_proba(vectorizer.transform([text]))
 
 > warning
 > 
-> 模型可能会受到过度自信的影响，因此应用此限制可能不如想象的那么有效，尤其是对于更大的神经网络。有关更多信息，请参阅[评估课程的](https://madewithml.com/courses/mlops/evaluation/)[自信学习](https://madewithml.com/courses/mlops/evaluation/#confident-learning)部分。
+> 模型可能会受到过度自信的影响，因此应用此限制可能不如想象的那么有效，尤其是对于更大的神经网络。有关更多信息，请参阅[评估课程的](https://franztao.github.io/2022/10/01/evaluation/)[自信学习](https://franztao.github.io/2022/10/01/evaluation/#confident-learning)部分。
 
 ```
 # Determine first quantile softmax score for the correct class (on validation split)

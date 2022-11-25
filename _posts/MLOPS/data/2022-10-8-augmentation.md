@@ -258,7 +258,7 @@ len(train_df), len(train_df_augmented)
 
 > warning
 > 
-> 无论使用什么方法，重要的是要验证不仅仅是为了扩充而扩充。可以通过执行任何现有的[数据验证测试](https://madewithml.com/courses/mlops/testing#data)甚至创建特定的测试来应用于增强数据来做到这一点。
+> 无论使用什么方法，重要的是要验证不仅仅是为了扩充而扩充。可以通过执行任何现有的[数据验证测试](https://franztao.github.io/2022/10/01/Testing/#data)甚至创建特定的测试来应用于增强数据来做到这一点。
 
 
 

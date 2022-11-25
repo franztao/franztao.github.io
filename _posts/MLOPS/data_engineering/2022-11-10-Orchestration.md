@@ -403,7 +403,7 @@ from datetime import timedelta
 
 ## 数据运维
 
-现在已经回顾了 Airflow 的主要概念，已经准备好创建 DataOps 工作流了。[这与在数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中定义的工作流程完全相同——提取、加载和转换——但这次将以编程方式完成所有工作并使用 Airflow 进行编排。
+现在已经回顾了 Airflow 的主要概念，已经准备好创建 DataOps 工作流了。[这与在数据堆栈课程](https://franztao.github.io/2022/11/10/Data_stack/)中定义的工作流程完全相同——提取、加载和转换——但这次将以编程方式完成所有工作并使用 Airflow 进行编排。
 
 ![ELT](https://madewithml.com/static/images/mlops/testing/production.png)
 
@@ -466,7 +466,7 @@ airflow scheduler
 
 ### 提取和加载
 
-将使用在[数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中设置的 Airbyte 连接，但这次将以编程方式触发与 Airflow 的数据同步。首先，让确保 Airbyte 在其存储库中的单独终端上运行：
+将使用在[数据堆栈课程](https://franztao.github.io/2022/11/10/Data_stack/)中设置的 Airbyte 连接，但这次将以编程方式触发与 Airflow 的数据同步。首先，让确保 Airbyte 在其存储库中的单独终端上运行：
 
 ```
 git clone https://github.com/airbytehq/airbyte.git  # skip if already create in data-stack lesson
@@ -538,7 +538,7 @@ def dataops():
 
 ### 证实
 
-可以定制提取数据的位置和方式的具体过程，但重要的是在每个步骤中都进行了验证。正如在[测试课程](https://madewithml.com/courses/mlops/testing/#data)中所做的那样，将再次使用[Great Expectations](https://greatexpectations.io/)在转换数据之前验证提取和加载的数据。
+可以定制提取数据的位置和方式的具体过程，但重要的是在每个步骤中都进行了验证。正如在[测试课程](https://franztao.github.io/2022/10/01/Testing/#data)中所做的那样，将再次使用[Great Expectations](https://greatexpectations.io/)在转换数据之前验证提取和加载的数据。
 
 通过目前学习的 Airflow 概念，可以通过多种方式使用transformers数据验证库来验证transformers数据。无论使用什么数据验证工具（例如[Great Expectations](https://greatexpectations.io/)、[TFX](https://www.tensorflow.org/tfx/data_validation/get_started)、[AWS Deequ](https://github.com/awslabs/deequ)等），都可以使用 BashOperator、PythonOperator 等来运行transformers测试。但是，Great Expectations 有一个[Airflow Provider 包](https://github.com/great-expectations/airflow-provider-great-expectations)，可以更轻松地验证transformers数据。这个包包含一个[`GreatExpectationsOperator`](https://registry.astronomer.io/providers/great-expectations/modules/greatexpectationsoperator)可以用来将特定检查点作为任务执行的。
 
@@ -597,7 +597,7 @@ connection_string = “bigquery://made-with-ml-359923/mlops_course”
 
 #### Suite
 
-接下来，可以为transformers数据assert创建[一套期望：](https://madewithml.com/courses/mlops/testing/#suites)
+接下来，可以为transformers数据assert创建[一套期望：](https://franztao.github.io/2022/10/01/Testing/#suites)
 
 ```
 great_expectations suite new
@@ -669,7 +669,7 @@ Name the new Expectation Suite [mlops.projects.warning]: projects
 
 #### 检查点
 
-一旦有了一套期望，就可以检查[检查点](https://madewithml.com/courses/mlops/testing/#checkpoints)来执行这些期望：
+一旦有了一套期望，就可以检查[检查点](https://franztao.github.io/2022/10/01/Testing/#checkpoints)来执行这些期望：
 
 `great_expectations checkpoint new projects`
 
@@ -713,7 +713,7 @@ def dataops():
 
 ### 转换
 
-一旦验证了提取和加载的数据，就准备好[转换](https://madewithml.com/courses/mlops/data-stack/#transform)它了。transformers DataOps 工作流程并不特定于任何特定的下游应用程序，因此转换必须具有全局相关性（例如清理缺失数据、聚合等）。就像在transformers[数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中一样，将使用[dbt](https://www.getdbt.com/)来转换transformers数据。然而，这一次，将使用开源[dbt-core](https://github.com/dbt-labs/dbt-core)包以编程方式完成所有工作。
+一旦验证了提取和加载的数据，就准备好[转换](https://franztao.github.io/2022/11/10/Data_stack/#transform)它了。transformers DataOps 工作流程并不特定于任何特定的下游应用程序，因此转换必须具有全局相关性（例如清理缺失数据、聚合等）。就像在transformers[数据堆栈课程](https://franztao.github.io/2022/11/10/Data_stack/)中一样，将使用[dbt](https://www.getdbt.com/)来转换transformers数据。然而，这一次，将使用开源[dbt-core](https://github.com/dbt-labs/dbt-core)包以编程方式完成所有工作。
 
 在transformers数据工程存储库的根目录中，使用以下命令初始化transformers dbt 目录：
 
@@ -748,7 +748,7 @@ Desired location option:
 
 #### Models
 
-将像在上一课中使用[dbt Cloud IDE](https://madewithml.com/courses/mlops/data-stack/#dbt-cloud)一样准备transformers dbt 模型。
+将像在上一课中使用[dbt Cloud IDE](https://franztao.github.io/2022/11/10/Data_stack/#dbt-cloud)一样准备transformers dbt 模型。
 
 ```
 cd dbt_transforms
@@ -922,7 +922,7 @@ def dataops():
 
 ---
 
-现在已经定义并执行了整个 DataOps DAG，它将为[下游应用程序](https://madewithml.com/courses/mlops/data-stack/#applications)准备从提取到加载再到转换（并在每个步骤中进行验证）的数据。
+现在已经定义并执行了整个 DataOps DAG，它将为[下游应用程序](https://franztao.github.io/2022/11/10/Data_stack/#applications)准备从提取到加载再到转换（并在每个步骤中进行验证）的数据。
 
 ![数据操作](https://madewithml.com/static/images/mlops/orchestration/dataops.png)
 
@@ -930,7 +930,7 @@ def dataops():
 
 ## MLOps
 
-准备好数据后，就可以创建许多依赖它的潜在下游应用程序之一。让回到transformers`mlops-course`项目并按照相同的 Airflow[设置说明](https://madewithml.com/courses/mlops/orchestration/#set-up)进行操作（您可以从transformers数据工程项目中停止 Airflow 网络服务器和调度程序，因为将重用端口 8000）。
+准备好数据后，就可以创建许多依赖它的潜在下游应用程序之一。让回到transformers`mlops-course`项目并按照相同的 Airflow[设置说明](https://franztao.github.io/2022/11/10/Orchestration/#set-up)进行操作（您可以从transformers数据工程项目中停止 Airflow 网络服务器和调度程序，因为将重用端口 8000）。
 
 ```
 # Airflow webserver
@@ -1034,7 +1034,7 @@ def mlops():
 
 ### 证实
 
-接下来，将使用 Great Expectations 来验证transformers数据。尽管已经验证了transformers数据，但最好的做法是在数据从一个地方移交到另一个地方时测试数据质量。已经`labeled_projects`在[测试课程](https://madewithml.com/courses/mlops/testing/#checkpoints)中为创建了一个检查点，因此将在 MLOps DAG 中利用它。
+接下来，将使用 Great Expectations 来验证transformers数据。尽管已经验证了transformers数据，但最好的做法是在数据从一个地方移交到另一个地方时测试数据质量。已经`labeled_projects`在[测试课程](https://franztao.github.io/2022/10/01/Testing/#checkpoints)中为创建了一个检查点，因此将在 MLOps DAG 中利用它。
 
 `pip install airflow-provider-great-expectations==0.1.1 great-expectations==0.15.19`
 
@@ -1111,7 +1111,7 @@ DataOps 和 MLOps 工作流连接起来创建一个能够持续学习的 ML 系�
 
 ### 监控
 
-transformers生产系统是实时的并[受到监控](https://madewithml.com/courses/mlops/monitoring/)。当感兴趣的事件发生时（例如[drift](https://madewithml.com/courses/mlops/monitoring/#drift)），需要触发几个事件之一：
+transformers生产系统是实时的并[受到监控](https://franztao.github.io/2022/10/27/monitoring/)。当感兴趣的事件发生时（例如[drift](https://franztao.github.io/2022/10/27/monitoring/#drift)），需要触发几个事件之一：
 
 - `continue`：使用当前部署的模型，没有任何更新。但是，已发出警报，因此应稍后对其进行分析以减少误报警报。
 - `improve`：通过重新训练模型来避免有意义的漂移（数据、目标、概念等）导致的性能下降。
@@ -1123,7 +1123,7 @@ transformers生产系统是实时的并[受到监控](https://madewithml.com/cou
 如果需要改进模型的现有版本，这不仅仅是在新数据集上重新运行模型创建工作流程这一事实。需要仔细组合训练数据，以避免灾难性遗忘（在呈现新数据时忘记以前学习的模式）等问题。
 
 - `labeling`：新传入的数据在使用前可能需要正确标记（不能只依赖代理标签）。
-- `active learning`：可能无法明确标记每个新数据点，因此必须利用[主动学习](https://madewithml.com/courses/mlops/labeling/#active-learning)工作流程来完成标记过程。
+- `active learning`：可能无法明确标记每个新数据点，因此必须利用[主动学习](https://franztao.github.io/2022/10/10/labeling/#active-learning)工作流程来完成标记过程。
 - `QA`：质量保证工作流程，以确保标签准确，尤其是对于已知的误报/漏报和历史上表现不佳的数据片段。
 - `augmentation`：使用代表原始数据集的[增强数据](https://franztao.github.io/2022/10/10/Data_Augmentation//)增加transformers训练集。
 - `sampling`：上采样和下采样以解决不平衡的数据切片。

@@ -72,7 +72,7 @@ tags.most_common()
  ('time-series', 31)]
 ```
 
-> 将在拆分训练数据后和训练模型之前解决[数据不平衡问题](https://madewithml.com/courses/mlops/baselines/#data-imbalance)
+> 将在拆分训练数据后和训练模型之前解决[数据不平衡问题](https://franztao.github.io/2022/10/01/Baselines/#data-imbalance)
 
 ## Wordcloud
 

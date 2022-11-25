@@ -15,7 +15,7 @@ tags:
 
 ## intution
 
-尽管已经训练并彻底评估了模型，但一旦部署到生产环境，真正的工作就开始了。这是传统软件工程与 ML 开发之间的根本区别之一。传统上，使用基于规则的确定性软件，大部分工作发生在初始阶段，一旦部署，系统就会按照定义的方式工作。但是对于机器学习，并没有明确定义事物的工作原理，而是使用数据来构建概率解决方案。这种方法会随着时间的推移而出现自然的性能下降以及意外行为，因为暴露给模型的数据将与训练过的数据不同。这不是应该试图避免的事情，而是尽可能地理解和减轻。在本课中，'[漂移](https://madewithml.com/courses/mlops/monitoring/#drift)检测。
+尽管已经训练并彻底评估了模型，但一旦部署到生产环境，真正的工作就开始了。这是传统软件工程与 ML 开发之间的根本区别之一。传统上，使用基于规则的确定性软件，大部分工作发生在初始阶段，一旦部署，系统就会按照定义的方式工作。但是对于机器学习，并没有明确定义事物的工作原理，而是使用数据来构建概率解决方案。这种方法会随着时间的推移而出现自然的性能下降以及意外行为，因为暴露给模型的数据将与训练过的数据不同。这不是应该试图避免的事情，而是尽可能地理解和减轻。在本课中，'[漂移](https://franztao.github.io/2022/10/27/monitoring/#drift)检测。
 
 ## 系统运行状况
 
@@ -100,11 +100,11 @@ plt.legend()
 
 *当生产*数据的分布与*训练*数据的分布不同时，就会发生数据漂移，也称为特征漂移或协变量偏移。该模型无法处理特征空间中的这种漂移，因此它的预测可能不可靠。漂移的实际原因可归因于现实世界中的自然变化，也可归因于系统性问题，例如丢失数据、管道错误、架构更改等。检查漂移的数据并沿着其管道追溯以识别引入漂移的时间和地点。
 
-> 除了只查看输入数据的分布，还希望确保在训练和服务期间检索和处理输入数据的工作流程是相同的，以避免训练-服务偏差。但是，如果从相同的源位置检索特征用于训练和服务，可以跳过这一步，即。从[功能商店](https://madewithml.com/courses/mlops/feature-store/)。
+> 除了只查看输入数据的分布，还希望确保在训练和服务期间检索和处理输入数据的工作流程是相同的，以避免训练-服务偏差。但是，如果从相同的源位置检索特征用于训练和服务，可以跳过这一步，即。从[功能商店](https://franztao.github.io/2022/11/10/Feature_Store/)。
 
 ![数据漂移](https://madewithml.com/static/images/mlops/monitoring/data_drift.png)
 
-> 随着数据开始漂移，可能还没有注意到模型性能的显着下降，特别是如果模型能够很好地插值。然而，这是一个很好的机会，可以[在](https://madewithml.com/courses/mlops/monitoring/#solutions)漂移开始影响性能之前进行重新训练。
+> 随着数据开始漂移，可能还没有注意到模型性能的显着下降，特别是如果模型能够很好地插值。然而，这是一个很好的机会，可以[在](https://franztao.github.io/2022/10/27/monitoring/#solutions)漂移开始影响性能之前进行重新训练。
 
 ### 目标漂移
 
@@ -158,7 +158,7 @@ df.head(5)
 
 ### 期望
 
-第一种测量形式可以是基于规则的，例如验证[对](https://docs.greatexpectations.io/en/latest/reference/glossary_of_expectations.html)缺失值、数据类型、值范围等的期望，就像在[数据测试课](https://madewithml.com/courses/mlops/testing/#expectations)中所做的那样。现在的不同之处在于，将根据实时生产数据验证这些期望。
+第一种测量形式可以是基于规则的，例如验证[对](https://docs.greatexpectations.io/en/latest/reference/glossary_of_expectations.html)缺失值、数据类型、值范围等的期望，就像在[数据测试课](https://franztao.github.io/2022/10/01/Testing/#expectations)中所做的那样。现在的不同之处在于，将根据实时生产数据验证这些期望。
 
 ```
 # Simulated production data
@@ -580,7 +580,7 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
 - 失败的阈值/期望
 - 进行的漂移检测测试
 - 来自参考和测试窗口的数据
-- 相关时间窗口的日志[记录](https://madewithml.com/courses/mlops/logging/)
+- 相关时间窗口的日志[记录](https://franztao.github.io/2022/10/10/Logging/)
 
 ```
 # Sample alerting ticket

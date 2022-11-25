@@ -106,7 +106,7 @@ features/
 - **registry**：包含有关transformers功能存储库的信息，例如数据源、功能视图等。由于它位于数据库中，而不是 Python 文件中，因此可以在生产中快速访问它。
 - **在线商店**：数据库（本地 SQLite）存储用于在线推理的已定义实体的（最新）功能。
 
-如果所有的[功能定义](https://madewithml.com/courses/mlops/feature-store/#feature-definitions)看起来都有效，Feast 会将有关 Feast 对象的元数据同步到注册表。注册表是一个微型数据库，存储了与功能库中相同的大部分信息。此步骤是必要的，因为生产功能服务基础设施将无法在运行时访问功能存储库中的 Python 文件，但它将能够高效、安全地从注册表中读取功能定义。
+如果所有的[功能定义](https://franztao.github.io/2022/11/10/Feature_Store/#feature-definitions)看起来都有效，Feast 会将有关 Feast 对象的元数据同步到注册表。注册表是一个微型数据库，存储了与功能库中相同的大部分信息。此步骤是必要的，因为生产功能服务基础设施将无法在运行时访问功能存储库中的 Python 文件，但它将能够高效、安全地从注册表中读取功能定义。
 
 > 当在本地运行 Feast 时，离线商店通过 Pandas 时间点连接有效地表示。而在生产中，离线商店可以是更强大的东西，如[Google BigQuery](https://cloud.google.com/bigquery)、[Amazon RedShift](https://aws.amazon.com/redshift/)等。
 
@@ -385,14 +385,14 @@ feature_vector
 
 ### 批量处理
 
-上面实现的特征存储假设transformers任务需要[批处理](https://madewithml.com/courses/mlops/infrastructure/#batch-processing)。这意味着对特定实体实例的推理请求可以使用从离线存储中具体化的特征。请注意，它们可能不是该实体的最新特征值。
+上面实现的特征存储假设transformers任务需要[批处理](https://franztao.github.io/2022/11/12/design/#batch-processing)。这意味着对特定实体实例的推理请求可以使用从离线存储中具体化的特征。请注意，它们可能不是该实体的最新特征值。
 
 ![批量处理](https://madewithml.com/static/images/mlops/feature_store/batch.png)
 
 1. 应用程序数据存储在数据库和/或数据仓库等中。它通过必要的管道为下游应用程序（分析、机器学习等）做准备。
-2. 这些功能被写入离线存储，然后可用于检索[历史训练数据](https://madewithml.com/courses/mlops/feature-store/#historical-features)来训练模型。在transformers本地设置中，这是通过 Pandas DataFrame 加入给定的时间戳和实体 ID，但在生产环境中，Google BigQuery 或 Hive 之类的东西会收到功能请求。
+2. 这些功能被写入离线存储，然后可用于检索[历史训练数据](https://franztao.github.io/2022/11/10/Feature_Store/#historical-features)来训练模型。在transformers本地设置中，这是通过 Pandas DataFrame 加入给定的时间戳和实体 ID，但在生产环境中，Google BigQuery 或 Hive 之类的东西会收到功能请求。
 3. 一旦有了训练数据，就可以启动工作流来优化、训练和验证模型。
-4. 可以逐步将特征具体[化](https://madewithml.com/courses/mlops/feature-store/#online-features)到在线商店，以便可以以低延迟检索实体的特征值。在transformers本地设置中，这是通过 SQLite 连接给定的一组实体，但在生产环境中，将使用 Redis 或 DynamoDB 之类的东西。
+4. 可以逐步将特征具体[化](https://franztao.github.io/2022/11/10/Feature_Store/#online-features)到在线商店，以便可以以低延迟检索实体的特征值。在transformers本地设置中，这是通过 SQLite 连接给定的一组实体，但在生产环境中，将使用 Redis 或 DynamoDB 之类的东西。
 5. 这些在线功能被传递到部署的模型以生成将在下游使用的预测。
 
 > 警告
@@ -401,12 +401,12 @@ feature_vector
 
 ### 流处理
 
-一些应用程序可能需要[流处理](https://madewithml.com/courses/mlops/infrastructure/#stream-processing)，需要近乎实时的特征值来以低延迟提供最新的预测。虽然仍将使用离线商店来检索历史数据，但应用程序的实时事件数据将直接通过transformers数据流传输到在线商店进行服务。需要流处理的一个示例是，当想要在电子商务平台中检索实时用户会话行为（点击、购买），以便可以从transformers目录中推荐合适的商品时。
+一些应用程序可能需要[流处理](https://franztao.github.io/2022/11/12/design/#stream-processing)，需要近乎实时的特征值来以低延迟提供最新的预测。虽然仍将使用离线商店来检索历史数据，但应用程序的实时事件数据将直接通过transformers数据流传输到在线商店进行服务。需要流处理的一个示例是，当想要在电子商务平台中检索实时用户会话行为（点击、购买），以便可以从transformers目录中推荐合适的商品时。
 
 ![流处理](https://madewithml.com/static/images/mlops/feature_store/stream.png)
 
 1. 实时事件数据进入transformers运行数据流（[Kafka](https://kafka.apache.org/) / [Kinesis](https://aws.amazon.com/kinesis/)等），在那里它们可以被处理以生成特征。
-2. 这些功能被写入在线商店，然后可用于检索[在线功能](https://madewithml.com/courses/mlops/feature-store/#online-features)以低延迟提供服务。在transformers本地设置中，这是通过 SQLite 连接给定的一组实体，但在生产环境中，将使用 Redis 或 DynamoDB 之类的东西。
+2. 这些功能被写入在线商店，然后可用于检索[在线功能](https://franztao.github.io/2022/11/10/Feature_Store/#online-features)以低延迟提供服务。在transformers本地设置中，这是通过 SQLite 连接给定的一组实体，但在生产环境中，将使用 Redis 或 DynamoDB 之类的东西。
 3. Streaming features也是从data stream写入到batch data source（data warehouse, db, etc.）进行处理，用于后面生成训练数据。
 4. 历史数据将被验证并用于生成用于训练模型的特征。这种情况发生频率的节奏取决于是否存在数据注释滞后、计算约束等。
 
@@ -418,14 +418,14 @@ feature_vector
 
 - **transform**：能够在从数据源中提取的原始数据上直接应用全局预处理或特征工程。
   - `Current solution`：在写入特征存储之前，将转换作为单独的 Spark、Python 等工作流任务应用。
-- **验证**：断言[期望](https://madewithml.com/courses/mlops/testing/#expectations)并识别特征值[数据漂移的能力。](https://madewithml.com/courses/mlops/monitoring/#data-drift)
+- **验证**：断言[期望](https://franztao.github.io/2022/10/01/Testing/#expectations)并识别特征值[数据漂移的能力。](https://franztao.github.io/2022/10/27/monitoring/#data-drift)
   - `Current solution`：在将数据测试和监控写入特征存储之前，将其作为上游工作流任务应用。
 - **发现**：团队中的任何人都能够轻松发现他们可以在其应用程序中利用的功能。
   - `Current solution`：在transformers特征存储之上添加一个数据发现引擎，例如[Amundsen ，使其他人能够搜索特征。](https://www.amundsen.io/)
 
 ## 再现性
 
-[尽管可以在发布模型版本](https://madewithml.com/courses/mlops/versioning/)时继续使用[DVC](https://dvc.org/)对训练数据进行版本化，但这可能没有必要。当从源中提取数据或计算特征时，它们应该保存数据本身还是只保存操作？
+[尽管可以在发布模型版本](https://franztao.github.io/2022/10/8/versioning/)时继续使用[DVC](https://dvc.org/)对训练数据进行版本化，但这可能没有必要。当从源中提取数据或计算特征时，它们应该保存数据本身还是只保存操作？
 
 - **数据版本**
   - 如果 (1) 数据是可管理的，(2) 如果transformers团队是小型/早期 ML 或 (3) 如果数据更改不频繁，这是可以的。

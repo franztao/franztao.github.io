@@ -17,12 +17,12 @@ tags:
 
 到目前为止，已经可以方便地使用本地 CSV 文件作为数据源，但实际上，transformers数据可能来自许多不同的来源。此外，理想情况下，transformers数据转换和测试流程应该移至上游，以便许多不同的下游流程可以从中受益。transformers ML 用例只是众多潜在下游应用程序中的一个。为了解决这些缺点，将学习数据工程的基础知识，并构建一个可以扩展并为transformers应用程序提供高质量数据的现代数据堆栈。
 
-> 在本课中，将学习如何通过用户界面 (UI) 设置和使用数据堆栈，但在[编排课](https://madewithml.com/courses/mlops/orchestration/)中，将学习如何以编程方式执行所有内容 (Python + bash)。查看 [所有代码的数据工程](https://github.com/GokuMohandas/data-engineering)存储库。
+> 在本课中，将学习如何通过用户界面 (UI) 设置和使用数据堆栈，但在[编排课](https://franztao.github.io/2022/11/10/Orchestration/)中，将学习如何以编程方式执行所有内容 (Python + bash)。查看 [所有代码的数据工程](https://github.com/GokuMohandas/data-engineering)存储库。
 
 在高层次上，将：
 
-1. [将](https://madewithml.com/courses/mlops/data-stack/#sources)数据从[**源**](https://madewithml.com/courses/mlops/data-stack/#extract_and_load)[提取](https://madewithml.com/courses/mlops/data-stack/#extract_and_load)[和](https://madewithml.com/courses/mlops/data-stack/#extract_and_load)[**加载**](https://madewithml.com/courses/mlops/data-stack/#extract_and_load)到[目标](https://madewithml.com/courses/mlops/data-stack/#destinations)。
-2. 为下游[**应用**](https://madewithml.com/courses/mlops/data-stack/#transform)[程序](https://madewithml.com/courses/mlops/data-stack/#transform)[进行](https://madewithml.com/courses/mlops/data-stack/#applications)转换。
+1. [将](https://franztao.github.io/2022/11/10/Data_stack/#sources)数据从[**源**](https://franztao.github.io/2022/11/10/Data_stack/#extract_and_load)[提取](https://franztao.github.io/2022/11/10/Data_stack/#extract_and_load)[和](https://franztao.github.io/2022/11/10/Data_stack/#extract_and_load)[**加载**](https://franztao.github.io/2022/11/10/Data_stack/#extract_and_load)到[目标](https://franztao.github.io/2022/11/10/Data_stack/#destinations)。
+2. 为下游[**应用**](https://franztao.github.io/2022/11/10/Data_stack/#transform)[程序](https://franztao.github.io/2022/11/10/Data_stack/#transform)[进行](https://franztao.github.io/2022/11/10/Data_stack/#applications)转换。
 
 这个过程通常被称为 ELT，但也有 ETL 和反向 ETL 等变体。它们本质上都是相同的底层工作流，但在数据流的顺序以及数据处理和存储的位置上略有不同。
 
@@ -39,7 +39,7 @@ tags:
 
 ## 数据系统
 
-在开始处理transformers数据之前，了解transformers数据可以存在的不同类型的系统是很重要的。到目前为止，在本课程中已经使用了文件、[API](https://madewithml.com/courses/mlops/api/)等，但是有几种类型的数据系统是为不同的目的在工业中广泛采用。
+在开始处理transformers数据之前，了解transformers数据可以存在的不同类型的系统是很重要的。到目前为止，在本课程中已经使用了文件、[API](https://franztao.github.io/2022/10/01/RESTful_API/)等，但是有几种类型的数据系统是为不同的目的在工业中广泛采用。
 
 ![数据系统](https://madewithml.com/static/images/mlops/data_stack/systems.png)
 
@@ -47,7 +47,7 @@ tags:
 
 数据湖是存储原始对象的平面数据管理系统。它是廉价存储的绝佳选择，并且能够保存所有类型的数据（非结构化、半结构化和结构化）。对象存储正在成为数据湖的标准，在流行的云提供商中具有默认选项。不幸的是，由于数据是作为对象存储在数据湖中的，它并不是为对结构化数据进行操作而设计的。
 
-> 回想一下，在[版本控制课程](https://madewithml.com/courses/mlops/data-stack/versioning/#remote-storage)中构建了一个本地对象存储来模拟transformers远程存储来保存和加载transformers版本化数据。
+> 回想一下，在[版本控制课程](https://franztao.github.io/2022/11/10/Data_stack/versioning/#remote-storage)中构建了一个本地对象存储来模拟transformers远程存储来保存和加载transformers版本化数据。
 
 > 热门工具
 > 
@@ -90,7 +90,7 @@ tags:
 
 将使用开源工具[Airbyte](https://airbyte.com/)在transformers数据源和目的地之间创建连接。让设置 Airbyte 并定义transformers数据源。随着在本课中的进步，将设置目的地并创建连接以提取和加载数据。
 
-1. 确保仍然安装了[Docker 课程](https://madewithml.com/courses/mlops/docker/)中的 Docker ，如果没有，请[在此处](https://www.docker.com/products/docker-desktop/)下载。对于 Windows 用户，请务必启用这些[配置。](https://docs.airbyte.com/deploying-airbyte/local-deployment/#deploy-on-windows)
+1. 确保仍然安装了[Docker 课程](https://franztao.github.io/2022/10/26/Docker/)中的 Docker ，如果没有，请[在此处](https://www.docker.com/products/docker-desktop/)下载。对于 Windows 用户，请务必启用这些[配置。](https://docs.airbyte.com/deploying-airbyte/local-deployment/#deploy-on-windows)
 
 2. 在transformers MLOps 课程项目目录之外的父目录中，执行以下命令以在本地加载 Airbyte 存储库并启动服务。
    
@@ -137,7 +137,7 @@ tags:
 
 #### 设置谷歌 BigQuery
 
-transformers目的地将是[数据仓库](https://madewithml.com/courses/mlops/data-stack/#data-warehouse)，因为希望将数据用于下游分析和机器学习应用程序。将使用[Google BigQuery](https://cloud.google.com/bigquery)，它在 Google Cloud 的[免费](https://cloud.google.com/bigquery/pricing#free-tier)套餐下是免费的，可提供高达 10 GB 的存储空间和 1TB 的查询（这比transformers目的所需的要多得多）。
+transformers目的地将是[数据仓库](https://franztao.github.io/2022/11/10/Data_stack/#data-warehouse)，因为希望将数据用于下游分析和机器学习应用程序。将使用[Google BigQuery](https://cloud.google.com/bigquery)，它在 Google Cloud 的[免费](https://cloud.google.com/bigquery/pricing#free-tier)套餐下是免费的，可提供高达 10 GB 的存储空间和 1TB 的查询（这比transformers目的所需的要多得多）。
 
 1. 登录到您的[Google 帐户](https://accounts.google.com/signin)，然后转到[Google CLoud](https://cloud.google.com/)。如果您还没有使用过 Google Cloud 的免费试用版，则必须注册。它是免费的，除非您手动升级您的帐户，否则不会自动向您收费。试用期结束后，仍将拥有免费套餐，这对来说绰绰有余。
 
@@ -205,7 +205,7 @@ transformers目的地将是[数据仓库](https://madewithml.com/courses/mlops/d
 > 
 > 一般来说，对于大多数应用程序来说，从批量摄取开始，然后慢慢增加流式摄取（和额外的基础设施）的复杂性是个好主意。这是可以证明，下游应用程序正在从数据源中发现价值，并且后来发展到流式处理应该只会改善事情。
 
-> [将在transformers系统设计课程](https://madewithml.com/courses/mlops/systems-design/)中详细了解批处理与流的不同系统设计含义。
+> [将在transformers系统设计课程](https://franztao.github.io/2022/10/27/Systems_design/)中详细了解批处理与流的不同系统设计含义。
 
 #### 将文件源连接到 BigQuery 目标
 
@@ -252,7 +252,7 @@ made-with-ml-XXXXXX               - Project
 
 ```
 
-> 在transformers[编排课程](https://madewithml.com/courses/mlops/orchestration/)中，将使用 Airflow 以编程方式执行数据同步。
+> 在transformers[编排课程](https://franztao.github.io/2022/11/10/Orchestration/)中，将使用 Airflow 以编程方式执行数据同步。
 
 可以直接在transformers仓库中使用 SQL 轻松探索和查询这些数据：
 
@@ -291,7 +291,7 @@ made-with-ml-XXXXXX               - Project
 
 ## 转换
 
-提取并加载数据后，需要转换数据，以便为下游应用程序做好准备。这些转换不同于之前看到的[预处理](https://madewithml.com/courses/mlops/preprocessing/#transformations)，而是反映了对下游应用程序不可知的业务逻辑。常见的转换包括定义模式、过滤、清理和跨表连接数据等。虽然可以在数据仓库中使用 SQL 完成所有这些事情（将查询保存为表或视图），但 dbt 提供围绕版本控制、测试、开箱即用的文档、包装等。这对于保持可观察性和高质量数据工作流程至关重要。
+提取并加载数据后，需要转换数据，以便为下游应用程序做好准备。这些转换不同于之前看到的[预处理](https://franztao.github.io/2022/10/10/preprocessing/#transformations)，而是反映了对下游应用程序不可知的业务逻辑。常见的转换包括定义模式、过滤、清理和跨表连接数据等。虽然可以在数据仓库中使用 SQL 完成所有这些事情（将查询保存为表或视图），但 dbt 提供围绕版本控制、测试、开箱即用的文档、包装等。这对于保持可观察性和高质量数据工作流程至关重要。
 
 ![数据转换](https://madewithml.com/static/images/mlops/data_stack/transform.png)
 
@@ -299,13 +299,13 @@ made-with-ml-XXXXXX               - Project
 > 
 > 流行的转换工具包括[dbt](https://www.getdbt.com/)、[Matillion](https://www.matillion.com/)、自定义 jinja 模板化 SQL 等。
 
-> 除了数据转换，还可以使用大型分析引擎（如 Spark、Flink 等）来处理数据。将在transformers[系统设计课程](https://madewithml.com/courses/mlops/systems-design/#processing)中了解有关批处理和流处理的更多信息。
+> 除了数据转换，还可以使用大型分析引擎（如 Spark、Flink 等）来处理数据。将在transformers[系统设计课程](https://franztao.github.io/2022/10/27/Systems_design/#processing)中了解有关批处理和流处理的更多信息。
 
 ### dbt Cloud
 
 现在已准备好使用[dbt](https://www.getdbt.com/)转换数据仓库中的数据。将在 dbt Cloud（免费）上使用开发人员帐户，它为提供了一个 IDE、无限运行等。
 
-> 将在[编排课程](https://madewithml.com/courses/mlops/orchestration/)中学习如何使用[dbt-core](https://github.com/dbt-labs/dbt-core)。与 dbt Cloud 不同，dbt core 是完全开源的，可以通过编程方式连接到transformers数据仓库并执行转换。[](https://madewithml.com/courses/mlops/orchestration/)
+> 将在[编排课程](https://franztao.github.io/2022/11/10/Orchestration/)中学习如何使用[dbt-core](https://github.com/dbt-labs/dbt-core)。与 dbt Cloud 不同，dbt core 是完全开源的，可以通过编程方式连接到transformers数据仓库并执行转换。[](https://franztao.github.io/2022/11/10/Orchestration/)
 
 1. 创建一个[免费帐户](https://www.getdbt.com/signup/)并验证它。
 2. 转到[https://cloud.getdbt.com/](https://cloud.getdbt.com/)进行设置。
@@ -356,7 +356,7 @@ ON p.id = t.id
 
 ### Schemas
 
-在transformers`models/labeled_projects/schema.yml`文件中，将为转换后的数据中的每个特征定义模式。还定义了每个功能应该通过的几个测试。[查看dbt 测试](https://docs.getdbt.com/docs/building-a-dbt-project/tests)的完整列表，但请注意，当在[编排课程中编排所有这些数据工作流时，将使用](https://madewithml.com/courses/mlops/orchestration/)[Great Expectations](https://madewithml.com/courses/mlops/testing/#expectations)进行更全面的测试。
+在transformers`models/labeled_projects/schema.yml`文件中，将为转换后的数据中的每个特征定义模式。还定义了每个功能应该通过的几个测试。[查看dbt 测试](https://docs.getdbt.com/docs/building-a-dbt-project/tests)的完整列表，但请注意，当在[编排课程中编排所有这些数据工作流时，将使用](https://franztao.github.io/2022/11/10/Orchestration/)[Great Expectations](https://franztao.github.io/2022/10/01/Testing/#expectations)进行更全面的测试。
 
 ```
 # models/labeled_projects/schema.yml
@@ -438,7 +438,7 @@ made-with-ml-XXXXXX               - Project
 
 ![数据库运行](https://madewithml.com/static/images/mlops/data_stack/dbt_run.png)
 
-> dbt 还有很多内容，因此请务必查看他们的[官方文档](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)以真正自定义任何工作流程。请务必查看transformers[编排课程](https://madewithml.com/courses/mlops/orchestration/)，将在其中以编程方式创建和执行transformers dbt 转换。
+> dbt 还有很多内容，因此请务必查看他们的[官方文档](https://docs.getdbt.com/docs/building-a-dbt-project/documentation)以真正自定义任何工作流程。请务必查看transformers[编排课程](https://franztao.github.io/2022/11/10/Orchestration/)，将在其中以编程方式创建和执行transformers dbt 转换。
 
 ## 应用
 
@@ -487,17 +487,17 @@ results.to_dataframe().head()
 > 
 > 查看transformers[note](https://github.com/GokuMohandas/data-engineering/blob/main/extract_from_dwh.ipynb)，在其中从数据仓库中提取转换后的数据。在单独的note中执行此操作，因为它需要`google-cloud-bigquery`包，并且在 dbt[放松](https://github.com/dbt-labs/dbt-core/issues/4748)它的 Jinja 版本控制限制之前……它必须在单独的环境中完成。但是，下游应用程序通常是分析或 ML 应用程序，它们无论如何都有自己的环境，因此这些冲突不会受到抑制。
 
-许多分析（例如仪表板）和机器学习解决方案（例如功能存储）允许轻松连接到transformers数据仓库，以便在事件发生时或按计划触发工作流。[将在下一课](https://madewithml.com/courses/mlops/orchestration/)中更进一步，将使用中央编排平台来控制所有这些工作流。
+许多分析（例如仪表板）和机器学习解决方案（例如功能存储）允许轻松连接到transformers数据仓库，以便在事件发生时或按计划触发工作流。[将在下一课](https://franztao.github.io/2022/11/10/Orchestration/)中更进一步，将使用中央编排平台来控制所有这些工作流。
 
 > 先分析，再机器学习
 > 
-> 最好让前几个应用程序基于分析和报告，以便建立强大的数据堆栈。这些用例通常只涉及显示数据聚合和趋势，而不是涉及额外复杂[基础设施](https://madewithml.com/courses/mlops/feature-store/)和[工作流](https://madewithml.com/courses/mlops/orchestration/#mlops)的机器学习系统。
+> 最好让前几个应用程序基于分析和报告，以便建立强大的数据堆栈。这些用例通常只涉及显示数据聚合和趋势，而不是涉及额外复杂[基础设施](https://franztao.github.io/2022/11/10/Feature_Store/)和[工作流](https://franztao.github.io/2022/11/10/Orchestration/#mlops)的机器学习系统。
 
 ## 可观察性
 
 当创建这样复杂的数据工作流时，可观察性成为重中之重。数据可观察性是了解系统中数据状况的一般概念，它涉及：
 
-- `data quality`：在每一步（模式、完整性、新近度等）之后测试和监控transformers[数据质量。](https://madewithml.com/courses/mlops/testing/#data)
+- `data quality`：在每一步（模式、完整性、新近度等）之后测试和监控transformers[数据质量。](https://franztao.github.io/2022/10/01/Testing/#data)
 - `data lineage`：映射数据的来源以及数据在transformers管道中移动时的转换方式。
 - `discoverability`：能够发现下游应用程序的不同数据源和功能。
 - `privacy + security`：是否在应用程序中适当地处理和限制了不同的数据assert？

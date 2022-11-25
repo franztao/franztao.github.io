@@ -123,8 +123,8 @@ st.write(prediction)
 > 
 > 仪表板非常简单，但还可以使用更全面的仪表板来反映在[机器学习画布](https://madewithml.com/static/templates/ml-canvas.pdf)中涵盖的一些核心主题。
 > 
-> - 显示[标签](https://madewithml.com/courses/mlops/labeling/)、[EDA](https://madewithml.com/courses/mlops/exploratory-data-analysis/)和[预处理](https://madewithml.com/courses/mlops/preprocessing/)开发阶段的发现。
-> - 以交互方式查看[false +/-](https://madewithml.com/courses/mlops/evaluation/#confusion-matrix)并与注释管道连接，以便可以查看和合并对数据的更改。
+> - 显示[标签](https://franztao.github.io/2022/10/10/labeling/)、[EDA](https://franztao.github.io/2022/10/10/exploration/)和[预处理](https://franztao.github.io/2022/10/10/preprocessing/)开发阶段的发现。
+> - 以交互方式查看[false +/-](https://franztao.github.io/2022/10/01/evaluation/#confusion-matrix)并与注释管道连接，以便可以查看和合并对数据的更改。
 > - 比较多个版本的性能，以可视化随时间推移的改进/回归（使用模型存储、git 标签等）
 
 ## 缓存

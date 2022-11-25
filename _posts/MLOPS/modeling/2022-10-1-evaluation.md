@@ -584,7 +584,7 @@ predict_tag(texts=texts)
 ['natural-language-processing'，'mlops']
 ```
 
-> 将在[testing lesson](https://madewithml.com/courses/mlops/testing/#behavioral-testing)中学习如何系统地创建测试。
+> 将在[testing lesson](https://franztao.github.io/2022/10/01/Testing/#behavioral-testing)中学习如何系统地创建测试。
 
 ## Evaluating evaluations
 
@@ -594,7 +594,7 @@ predict_tag(texts=texts)
 - 哪些标准可以/不能回归？
 - 可以容忍多少回归？
 
-随着随着时间的推移制定这些标准，可以通过[CI/CD 工作流](https://madewithml.com/courses/mlops/cicd/)系统地执行它们，以减少系统更新之间的手动时间。
+随着随着时间的推移制定这些标准，可以通过[CI/CD 工作流](https://franztao.github.io/2022/10/26/cicd/)系统地执行它们，以减少系统更新之间的手动时间。
 
 > 看起来很简单，不是吗？
 > 
@@ -606,7 +606,7 @@ predict_tag(texts=texts)
 
 ## 在线评估
 
-一旦评估了模型在静态数据集上执行的能力，就可以运行多种类型的**在线评估**技术来确定实际生产数据的性能。它可以使用标签来执行，或者在没有标签的情况下，[proxy signals](https://madewithml.com/courses/mlops/monitoring/#performance)。
+一旦评估了模型在静态数据集上执行的能力，就可以运行多种类型的**在线评估**技术来确定实际生产数据的性能。它可以使用标签来执行，或者在没有标签的情况下，[proxy signals](https://franztao.github.io/2022/10/27/monitoring/#performance)。
 
 - 手动标记传入数据的子集以定期评估。
 - 询问查看新分类内容的初始用户组是否正确分类。
@@ -646,7 +646,7 @@ Canary 测试涉及将大部分生产流量发送到当前部署的系统，但�
 
 ## 模型 CI
 
-评估系统的一种有效方法是将它们封装为一个集合（suite）并将它们用于[持续集成](https://madewithml.com/courses/mlops/cicd/)。将继续添加到评估suite中，并且在尝试对系统进行更改（新模型、数据等）时执行它们。[通常，在监控](https://madewithml.com/courses/mlops/monitoring/)期间识别出的有问题的数据切片通常会添加到评估测试suite中，以避免将来重复相同的回归。
+评估系统的一种有效方法是将它们封装为一个集合（suite）并将它们用于[持续集成](https://franztao.github.io/2022/10/26/cicd/)。将继续添加到评估suite中，并且在尝试对系统进行更改（新模型、数据等）时执行它们。[通常，在监控](https://franztao.github.io/2022/10/27/monitoring/)期间识别出的有问题的数据切片通常会添加到评估测试suite中，以避免将来重复相同的回归。
 
 ## Resources
 

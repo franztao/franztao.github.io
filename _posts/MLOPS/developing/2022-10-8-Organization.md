@@ -87,7 +87,7 @@ tags:
 
 `touch README.md`
 
-让从添加用于创建[虚拟环境](https://madewithml.com/courses/mlops/packaging/#virtual-environment)的说明开始：
+让从添加用于创建[虚拟环境](https://franztao.github.io/2022/10/10/Packaging/#virtual-environment)的说明开始：
 
 ```
 # Inside README.md
@@ -97,7 +97,7 @@ python3 -m pip install pip setuptools wheel
 python3 -m pip install -e .
 ```
 
-如果您按下位于编辑器右上角的预览按钮（下图中红色圆圈中的按钮），您可以看到`README.md`当为[git](https://madewithml.com/courses/mlops/git/)推送到远程主机时会是什么样子。
+如果您按下位于编辑器右上角的预览按钮（下图中红色圆圈中的按钮），您可以看到`README.md`当为[git](https://franztao.github.io/2022/10/26/Git/)推送到远程主机时会是什么样子。
 
 ![自述文件](https://madewithml.com/static/images/mlops/organization/readme.png)
 
@@ -159,7 +159,7 @@ tagifai/
 `
 ```
 
-当将代码从note本移动到[下面](https://madewithml.com/courses/mlops/organization/#project)`main.py`适当的脚本时，将在内部定义这些核心操作：
+当将代码从note本移动到[下面](https://franztao.github.io/2022/10/10/Organization/#project)`main.py`适当的脚本时，将在内部定义这些核心操作：
 
 - `elt_data`：提取、加载和转换数据。
 - `optimize`：调整超参数以针对目标进行优化。
@@ -240,7 +240,7 @@ tagifai/
 
 #### 将功能包装到函数中
 
-如何决定何时将特定代码行包装为一个单独的函数？函数应该是原子的，因为它们每个都有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，这样就可以轻松地[测试](https://madewithml.com/courses/mlops/testing/)它们。如果不是，需要将它们拆分成更细粒度的单元。例如，可以用这些行替换项目中的标签：
+如何决定何时将特定代码行包装为一个单独的函数？函数应该是原子的，因为它们每个都有[单一的职责](https://en.wikipedia.org/wiki/Single-responsibility_principle)，这样就可以轻松地[测试](https://franztao.github.io/2022/10/01/Testing/)它们。如果不是，需要将它们拆分成更细粒度的单元。例如，可以用这些行替换项目中的标签：
 
 ```
 oos_tags = [item for item in df.tag.unique() if item not in tags_dict.keys()]

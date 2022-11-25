@@ -37,7 +37,7 @@ tags:
 
 ### 批量服务
 
-可以对一组有限的输入进行批量预测，然后将其写入数据库以进行低延迟推理。当用户或下游进程实时发出推理请求时，会返回来自数据库的缓存结果（通常通过对 API 的请求以[查询](https://madewithml.com/courses/mlops/api/)[数据库](https://madewithml.com/courses/mlops/api/#request)）。
+可以对一组有限的输入进行批量预测，然后将其写入数据库以进行低延迟推理。当用户或下游进程实时发出推理请求时，会返回来自数据库的缓存结果（通常通过对 API 的请求以[查询](https://franztao.github.io/2022/10/01/RESTful_API/)[数据库](https://franztao.github.io/2022/10/01/RESTful_API/#request)）。
 
 ![批量服务](https://madewithml.com/static/images/mlops/systems-design/batch_serving.png)
 
@@ -72,7 +72,7 @@ tags:
 > > 
 > > 通过批处理，使用用户的历史记录为离线用户生成内容推荐。在使用更新的用户功能在第二天处理批次之前，这些建议不会改变。但是用户的口味在一天中会发生显着变化（例如，用户正在搜索要观看的恐怖电影）。通过实时服务，可以使用这些最近的功能根据即时搜索推荐高度相关的内容。
 
-> 除了将模型包装为单独的、可扩展的微服务之外，还可以拥有一个专门构建的[模型服务器](https://madewithml.com/courses/mlops/api/#model-server)来无缝地检查、更新、服务、回滚等多个版本的模型。
+> 除了将模型包装为单独的、可扩展的微服务之外，还可以拥有一个专门构建的[模型服务器](https://franztao.github.io/2022/10/01/RESTful_API/#model-server)来无缝地检查、更新、服务、回滚等多个版本的模型。
 
 ## 加工
 
@@ -80,7 +80,7 @@ tags:
 
 用例不一定涉及随时间变化的实体特征，因此只有一个处理管道是有意义的。但是，并非 ML 应用程序中的所有实体都以这种方式工作。使用内容推荐示例，给定用户可以具有随时间更新的某些特征，例如最喜欢的流派、点击率等。正如将在下面看到的，可以选择在以前的时间为用户批处理特征或者可以在流中处理可用的特征，并使用它们进行相关预测。
 
-> [在综合数据堆栈课程](https://madewithml.com/courses/mlops/data-stack/)中了解有关下面提到的不同数据系统的更多信息，以及如何在[编排课程](https://madewithml.com/courses/mlops/orchestration/)中负责任地交付高质量数据。
+> [在综合数据堆栈课程](https://franztao.github.io/2022/11/10/Data_stack/)中了解有关下面提到的不同数据系统的更多信息，以及如何在[编排课程](https://franztao.github.io/2022/11/10/Orchestration/)中负责任地交付高质量数据。
 
 ### 批量处理
 
@@ -114,7 +114,7 @@ _使用给定实体的近乎_实时的流式特征对给定的一组输入进行
 
 ### 线下学习
 
-传统的方法是离线训练模型，然后将它们部署到推理中。随着新数据被标记、验证等，可能会定期离线重新训练它们，并在评估后部署它们。如果在[监控](https://madewithml.com/courses/mlops/monitoring/)过程中发现漂移等问题，也可能会加快再培训。
+传统的方法是离线训练模型，然后将它们部署到推理中。随着新数据被标记、验证等，可能会定期离线重新训练它们，并在评估后部署它们。如果在[监控](https://franztao.github.io/2022/10/27/monitoring/)过程中发现漂移等问题，也可能会加快再培训。
 
 ![离线学习](https://madewithml.com/static/images/mlops/systems-design/offline_learning.png)
 
@@ -170,7 +170,7 @@ AWS EC2、Google Compute、Azure VM、on-prem 等计算引擎可以跨多个工�
 - **优点**：无需管理任何服务器，它会根据请求流量自动扩展。
 - **缺点**：函数存储、有效负载等的大小限制基于提供者，通常没有加速器（GPU、TPU 等）
 
-> 请务必探索与这些部署和服务选项相关的[CI/CD 工作流程](https://madewithml.com/courses/mlops/cicd/#serving)，以便您可以进行持续的培训、验证和服务流程。
+> 请务必探索与这些部署和服务选项相关的[CI/CD 工作流程](https://franztao.github.io/2022/10/26/cicd/#serving)，以便您可以进行持续的培训、验证和服务流程。
 
 ___
 

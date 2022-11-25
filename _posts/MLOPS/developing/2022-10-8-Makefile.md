@@ -74,7 +74,7 @@ venv:
     python3 -m pip install -e .
 ```
 
-> `&&`表示希望这些命令在一个 shell 中执行（更多内容[见下文](https://madewithml.com/courses/mlops/makefile/#shells)）。
+> `&&`表示希望这些命令在一个 shell 中执行（更多内容[见下文](https://franztao.github.io/2022/10/10/Makefile/#shells)）。
 
 ## PHONY
 

@@ -17,14 +17,14 @@ tags:
 
 > 代码告诉你_怎么_做，注释告诉你_为什么_。——[杰夫·阿特伍德](https://en.wikipedia.org/wiki/Jeff_Atwood)
 
-可以通过记录代码来进一步[组织](https://madewithml.com/courses/mlops/organization/)代码，让其他人（以及未来的自己）更容易轻松地导航和扩展它。在完成编写代码库的那一刻就最了解代码库，但幸运的是，记录它将使能够快速回到熟悉的心态。文档对开发人员来说可能意味着很多不同的东西，所以让定义最常见的组件：
+可以通过记录代码来进一步[组织](https://franztao.github.io/2022/10/10/Organization/)代码，让其他人（以及未来的自己）更容易轻松地导航和扩展它。在完成编写代码库的那一刻就最了解代码库，但幸运的是，记录它将使能够快速回到熟悉的心态。文档对开发人员来说可能意味着很多不同的东西，所以让定义最常见的组件：
 
 - `comments`：关于为什么存在一段代码的简短描述。
 - `typing`：函数输入和输出数据类型的规范，提供与函数消耗和产生的内容有关的信息。
 - `docstrings`：对描述整体效用、参数、返回等的函数和类的有意义的描述。
 - `docs`：呈现的网页，总结了所有的功能、类、工作流程、示例等。
 
-> 目前，将在本地生成文档，但请务必查看[应用程序的自动生成](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使其保持最新。
+> 目前，将在本地生成文档，但请务必查看[应用程序的自动生成](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://franztao.github.io/2022/10/26/cicd/)课程中学习如何自动创建文档并使其保持最新。
 
 > 代码协作
 > 
@@ -99,7 +99,7 @@ def some_function(a: List, b: int = 0) -> np.ndarray:
 - `[Lines 18-19]`：函数中可能引发的任何异常。
 - `[Lines 21-22]`：函数输出的描述。
 
-[将在下面的文档](https://madewithml.com/courses/mlops/documentation/#docs)部分呈现这些文档字符串以生成：
+[将在下面的文档](https://franztao.github.io/2022/10/10/Documentation/#docs)部分呈现这些文档字符串以生成：
 
 ![文档字符串](https://madewithml.com/static/images/mlops/documentation/docstrings.png)
 
@@ -162,7 +162,7 @@ setup(
 
    `python3 -m pip install -e ".[dev]"`
 
-   创建了一个显式`doc`选项，因为用户只想下载文档包来生成文档（不需要其他包）。[当使用CI/CD 工作流](https://madewithml.com/courses/mlops/cicd/)通过 GitHub Actions 自动生成文档时，将看到这一点。
+   创建了一个显式`doc`选项，因为用户只想下载文档包来生成文档（不需要其他包）。[当使用CI/CD 工作流](https://franztao.github.io/2022/10/26/cicd/)通过 GitHub Actions 自动生成文档时，将看到这一点。
 
 2. 初始化 mkdocs
    
@@ -245,7 +245,7 @@ setup(
 
 可以使用公共存储库的[GitHub 页面以及私有存储库的](https://www.mkdocs.org/user-guide/deploying-your-docs/)[私有文档](https://docs.github.com/en/pages/getting-started-with-github-pages/changing-the-visibility-of-your-github-pages-site)轻松地免费提供文档。甚至可以将其托管在[自定义域](https://docs.github.com/en/github/working-with-github-pages/configuring-a-custom-domain-for-your-github-pages-site)（例如公司的子域）上。
 
-> 请务必查看为[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://madewithml.com/courses/mlops/cicd/)课程中学习如何自动创建文档并使文档保持最新。
+> 请务必查看为[应用程序自动生成的](https://github.com/GokuMohandas/mlops-course)[文档页面](https://gokumohandas.github.io/mlops-course)。每次对代码库进行更改时，将在[CI/CD](https://franztao.github.io/2022/10/26/cicd/)课程中学习如何自动创建文档并使文档保持最新。
 
 ## 信息架构构建
 

@@ -17,7 +17,7 @@ tags:
 
 ## Intuition
 
-当模型要提供服务时，需要考虑将应用程序的功能公开给自己、团队成员以及最终最终使用用户。实现这一点的接口会有所不同。回想一下[Organization lesson](https://madewithml.com/courses/mlops/organization/)，通过终端和 Python 解释器执行[main operations](https://madewithml.com/courses/mlops/organization/#operations)
+当模型要提供服务时，需要考虑将应用程序的功能公开给自己、团队成员以及最终最终使用用户。实现这一点的接口会有所不同。回想一下[Organization lesson](https://franztao.github.io/2022/10/10/Organization/)，通过终端和 Python 解释器执行[main operations](https://franztao.github.io/2022/10/10/Organization/#operations)
 
 ```
 from tagifai import main

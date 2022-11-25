@@ -15,7 +15,7 @@ tags:
 
 ## Intuition
 
-[CLI 应用程序](https://madewithml.com/courses/mlops/cli/)使与模型交互变得更加容易，特别是对于可能不想深入研究代码库的团队成员。但是使用 CLI 为模型提供服务有几个限制：
+[CLI 应用程序](https://franztao.github.io/2022/10/01/command_line/)使与模型交互变得更加容易，特别是对于可能不想深入研究代码库的团队成员。但是使用 CLI 为模型提供服务有几个限制：
 
 - 用户需要访问终端、代码库、虚拟环境等。
 - 终端上的 CLI 输出不可导出
@@ -632,7 +632,7 @@ class PredictPayload(BaseModel):
 > 
 > ```
 
-> 但是想创建非常明确的模式，以防将来想要合并更多的[验证](https://madewithml.com/courses/mlops/api/#validation)或添加额外的参数。
+> 但是想创建非常明确的模式，以防将来想要合并更多的[验证](https://franztao.github.io/2022/10/01/RESTful_API/#validation)或添加额外的参数。
 
 现在可以在预测端点中使用这个有效载荷：
 
@@ -795,7 +795,7 @@ class PredictPayload(BaseModel):
 - Docker 集成
 - 那么多！
 
-但是，对于大多数 ML 开发人员来说，由于微服务的广泛采用，不需要做所有这些。设计良好的 API 服务可以与所有其他服务（与框架无关）无缝通信，将适合任何流程并为整个产品增加价值。主要重点应该是确保服务正常工作并不断改进，这正是下一组课程将关注的内容（[测试](https://madewithml.com/courses/mlops/testing/)和[监控](https://madewithml.com/courses/mlops/monitoring/)）
+但是，对于大多数 ML 开发人员来说，由于微服务的广泛采用，不需要做所有这些。设计良好的 API 服务可以与所有其他服务（与框架无关）无缝通信，将适合任何流程并为整个产品增加价值。主要重点应该是确保服务正常工作并不断改进，这正是下一组课程将关注的内容（[测试](https://franztao.github.io/2022/10/01/Testing/)和[监控](https://franztao.github.io/2022/10/27/monitoring/)）
 
 ## 模型服务器
 
