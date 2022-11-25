@@ -41,7 +41,7 @@ import mlflow
 from pathlib import Path
 ```
 
-输入参数`args`包含所有需要的参数，很高兴将它们全部组织在一个变量下，这样就可以轻松地记录它并为不同的实验调整它（会在进行[超参数优化](https://madewithml.com/courses/mlops/optimization/)时看到这一点）。
+输入参数`args`包含所有需要的参数，很高兴将它们全部组织在一个变量下，这样就可以轻松地记录它并为不同的实验调整它（会在进行[超参数优化](https://franztao.github.io/2022/10/1/Optimizing/)时看到这一点）。
 
 ```
 # Specify arguments
@@ -80,7 +80,7 @@ mlflow.set_tracking_uri("file://" + str(MODEL_REGISTRY.absolute()))
 
 为了简单起见，将所有用于训练的组件封装到一个函数中，该函数返回希望能够从实验中跟踪的所有工件。
 
-> 现在忽略该`trial`参数（默认为`None`），因为它将在[超参数优化](https://madewithml.com/courses/mlops/optimization/)课程中用于修剪没有希望的试验。
+> 现在忽略该`trial`参数（默认为`None`），因为它将在[超参数优化](https://franztao.github.io/2022/10/1/Optimizing/)课程中用于修剪没有希望的试验。
 
 ```
 def train(args, df, trial=None):

@@ -384,7 +384,7 @@ class weights: {0: 0.004016064257028112, 1: 0.01818181818181818, 2: 0.0036764705
 
 ### 数据不平衡
 
-对于数据集，可能经常会注意到数据不平衡问题，其中一系列连续值（回归）或某些类别（分类）可能没有足够的数据量可供学习。这在训练时成为一个主要问题，因为模型将学习泛化到可用数据并在数据稀疏的区域表现不佳。有几种技术可以缓解数据不平衡，包括[重采样](https://github.com/scikit-learn-contrib/imbalanced-learn)、合并类权重、[增强](https://madewithml.com/courses/mlops/augmentation/)等。尽管理想的解决方案是为少数类收集更多数据！
+对于数据集，可能经常会注意到数据不平衡问题，其中一系列连续值（回归）或某些类别（分类）可能没有足够的数据量可供学习。这在训练时成为一个主要问题，因为模型将学习泛化到可用数据并在数据稀疏的区域表现不佳。有几种技术可以缓解数据不平衡，包括[重采样](https://github.com/scikit-learn-contrib/imbalanced-learn)、合并类权重、[增强](https://franztao.github.io/2022/10/10/Data_Augmentation//)等。尽管理想的解决方案是为少数类收集更多数据！
 
 > 将使用[imblearn 包](https://imbalanced-learn.org/stable/)来确保对少数类进行过采样以等于多数类（带有大多数样本的标签）。
 
@@ -548,7 +548,7 @@ y_prob = model.predict_proba(vectorizer.transform([text]))
  'natural-language-processing': 0.584025872986128,
  'other': 0.17248570271336786}
 
-将创建一个自定义预测函数，如果多数类不高于某个 softmax 分数，则预测`other`该类。在[目标](https://madewithml.com/courses/mlops/design/#objectives)中，认为精度对来说非常重要，可以利用标签和 QA 工作流程来提高后续手动检查期间的召回率。
+将创建一个自定义预测函数，如果多数类不高于某个 softmax 分数，则预测`other`该类。在[目标](https://franztao.github.io/2022/11/12/design/#objectives)中，认为精度对来说非常重要，可以利用标签和 QA 工作流程来提高后续手动检查期间的召回率。
 
 > warning
 > 

@@ -150,7 +150,7 @@ for item in sorted_tags_by_f1.items():
 ]
 ```
 
-> 由于自定义预测功能，能够对除`other`外根据[产品设计](https://madewithml.com/courses/mlops/design/#metrics)，决定更重要的是准确了解显式 ML 类别（nlp、cv 和 mlops），并且将有一个手动标记工作流程来召回该类别中的任何错误`other`分类。随着时间的推移，模型在这个类别中也会变得更好。
+> 由于自定义预测功能，能够对除`other`外根据[产品设计](https://franztao.github.io/2022/11/12/design/#metrics)，决定更重要的是准确了解显式 ML 类别（nlp、cv 和 mlops），并且将有一个手动标记工作流程来召回该类别中的任何错误`other`分类。随着时间的推移，模型在这个类别中也会变得更好。
 
 ## 混淆矩阵
 

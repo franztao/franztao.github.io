@@ -1125,7 +1125,7 @@ transformers生产系统是实时的并[受到监控](https://madewithml.com/cou
 - `labeling`：新传入的数据在使用前可能需要正确标记（不能只依赖代理标签）。
 - `active learning`：可能无法明确标记每个新数据点，因此必须利用[主动学习](https://madewithml.com/courses/mlops/labeling/#active-learning)工作流程来完成标记过程。
 - `QA`：质量保证工作流程，以确保标签准确，尤其是对于已知的误报/漏报和历史上表现不佳的数据片段。
-- `augmentation`：使用代表原始数据集的[增强数据](https://madewithml.com/courses/mlops/augmentation/)增加transformers训练集。
+- `augmentation`：使用代表原始数据集的[增强数据](https://franztao.github.io/2022/10/10/Data_Augmentation//)增加transformers训练集。
 - `sampling`：上采样和下采样以解决不平衡的数据切片。
 - `evaluation`：创建一个评估数据集，该数据集代表模型在部署后将遇到的情况。
 
