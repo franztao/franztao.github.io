@@ -18,14 +18,14 @@ sidebar-avatar: /img/about-BY-gentle.jpg      # use absolute URL, seeing it's us
 
 
 # SNS settings
-RSS: false
-weibo_username:     franztao
-zhihu_username:     franz
-github_username:    franztao
-facebook_username:  franztaoheng
-jianshu_username:   b7a62edb0398
-csdn_username: https://blog.csdn.net/hengfanz?spm=1011.2124.3001.5343
-twitter_username:   franztao
+RSS: true
+weibo_username: franztao
+zhihu_username: franz-57-80
+github_username: franztao
+facebook_username: franztaoheng
+jianshu_username: b7a62edb0398
+csdn_username: hengfanz
+twitter_username: franztao
 
 
 
@@ -34,14 +34,14 @@ twitter_username:   franztao
 # from 2016, 'pygments' is unsupported on GitHub Pages. Use 'rouge' for highlighting instead.
 permalink: pretty
 paginate: 10
-exclude: ["less","node_modules","Gruntfile.js","package.json","README.md"]
+exclude: [ "less","node_modules","Gruntfile.js","package.json","README.md" ]
 anchorjs: true                          # if you want to customize anchor. check out line:181 of `post.html`
 
 
 
 # Gems
 # from PR#40, to support local preview for Jekyll 3.0
-gems: [jekyll-paginate]
+gems: [ jekyll-paginate ]
 
 
 
@@ -100,10 +100,14 @@ service-worker: true
 
 # Friends
 friends: [
-    {
-        title: "franztao",
-        href: "https://franztao.github.io/"
-    }
+  {
+    title: "franztao",
+    href: "https://franztao.github.io/"
+  },{
+    title: "zeyi",
+    href: "https://mebius-xy.github.io/"
+
+  }
 ]
 
 plugins:
@@ -128,24 +132,24 @@ jekyll-spaceship:
     config:
       tex:
         inlineMath:
-          - ['$','$']
-          - ['\(','\)']
+          - [ '$','$' ]
+          - [ '\(','\)' ]
         displayMath:
-          - ['$$','$$']
-          - ['\[','\]']
+          - [ '$$','$$' ]
+          - [ '\[','\]' ]
       svg:
         fontCache: 'global'
     optimize: # optimization on building stage to check and add mathjax scripts
       enabled: true # value `false` for adding to all pages
-      include: []   # include patterns for math expressions checking (regexp)
-      exclude: []   # exclude patterns for math expressions checking (regexp)
+      include: [ ]   # include patterns for math expressions checking (regexp)
+      exclude: [ ]   # exclude patterns for math expressions checking (regexp)
   plantuml-processor:
     mode: default  # mode value 'pre-fetch' for fetching image at building stage
     css:
       class: plantuml
     syntax:
       code: 'plantuml!'
-      custom: ['@startuml', '@enduml']
+      custom: [ '@startuml', '@enduml' ]
     src: http://www.plantuml.com/plantuml/svg/
   mermaid-processor:
     mode: default  # mode value 'pre-fetch' for fetching image at building stage
@@ -153,7 +157,7 @@ jekyll-spaceship:
       class: mermaid
     syntax:
       code: 'mermaid!'
-      custom: ['@startmermaid', '@endmermaid']
+      custom: [ '@startmermaid', '@endmermaid' ]
     config:
       theme: default
     src: https://mermaid.ink/svg/

@@ -7,7 +7,9 @@ author:     franztao
 header-img: post-bg-re-vs-ng2.jpg
 catalog: true
 tags:
-    - Splitting a Dataset for Machine Learning
+    - Splitting
+    - Dataset
+    - Machine Learning
 ---
 
 适当拆分数据集以进行训练、验证和测试。
@@ -107,12 +109,6 @@ pd.DataFrame({
 }).T.fillna(0)
 ```
 
-|       | computer-vision | mlops | natural-language-processing | other |
-| ----- | --------------- | ----- | --------------------------- | ----- |
-| train | 249             | 55    | 272                         | 92    |
-| val   | 53              | 12    | 58                          | 20    |
-| test  | 54              | 12    | 58                          | 20    |
-
 很难比较这些，因为训练和测试比例不同。让看看平衡后的分布是什么样子。需要将测试比率乘以多少才能得到与训练比率相同的数量？
 
 ![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-11-20-13-00-27-image.png)
@@ -127,11 +123,11 @@ for k in counts["test_counts"].keys():
         (train_size/test_size))
 ```
 
-| computer-vision | mlops | natural-language-processing | other |
-| --- | --- | --- | --- | --- |
-| train | 249 | 55  | 272 | 92  |
-| val | 247 | 56  | 270 | 93  |
-| test | 252 | 56  | 270 | 93  |
+|       | computer-vision | mlops | natural-language-processing | other |
+| ----- | --------------- | ----- | --------------------------- | ----- |
+| train | 249             | 55    | 272                         | 92    |
+| val   | 53              | 12    | 58                          | 20    |
+| test  | 54              | 12    | 58                          | 20    |
 
 可以通过计算每个拆分的类计数与平均值（理想拆分）的标准差来查看原始数据拆分中有多少偏差。
 
