@@ -169,6 +169,16 @@ def load_data():
 
 - 中间表示与推理引擎的兼容问题。由于各推理引擎的实现不同，对 ONNX 难以形成统一的支持。为了确保模型在不同的推理引擎中有同样的运行效果，部署工程师往往得为某个推理引擎定制模型代码，这为模型部署引入了许多工作量。
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 
 ```

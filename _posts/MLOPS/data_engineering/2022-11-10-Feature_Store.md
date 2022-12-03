@@ -436,6 +436,16 @@ feature_vector
 
 无论上面的选择如何，特征存储在这里都非常有用。可以将这两个过程分开，而不是将数据拉取和特征计算与建模时间耦合，以便在需要时特征是最新的。仍然可以通过高效的时间点正确性、低延迟快照等实现可重复性。这实质上创造了在任何时间点使用任何版本的数据集的能力。
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 
 ```

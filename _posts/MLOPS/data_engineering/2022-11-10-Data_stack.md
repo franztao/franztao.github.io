@@ -515,6 +515,16 @@ results.to_dataframe().head()
 - 该工具是否适合团队的技术能力（SQL、Spark、Python 等）？
 - 该工具提供什么样的支持（企业、社区等）？
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 
 ```

@@ -626,6 +626,16 @@ preds = outlier_detector.predict(X, outlier_type="instance", outlier_perc=75)
 - [使用黑盒预测器检测和校正标签移位](https://arxiv.org/abs/1802.03916)
 - [数据流上的异常值和异常模式检测](https://link.springer.com/article/10.1007/s11227-018-2674-1)
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 
 ```

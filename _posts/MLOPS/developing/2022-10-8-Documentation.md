@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      记录代码
+title:      代码文档
 subtitle:   2022年10月
 date:       2022-10-10
 author:     franztao
@@ -11,13 +11,13 @@ tags:
 
 ---
 
-为您的团队和您未来的自己记录代码。
+为您的团队和您未来的自己代码文档。
 
 #### Intuition
 
 > 代码告诉你_怎么_做，注释告诉你_为什么_。——[杰夫·阿特伍德](https://en.wikipedia.org/wiki/Jeff_Atwood)
 
-可以通过记录代码来进一步[组织](https://franztao.github.io/2022/10/10/Organization/)代码，让其他人（以及未来的自己）更容易轻松地导航和扩展它。在完成编写代码库的那一刻就最了解代码库，但幸运的是，记录它将使能够快速回到熟悉的心态。文档对开发人员来说可能意味着很多不同的东西，所以让定义最常见的组件：
+可以通过代码文档来进一步[组织](https://franztao.github.io/2022/10/10/Organization/)代码，让其他人（以及未来的自己）更容易轻松地导航和扩展它。在完成编写代码库的那一刻就最了解代码库，但幸运的是，记录它将使能够快速回到熟悉的心态。文档对开发人员来说可能意味着很多不同的东西，所以让定义最常见的组件：
 
 - `comments`：关于为什么存在一段代码的简短描述。
 - `typing`：函数输入和输出数据类型的规范，提供与函数消耗和产生的内容有关的信息。
@@ -254,6 +254,17 @@ setup(
 ![图片](https://mmbiz.qpic.cn/mmbiz_png/crx0uzS8lVsxg18kRhfiaudabvzhfiazq4nGkbjjKzIMlcMRia8xTWMg3plZ8eOlRBAhnJcf4CoqAlR5vIxKmEvzA/640?wx_fmt=png&wxfrom=5&wx_lazy=1&wx_co=1)
 
 ___
+
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 
 本文主体源自以下链接：
 

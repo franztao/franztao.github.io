@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      建模基线
+title:      建模基线模型
 subtitle:   2022年10月
 date:       2022-10-1
 author:     franztao
@@ -11,7 +11,7 @@ tags:
 
 ---
 
-鼓励使用基线进行迭代建模。
+鼓励使用基线模型进行迭代建模。
 
 ## Intuition
 
@@ -625,6 +625,16 @@ print (json.dumps(performance, indent=2))
 > 这门 MLOps 课程实际上与模型无关（只要它产生概率分布），因此可以随意使用更复杂的表示（[嵌入](https://madewithml.com/courses/foundations/embeddings/)）和更复杂的架构（[CNN](https://madewithml.com/courses/foundations/convolutional-neural-networks/)、[transformers](https://madewithml.com/courses/foundations/transformers/)等）。将在其余课程中使用这个基本的逻辑回归模型，因为它简单、快速并且实际上具有相当的性能（与最先进的预训练transformer相比，f1 差异<10%）。
 
 ___
+
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
 
 本文主体源自以下链接：
 

@@ -627,6 +627,16 @@ label_encoder.decode(np.array([0, 1, 1]))
 
 > 在下一节中，将对预处理后的数据集执行探索性数据分析 (EDA)。但是，步骤的顺序可以颠倒，具体取决于问题的定义程度。如果不确定如何准备数据，可以使用 EDA 来弄清楚，反之亦然。
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 ```
 @article{madewithml,

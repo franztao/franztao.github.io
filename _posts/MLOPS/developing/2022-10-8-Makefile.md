@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成文件
+title:      Makefile
 subtitle:   2022年10月
 date:       2022-10-10
 author:     franztao
@@ -187,6 +187,16 @@ help:
 > Makefile的内容要[多得多](https://www.gnu.org/software/make/manual/make.html)，但这对于大多数应用 ML 项目来说已经足够了。
 
 ___
+
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
 
 本文主体源自以下链接：
 

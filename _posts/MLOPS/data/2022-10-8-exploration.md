@@ -99,6 +99,16 @@ Looks like the `title` text feature has some good signal for the respective clas
 
 > 到目前为止，所做的所有工作都在 IPython note本中，但在仪表板课程中，将使用[Streamlit](https://streamlit.io/)将所有这些转移到交互式仪表板中。
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
 ```
 @article{madewithml,

@@ -147,7 +147,6 @@ df.head()
 
 ```
 df = df[df.tag.notnull()]  # remove projects with no tag
-
 ```
 
 ### 加载
@@ -157,10 +156,7 @@ df = df[df.tag.notnull()]  # remove projects with no tag
 ```
 # Save locally
 df.to_csv("labeled_projects.csv", index=False)
-
 ```
-
-
 
 ## library
 
@@ -215,6 +211,10 @@ df.to_csv("labeled_projects.csv", index=False)
 > 
 > 然而，作为一种行业趋势，这种泛化与特殊性之间的平衡是很难达到的。如此多的团队投入了前期工作来创建定制标签平台或使用特定于行业的利基标签工具。
 
+### 国内标注产品的功能总结
+
+![](https://image.woshipm.com/wp-files/2020/07/GELVgO7ZDrfypo3IPx7f.png)
+
 ## 主动学习
 
 即使使用强大的标签工具和既定的工作流程，也很容易看出标签的复杂性和昂贵性。因此，许多团队采用主动学习来迭代标记数据集并评估模型。
@@ -250,10 +250,7 @@ from snorkel.labeling import labeling_function
 def contains_tensorflow(text):
     condition = any(tag in text.lower() for tag in ("tensorflow", "tf"))
     return "tensorflow" if condition else None
-
 ```
-
-
 
 > 验证标签（在建模之前）的一种简单方法是使用辅助数据集中的别名为不同的类创建标签函数。然后可以寻找假阳性和假阴性来识别可能被错误标记的样本。在[仪表板课程](https://franztao.github.io/2022/10/27/dashboard/#inspection)中，实际上将实施一种类似的检查方法，但使用经过训练的模型作为启发式方法。
 
@@ -261,7 +258,18 @@ def contains_tensorflow(text):
 
 标签不仅仅是一次性事件或重复相同的事情。随着新数据的可用，将希望战略性地标记适当的样本并改进缺乏[质量的数据](https://madewithml.com/courses/foundations/data-quality/)[片段](https://franztao.github.io/2022/10/01/Testing/#evaluation)。一旦标记了新数据，就可以触发工作流来启动（重新）培训过程以部署系统的新版本。
 
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+
+
 本文主体源自以下链接：
+
 ```
 @article{madewithml,
     author       = {Goku Mohandas},
