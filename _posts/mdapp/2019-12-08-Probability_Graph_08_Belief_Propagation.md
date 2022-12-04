@@ -19,7 +19,7 @@ tags:
 
 在上一小节中，我们已经介绍了变量消除(Variable Elimination)，Variable Elimination的思想是Probability Graph中的核心思想之一。上一节中我们就已经介绍了，这实际上就是乘法对加法的分配律。但是，Variable Elimination中有很多的问题，比如重复计算和最优计算次序不好确定的问题。所以，我们这一节来介绍Belief Propagation来解决重复计算的问题。
 
-#  {Forward and Backward Algorithm}
+#  Forward and Backward Algorithm}
 假设，我们现在有一个马氏链模型：
 
 $$
@@ -67,7 +67,7 @@ $$
 
 对比上面的计算$p(e)$的过程，我们就可以发现，$\sum_b p(c|b)\sum_a p(b|a)p(a)$部分的计算也就是$m_{b\longrightarrow c}(c)$的计算是一模一样的。所以说，Variable Elimination里面有大量的重复计算。Belief的想法很简单，也就是将$m_{i\longrightarrow j}(j)$，全部事先计算好，就像一个个积木一样，然后再用这个积木来搭建运算。那么也就是，我们事先将方向全部定义好，正向和反向的全部都求了再说。为了进一步探究Belief Background，我们需要讨论一些更加Generalize的情况。也就是从Chain$\longrightarrow$Tree，有向$\longrightarrow$无项的情况。
 
-#  {Belief Propagation的扩展}
+#  Belief Propagation的扩展}
 我们的Generalize的后，分析了一个树形的无向图结构。图的网络结构如下所示：
 
 $$
@@ -143,7 +143,7 @@ $$
 
 通过对上面表达式的观察，我们是不是发现了一个很有意思的现象。也就是这些概率都是由$m_{i\longrightarrow j}$这样的小积木拼接起来的。所以我们可以get a conclusion：{ 我们不要一上来就直接去求边缘概率密度，比如$p(a),p(b),p(c),p(d)$这些的。我们可以先建立一个Cache，把$m_{i\longrightarrow j}$全部算出来。然后，要求什么的话，直接进行搭建和拼接就可以了。}从这里，我们就引出了Belief Propagation。
 
-#  {Belief Propagation}
+#  Belief Propagation}
 我们之前就已经得到了信息传递的表达式：
 
 $$
@@ -156,7 +156,7 @@ $$
 
 那么，Belief Propagation可以看成是BP = VE + Cashing。这个算法的核心思想就在于，直接求$m_{i\longrightarrow j}$，然后再导出边缘概率$p(x_i)$。第二小节中我们已经详细的给出了$p(x_i)$的推导方法。下一步，我们需要知道如何来求$m_{i\longrightarrow j}$。
 
-##    {Sequential Implementation}
+##    Sequential Implementation}
 顺序计算的思路，我们需要借助一个队列来实现：
 
 1. Get Root: 首先我们需要假设一个节点为根节点。
@@ -167,9 +167,9 @@ $$
 
 经过这三个步骤以后，我们可以得到所有的$i,j\in v$，从而计算出$p(x_k),k\in v$。
 
-##    {Parallel Implementation}
+##    Parallel Implementation}
 这种思想在图结构的网络中经常使用，大致也就是随意选一个节点，然后向四周其他的节点辐射信息。其他节点收到信息之后，更新自己的状态，然后反馈自己的信息给源节点，源节点再更新自己的信息。不断地重复这个工作，直到最后收敛为止。
 
-#  {小结}
+#  小结}
 实际上，Belief Propagation就是一种Variable Elimination。但是，我们发现了Variable Elimination中有很多的重复计算。所以，我们想到了提取出来先算好，要用的时候直接放进去就行了。所以，Belief Propagation中分解了传递的过程，先计算消息传递的机制，再来组装出计算边缘概率。其实本质还是Variable Elimination算法，不过就是使表达更加的规范了，通过拆解的方法来消除重复计算。
 

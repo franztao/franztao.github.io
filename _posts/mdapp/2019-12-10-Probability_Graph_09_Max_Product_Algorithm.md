@@ -27,7 +27,7 @@ tags:
 
 这里的Max-Product算法和隐马尔可夫模型(HMM)中的Viterbi算法非常的类似。其实，从算法上讲它就是Belief Propagation算法的一种改进，从模型上讲是Viterbi算法的推广。在这里我们求的不是概率值了，而是一个最优的概率序列$(\hat{a},\hat{b},\hat{c},\hat{d}) = argmax_{a,b,c,d}p(x_a,x_b,x_c,x_d|E)$。
 
-#  {Max Product Algorithm}
+#  Max Product Algorithm}
 下面展示一个树的拓扑结构图。
 
 $$
@@ -81,7 +81,7 @@ $$
 
 而$\varphi_a m_{b\longrightarrow a}$就可以看成是一个关于$a$的函数。这里我们再提一下Belief Propagation，这里的Max-Product实际上就是Belief Propagation的一个变形。
 
-#  {Belief Propagation}
+#  Belief Propagation}
 实际上这个算法的提出时因为，多次求边缘概率密度会发现中间有很多的步骤是重复的。我们用$m_{i\longrightarrow j}$记录每一个边缘概率，最后进行组合就行。所以，
 
 $$
@@ -98,6 +98,6 @@ $$
 \end{equation}
 $$
 
-#  {Compare}
+#  Compare}
 其实，我们一比较就可以很简单的看出，Max-product和Belief Propagation只有一个地方不一样。那就是前者是求最大，后者是求和。也就是Max-product到Sum-product。在求得了$\max p(a,b,c,d) = \max_{x_a} \varphi_a m_{b\longrightarrow a}$之后，我们利用回溯法我们比较就可以比较简单的得到$x_a^\ast,x_b^\ast,x_c^\ast,x_d^\ast$了。在这个算法中，我们就不需要事先计算$m_{i\longrightarrow j}$了，直接在迭代中进行计算就可以了，也不会存在什么重复计算的问题。
 

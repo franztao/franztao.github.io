@@ -46,7 +46,7 @@ $$
 \end{equation}
 $$
 
-#  {Prediction}
+#  Prediction}
 模型预测的第一步为，
 
 $$
@@ -81,7 +81,7 @@ $$
 
 那么计算到这里，我们的模型预测也算是完成了。
 
-#  {Conclusion}
+#  Conclusion}
 Data：$D=\{(x_i,y_i)\}^{N}_{i=1}$，其中$x_i\in\mathbb{R}^{p}$，$y_i\in\mathbb{R}$。
 
 Model：

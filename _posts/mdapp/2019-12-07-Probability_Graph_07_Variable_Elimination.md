@@ -26,7 +26,7 @@ tags:
 
 下面我们要介绍最简单的一个精确推断中中的东西，名为变量消除法(Variable Elimination)。这是一种最简单的推断方法，也是我们学习推断法的核心概念之一。下面我们做详细的解释。
 
-#  {变量消除法(Variable Elimination Algorithm)}
+#  变量消除法(Variable Elimination Algorithm)}
 假如我们有一个马氏链：
 
 $$

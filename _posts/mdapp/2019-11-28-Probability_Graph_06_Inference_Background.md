@@ -24,14 +24,14 @@ tags:
 
 现在我们知道了，Inference在求什么？下一步，我们要总结Inference有哪些方法。
 
-#  {Inference求解方法}
-##    {精准推断(Deterministic Inference)}
+#  Inference求解方法}
+##    精准推断(Deterministic Inference)}
 Variable Elimination (VE)，变量消除法；Belief Propagation (BP)信念传播，这个可不是我们之前学习的反向传播算法，这里需要注意。同时这个算法衍生出的Sum Product Algorithm，这就是推断的核心，这是一种树结构的；而Junction Tree Algorithm，这是一种普通图结构。
 
-##    {近似推断(Approximate Inference)}
+##    近似推断(Approximate Inference)}
 典型的有有向环(Loop Belief Propagation)；采样方法，包括Mente Carlo Inference：Importance Sampling，MCMC；最后一个就是我现在主要研究的变分推断(Variational Inference)。
 
-#  {隐马尔可夫模型(Hidden Markov Model)}
+#  隐马尔可夫模型(Hidden Markov Model)}
 Hidden Markov Model (HMM)算法将在后面的章节中做详细的描述，在这一小节中，我们主要
 
 $$

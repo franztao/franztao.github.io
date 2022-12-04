@@ -65,12 +65,12 @@ $$
 
 通常来说，凸优化问题，不一定是强对偶问题。往往都是凸优化问题需要加上一些限定条件才可以构成强对偶问题。比如说slate condition，但是这些条件往往都是充分非必要的。这样的条件有很多种，slate condition只是其中一种，类似的还有KKT condition。
 
-#  {Slate Condition}
+#  Slate Condition}
 下面简述一下Slate Condition，详细的证明过程就不做过多的描述。也就是$\exists \hat{x} \in relint\ D, \ s.t. \ \forall i \i = 1,2,\cdots,m,\ m_i(\hat{x}) \leq 0$。而relint的意思就是，relative interior，相对内部的意思。
 
 而对于绝大部分的凸优化问题，通常Slate条件是成立的。而放松的Slate条件为：假设$M$中有$k$个仿射函数，$M-k$个仿射。而SVM是一个典型的凸二次规划问题，也就是目标函数$f$是凸函数，$m_i$是仿射函数，$n_j$为仿射。那么在几何上是什么意思呢？也就是限制至少有一个点在坐标系的左边，限制直线不是垂直的，这里需要结合Support Vector Machine 04中的几何解释来看。
 
-#  {KKT Condition}
+#  KKT Condition}
 在上文中我们知道了Convex和Slate Condition可以得到强对偶关系，也就是$d^\ast = p^\ast$。但是这只是一个充分非必要条件。同样的在满足KKT Condition的情况下，我们也可以得出是一个强对偶问题，并且这是一个充分必要的条件。
 
 我们在来回顾一下模型的原问题：

@@ -270,7 +270,9 @@ len(train_df), len(train_df_augmented)
 
 ![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
 
+转载到请包括本文地址
 
+更详细的转载事宜请参考[]：
 
 本文主体源自以下链接：
 

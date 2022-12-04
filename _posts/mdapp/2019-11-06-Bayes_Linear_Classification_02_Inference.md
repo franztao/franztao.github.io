@@ -59,7 +59,7 @@ $$
 
 贝叶斯估计方法(Bayesian Method)，可以分为两个步骤，1.Inference，2.Prediction。Inference的关键在于估计posterior$(w)$；而Prediction的关键在于对于给定的$x^{\ast}$求出预测值$y^{\ast}$。
 
-#  {Bayesian Method模型建立}
+#  Bayesian Method模型建立}
 首先我们需要对公式使用贝叶斯公式进行分解，便于计算：
 
 $$
@@ -112,7 +112,7 @@ $$
 
 我们的目的就是求解$\mu_w = ?,\Sigma_w = ?$。
 
-#  {模型的求解}
+#  模型的求解}
 对于likelihood function的化简如下所示：
 
 $$
@@ -212,7 +212,7 @@ $$
 \end{equation}
 $$
 
-#  {小结}
+#  小结}
 我们利用贝叶斯推断的方法来确定参数之间的分布，也就是确定$p(W|X,Y)$。我们使用Bayes的方法，确定为$p(W|X,Y)\propto p(Y|W,X)p(W)$。并且确定一个噪声分布$\varepsilon\sim\mathcal{N}(0,\sigma^2)$。那么，
 
 $$

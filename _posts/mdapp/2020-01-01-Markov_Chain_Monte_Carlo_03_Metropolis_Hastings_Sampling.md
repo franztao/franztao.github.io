@@ -39,7 +39,7 @@ $$
 
 而我们是通过采样来得到$P(Z) \sim \{ z^{(1)},z^{(2)},\cdots, z^{(N)} \}$样本点。$\pi(x)$是最终的平稳分布，可以看成我们这里的$P(Z)$，下面的问题就是求出概率转移矩阵$P_{ij}$，才能满足Detailed Balance条件。知道了上面的条件以后，我们每次这样进行采样，$x_1\sim P(x|x_1)$，$x_2\sim P(x|x_1)$，$x_3\sim P(x|x_2)$，$\cdots$，$x_N$。最终就可以得到我们想要的$N$个样本。
 
-#  {Proposal Matrix}
+#  Proposal Matrix}
 那我们怎么来找这个状态转移矩阵$P_{ij}$呢？首先我们可以随机一个状态转移矩阵$Q_{ij}$，也就是Proposal Matrix。
 
 那么肯定是：
@@ -99,7 +99,7 @@ $$
 
 所以，$P(Z)$在转移矩阵$Q(Z|Z^\ast)\alpha(Z^\ast,Z)$下是一个平稳分布，也就是一个马尔可夫链，通过在这个马尔可夫链中采样就可以得到我们的相应的数据样本点了。实际上这就是大名鼎鼎的Metropolis-Hastings采样法。
 
-#  {Metropolis-Hastings Sampling}
+#  Metropolis-Hastings Sampling}
 第一步，我们从一个均匀分布中进行采样，$u\sim U(0,1)$；
 
 第二步，从$Q(Z|Z^{(i-1)})$中进行采样得到样本点$Z^\ast$；

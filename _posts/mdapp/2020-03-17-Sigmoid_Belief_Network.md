@@ -21,8 +21,8 @@ tags:
 \setcounter{page}{1} %new page
 \clearpage
 
-#  {Background}
-##    {什么是Sigmoid Belief Network}
+#  Background}
+##    什么是Sigmoid Belief Network}
 这一节将要学习的是Sigmoid Belief Network。首先来想一想这个名字是怎么来的，其中Belief就等价于Bayesian Network(俗称有向图)，而Sigmoid指的是Sigmoid Function：
 $$
 \sigma(x) = \frac{1}{1+\exp{-x}}
@@ -56,7 +56,7 @@ $$
 
 \textbf{Sigmoid Belief Network将无向图变成有向图的结构则有更好的因果(causal)形式，其中未观察变量被看作观察变量发生的原因。}
 
-##    {Sigmoid Belief Network的模型表示}
+##    Sigmoid Belief Network的模型表示}
 假设无向图中的节点为，$\{ S_1,S_2,\cdots,S_T \}$。根据可观测变量和不可观测变量，可以划分为$\{V,H\}$。如下图所示：
 
 $$
@@ -104,17 +104,17 @@ $$
     \right.
 \end{equation}
 $$
-##    {小结}
+##    小结}
 本小节讲述了SBN算法的来源，如何从Boltzmann Machine中演变而来，以及比Boltzmann先进的原因。也梳理了一下Boltzmann Machine的求解策略。然后给出了SBN的模型表示方法，这里需要注意一下$<$是一种代表父子节点关系的偏序关系。
-#  {Log Likelihood Gradient}
-##    {Learning rule}
+#  Log Likelihood Gradient}
+##    Learning rule}
 Neal在提出这个算法的时候，给出了Learning Rule，但是很不幸的是，这个Learning Rule存在非常明显的缺陷。我先大致的说一下，就是梯度的值用MCMC来采样，这样只能应对小规模的网络，层次一多起来就不work了(Mixing time)过长，而为什么要用MCMC方法呢？因为Head to Head的问题，请看图1，在v节点被观测的情况下，h中的节点都不是条件独立的，他们之间都是相关的。那么，$P(h|v)$就很难被求出来，因为$h$之间的节点相互影响，有相交解释。
 
 “近似推断”那一节我们已经讲过了，Learning中是需要求后验的，这里再简单描述一下。Learning的思想是令先验的Log Likelihood Function最大化，通常使用梯度上升法来解决，在求解梯度的过程中，不可避免的要求后验，因为这个梯度的计算结果就是一个关于后验分布的期望，不可避免的要从后验中采样，因为后验很复杂不能直接采样，所以要使用MCMC从后验中采样来求近似期望。
 
 下面我们将求解Log Likelihood Gradient来让大家有一个感性的认识。大佬这里有一句话如醍醐灌顶，\textbf{推导的目的是看看具体的过程，然后对结论有一个感性的认识，对结论的来龙去脉有更好的理解，主要目的是辅助我们理解结论，而不是为了推导而推导。}
 
-#  {Log Likelihood Function Gradient}
+#  Log Likelihood Function Gradient}
 假设联合概率分布为：
 
 $$
@@ -230,11 +230,11 @@ $$
 $$
 其中，$S_i$代表的是第$i$个节点的随机变量，这就是Neal提出的Sigmoid Belief Network的Learning Rule。在学习的梯度迭代的过程中，是很依赖后验分布的。所以，如何把$\sum_s P(S|v)$求出来是个大问题，后验概率分布非常的重要，但是这是求不出来的。在观测变量已知的情况下，由于D-Separation中的Head to Head问题，导致所有节点之间都是有联系的，没有条件独立性，关系太复杂了。所以，$\sum_s P(S|v)$过于复杂，无法之间求解。Neal提出的这种方法用MCMC来近似计算$P(S|v)$很显然只适合于小规模的图，一旦复杂起来就会出现Mixing time过长的问题，根本就不work。
 
-##    {小结}
+##    小结}
 我们在这一小节中，讲述了Neal提出来的learning rule，说白了就是如何使Log Likelihood Function最大化，那么就要求它的梯度。梯度的表达式，为一个关于后验的期望，由D-Separation原则可知，后验分布过于复杂，无法求解。
 用MCMC来近似计算，然而这样的方法只适合于小规模的图，一旦复杂起来就会出现Mixing time过长的问题。所以，需要寻找新的方法。
 
-#  {Wake-Sleep Algorithm}
+#  Wake-Sleep Algorithm}
 小编在理解这个算法的过程中是有点艰辛的，主要是小编第一次听的时候，没有get到这个算法的点。后来经常长时间的思考，翻阅了不少其他的资料才总算找到一点感觉。
 
 通过第三节的分析，看到了Neal提出的Learning Rule，并不work。因为有向图的explain away导致的，变量之间交织严重，无法分解，所以后验分布$P(S|v)$根本就算不出来。所以，只能用MCMC去近似，而MCMC只能处理小规模的图模型，大规模的图模型会遇到Mixing Time过长的问题。那么，\textbf{我们的目标很明确，就是寻找更好的办法去近似后验分布。}新的近似方法有下列几种思路，这里做简单的介绍：
@@ -248,7 +248,7 @@ $$
 \end{enumerate}
 $$
 
-##    {Wake-Sleep Algorithm主要思想}
+##    Wake-Sleep Algorithm主要思想}
 在Learning的过程中，就是为了求得$w$。假设每一个weight都有一个反向的weight，如下图所示：
 
 $$
@@ -290,7 +290,7 @@ $$
 
 老师在这里指出来，讲解醒眠算法的原因是，它虽然精度不高，但是非常有启发性，后面将讲述的很多算法，都可以很醒眠算法进行类比，从而得到启发。这里讲完，大家对醒眠算法的做法有了初步的了解，但是为什么这样做，一定还是有点懵逼的。下一小节，我们看看$w$和$r$是怎么learning到的，从而挖掘一下其背后的思想。
 
-##    {$w$和$r$的Learning}
+##    $w$和$r$的Learning}
 $w$和$r$的Learning过程，仍然是像之前一样使用梯度上升的方法来max Likelihood function？如果不是，那怎么操作？和KL Divergence之间又有什么联系？这就是这一小节将要解决的问题。
 
 主要想法就是构建一个Recognization Connection去近似后验分布$p(h|v)$。聪明的同学已经观测到了，如果采用蓝色的箭头，bottom to up这样进行采样，那么根据D-Separation中的Tail to Tail，父亲节点已知的情况下，子节点都是相互独立的，那么概率图模型就是可分解的了。那么，计算就可以被简化了，我们用一个可分解的后验分布去近似一个不可分解的后验分布。
@@ -307,7 +307,7 @@ Recognization Model：$Q_\phi(h|v)$，$\phi = r$。
 
 下一步，要求解的就是，这么Learning过程怎么Learn？目标函数是什么？
 
-\subsubsection{Wake phase}
+### Wake phase}
 简单的说。第一步，首先通过bottom up生成样本；第二步，再通过这些样本来进行Learning Generative Model，求$\theta$（$w$）。\textbf{Wake phase就是bottom to up生成样本，利用样本从上往下（图1）来学习$P_\theta(v,h)$的参数。}
 样本来自bottom to up的过程，即为$Q_\phi(h|v)$中采样得到的，Learning可以理解为使样本使模型的值最大。也就是在$Q_\phi(h|v)$得到的样本下$P_\theta(v,h)$的值最大。所以目标函数可以被写做：
 
@@ -348,7 +348,7 @@ $$
 \end{equation}
 $$
 
-\subsubsection{Sleep phase}
+### Sleep phase}
 防止大家忘记，在这里给出一个详细的推导。前面过程都是一样的，不再做过多的描述，目标函数为：
 
 $$
@@ -389,14 +389,14 @@ $$
 
 通过以上的推导，可以证明，确实可以将目标函数看成是一个ELBO，从而转换为求KL Divergence的最小化。按照同样的方法，得到公式(23)。
 
-\subsubsection{结论分析}
+### 结论分析}
 通过上述的分析，看到Wake phase和Sleep phase中的目标函数，分别为：
 $\mathrm{KL}(Q_\phi(h|v) || P_\theta(h|v))$和$\mathrm{KL}(P_\theta(h|v) || Q_\phi(h|v))$。两个过程求得的KL散度是相反的，有点基础的同学应该知道\textbf{KL散度不对称，不是一个距离}。
 
 \textbf{两个过程的目标函数不一致，所以这是一个启发性算法，并不可以保证收敛。}Sleep过程，可以看成不清醒，所以目标函数都搞错了。Sleep样本是从Generative Connect过程中采样出来的，而\textbf{Model是对数据的一种假设}。个人对算法的理解请看总结。
 
 
-#  {总结}
+#  总结}
 本章节的思路其实和前面的章节都很类似，实际上有的同学已经有感觉了，这个讲解的过程就是算法的孕育和成长的过程。出现了一个问题，这个问题之前的算法无法有效的解决，针对这个问题设计一个算法，这个算法可以有效的改善这个问题的求解。这个算法在求解的过程中又遇到了什么样的问题，我们如何去解决这个问题，这就是一个算法的发展过程。
 
 首先是讲解了Sigmoid Belief Network的思想来源，将无向图变成有向图的结构则有更好的因果(causal)形式，其中未观察变量被看作观察变量发生的原因。然后介绍了模型的表示方法。紧接着在模型求解的过程中，发现由于D-Separation中的Head to Head问题，会造成节点之间的关系复杂，无法用条件独立性分解，也就是Explain away现象。这样后验分布的精确计算是intractable的。所以，Neal提出了基于MCMC的求解方法，但是MCMC只能求解小规模的图，大规模的图中会出现Mixing time过长的问题，根本就不work。

@@ -21,8 +21,8 @@ tags:
 \setcounter{page}{1} %new page
 \clearpage
 
-#  {Background}
-##    {直面配分函数的来源}
+#  Background}
+##    直面配分函数的来源}
 在概率图模型中，所有的问题基本上都是这三个问题组成的：模型表示(Representation)；学习(Learning)；推断(Inference)。而Inference中，有精确推断和近似推断(Variational Inference和MCMC)。在之前我们Restricted Boltzmann Machine对模型表示和推断的问题作出了详细的推导，而学习问题当时没有进行推导，这个问题保留到了现在。
 
 在前面的Restricted Boltzmann Machine问题中，我们对随机变量的联合概率建模，并利用势函数等于Boltzmann Distribution的形式来表示变量的联合概率密度函数：
@@ -34,7 +34,7 @@ $$
 
 回想Restricted Boltzmann Machine，很容易发现，实际上\textbf{势函数$\phi_i(\cdot)$的表示形式比较的简单，而配分函数$Z$很不好求。}在求解的过程中，我们无法避免对$Z$的处理，所以叫“直面配分函数”，这个章名字的来由是有点奇怪，而另一种叫法“遭遇配分函数”也是一个意思。
 
-##    {求解符号说明}
+##    求解符号说明}
 假设随机变量$X$为$p$维的，即为$X\in \mathbb{R}^p$，而假设每一个维度是0/1分布.所以，$X\in \{0,1\}^p$。随机变量的联合概率分布为：
 
 $$
@@ -43,7 +43,7 @@ $$
 \end{equation}
 $$
 其中，$\hat{P}(X;\theta)$代表势函数的积，$Z(\theta)= \int \hat{P}(X;\theta)dX$，给定的数据集为$\{x_i\}_{i=1}^N$，其中$x_i^{(j)}$代表第$i$个数据的第$j$维。
-#  {极大似然估计法(Maximum Likelihood Estimation)}
+#  极大似然估计法(Maximum Likelihood Estimation)}
 
 $$
 \begin{equation}
@@ -103,12 +103,12 @@ $$
 其实，大家学到这有这种感觉，积分很多时候都被看成是期望。对于复杂的积分(无向图中的配分函数$Z$积分求不出来)，用期望的思路来从分布中采样来求得，这是一个很常见的思路。而期望可以使用MCMC等方法，从分布中进行采样来求得。
 
 这样，我们就可以求得近似梯度，一步步的求解出近似的最优$\hat{\theta}$。
-##    {小结}
+##    小结}
 本小节，我们介绍了无向图模型中Learning问题，在利用极大似然估计进行求解的过程中，将面临着配分函数求解不出来的问题。所以，要直面配分函数，我们的思路是通过在未知分布中采样来求解近似梯度，从而通过梯度上升的方法来求得近似的最优参数。下一小节，我们会详细的梳理一下。
 
-#  {随机极大似然(Stochastic Maximum Likelihood)}
+#  随机极大似然(Stochastic Maximum Likelihood)}
 其实，我觉得这种是对近似梯度的一个较为详细的解读，这一章看课程还是听有点绕的。我希望可以把思路理一理来帮助大家进行理解。
-##    {损失函数梯度优化}
+##    损失函数梯度优化}
 在上一节中，我们定义了求解的目标为：
 
 $$
@@ -143,7 +143,7 @@ $$
 $$
 {而极大似然估计的目的就是使真实分布$P_{\mathrm{data}}$和建立的模型$P_{\mathrm{model}}$靠的越近越好。}如何从$P_{\mathrm{model}}$中进行采样呢？因为是梯度上升法，在$t$时刻，想要求$t+1$时刻的参数，那么$\theta^{(t)}$是已知的。即为在$t+1$时刻，$P_{\mathrm{model}}=P(X;\theta^{(t)})$。然后用Gibbs采样法，从$P_{\mathrm{model}}$中采出$m$个样本$\{\hat{x}_i\}_{i=1}^m$，Gibbs采样时MCMC的一种，前面在MCMC那一章有非常详细的分析。
 
-##    {梯度分析}
+##    梯度分析}
 为了使似然函数最大化，采用的是梯度上升法，对参数进行更新。
 $$
 \theta^{(t+1)} = \theta^{(t)} + \eta \nabla_\theta \mathcal{L}(\theta^{(t)})
@@ -174,11 +174,11 @@ $$
 其中红色表示从$P_{\mathrm{data}}$中的采样结果$\{x_i\}_{i=1}^m$；绿色表示从$P_{\mathrm{model}}$中的采样结果$\{\hat{x}_i\}_{i=1}^m$。采样都是会趋向于采出概率函数大的区域，如上图所示。因为改变$\theta$，实际上是对$P_{\mathrm{model}}$带来变化。那么对于$P_{\mathrm{data}}$概率值高的地方，自然也希望$P_{\mathrm{model}}$的概率值也高，所以是Postive phase。而对于$P_{\mathrm{model}}$概率值高的地方，是不准确的，我们希望降低它的概率值，这就是Negative Phase。而从另一个方面想，概率密度函数的积分为1，有地方升高就要有地方降低。这就是我对Negative phase和Postive phase的理解。
 
 刚刚将的是对梯度函数的分析。而对目标函数$\mathcal{L}(\theta)$，另外又给出了一个Intuitive的解释，为什么$Z(\theta)$要变少？$Z(\theta) = \int \hat{P}(X;\theta)dX$，这个积分代表的是$\hat{P}(X;\theta)$函数曲线和坐标轴围起来的面积。而$P_{\mathrm{model}}$中的样本称之为“fantasy particle”，是不信任它的，我们信任的是$P_{\mathrm{data}}$真实分布中的样本，所以要把$P_{\mathrm{model}}$中样本对应的概率往下拉。
-##    {小结}
+##    小结}
 本小节主要对梯度函数为什么写成这样，做了一个比较直观的解释，个人觉得自己的逻辑思路还算清晰，欢迎各位小伙伴指正。在理解的时候一定要牢记，我们的\textbf{目的是构建一个假设的分布来通过从真实分布中采样得到的经验分布去逼近真实分布}。牢记这一点之后，再去看Negative phase和Postive phase的理解，为什么要拉高$P_{\mathrm{data}}$中的采样结果降低$P_{\mathrm{model}}$中的采样结果，以及为什么要降低$Z(\theta)$等就变得很简单了，对梯度函数中每一项的理解就会清晰很多。
 
-#  {The Problem of Gradient Ascent in MCMC}
-##    {算法简介}
+#  The Problem of Gradient Ascent in MCMC}
+##    算法简介}
 \noindent When $t+1$:
 
 $$
@@ -209,10 +209,10 @@ $$
     $$
 \end{enumerate}
 $$
-##    {算法带来的问题}
+##    算法带来的问题}
 主要问题就是Mixing time时间太长了，有可能$k \longrightarrow \infty$，这个值实在是太大了。如果，无向图比较简单还好，如果无向图模型过于复杂的话，MCMC很难知道什么时候会到达平稳状态。于是，需要想想别的办法。
 
-##    {对比散度(Contrastive Divergence)}
+##    对比散度(Contrastive Divergence)}
 对比散度(Contrastive Divergence)是Hinton在2000年提出来的大作，核心目的是：\textbf{{通过寻找合适的初始值来缩短收敛到平稳分布的时间(Mixing time)}}。CD在之前的Gradient Ascent in MCMC上只做出了一点点的改动。
 
 之前，Gibbs采样的初始值是从任意分布中进行采样得到的，我们想找一个合适的初始值，一开始就靠近真实分布，这样就可以压缩Mixing time了。
@@ -223,10 +223,10 @@ $$
 $$
 所以，Mixing time可以被大大缩短，称之为CD-K算法。k是可以自己控制的，表示更新k次以后就从分布中进行采样，这里的k是几都可以，而且更新k次以后也不需要一定达到平稳分布。注意，这里的一个step，表示从每一个维度都进行采样后得到一个完整的样本，和样本的维数有关。得到一个样本，$m$维就需要采$m$次。
 
-##    {小结}
+##    小结}
 本小节首先是完整的描述了Gradient Ascent in MCMC，然后讲述了这个算法的确点：收敛所需时间太长了，在模型复杂的情况下没法用。为了压缩到达收敛的时间，然后，描述了Hinton的解决方法，“K-Contrastive Divergence”算法的具体做法，和Gradient Ascent in MCMC唯一的区别即为用training data来代替Gibbs采样的初始值。
 
-#  {The Name of Contrastive Divergence}
+#  The Name of Contrastive Divergence}
 第4节中，我们介绍了Contrastive Divergence，主要目的是为了缩短mixing time，其中$K-CD$代表的是不管到不到平稳分布，只执行$K$步转移，就从分布中进行采样。那么，为什么叫对比散度呢？和之前学习的KL Divergence有什么区别和联系呢？
 
 那么，我们对极大似然估计的过程，做一些变换：
@@ -296,14 +296,14 @@ $$
 
 整个算法为CD-Learning，变化之前原始的版本是Maximum Likelihood Learning。
 
-##    {小结}
+##    小结}
 这一小节中，通过将Likelihood变化成KL散度的形式，我们看到了损失函数和散度的关系。然后，通过变换了解了Contrastive Divergence算法中Divergence的来源，实际上就是KL散度的一个变形，只不过是对一个中间分布求KL散度，而不是对最后的精准分布求。我感觉这个算法的近似尺度有点大，但是神奇的很work。看到这里，不少同学会觉得有点抽象，下面我们就用之前遗留下来的RBM的学习问题为基础来讲述CD算法在其中的运用。
 
-#  {Restricted Boltzmann Machine Learning}
+#  Restricted Boltzmann Machine Learning}
 之前的描述是站在一个较高的高度来看无向图模型中Learning问题是如何解决的，接下来就以RBM中的Learning为例，来看看CD算法是如何工作的。RBM的Learning问题中，由于Gibbs Sampling
 收敛所需时间过长的问题，所以采用基于CD的高效的Gibbs采样。在之前的描述中，$\hat{P}(X)$中都是observed的节点，没有hidden节点，这里和RBM有点不太一样，不过基本都是一样的。
 
-##    {Restricted Boltzmann Machine模型描述}
+##    Restricted Boltzmann Machine模型描述}
 这里只做简要的描述，具体请看之前有关RBM的详细描述。这里只做简要概述，RBM概率图模型如下所示：
 
 $$
@@ -376,7 +376,7 @@ $$
 $$
 其中，$\alpha$和$\beta$都是一样的，我们重点的关注对象是关于$w_{ij}$的求解，这个的求解难度大一点。求解过程分为两部分，求Likelihood Function和Log Likelihood Gradient。
 
-##    {Likelihood Function}
+##    Likelihood Function}
 假定training set为observed data set，$v\in S$，$|S|=N$。那么Likelihood function的形式很简单，可以表示为：
 
 $$
@@ -384,7 +384,7 @@ $$
     \frac{1}{N} \sum_{v\in S} \log P(v)
 \end{equation}
 $$
-##    {Log Likelihood Gradient}
+##    Log Likelihood Gradient}
 Likelihood Function的梯度求解为：
 
 $$
@@ -460,7 +460,7 @@ $$
 $$
 那么，基于Energy函数的带隐变量的Likelihood Gradient的形式就表达出来了。
 
-##    {针对$w$参数的Log Likelihood Gradient}
+##    针对$w$参数的Log Likelihood Gradient}
 前面已经说了，$\theta=\{w,\alpha,\beta\}$，其中$\alpha$和$\beta$的求解比较简单，我们主要是求解$w$。
 
 $$
@@ -493,7 +493,7 @@ $$
 \end{equation}
 $$
 那么，下一步的问题就是如何求解$\sum_h P(h|v)h_iv_j$和$\sum_h \sum_v P(h,v)h_iv_j$。为了简化运算，我们令RBM中每个节点都是0/1分布，即为$y_i,h_i\in \{0,1\}$。
-\subsubsection{$P(h|v)$求解}
+### $P(h|v)$求解}
 
 $$
 \begin{equation}
@@ -532,7 +532,7 @@ $$
 \end{split}
 \end{equation}
 $$
-\subsubsection{$P(h,v)$求解}
+### $P(h,v)$求解}
 
 $$
 \begin{equation}
@@ -553,7 +553,7 @@ $$
 $$
 这个计算太复杂了，精确的计算出来太难了，所以我们需要使用MCMC，Gibbs采样的方法来近似求解。
 
-##    {CD-K for Restricted Boltzmann Machine}
+##    CD-K for Restricted Boltzmann Machine}
 
 $$
 \begin{equation}
@@ -608,10 +608,10 @@ $$
 $$
 既然，梯度已经计算出来了，使用梯度上升的方法就可以得到最终的结果了，后面的过程很简单的。
 
-##    {小节}
+##    小节}
 本小节主要是介绍了RBM模型中Learning问题的求解，也是对无向图Learning问题的一个实例。主要问题在求解Likelihood function gradient的过程中，$P(v)$的模型过于复杂，不好进行求解，所以采用基于CD-K的Gibbs采样方法来进行近似。确定了梯度，我们就可以利用梯度上升法愉快的更新了，直到计算中最优值。
 
-#  {总结}
+#  总结}
 在这一章节中，主要介绍的是无向图中参数Learning的问题。主要思想是对联合概率密度函数求极大似然估计，通过对极大似然函数求梯度来求最优参数。在对配分函数$Z$进行化简的过程中，得到了一个关于$P(X;\theta)$的分布，这个分布过于复杂只能通过MCMC采样的方法来近似。
 
 然后，我们对似然梯度的组成成分进行了分析，似然函数的最终目的是使建立的模型$P_{\mathrm{model}}$和$P_{\mathrm{data}}$靠近。

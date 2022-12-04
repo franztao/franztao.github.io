@@ -63,7 +63,7 @@ $$
 
 并且有$|C_1|=N_1$，$|C_2|=N_2$，且$N_1+N_2=N$。
 
-#  {概率判别模型与生成模型的区别}
+#  概率判别模型与生成模型的区别}
 什么是判别模型？所谓判别模型，也就是求
 
 $$
@@ -96,7 +96,7 @@ $$
 \end{equation}
 $$
 
-#  {Gaussian Discriminate Analysis模型建立}
+#  Gaussian Discriminate Analysis模型建立}
 在二分类问题中，很显然可以得到，我们的先验概率符合，$p(y)\sim$Bernoulli Distribution。也就是，
 
 $$
@@ -176,7 +176,7 @@ $$
 \end{equation}
 $$
 
-#  {Likehood functioon参数的极大似然估计}
+#  Likehood functioon参数的极大似然估计}
 Likehood function的参数为$\theta = (\mu_1,\mu_2,\Sigma,\varphi)$，下面我们分别用极大似然估计对这四个参数进行求解。下面引入几个公式：
 
 $$
@@ -188,7 +188,7 @@ $$
 \end{gather}
 $$
 
-##    {求解$\varphi$}
+##    求解$\varphi$}
 
 $$
 \begin{center}
@@ -207,7 +207,7 @@ $$
 
 又因为$y_i=0$或$y_i=1$，所以$\hat{\varphi} = \frac{1}{N} \sum_{i=1}^N y_i = \frac{N_1}{N}$。
 
-##    {求解$\mu_1$}
+##    求解$\mu_1$}
 
 $$
 \begin{center}
@@ -255,7 +255,7 @@ $$
 \end{equation}
 $$
 
-##    {求解$\mu_2$}
+##    求解$\mu_2$}
 $\mu_2$的求解过程与$\mu_1$的基本保持一致性。区别点从公式(22)开始，我们有：
 
 $$
@@ -277,7 +277,7 @@ $$
 \end{equation}
 $$
 
-##    {求解$\Sigma$}
+##    求解$\Sigma$}
 如果要使用极大似然估计来求解$\Sigma$，这只与$\mathcal{L}(\theta)$中的\ding{172}和\ding{173}有关。并且\ding{172}+\ding{173}的表达式为：
 
 $$
@@ -376,7 +376,7 @@ $$
 \end{equation}
 $$
 
-#  {总结}
+#  总结}
 下面对Gaussian Discriminate Analysis做一个简单的小结。我们使用模型为：
 
 $$

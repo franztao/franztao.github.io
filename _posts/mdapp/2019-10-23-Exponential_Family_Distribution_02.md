@@ -33,7 +33,7 @@ $A(\eta)$：log partition function (配分函数)。
 
 $\varphi(x)$：充分统计量sufficient statistics magnitude。
 
-#  {思路分析}
+#  思路分析}
 高斯分布的概率密度函数可表示为：
 
 $$
@@ -44,7 +44,7 @@ $$
 
 观察指数族分布的表达形式，高斯分布的参数向量是有关于$\theta=(\mu,\sigma)$的。首先观察指数部分的第一部分$\eta^T\varphi(x)$，只有这个部分和$x$相关。那么把这个部分搞定，系数就是参数矩阵，剩下的就是配分函数了，而且配分函数是一个关于$\eta$的函数。
 
-#  {将Guassian Distribution改写为指数族分布的形式}
+#  将Guassian Distribution改写为指数族分布的形式}
 具体推导过程如下所示：
 
 $$

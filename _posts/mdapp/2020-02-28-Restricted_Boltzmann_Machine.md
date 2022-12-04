@@ -21,9 +21,9 @@ tags:
 \setcounter{page}{1} %new page
 \clearpage
 
-#  {Background}
+#  Background}
 本小节主要介绍的是受限玻尔兹曼机(Restricted Boltzmann Machine, RBM)。这个名字听着逼格确实挺高的，以后和别人吹牛的词汇++。本小节，我们主要讨论的是什么是Boltzmann Machine，然后讲讲它的历史，为我们引出Restricted Boltzmann Machine做铺垫。
-##    {什么是Boltzmann Machine？}
+##    什么是Boltzmann Machine？}
 其实Boltzmann Machine就是一种Markov Random Field，也就是无向图而已。那么，Boltzmann Machine和普通的无向图有什么不同呢？区别就在于\textbf{Markov Random Field with hidden nodes}，即为无向图中的节点，有一部分是可观测的，一部分是不可观测的。
 
 马尔可夫随机场中的每一个节点代表一个随机变量(Random variable)，而所有的Random variable可以被分为两类，即为observed variable $v$和hidden variable $h$；如下图所示，灰色代表不可观测变量，白色代表可观测变量。
@@ -37,7 +37,7 @@ $$
 \end{figure}
 $$
 
-##    {无向图中的因子分解}
+##    无向图中的因子分解}
 在无向图中，最重要的就是因子分解，\textbf{因子分解是对联合概率进行建模}。它基于最大团的概念来进行分解的，理论基础是Hammersley Clifford Theorem。因子分解的公式表达为：
 
 $$
@@ -74,7 +74,7 @@ $$
 
 前面讲了那么多，我们看了很多概念，我相信大家基本没搞懂，为什么叫“势函数”和“能量函数”，这种奇奇怪怪的叫法。下面我们来看看Boltzmann Distribution的历史，来帮助我们进行理解。
 
-##    {Boltzmann Distribution的历史}
+##    Boltzmann Distribution的历史}
 Boltzmann Distribution最早来自于统计物理学，这是一个物理学的概率，这里我们采用感性的理解方式。
 
 一个物理系统由各种各样的粒子组成。而一个系统的状态(State)，由其中各种各样的粒子的状态联合而成。系统状态的概率满足：
@@ -104,10 +104,10 @@ $$
 
 这就是无向图中一些概念的来源，用来辅助理解。这里我谈谈自己的理解：一个无向图就是一个系统，系统包括所有的节点，所以系统的状态就是系统中所有节点的联合概率。这个系统的状态的概率和内部的每一个节点都有关系，我们可以用能量函数来进行衡量一个状态出现的可能性，而能量越高的状态越容易发生转移，出现的概率越低，反之亦然。
 
-##    {小结}
+##    小结}
 本节主要描述了，什么是Boltzmann Machine，核心就是节点分为可观测和不可观测的马尔可夫随机场。并且，概率图的联合分布，当势函数为指数函数时，联合分布是玻尔兹曼分布（吉布斯分布）。随后我们介绍了Boltzmann分布在统计物理学中的来源，来辅助我们对无向图中的一些概念的理解。介绍完了Boltzmann Machine，下面将引出Restricted Boltzmann Machine。
 
-#  {Restricted Boltzmann Machine模型表示}
+#  Restricted Boltzmann Machine模型表示}
 Boltzmann Machine就是内部的所有节点分为可观测和不可观测的马尔可夫随机场。假设一共有$p$个节点，$m$个不可观测的节点组成集合$h$，$n$个可观测的节点组成集合$v$。即为：
 
 $$
@@ -143,7 +143,7 @@ $$
 $$
 其中，$m+n=p$。Boltzmann Machine看着好像很好，但是实际上有一些问题。首先，Inference问题很难做，精确推断根本不可能，而近似推断基本也是intractable。正是因为有了这些问题，我们才要想办法对模型进行简化，从而得到了Restricted Boltzmann Machine。
 
-##    {Restricted Boltzmann Machine}
+##    Restricted Boltzmann Machine}
 我们只考虑Boltzmann Machine中，$h$和$v$之间的连接，不考虑它们内部的连接。如下图所示：
 
 $$
@@ -202,7 +202,7 @@ $$
 
 我们可以看到因子的种类可以分成三种，可以分为一组边和两组点的因子。因子和点或者边进行组合就得到了公式(8)一样的形式。
 
-##    {Restricted Boltzmann Machine概率密度函数}
+##    Restricted Boltzmann Machine概率密度函数}
 所以Restricted Boltzmann Machine概率密度函数的表现形式如下所示：
 
 $$
@@ -233,13 +233,13 @@ $$
 \end{equation}
 $$
 
-##    {小结}
+##    小结}
 本小节首先讲解了，为什么要有Restricted Boltzmann Machine？原因很简单，Boltzmann Machine的复杂度太高。大家有没有觉得Restricted Boltzmann Machine的结构很像神经网络，它和神经网络之间有什么不可告人的秘密呢？然后从点和边的角度对其进行了分解，然后得到了它的概率密度函数。下一节将RBM和之前的东西结合起来，因为它本质上还是一种无向图。
 
-#  {RBM和其他概率图模型的联系}
+#  RBM和其他概率图模型的联系}
 RBM本质上还是一种无向图，所以我们把之前的东西都总结一下联系起来，来一起看看RBM的发展历史。
 
-##    {Naive Bayes}
+##    Naive Bayes}
 朴素贝叶斯算法是最简单的PGM，也是最基础的模型。此算法的核心就是朴素贝叶斯假设，或者说是条件独立假设。这个假设描述的是，当label $y$已知的情况下，各个属性之间是相互独立的。公式表达为：
 $x_i\perp x_j|y$。朴素贝叶斯概率图如下所示：
 
@@ -252,7 +252,7 @@ $$
 \end{figure}
 $$
 
-##    {Gaussian Mixture Model}
+##    Gaussian Mixture Model}
 高斯混合模型中引入了隐变量，$y$是一个隐变量，$x$是观测变量。Gaussian Mixture Model概率图模型如下所示：
 
 $$
@@ -265,7 +265,7 @@ $$
 $$
 \noindent $y$是隐变量，并且是一个离散变量，一共有$k$种选择。并且在$y$给定的情况下，$x$符合一个高斯分布，即为：$P(x|y)\sim$Gaussian Distribution。在此模型中，$y$是一个离散的变量，如果将其扩充为一个变量序列(Sequence)，就演变成了State Space Model。
 
-##    {State Space Model}
+##    State Space Model}
 State Space Model的主要特点就是两个：
 
 1. 引入了隐变量，也就是State；
@@ -286,7 +286,7 @@ $$
 \end{figure}
 $$
 
-##    {Maximum Entropy Markov Model}
+##    Maximum Entropy Markov Model}
 Logistics Regression是一种特殊的最大熵模型，简单的说就是最大熵模型求解出的分布是指数族分布。利用最大熵与HMM结合，就得到了MEMM。并且与HMM还有一点主要的不同就是
 改变了$y$与$x$之间的有向图方向。MEMM概率图模型如下所示：
 
@@ -300,7 +300,7 @@ $$
 $$
 MEMM有两条主要的性质：1. 这是一个判别模型，MEMM主要解决的是标注问题，其中没有隐变量。2. 打破了观测独立假设。
 
-##    {Conditional Random Field}
+##    Conditional Random Field}
 因为MEMM存在局部归一化的问题，为了解决这个问题，将$x$之间的有向图变成了无向图就得到了条件随机场。而同时也打破了齐次马尔可夫假设。同样CRF主要解决的是标注问题，其中没有隐变量，也是判别模型。概率图模型如下所示：
 
 $$
@@ -321,7 +321,7 @@ $$
     \label{fig:my_label_1}
 \end{figure}
 $$
-##    {Boltzmann Machine}
+##    Boltzmann Machine}
 Boltzmann Machine本章节已经详细的描述过了，这里不再啰嗦了。主要三个特点：1. 无向图；2. 引入了隐变量；3. 所有节点的联合概率PDF必须是指数族分布，被称为Boltzmann Distribution或者是Gibbs Distribution。概率图模型如下所示：
 
 $$
@@ -333,7 +333,7 @@ $$
 \end{figure}
 $$
 
-##    {Restricted Boltzmann Machine}
+##    Restricted Boltzmann Machine}
 Boltzmann Machine的算法复杂度太高了，假设观测节点集合内部所有的节点之间相互独立，不可观测节点集合内部所有的节点之间相互独立，就得到了Restricted Boltzmann Machine。概率图如下所示：
 
 $$
@@ -345,7 +345,7 @@ $$
 \end{figure}
 $$
 
-##    {小结}
+##    小结}
 概率图模型和条件独立之间有着不可划分的关系。条件独立性是尽可能的保留数据之间的结构信息，同时又简化计算。比如，朴素贝叶斯中的条件独立假设是在给定$y$的情况下，属性与属性之间是相互独立的。而State Space Model中的两个假设也是条件独立的。
 
 概率图模型表示可以从以下五个方面分析：
@@ -359,7 +359,7 @@ $$
 
 \textbf{实际上，仔细回想，各种概率图模型说白了就是在这5个性质上进行组合，有或者没有，有的话强弱也可以不一样。概率图模型的表示，主要就是围绕这5点来做文章的。}
 
-#  {The Inference of Restricted Boltzmann Machine}
+#  The Inference of Restricted Boltzmann Machine}
 前面我们已经详细的介绍过了Restricted Boltzmann Machine。假设一共有$p$个节点，其中$m$个不可观测的节点组成集合$h$，$n$个可观测的节点组成集合$v$。概率图模型如下所示：
 
 $$
@@ -429,7 +429,7 @@ $$
 
 \textbf{个人觉得机器学习中，研究问题的主要流程基本可以拆解成，首先1. 需要知道模型怎么表示(Representation)；2. 然后，通过数据的学习来得到模型的参数(Learning)；3. 最后，利用模型来对未知的数据进行推断(Inference)。}
 
-##    {明确Inference的问题}
+##    明确Inference的问题}
 \noindent 首先假设Learning的过程已经完成，那么所有的参数我们都已经知道了，所以我们已知的有：
 {
 
@@ -452,7 +452,7 @@ $$
 
 然而，为什么不求$P(v)$呢？实际上求$P(h)$的边缘概率没什么必要，我们更多的是关注在已知$v$的情况下，$P(h|v)$的条件概率分布。$P(h)$中$h$反正也是不可观测的，求了边缘概率分布也没什么用。如果要求解的话和求解$P(v)$的方法一样。
 
-\subsubsection{求解$P(h|v)$ and $P(v|h)$}
+### 求解$P(h|v)$ and $P(v|h)$}
 $P(h|v)$和$P(v|h)$求解方法都是一样的，这里就放在一起推导。
 
 $P(h|v)$求解的是$v$中所有节点都知道的情况下，集合$h$的联合概率分布，即为：
@@ -567,7 +567,7 @@ $$
 
 那么，到这里对于后验的计算已经完成了，后验实际上就是Sigmoid函数。大家有没有觉得RBM和神经网络很像，我其实早就有这种感觉了，不可观测节点不就是隐藏层。而Sigmoid函数，经常被用来当做神经网络的激活函数。这之间是巧合还是有必然的联系呢？后面的章节我们会有分析的，神经网络实际上是从RBM中发展得到的。
 
-##    {求解$P(v)$}
+##    求解$P(v)$}
 这一小节，我们的目标是通过Inference来求解Marginal Distribution $P(v)$。思路很简单，既然我们知道联合概率分布$P(v,h)$，那么把$h$节点的变量积分掉不就可以了，所以：
 
 $$
@@ -670,7 +670,7 @@ $$
 \end{equation}
 $$
 其中，$w_i$为$w$矩阵的行向量。
-##    {小结}
+##    小结}
 在本小节中，我们主要计算了三个推断问题，$P(v|h)$，$P(h|v)$，$P(v)$。计算结果如下所示：
 
 $$
@@ -686,7 +686,7 @@ $$
 
 我看计算的思路都差不多，都是把已知条件分类出来，然后赋予具体的值。我们采用的离散分布是0/1分布是为了简化计算，当值具有多个时，计算的思路也是一样的。\textbf{但是，无论可能的取值变成多少个，整体还是符合指数族分布的。}
 
-#  {Conclusion}
+#  Conclusion}
 本章节，主要描述了Restricted Boltzmann Machine。主要的讲述思路是先从马尔可夫随机场中引出了Boltzmann Machine，介绍了什么是Boltzmann Machine；然后描述了Boltzmann Machine的计算intractable，然后引出了Restricted Boltzmann Machine；紧接着介绍了Restricted Boltzmann Machine模型表示方法，并讲述了它在概率图模型整体结构中的地位；最后讲述了如何用Restricted Boltzmann Machine来进行推断。
 
 大家可能发现，在使用模型Inference的时候，需要通过Learning来从数据中得到参数的值，这部分会在之后的直面配分函数中描述。
