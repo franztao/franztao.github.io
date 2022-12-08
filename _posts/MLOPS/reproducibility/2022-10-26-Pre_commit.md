@@ -1,7 +1,7 @@
 ---
 
 layout:     post
-title:      预提交
+title:      预提交pre-commit
 subtitle:   2022年10月
 date:       2022-10-26
 author:     franztao

@@ -71,7 +71,6 @@ warning
 ```
 pip install nlpaug==1.1.0 transformers==3.0.2 -q
 pip install snorkel==0.9.8 -q
-
 ```
 
 ```
@@ -80,37 +79,28 @@ import nlpaug.augmenter.word as naw
 substitution = naw.ContextualWordEmbsAug(model_path="distilbert-base-uncased", action="substitute")
 insertion = naw.ContextualWordEmbsAug(model_path="distilbert-base-uncased", action="insert")
 text = "Conditional image generation using Variational Autoencoders and GANs."
-
 ```
 
 ```
 # Substitutions
 substitution.augment(text)
-
 ```
-
-
 
 替换对来说似乎不是一个好主意，因为某些关键字为标签提供了强烈的信号，所以不想改变它们。另外请注意，这些增强不是确定性的，每次运行它们时都会有所不同。让尝试插入...
 
 ```
 # Insertions
 insertion.augment(text)
-
 ```
-
-
 
 使用多个变分自动编码器和甘斯的自动条件逆图像生成算法。
 
 好一点但仍然很脆弱，现在它可能会插入可能影响误报标签出现的关键词。也许不是替换或插入新标记，而是让尝试简单地用它们的别名交换机器学习相关的关键字。将使用 Snorkel 的[转换函数](https://www.snorkel.org/use-cases/02-spam-data-augmentation-tutorial)来轻松实现这一点。
 
 ```
-
 # Replace dashes from tags & aliases
 def replace_dash(x):
     return x.replace("-", " ")
-
 ```
 
 ```
@@ -120,7 +110,6 @@ aliases_by_tag = {
     "mlops": ["production"],
     "natural-language-processing": ["nlp", "nlproc"]
 }
-
 ```
 
 ```
@@ -134,13 +123,11 @@ for tag, aliases in aliases_by_tag.items():
         _aliases = aliases + [tag]
         _aliases.remove(alias)
         flattened_aliases[alias] = _aliases
-
 ```
 
 ```
 print (flattened_aliases["natural language processing"])
 print (flattened_aliases["nlp"])
-
 ```
 
 ['nlp', 'nlproc']
@@ -152,7 +139,6 @@ print (flattened_aliases["nlp"])
 # We want to match with the whole word only
 print ("gan" in "This is a gan.")
 print ("gan" in "This is gandalf.")
-
 ```
 
 ```
@@ -161,26 +147,21 @@ def find_word(word, text):
     word = word.replace("+", "\+")
     pattern = re.compile(fr"\b({word})\b", flags=re.IGNORECASE)
     return pattern.search(text)
-
 ```
 
 ```
 # Correct behavior (single instance)
 print (find_word("gan", "This is a gan."))
 print (find_word("gan", "This is gandalf."))
-
 ```
 
 <re.Match object; span=(10, 13), match='gan'>
 None
 
-
-
 现在让使用 snorkel[`transformation_function`](https://snorkel.readthedocs.io/en/latest/packages/_autosummary/augmentation/snorkel.augmentation.transformation_function.html)系统地将此转换应用于数据。
 
 ```
 from snorkel.augmentation import transformation_function
-
 ```
 
 ```
@@ -199,7 +180,6 @@ def swap_aliases(x):
         tag = x.text[match.start():match.end()]
         x.text = f"{x.text[:match.start()]}{random.choice(flattened_aliases[tag])}{x.text[match.end():]}"
     return x
-
 ```
 
 ```
@@ -208,7 +188,6 @@ for i in range(3):
     sample_df = pd.DataFrame([{"text": "a survey of reinforcement learning for nlp tasks."}])
     sample_df.text = sample_df.text.apply(preprocess, lower=True, stem=False)
     print (swap_aliases(sample_df.iloc[0]).text)
-
 ```
 
 ```
@@ -217,14 +196,11 @@ for i in range(3):
     sample_df = pd.DataFrame([{"text": "Autogenerate your CV to apply for jobs using NLP."}])
     sample_df.text = sample_df.text.apply(preprocess, lower=True, stem=False)
     print (swap_aliases(sample_df.iloc[0]).text)
-
 ```
 
 autogenerate vision apply jobs using nlp
 autogenerate cv apply jobs using natural language processing
 autogenerate cv apply jobs using nlproc
-
-
 
 使用 nlp 自动生成视觉应用作业
 使用自然语言处理自动生成简历申请职位
@@ -234,7 +210,6 @@ autogenerate cv apply jobs using nlproc
 
 ```
 from snorkel.augmentation import ApplyOnePolicy, PandasTFApplier
-
 ```
 
 ```
@@ -244,12 +219,10 @@ tf_applier = PandasTFApplier([swap_aliases], policy)
 train_df_augmented = tf_applier.apply(train_df)
 train_df_augmented.drop_duplicates(subset=["text"], inplace=True)
 train_df_augmented.head()
-
 ```
 
 ```
 len(train_df), len(train_df_augmented)
-
 ```
 
 (668, 913)
@@ -260,8 +233,6 @@ len(train_df), len(train_df_augmented)
 > 
 > 无论使用什么方法，重要的是要验证不仅仅是为了扩充而扩充。可以通过执行任何现有的[数据验证测试](https://franztao.github.io/2022/10/01/Testing/#data)甚至创建特定的测试来应用于增强数据来做到这一点。
 
-
-
 更多干货，第一时间更新在以下微信公众号：
 
 ![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
@@ -271,8 +242,8 @@ len(train_df), len(train_df_augmented)
 ![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
 
 转载到请包括本文地址
-更详细的转载事宜请参考[文章如何转载/引用](https://franztao.github.io/2022/12/04/%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD%E5%92%8C%E5%BC%95%E7%94%A8/)
 
+更详细的转载事宜请参考[文章如何转载/引用](https://franztao.github.io/2022/12/04/%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD%E5%92%8C%E5%BC%95%E7%94%A8/)
 
 本文主体源自以下链接：
 
