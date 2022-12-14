@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Generative_Model
+title:      生成模型3-模型表示，推断和学习
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao
