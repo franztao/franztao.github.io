@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Generative Adversarial Network 数学描述
+title:      GAN 2-Generative Adversarial Network 数学描述
 subtitle:   2022年10月
 date:       2020-06-06
 author:     franztao

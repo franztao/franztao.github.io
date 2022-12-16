@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Variational_Inference_03_Algorithm_Solution
+title:      变分推断3-Algorithm Solution
 subtitle:   2022年10月
 date:       2019-12-01
 author:     franztao
@@ -9,12 +9,12 @@ catalog: true
 tags:
     - Variational
     - Inference
-    
+
     - Algorithm
     - Solution
 ---
 
-在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明，{ $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。}在上一节中，我们得出：
+在上一小节中，我们介绍了Mean Field Theory Variational Inference的方法。在这里我需要进一步做一些说明， $z_i$表示的不是一个数，而是一个数据维度的集合，它表示的不是一个维度，而是一个类似的最大团，也就是多个维度凑在一起。在上一节中，我们得出：
 
 $$
 \begin{equation}
@@ -40,7 +40,8 @@ $$
 
 在上一小节中，这是我们的便于观察的表达方法，但是我们需要严格的使用我们的数学符号。
 
-#  数学符号规范化}
+# 数学符号规范化
+
 在这里我们弱化了相关参数$\theta$，也就是求解过程中，不太考虑$\theta$起到的作用。我们展示一下似然函数，
 
 $$
@@ -81,7 +82,8 @@ $$
 \end{equation}
 $$
 
-#  迭代算法求解}
+# 迭代算法求解
+
 在上一步中，我们已经将所有的符号从数据点和划分维度上进行了规范化的表达。在这一步中，我们将使用迭代算法来进行求解：
 
 $$
@@ -97,7 +99,7 @@ $$
 
 这是一种迭代算法，那我们怎么考虑迭代的停止条件呢？我们设置当$\mathcal{L}^{(t+1)} \leq \mathcal{L}^{(t)}$时停止迭代。
 
-#  Mean Field Theory的存在问题}
+# Mean Field Theory的存在问题
 
 1. 首先假设上就有问题，这个假设太强了。在假设中，我们提到，假设变分后验分式是一种完全可分解的分布。实际上，这样的适用条件挺少的。大部分时候都并不会适用。
 
@@ -109,4 +111,4 @@ $$
 \end{equation}
 $$
 
-\noindent 的计算也非常的复杂。所以，我们需要寻找一种更加优秀的方法，比如Stein Disparency等等。Stein变分是个非常Fashion的东西，机器学习理论中非常强大的算法，我们以后会详细的分析。
+的计算也非常的复杂。所以，我们需要寻找一种更加优秀的方法，比如Stein Disparency等等。Stein变分是个非常Fashion的东西，机器学习理论中非常强大的算法，我们以后会详细的分析。

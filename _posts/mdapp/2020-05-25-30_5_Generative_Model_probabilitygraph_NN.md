@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      模型表示，推断和学习
+title:      生成模型5-概率图vs神经网络
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

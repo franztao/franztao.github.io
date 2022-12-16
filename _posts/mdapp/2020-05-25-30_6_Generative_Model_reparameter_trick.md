@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Generative_Model
+title:      生成模型6-重参数技巧
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

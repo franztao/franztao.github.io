@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Variational_Inference_01_Background
+title:      变分推断 1-Background
 subtitle:   2022年10月
 date:       2019-11-30
 author:     franztao
@@ -9,15 +9,18 @@ catalog: true
 tags:
     - Variational
     - Inference
-    
+
     - Background
 ---
 
 这一小节的主要目的是清楚我们为什么要使用Variational Inference，表达一下Inference到底有什么用。机器学习，我们可以从频率角度和贝叶斯角度两个角度来看，其中频率角度可以被解释为优化问题，贝叶斯角度可以被解释为积分问题。
 
-#  优化问题}
+# 优化问题
+
 为什么说频率派角度的分析是一个优化问题呢？我们从回归和SVM两个例子上进行分析。我们将数据集描述为：$D = \{ (x_i,y_i) \}_{i=1}^N,x_i \in \mathbf{R}^p,y_i \in \mathbf{R}$。
-##    回归}
+
+## 回归
+
 回归模型可以被我们定义为：$f(w) = w^Tx$，其中loss function被定义为：$L(w) = \sum_{i=1}^N || w^Tx_i - y_i ||^2$，优化可以表达为$\hat{w} = argmin\ L(w)$。这是个无约束优化问题。
 
 求解的方法可以分成两种，数值解和解析解。解析解的解法为：
@@ -30,7 +33,8 @@ $$
 
 其中，$X$是一个$n\times p$的矩阵。而数值解中，我们常用的是GD算法，也就是Gradient Descent，或者Stochastic Gradient descent (SGD)。
 
-##    SVM (Classification)}
+## SVM (Classification)
+
 SVM的模型可以被我们表述为：$f(w) = sign(w^T+b)$。loss function被我们定义为：
 
 $$
@@ -46,7 +50,8 @@ $$
 
 很显然这是一个有约束的Convex优化问题。常用的解决条件为，QP方法和Lagrange 对偶。
 
-##    EM算法}
+## EM算法
+
 我们的优化目标为：
 
 $$
@@ -63,7 +68,8 @@ $$
 \end{equation}
 $$
 
-#  积分问题}
+# 积分问题
+
 从贝叶斯的角度来说，这就是一个积分问题，为什么呢？我们看看Bayes公式的表达：
 
 $$
@@ -86,5 +92,7 @@ $$
 $$
 
 其中$p(\theta|X)$为一个后验分布，那么我们关注的重点问题就是求这个积分。
-#  Inference}
+
+# Inference
+
 Inference的方法可以被我们分为精确推断和近似推断，近似推断可以被我们分为确定性推断和随机近似。确定性推断包括Variational Inference (VI)；随机近似包括MCMC，MH，Gibbs Distribution等。

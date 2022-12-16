@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      什么是 Generative Adversarial Network
+title:      GAN 1-什么是 Generative Adversarial Network
 subtitle:   2022年10月
 date:       2020-06-06
 author:     franztao
