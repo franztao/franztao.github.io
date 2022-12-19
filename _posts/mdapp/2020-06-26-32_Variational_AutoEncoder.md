@@ -110,7 +110,7 @@ $$
 
 其中，$\epsilon$是噪声，通常假定为$\epsilon \sim \mathcal{N}(0,I)$；而且，$P(Z|X) \sim \mathcal{N}(\mu_\phi(X),\sum_\phi(X))$，而很容易可以得到，$Z = \mu_\phi(X) + \sum_\phi(X)^{\frac{1}{2}}\cdot \epsilon$。那么到这里就基本思想就讲完了，想了解更多的东西，建议看看苏建林的blog：\url{https://spaces.ac.cn/}。
 
-实际上大家会发现，所谓的VAE不过是“新瓶装旧酒”。只不过是用之前的技术对当前的概念进行了包装而已。大家可以关注一下这两项，$\mathbb{E}_{Q_\phi(Z|X)}[\log P_\theta(X|Z)]$和$\text{KL}(Q_\phi(Z|X) \|P_\theta(Z))$。这个$Z\to X$的过程可以被称为Decode，而$X \to Z$被称为Encode。我们可以看到，在训练过程中，首先是从$Q_\phi(Z|X)$中采样得到$z^{(i)}$：$z^{(i)} \sim Q_\phi(Z|X)$，然后利用$z^{(i)}$生成出样本$x^{(i)}$，即为$x^{(i)} = X \sim P(X|Z=z^{(i)})$。这样就形成了一个环，从$X$开始到$X$结束。\textbf{注意：训练时，$Z$由$Q_\phi(Z|X)$生成,而生成样本时，$Z$是从简单的高斯分布中采样得到的。}
+实际上大家会发现，所谓的VAE不过是“新瓶装旧酒”。只不过是用之前的技术对当前的概念进行了包装而已。大家可以关注一下这两项，$\mathbb{E}_{Q_\phi(Z|X)}[\log P_\theta(X|Z)]$和$\text{KL}(Q_\phi(Z|X) \|P_\theta(Z))$。这个$Z\to X$的过程可以被称为Decode，而$X \to Z$被称为Encode。我们可以看到，在训练过程中，首先是从$Q_\phi(Z|X)$中采样得到$z^{(i)}$：$z^{(i)} \sim Q_\phi(Z|X)$，然后利用$z^{(i)}$生成出样本$x^{(i)}$，即为$x^{(i)} = X \sim P(X|Z=z^{(i)})$。这样就形成了一个环，从$X$开始到$X$结束。**注意：训练时，$Z$由$Q_\phi(Z|X)$生成,而生成样本时，$Z$是从简单的高斯分布中采样得到的。**
 
 而$\text{KL}(Q_\phi(Z|X) \|P_\theta(Z))$就是一个正则化项，对$Q_\phi(Z|X)$有一个约束，希望其尽量靠近标准高斯分布。不让模型坍缩到一个点上，如果没有这一项，只是去学习$\mathbb{E}_{Q_\phi(Z|X)}[\log P_\theta(X|Z)]$就很有可能会过拟合。第一项应该是真正的objective function，而第二项是一个regularization。实际上第二项扮演的功能和熵正则化项是一样的，都是使分布尽可能均匀，从而保留更多的可能性，因为熵就是信息量的表现，熵越大可能性越大。
 

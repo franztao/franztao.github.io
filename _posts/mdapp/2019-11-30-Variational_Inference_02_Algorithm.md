@@ -65,6 +65,8 @@ $$
 \end{equation}
 $$
 
+![](C:\Users\franztao\AppData\Roaming\marktext\images\2022-12-18-19-26-38-image.png)
+
 # 模型求解
 
 那么我们如何来求解这个问题呢？我们使用到统计物理中的一种方法，就是平均场理论(mean field theory)。也就是假设变分后验分式是一种完全可分解的分布：
