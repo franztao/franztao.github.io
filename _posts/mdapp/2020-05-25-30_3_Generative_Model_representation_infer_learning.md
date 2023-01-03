@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成模型3-模型表示，推断和学习
+title:      系列30 生成模型3-模型表示，推断和学习
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

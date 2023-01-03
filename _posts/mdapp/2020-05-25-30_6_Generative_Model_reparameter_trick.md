@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成模型6-重参数技巧
+title:      系列30 生成模型6-重参数技巧
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成模型2-监督vs非监督
+title:      系列30 生成模型2-监督vs非监督
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

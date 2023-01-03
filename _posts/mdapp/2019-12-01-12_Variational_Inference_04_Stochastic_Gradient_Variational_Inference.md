@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      变分推断4-Stochastic Gradient Variational Inference
+title:      系列12 变分推断4-Stochastic Gradient Variational Inference
 subtitle:   2022年10月
 date:       2019-12-01
 author:     franztao
@@ -125,8 +125,6 @@ $$
     \nabla_{\phi} \mathcal{L}(\phi) \approx \frac{1}{L} \sum_{l=1}^L \nabla_{\phi}\log q_{\phi}(z^{(l)})\left[ \log p_{\theta}(x^{(i)},z) - \log q_{\phi}(z^{(l)})\right]
 \end{equation}
 $$
-
-~\\
 
 由于第二部分的结果为0，所以第一部分的解就是最终的解。但是，这样的求法有什么样的问题呢？因为我们在采样的过程中，很有可能采到$q_{\phi}(z) \longrightarrow 0$的点，对于log函数来说，$\lim_{x\longrightarrow 0}log x = \infty$，那么梯度的变化会非常的剧烈，非常的不稳定。对于这样的High Variance的问题，根本没有办法求解。实际上，我们可以通过计算得到这个方差的解析解，它确实是一个很大的值。事实上，这里的梯度的方差这么的大，而$\hat{\phi} \longrightarrow q(z)$也有误差，误差叠加，直接爆炸，根本没有办法用。也就是不会work，那么我们如何解决这个问题？
 

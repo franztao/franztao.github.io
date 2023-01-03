@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      变分推断3-Algorithm Solution
+title:      系列12 变分推断3-Algorithm Solution
 subtitle:   2022年10月
 date:       2019-12-01
 author:     franztao

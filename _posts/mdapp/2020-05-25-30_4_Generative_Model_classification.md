@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成模型4-分类
+title:      系列30 生成模型4-分类
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao

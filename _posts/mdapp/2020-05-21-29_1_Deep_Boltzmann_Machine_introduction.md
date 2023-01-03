@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Deep_Boltzmann_Machine
+title:      系列29 Deep_Boltzmann_Machine
 subtitle:   2022年10月
 date:       2020-05-21
 author:     franztao

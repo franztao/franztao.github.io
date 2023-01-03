@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      变分推断2-Algorithm
+title:      系列12 变分推断2-Algorithm
 subtitle:   2022年10月
 date:       2019-11-30
 author:     franztao

@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      变分推断 1-Background
+title:      系列12 变分推断 1-Background
 subtitle:   2022年10月
 date:       2019-11-30
 author:     franztao

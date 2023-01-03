@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      GAN 3-Generative Adversarial Network 全局最优解
+title:      系列31 GAN 3-Generative Adversarial Network 全局最优解
 subtitle:   2022年10月
 date:       2020-06-06
 author:     franztao

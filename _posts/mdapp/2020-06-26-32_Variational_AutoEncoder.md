@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      Variational AutoEncoder
+title:      系列32 Variational AutoEncoder
 subtitle:   2022年10月
 date:       2020-06-26
 author:     franztao
@@ -121,3 +121,17 @@ $$
 本节只是对VAE的简单描述，更深层次的思想可以参考苏建林的[blog]([https://spaces.ac.cn/](https://spaces.ac.cn/))。本节主要介绍了VAE的模型表示和推断学习过程。有关变分推断的部分，请大家自行阅读“变分推断”中的SGVI方法和“近似推断”那一小节，其中都做了详细的描述。我觉得本章的可读点在，1.从GMM模型中引出了VAE，VAE不过是GMM的进阶版。2.进阶以后发现维度太高，后验分布$P_\theta(Z|X)$计算不出来，于是采用简单分布$Q_\phi(Z|X)$来近似，这就变分法的思想。3.详细的介绍了优化ELBO中每一项的意思，这里$\text{KL}(Q_\phi(Z|X) \|P_\theta(Z))$是正则化项，相信很多同学在看VAE中，描述令表示层服从高斯分布的时候都是一脸懵逼的吧。4.本文中还复习了用神经网络，代替分布进行采样的重参数化技巧。
 
 其实VAE不过是“新瓶装旧酒”，本身并没有什么技术的革新，用到的算法和思想都是比较老的。
+
+
+参考B站视频[【机器学习】【白板推导系列】](https://space.bilibili.com/97068901)
+
+更多干货，第一时间更新在以下微信公众号：
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+
+您的一点点支持，是我后续更多的创造和贡献
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+
+转载到请包括本文地址
+更详细的转载事宜请参考[文章如何转载/引用](https://franztao.github.io/2022/12/04/%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD%E5%92%8C%E5%BC%95%E7%94%A8/)

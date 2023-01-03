@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      生成模型5-概率图vs神经网络
+title:      系列30 生成模型5-概率图vs神经网络
 subtitle:   2022年10月
 date:       2020-05-25
 author:     franztao
