@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      系列29 Deep_Boltzmann_Machine
+title:      系列29 Deep Boltzmann Machine 背景介绍
 subtitle:   2022年10月
 date:       2020-05-21
 author:     franztao
@@ -16,14 +16,7 @@ tags:
 
 本章介绍的是深度玻尔兹曼机(Deep Boltzmann Machines，DBM)，应该算是玻尔兹曼机系列的最后一个模型了。我们前面介绍的三种玻尔兹曼机和今天将要介绍的深度玻尔兹曼机的概率图模型如下图所示，从左往右分别是深度信念网络(Deep Belief Network)，限制玻尔兹曼机(Restricted Boltzmann Machine，RBM)，和DBM，玻尔兹曼机(General Boltzmann Machine，BM)：
 
-$$
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=.9\textwidth]{微信图片_20200521215417.png}
-    \caption{四种玻尔兹曼机的概率图模型}
-    \label{fig:my_label_1}
-\end{figure}
-$$
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2023-01-09-22-55-30-image.png)
 
 显然，深度玻尔兹曼机和深度信念网络的区别就仅仅在于有向和无向上。其中，RBM，DBM和BM都是玻尔兹曼机，而DBN和玻尔兹曼机就不太一样，实际上是一个混合模型，最上面是RBM，而下面的部分都是有向图。
 
@@ -59,31 +52,17 @@ RBM模型相对比较简单。但是Hinton老爷子当时不以为然，觉得RB
 ## Deep Belief Network
 
 因为，RBM的表达能力较弱，所以最简单的思路就是通过叠加多个RBM来增加其层数，从而增加表达能力。但是，增加层数得到的不是Deep Boltzmann Machines，而是Deep Belief Network，具体请详细阅读“深度信念网络”。DBN虽然预训练上是叠加两个RBM而成，但是表现形式并不是玻尔兹曼机。又因为其不是玻尔兹曼机，所以不能用（Stochastic Gradient Ascend，SGA）法来解决。DBN的求解思路为：
-$$
-\left\{
-\begin{array}{ll}
-      \text{Pre-training (Staking RBM)} & \\
-      \text{Fine-training} \left\{
-      \begin{array}{ll}
-          \text{Wake-Sleep 无标签} &  \\
-          \text{BP 有标签} & 
-      \end{array} \right.& \\
-\end{array}
-\right.
-$$
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2023-01-09-22-56-20-image.png)
+
 算法需要求解的是每一层的权值。第一步则是通过预训练来得到每层的初始值。在后续的Fine-training中，无标签的情况等价于Wake-Sleep算法求解，如果有标签的话大家觉得是不是和神经网络很像，采用BP算法求解。
 
 ## Deep Boltzmann Machine
 
 2008年以后，诞生了Deep Boltzmann Machine，显然这与DBN有很大的不同之处。在之前介绍的解决Boltzmann Machines的SGA算法，不能解决大规模处理的问题，在DBM的求解中的能力大打折扣。很多研究者都想找到高效的learning rules。其中较好的想法是，先通过预训练来找到一些比较好的权值，然后再使用SGA。大致流程可做如下描述：
-$$
-\left\{
-\begin{array}{ll}
-      \text{Pre-training (Staking RBM)} & \\
-      \text{SGA} & \\
-\end{array}
-\right.
-$$
+
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2023-01-09-22-56-47-image.png)
+
 如果没有这个预训练的话，效果非常的不好，时间非常的长。因为，权值的初始值没有任何参考，直接就训练太弱了。关于DBM的联合训练方法，就是不通过预训练的方法，这章不作过多介绍。
 
 ## 小结
@@ -94,11 +73,11 @@ $$
 
 更多干货，第一时间更新在以下微信公众号：
 
-![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-49-27-weixin.png)
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2023-01-10-23-44-06-image.png)
 
 您的一点点支持，是我后续更多的创造和贡献
 
-![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2022-12-03-12-50-26-0ea6fc0f877f03a079f15c70641fa7b.jpg)
+![](https://raw.githubusercontent.com/franztao/blog_picture/main/marktext/2023-01-10-23-43-17-image.png)
 
 转载到请包括本文地址
 更详细的转载事宜请参考[文章如何转载/引用](https://franztao.github.io/2022/12/04/%E6%96%87%E7%AB%A0%E5%A6%82%E4%BD%95%E8%BD%AC%E8%BD%BD%E5%92%8C%E5%BC%95%E7%94%A8/)
