@@ -12,6 +12,12 @@ tags:
 
 ---
 
+最近在做agent的工作，一篇对agent技术深入浅出的博文https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-llm-agents，写的很棒，特地翻译下。
+
+
+
+# 正文
+
 
 
 LLM agent正变得越来越普遍，似乎正在取代我们熟悉的“常规”对话式 LLM。这些令人难以置信的功能并不容易实现，需要许多组件协同工作。
